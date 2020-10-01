@@ -23,7 +23,7 @@
 
 
 <table border="0" cellspacing="0" cellpadding="0">
-	<tr style="border: none;">
+	<tr>
 		<td style="width: 200px; border: none; ">
 		<table>
         	<tr style="font-size; 16pt;">
