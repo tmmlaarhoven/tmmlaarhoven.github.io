@@ -1,7 +1,7 @@
 # Lichess Leaderboards
 
-- [Titled Arenas](#sub-heading)
-- [Titled Arenas](#sub-heading-2)
+- [Titled Arenas](#titled-arenas)
+- [Marathons](#marathons)
 
 ## Titled Arenas 
 
@@ -22,7 +22,7 @@
 | Content Cell  | Content Cell  |
 
 
-<table style="border: none; border-collapse: collapse;" cellspacing="0" cellpadding="0">
+<table border="0" cellspacing="0" cellpadding="0">
 	<tr style="border: none;">
 		<td style="width: 200px; border: none; ">
 		<table>
