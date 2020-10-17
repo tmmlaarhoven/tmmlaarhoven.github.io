@@ -1,4 +1,4 @@
-set updtime=%date%, %time%
+set updtime=%date%, %time:1,6%
 git pull
 REM fetchdata.py
 REM rankings.py
