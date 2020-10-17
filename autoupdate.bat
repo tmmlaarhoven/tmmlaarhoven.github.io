@@ -4,5 +4,5 @@ fetchdata.py
 rankings.py
 website.py
 git add --all --verbose
-git commit -m "Auto-update - %updtime%" --verbose
+git commit -m "Auto-updater - %updtime%" --verbose
 git push --verbose
