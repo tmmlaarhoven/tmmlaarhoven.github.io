@@ -295,6 +295,7 @@ for mo in mode:
 	#######################################################################################
 	# Special rankings: (Yearly) overall rankings
 	#######################################################################################
+	
 	for year in range(2014, curyear + 1):
 		
 		print(mo + " - " + str(year) + " - Running...")
@@ -443,7 +444,6 @@ for mo in mode:
 		
 	print(mo + " - all - Final dump after " + str(rdata["events"]) + " events.")
 	storerankings(rdata, ndatap, mo, "all")
-	
 
 #######################################################################################
 # GLOBAL rankings: Add up all tournaments per type (hourly, daily, elite, ...)
@@ -517,9 +517,6 @@ for ev in eventp:
 	print("all - " + ev + " - Final dump after " + str(rdata["events"]) + " events.")
 	storerankings(rdata, ndatap, "all", ev)
 	
-
-
-
 #######################################################################################
 # GLOBAL GLOBAL rankings: Everything
 #######################################################################################
