@@ -137,7 +137,7 @@ moord = {
 }
 
 moordicon = {
-	"all": "O",#"&#xe004;",
+	"all": "O", #"&#xe004;",
 	"ultrabullet": "{",
 	"hyperbullet": "T",
 	"bullet": "T",
