@@ -2,12 +2,12 @@ setlocal enabledelayedexpansion
 @ECHO OFF
 
 :wait
-set /a minu=%time:~3,2%
+set /a "minu=%time:~3,2%"
 if !minu! LEQ 15 (
-	set /a delay=(15-!minu!)*60
+	set /a "delay=(15-!minu!)*60"
 )
 if !minu! GTR 15 (
-	set /a delay=(75-!minu!)*60
+	set /a "delay=(75-!minu!)*60"
 )
 timeout !delay!
 
