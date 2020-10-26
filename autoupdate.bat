@@ -1,8 +1,9 @@
-setlocal enabledelayedexpansion
 @ECHO OFF
+setlocal enabledelayedexpansion
 
 :wait
 set /a "minu=%time:~3,2%"
+set /a "minu=!minu: =!"
 if !minu! LEQ 15 (
 	set /a "delay=(15-!minu!)*60"
 )
