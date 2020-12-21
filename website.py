@@ -9,7 +9,7 @@ import json
 
 def strf(num, type):
 	if num > 10000000000:
-		return "<span class='info' title='" + str(num[:-9]) + "," + str(num[-9:-6]) + "," + str(num[-6:-3]) + "," + str(num[-3:]) + " " + type + "'>" + str(round(num / 1000000000)) + "B</span>"
+		return "<span class='info' title='" + str(num)[:-9] + "," + str(num)[-9:-6] + "," + str(num)[-6:-3] + "," + str(num)[-3:] + " " + type + "'>" + str(round(num / 1000000000)) + "B</span>"
 	elif num > 1000000000: 
 		return "<span class='info' title='" + str(num)[:-9] + "," + str(num)[-9:-6] + "," + str(num)[-6:-3] + "," + str(num)[-3:] + " " + type + "'>" + str(round(num / 100000000) / 10) + "B</span>"
 	elif num > 10000000:
