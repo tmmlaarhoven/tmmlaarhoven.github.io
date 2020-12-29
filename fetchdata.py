@@ -242,6 +242,9 @@ for ev in event:
 		#=========================================================================
 		
 		for tid in tourids[mo]:
+			# -- There was a bug due to lichess API unreachable and a corrupt file being stored...
+			#if mo == "crazyhouse" and ev == "hourly":
+			#	print(ev + " - " + mo + " - TID: " + tid)
 			if tid in touridinfo:
 				continue
 			with open(fpath + folder + "\\" + pref + tid + ".json") as datfile:
