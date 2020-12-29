@@ -469,6 +469,8 @@ for oth in others:
 			for ev in event:
 				if not ev[0] == "2":
 					continue
+				if not "events" in rankinfo["all"][ev]:
+					continue
 				ofile.write("\t\t\t<li><span style='color: #BF811D;'>" + event[ev] + ":</span> &nbsp; " + strf(rankinfo["all"][ev]["events"], "events") + " events, where " + strf(rankinfo["all"][ev]["players"], "players") + " players made " + strf(rankinfo["all"][ev]["moves"], "moves") + " moves in " + strf(rankinfo["all"][ev]["games"], "games") + " games.</li>\n")
 			ofile.write("\t\t</ul>\n")
 			ofile.write("\t\t<p>For an even more detailed breakdown of all events in these rankings in terms of types and variants, see the following table. Percentages in this table are rounded to the nearest integer; 1% means \"between 0.5% and 1.5%\" and 0% means \"less than 0.5%\", while a dash in all tables below means that no events in this combination of categories took place. Almost 30% of all events are bullet arenas, and as they take place (almost) every hour, almost 90% of the events included in these rankings are hourly arenas.</p>\n")
