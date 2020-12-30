@@ -622,13 +622,21 @@ for oth in others:
 			for id in reversed(list(tdata.keys())):
 				
 				# Stylize results in html
+				# "clock":{"limit":300,"increment":0}
 				if nevents == 0:
 					ofile.write("\t\t\t<tr style='height: 200px'>\n")
 				ofile.write("\t\t\t\t<td valign='top' style='padding: 10px;'>\n")
 				ofile.write("\t\t\t\t<table class='minitable'>\n")
 				ofile.write("\t\t\t\t\t<thead>\n")
 				ofile.write("\t\t\t\t\t<tr>\n")
-				ofile.write("\t\t\t\t\t\t<th class='minitable' colspan='3'><span style='color: #888888; font-size: 10pt;'>" + datestr(tdata[id]["start"][0:10]) + "</span><br/><span style='font-family: lichess; font-size: 10pt;'>\</span> " + id[0:1].upper() + id[1:6] + " 20" + tdata[id]["start"][2:4] + "</th>\n")
+				ofile.write("\t\t\t\t\t\t<th class='minitable' colspan='3'><span style='color: #888888; font-size: 10pt;'>" + datestr(tdata[id]["start"][0:10]))
+				
+				# Fetch clock times for convenience
+				with open(fpath + "marathon\\" + tdata[id]["mode"] + "\\marathon_" + tdata[id]["mode"] + "_" + tdata[id]["id"] + ".json", "r") as getclock:
+					dictia = json.load(getclock)
+					ofile.write(" • " + str(int(dictia["clock"]["limit"]/60)) + "+" + str(int(dictia["clock"]["increment"])) + "")
+				
+				ofile.write("</span><br/><span style='font-family: lichess; font-size: 10pt;'>\</span> " + id[0:1].upper() + id[1:6] + " 20" + id[6:8] + "</th>\n")
 				ofile.write("\t\t\t\t\t</tr>\n")
 				ofile.write("\t\t\t\t\t</thead>")
 				ofile.write("\t\t\t\t\t<tbody>\n")
