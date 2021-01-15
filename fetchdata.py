@@ -147,7 +147,7 @@ for ev in event:
 		
 		# Create directory if it does not exist
 		if not os.path.exists(fpath + ev + "\\" + mo + "\\"):
-			print(ev + " - " + mo + " - Creating directory " + fpath + folder)
+			print(ev + " - " + mo + " - Creating directory " + fpath + ev + "\\" + mo + "\\")
 			os.makedirs(fpath + ev + "\\" + mo + "\\")
 
 		# If tournaments exist, store them in a file  
