@@ -8,6 +8,10 @@ import ndjson
 import json
 
 event = {
+	"2000": "&lt;2000",
+	"1700": "&lt;1700",
+	"1500": "&lt;1500",
+	"1300": "&lt;1300",	
 	"hourly": "Hourly",
 	"daily": "Daily",
 	"weekly": "Weekly",
@@ -87,9 +91,11 @@ for ev in event:
 			# Special URL for elite tournaments
 			if ev == "elite":
 				r = requests.get("https://lichess.org/tournament/history/weekend?page=" + str(page))		# pages start at 1
+			elif ev[3] == "0": # rating-restricted events
+				r = requests.get("https://lichess.org/tournament/history/hourly?page=" + str(page))	# pages start at 1
 			else:
 				r = requests.get("https://lichess.org/tournament/history/" + ev + "?page=" + str(page))	# pages start at 1
-			
+				
 			# In the unlikely/impossible event of rate limit, just indicate this and stop until the user notices
 			if r.status_code == 429:
 				print("RATE LIMIT!")
