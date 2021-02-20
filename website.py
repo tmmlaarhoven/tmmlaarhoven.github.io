@@ -98,7 +98,8 @@ mode = {
 
 # Ordered list of rankings 
 evord = {
-	"hourly": "Hourly",
+	"hourly": "Hourly (Open)",
+	"2000": "Hourly (&lt;2000)",
 	"daily": "Daily",
 	"weekly": "Weekly",
 	"monthly": "Monthly",

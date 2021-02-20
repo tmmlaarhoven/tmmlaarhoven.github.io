@@ -166,6 +166,7 @@ def storerankings(rdata, ndata, mo, ev):
 				break
 
 event = {
+	"2000": "&lt;2000",
 	"hourly": "Hourly",
 	"daily": "Daily",
 	"weekly": "Weekly",
