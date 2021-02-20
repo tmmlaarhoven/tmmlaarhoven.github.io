@@ -57,7 +57,8 @@ def stattable(of, ri, func):
 
 event = {
 	"all": "All",
-	"hourly": "Hourly",
+	"hourly": "Hourly (Open)",
+	"2000": "Hourly (&lt;2000)",
 	"daily": "Daily",
 	"weekly": "Weekly",
 	"monthly": "Monthly",
