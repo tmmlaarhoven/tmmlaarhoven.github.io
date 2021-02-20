@@ -59,6 +59,10 @@ event = {
 	"all": "All",
 	"hourly": "Hourly (Open)",
 	"2000": "Hourly (&lt;2000)",
+	"1700": "Hourly (&lt;1700)",
+	"1600": "Hourly (&lt;1600)",
+	"1500": "Hourly (&lt;1500)",
+	"1300": "Hourly (&lt;1300)",
 	"daily": "Daily",
 	"weekly": "Weekly",
 	"monthly": "Monthly",
@@ -101,6 +105,10 @@ mode = {
 evord = {
 	"hourly": "Hourly (Open)",
 	"2000": "Hourly (&lt;2000)",
+	"1700": "Hourly (&lt;1700)",
+	"1600": "Hourly (&lt;1600)",
+	"1500": "Hourly (&lt;1500)",
+	"1300": "Hourly (&lt;1300)",
 	"daily": "Daily",
 	"weekly": "Weekly",
 	"monthly": "Monthly",
@@ -462,18 +470,18 @@ for oth in others:
 			ofile.write("\t\t<p>Partitioning the events included in the rankings by type, we unsurprisingly see that there were many more hourly arenas than yearly arenas. At the same time yearly arenas are more special (and generally last longer) and therefore get more participants per event than hourly arenas.</p>\n")
 			ofile.write("\t\t<ul style='list-style-type:none;'>\n")
 			for ev in event:
-				if ev == "all" or ev[0] == "2":
+				if (ev == "all") or (ev[0] == "2" and ev[2] != "0"):
 					continue
-				ofile.write("\t\t\t<li><span style='color: #BF811D;'>" + event[ev] + ":</span> &nbsp; " + strf(rankinfo["all"][ev]["events"], "events") + " events, " + strf(rankinfo["all"][ev]["players"], "players") + " players, " + strf(rankinfo["all"][ev]["moves"], "moves") + " moves, " + strf(rankinfo["all"][ev]["games"], "games") + " games, scoring " + strf(rankinfo["all"][ev]["points"], "points") + " points.</li>\n")
+				ofile.write("\t\t\t<li><span style='color: #BF811D;'>" + event[ev] + ":</span> &nbsp; " + strf(rankinfo["all"][ev].get("events", 0), "events") + " events, " + strf(rankinfo["all"][ev].get("players", 0), "players") + " players, " + strf(rankinfo["all"][ev].get("moves", 0), "moves") + " moves, " + strf(rankinfo["all"][ev].get("games", 0), "games") + " games, scoring " + strf(rankinfo["all"][ev].get("points", 0), "points") + " points.</li>\n")
 			ofile.write("\t\t</ul>\n")
 			ofile.write("\t\t<p>When partitioning the events according to the year they were played in, we obtain the following overview. The first regular events included in these rankings took place in 2014. As Lichess has grown over the years, one can see that the number of players as well as the number of events has grown rapidly over time. (Part of the growth in 2020 might be attributed to the spread of COVID-19, with people around the world being forced to spend more time indoor and online, thus resulting in more people playing online than usual.)</p>\n")
 			ofile.write("\t\t<ul style='list-style-type:none;'>\n")
 			for ev in event:
-				if not ev[0] == "2":
+				if not (ev[0] == "2" and ev[2] != "0"):
 					continue
 				if not "events" in rankinfo["all"][ev]:
 					continue
-				ofile.write("\t\t\t<li><span style='color: #BF811D;'>" + event[ev] + ":</span> &nbsp; " + strf(rankinfo["all"][ev]["events"], "events") + " events, where " + strf(rankinfo["all"][ev]["players"], "players") + " players made " + strf(rankinfo["all"][ev]["moves"], "moves") + " moves in " + strf(rankinfo["all"][ev]["games"], "games") + " games.</li>\n")
+				ofile.write("\t\t\t<li><span style='color: #BF811D;'>" + event[ev] + ":</span> &nbsp; " + strf(rankinfo["all"][ev].get("events", 0), "events") + " events, " + strf(rankinfo["all"][ev].get("players", 0), "players") + " players, " + strf(rankinfo["all"][ev].get("moves", 0), "moves") + " moves, " + strf(rankinfo["all"][ev].get("games", 0), "games") + " games, scoring " + strf(rankinfo["all"][ev].get("points", 0), "points") + " points.</li>\n")
 			ofile.write("\t\t</ul>\n")
 			ofile.write("\t\t<p>For an even more detailed breakdown of all events in these rankings in terms of types and variants, see the following table. Percentages in this table are rounded to the nearest integer; 1% means \"between 0.5% and 1.5%\" and 0% means \"less than 0.5%\", while a dash in all tables below means that no events in this combination of categories took place. Almost 30% of all events are bullet arenas, and as they take place (almost) every hour, almost 90% of the events included in these rankings are hourly arenas.</p>\n")
 			ofile.write("\t\t<h2 class='stats'>Classification of all events</h2>\n")
