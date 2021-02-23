@@ -239,6 +239,22 @@ for mo in mode:
 # 2: Top rankings per mode and per event
 #=========================================================================
 
+playersclosed = dict()
+with open("E:\\lichess\\playerclosed.txt", "r") as fileclosed:
+	for line in fileclosed:
+		playersclosed[line.rstrip('\n')] = "1"
+
+playersTOS = dict()
+with open("E:\\lichess\\playerTOS.txt", "r") as fileTOS:
+	for line in fileTOS:
+		playersTOS[line.rstrip('\n')] = "1"
+
+playersboost = dict()
+with open("E:\\lichess\\playerboost.txt", "r") as fileboost:
+	for line in fileboost:
+		playersboost[line.rstrip('\n')] = "1"
+
+
 # Display top 1000 for each type
 nplayers = 1000
 for mo in mode:
@@ -366,7 +382,18 @@ for mo in mode:
 							ofile.write("\t<tr class='odd'>\n")
 						ofile.write("\t\t<td class='rank'>" + str(dictio["ranking"]) + ".</td>\n")
 						ofile.write("\t\t<td class='fidetitle'>" + dictio.get("title", " ") + "&nbsp;</td>\n")
-						ofile.write("\t\t<td class='username'><a href='https://lichess.org/@/" + dictio["username"] + "'>" + dictio["username"] + "</a></td>\n")
+						ofile.write("\t\t<td class='username'>")
+						
+						
+						# Format usernames that have been closed/marked for boosting/marked for cheating
+						if (dictio["username"].lower() in playersclosed) or (dictio["username"].lower() in playersTOS) or (dictio["username"].lower() in playersboost):
+							ofile.write("<a class='closed' href='https://lichess.org/@/" + dictio["username"] + "'>")
+						else:
+							ofile.write("<a href='https://lichess.org/@/" + dictio["username"] + "'>")
+						
+						ofile.write(dictio["username"])
+						ofile.write("</a>")
+						ofile.write("</td>\n")
 						ofile.write("\t\t<td class='gold'>" + str(dictio.get("#1", " ")) + "</td>\n")
 						ofile.write("\t\t<td class='silver'>" + str(dictio.get("#2", " ")) + "</td>\n")
 						ofile.write("\t\t<td class='bronze'>" + str(dictio.get("#3", " ")) + "</td>\n")
