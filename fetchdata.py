@@ -96,11 +96,11 @@ for ev in event:
 			
 			# Special URL for elite tournaments
 			if ev == "elite":
-				r = requests.get("https://lichess.org/tournament/history/weekend?page=" + str(page), headers = {'Authorization': 'Bearer ' + APItoken})		# pages start at 1
+				r = requests.get("https://lichess.org/tournament/history/weekend?page=" + str(page), headers = {"Authorization": "Bearer " + APItoken})		# pages start at 1
 			elif ev[3] == "0": # rating-restricted events
-				r = requests.get("https://lichess.org/tournament/history/hourly?page=" + str(page), headers = {'Authorization': 'Bearer ' + APItoken})	# pages start at 1
+				r = requests.get("https://lichess.org/tournament/history/hourly?page=" + str(page), headers = {"Authorization": "Bearer " + APItoken})	# pages start at 1
 			else:
-				r = requests.get("https://lichess.org/tournament/history/" + ev + "?page=" + str(page), headers = {'Authorization': 'Bearer ' + APItoken})	# pages start at 1
+				r = requests.get("https://lichess.org/tournament/history/" + ev + "?page=" + str(page), headers = {"Authorization": "Bearer " + APItoken})	# pages start at 1
 				
 			# In the unlikely/impossible event of rate limit, just indicate this and stop until the user notices
 			if r.status_code == 429:
@@ -200,7 +200,7 @@ for ev in event:
 			# Download results file
 			if not os.path.exists(fpath + folder + "\\" + pref + tid + ".ndjson"):
 				print(ev + " - " + mo + " - Downloading https://lichess.org/api/tournament/" + tid + "/results...")
-				r = requests.get("https://lichess.org/api/tournament/" + tid + "/results", headers = {'Authorization': 'Bearer ' + APItoken})
+				r = requests.get("https://lichess.org/api/tournament/" + tid + "/results", headers = {"Authorization": "Bearer " + APItoken})
 				if r.status_code == 429:
 					print("RATE LIMIT!")
 					time.sleep(100000)
@@ -211,7 +211,7 @@ for ev in event:
 			# Download tournament info file
 			if not os.path.exists(fpath + folder + "\\" + pref + tid + ".json"):
 				print(ev + " - " + mo + " - Downloading https://lichess.org/api/tournament/" + tid + "...")
-				r = requests.get("https://lichess.org/api/tournament/" + tid, headers = {'Authorization': 'Bearer ' + APItoken})
+				r = requests.get("https://lichess.org/api/tournament/" + tid, headers = {"Authorization": "Bearer " + APItoken})
 				if r.status_code == 429:
 					print("RATE LIMIT!")
 					time.sleep(100000)

@@ -240,19 +240,19 @@ for mo in mode:
 #=========================================================================
 
 playersclosed = dict()
-with open("E:\\lichess\\playerclosed.txt", "r") as fileclosed:
+with open("E:\\lichess\\playersclosed.txt", "r") as fileclosed:
 	for line in fileclosed:
-		playersclosed[line.rstrip('\n')] = "1"
+		playersclosed[line.strip()] = "1"
 
 playersTOS = dict()
-with open("E:\\lichess\\playerTOS.txt", "r") as fileTOS:
+with open("E:\\lichess\\playersTOS.txt", "r") as fileTOS:
 	for line in fileTOS:
-		playersTOS[line.rstrip('\n')] = "1"
+		playersTOS[line.strip()] = "1"
 
 playersboost = dict()
-with open("E:\\lichess\\playerboost.txt", "r") as fileboost:
+with open("E:\\lichess\\playersboost.txt", "r") as fileboost:
 	for line in fileboost:
-		playersboost[line.rstrip('\n')] = "1"
+		playersboost[line.strip()] = "1"
 
 
 # Display top 1000 for each type
