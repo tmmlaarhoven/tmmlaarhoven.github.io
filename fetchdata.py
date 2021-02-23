@@ -8,11 +8,11 @@ import ndjson
 import json
 
 event = {
-	#"1300": "&lt;1300",
+	"1300": "&lt;1300",
 	"1500": "&lt;1500",
 	#"1600": "&lt;1500",
 	#"1700": "&lt;1700",
-	#"2000": "&lt;2000",
+	"2000": "&lt;2000",
 	"hourly": "Hourly",
 	"daily": "Daily",
 	"weekly": "Weekly",

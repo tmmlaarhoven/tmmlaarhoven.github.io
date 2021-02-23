@@ -57,12 +57,12 @@ def stattable(of, ri, func):
 
 event = {
 	"all": "All",
-	"hourly": "Hourly (Open)",
-	"2000": "Hourly (&lt;2000)",
-	"1700": "Hourly (&lt;1700)",
-	"1600": "Hourly (&lt;1600)",
-	"1500": "Hourly (&lt;1500)",
-	"1300": "Hourly (&lt;1300)",
+	"hourly": "Hourly",
+	"2000": "&lt;2000",
+	"1700": "&lt;1700",
+	"1600": "&lt;1600",
+	"1500": "&lt;1500",
+	"1300": "&lt;1300",
 	"daily": "Daily",
 	"weekly": "Weekly",
 	"monthly": "Monthly",
@@ -103,12 +103,12 @@ mode = {
 
 # Ordered list of rankings 
 evord = {
-	"hourly": "Hourly (Open)",
-	"2000": "Hourly (&lt;2000)",
-	"1700": "Hourly (&lt;1700)",
-	"1600": "Hourly (&lt;1600)",
-	"1500": "Hourly (&lt;1500)",
-	"1300": "Hourly (&lt;1300)",
+	"hourly": "Hourly",
+	"2000": "&lt;2000",
+	"1700": "&lt;1700",
+	"1600": "&lt;1600",
+	"1500": "&lt;1500",
+	"1300": "&lt;1300",
 	"daily": "Daily",
 	"weekly": "Weekly",
 	"monthly": "Monthly",
