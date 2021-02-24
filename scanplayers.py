@@ -76,7 +76,7 @@ for ev in event:
 					for count, line in enumerate(rf):
 						dictio = json.loads(line.strip())
 						playerstoscan[dictio["username"].lower()] = 1
-						if count > 140:
+						if count > 150:
 							break	
 playerstoscan = {k: v for k, v in sorted(playerstoscan.items(), key = lambda item: item[1], reverse = False)}
 print("Total players: " + str(len(playerstoscan)))

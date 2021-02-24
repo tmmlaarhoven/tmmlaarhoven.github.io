@@ -15,7 +15,7 @@ with open("E:\\lichess\\APItoken.txt", "r") as tokenfile:
 event = {
 	"1300": "&lt;1300",
 	"1500": "&lt;1500",
-	#"1600": "&lt;1500",
+	"1600": "&lt;1600",
 	#"1700": "&lt;1700",
 	"2000": "&lt;2000",
 	"hourly": "Hourly",
@@ -92,7 +92,7 @@ for ev in event:
 		totaltids = 0
 		emptypagesinarow = 0
 		print(ev + " - Fetching new tournaments...")
-		for page in range(1, 100000):
+		for page in range(15966, 100000):
 			
 			# Special URL for elite tournaments
 			if ev == "elite":
