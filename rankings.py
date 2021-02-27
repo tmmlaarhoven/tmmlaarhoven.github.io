@@ -146,14 +146,17 @@ def storerankings(rdata, ndata, va, ev):
 				break
 			
 	# 4: Re-sort rankings for aaverages
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"] / max(1, item[1]["events"] - item[1].get("0s", 0)), reverse = True)}
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson", "w") as nf:
-		for index, userkey in enumerate(ndata):
-			ndata[userkey]["ranking"] = index + 1
-			nf.write(json.dumps(ndata[userkey]) + "\n")
-			if ndata[userkey]["ranking"] == 1000:
-				break
+	#ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
+	#ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"] / max(1, item[1]["events"] - item[1].get("0s", 0)), reverse = True)}
+	#with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson", "w") as nf:
+	#	for index, userkey in enumerate(ndata):
+	#		ndata[userkey]["ranking"] = index + 1
+	#		nf.write(json.dumps(ndata[userkey]) + "\n")
+	#		if ndata[userkey]["ranking"] == 1000:
+	#			break
+	if os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson"):
+		os.remove(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson")
+		print(va + " - " + ev + " - Removing ranking_average...")
 			
 	# 4: Re-sort rankings for maximum-based ordering
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}

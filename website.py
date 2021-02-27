@@ -265,6 +265,11 @@ for va in variant:
 		
 			if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking" + order + ".ndjson"):
 				continue
+			if order == "_average":
+				if os.path.exists(fpathweb + va + "\\" + ev + "\\" + ord[order]):
+					os.remove(fpathweb + va + "\\" + ev + "\\" + ord[order])
+					print(va + " - " + ev + " - Removing " + ord[order] + "...")
+				continue
 			
 			print(va + " - " + ev + " - Building " + ord[order] + "...")
 			if not os.path.exists(fpathweb + va + "\\" + ev + "\\"):
@@ -336,7 +341,7 @@ for va in variant:
 				ofile.write("\t\t<a class='" + ("active" if (order == "_trophies") else "sort") + "' href='trophies.html'>Trophies</a>\n")
 				ofile.write("\t\t &middot; <a class='" + ("active" if (order == "_points") else "sort") + "' href='index.html'>Points</a>\n")
 				ofile.write("\t\t &middot; <a class='" + ("active" if (order == "_events") else "sort") + "' href='events.html'>Events</a>\n")
-				ofile.write("\t\t &middot; <a class='" + ("active" if (order == "_average") else "sort") + "' href='average.html'>Average</a>\n")
+				#ofile.write("\t\t &middot; <a class='" + ("active" if (order == "_average") else "sort") + "' href='average.html'>Average</a>\n")
 				ofile.write("\t\t &middot; <a class='" + ("active" if (order == "_maximum") else "sort") + "' href='maximum.html'>Maximum</a>\n")
 				ofile.write("\t\t</th>\n")
 				ofile.write("\t</tr>\n")
@@ -494,7 +499,7 @@ for va in variant:
 			ofile.write("\t\t<a class='sort' href='trophies.html'>Trophies</a>\n")
 			ofile.write("\t\t &middot; <a class='sort' href='index.html'>Points</a>\n")
 			ofile.write("\t\t &middot; <a class='sort' href='events.html'>Events</a>\n")
-			ofile.write("\t\t &middot; <a class='sort' href='average.html'>Average</a>\n")
+			#ofile.write("\t\t &middot; <a class='sort' href='average.html'>Average</a>\n")
 			ofile.write("\t\t &middot; <a class='sort' href='maximum.html'>Maximum</a>\n")
 			ofile.write("\t\t</th>\n")
 			ofile.write("\t</tr>\n")
