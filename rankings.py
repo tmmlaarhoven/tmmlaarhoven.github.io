@@ -112,15 +112,15 @@ def mergestats(rdata, rdata2):
 		rdata["topuser"] = rdata2["topuser"]
 
 # Store rankings in files in different orders, and only partial lists for some...
-def storerankings(rdata, ndata, mo, ev):
+def storerankings(rdata, ndata, va, ev):
 
 	# 4: Print results back to json
-	with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "w") as jf:
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "w") as jf:
 		jf.write(json.dumps(rdata))
 		
 	# 4: Re-sort rankings for proper ordering -- ONLY FULL RANKING, REST IS PARTIAL
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
-	with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson", "w") as nf:
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "w") as nf:
 		for index, userkey in enumerate(ndata):
 			ndata[userkey]["ranking"] = index + 1
 			nf.write(json.dumps(ndata[userkey]) + "\n")
@@ -128,7 +128,7 @@ def storerankings(rdata, ndata, mo, ev):
 	# 4: Re-sort rankings for medal-based ordering
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: 100000000*item[1].get("#1", 0) + 10000*item[1].get("#2", 0) + item[1].get("#3", 0), reverse = True)}
-	with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_trophies.ndjson", "w") as nf:
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_trophies.ndjson", "w") as nf:
 		for index, userkey in enumerate(ndata):
 			ndata[userkey]["ranking"] = index + 1
 			nf.write(json.dumps(ndata[userkey]) + "\n")
@@ -138,7 +138,7 @@ def storerankings(rdata, ndata, mo, ev):
 	# 4: Re-sort rankings for activeness ordering
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["events"] - item[1].get("0s", 0), reverse = True)}
-	with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_events.ndjson", "w") as nf:
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_events.ndjson", "w") as nf:
 		for index, userkey in enumerate(ndata):
 			ndata[userkey]["ranking"] = index + 1
 			nf.write(json.dumps(ndata[userkey]) + "\n")
@@ -148,7 +148,7 @@ def storerankings(rdata, ndata, mo, ev):
 	# 4: Re-sort rankings for aaverages
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"] / max(1, item[1]["events"] - item[1].get("0s", 0)), reverse = True)}
-	with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_average.ndjson", "w") as nf:
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson", "w") as nf:
 		for index, userkey in enumerate(ndata):
 			ndata[userkey]["ranking"] = index + 1
 			nf.write(json.dumps(ndata[userkey]) + "\n")
@@ -158,7 +158,7 @@ def storerankings(rdata, ndata, mo, ev):
 	# 4: Re-sort rankings for maximum-based ordering
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
 	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["maxscore"], reverse = True)}
-	with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_maximum.ndjson", "w") as nf:
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_maximum.ndjson", "w") as nf:
 		for index, userkey in enumerate(ndata):
 			ndata[userkey]["ranking"] = index + 1
 			nf.write(json.dumps(ndata[userkey]) + "\n")
@@ -169,7 +169,7 @@ event = {
 	"1300": "&lt;1300",
 	"1500": "&lt;1500",
 	"1600": "&lt;1600",
-	#"1700": "&lt;1700",
+	"1700": "&lt;1700",
 	"2000": "&lt;2000",
 	"hourly": "Hourly",
 	"daily": "Daily",
@@ -183,7 +183,7 @@ event = {
 	"marathon": "Marathon"
 }
 
-mode = {
+variant = {
 	"3check": "Three-check",
 	"antichess": "Antichess",
 	"atomic": "Atomic",
@@ -206,32 +206,32 @@ frpath = "E:\\lichess\\tournaments\\rankings\\"
 
 curyear = datetime.datetime.now().year
 
-# Standard rankings: event/mode totals
-for mo in mode:
+# Standard rankings: event/variant totals
+for va in variant:
 	for ev in event:
 	
-		print(mo + " - " + ev + " - Running...")
+		print(va + " - " + ev + " - Running...")
 
-		pref = ev + "_" + mo + "_"
-		folder = ev + "\\" + mo + "\\"
+		pref = ev + "_" + va + "_"
+		folder = ev + "\\" + va + "\\"
 		
 		# 1: Skip if no detailed tournament info file found (some might not yet be downloaded)
-		if not os.path.exists(fpath + folder + ev + "_" + mo + ".ndjson"):
-			print(mo + " - " + ev + " - No rankings.")
+		if not os.path.exists(fpath + folder + ev + "_" + va + ".ndjson"):
+			print(va + " - " + ev + " - No rankings.")
 			continue
 
 		# Create directory if it does not exist
-		if not os.path.exists(frpath + mo + "\\" + ev):
-			print(mo + " - " + ev + " - Creating directory " + frpath + mo + "\\" + ev)
-			os.makedirs(frpath + mo + "\\" + ev)
+		if not os.path.exists(frpath + va + "\\" + ev):
+			print(va + " - " + ev + " - Creating directory " + frpath + va + "\\" + ev)
+			os.makedirs(frpath + va + "\\" + ev)
 		
 		# 2: Load previous ranking, info json and ranking ndjson
-		if os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json") and os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson"):
-			with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "r") as jf:
+		if os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") and os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
+			with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
 				rdata = json.load(jf)
 			#ndata = []
 			ndatap = dict()
-			with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson", "r") as nf:
+			with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
 				dictio = dict()
 				for line in nf:
 					dictio = json.loads(line)
@@ -246,13 +246,13 @@ for mo in mode:
 		# ndatap = {{}, ..., "thijscom": {}, ...}
 		
 		# 3: Scroll through tournament info file until new tournaments are found, then update from each file
-		with open(fpath + folder + ev + "_" + mo + ".ndjson", "r") as tf:
+		with open(fpath + folder + ev + "_" + va + ".ndjson", "r") as tf:
 			
 			# Do sanity check that last tournament in previous ranking is indeed the Nth in the tournament file
 			if ("events" in rdata) and ("lastid" in rdata):
 				for i in range(rdata["events"] - 1):
 					next(tf)
-				print(mo + " - " + ev + " - Skipping " + str(rdata["events"]) + " events...")
+				print(va + " - " + ev + " - Skipping " + str(rdata["events"]) + " events...")
 				ptour = json.loads(tf.readline())
 				# check if tournament is consistent
 				if not (ptour["id"] == rdata["lastid"]):
@@ -265,7 +265,7 @@ for mo in mode:
 				
 				# Load tournament info
 				tdata = json.loads(line)
-				print(mo + " - " + ev + " - New event: " + tdata["id"])
+				print(va + " - " + ev + " - New event: " + tdata["id"])
 				
 				# Update global statistics
 				updatestats(rdata, tdata)
@@ -288,41 +288,41 @@ for mo in mode:
 				
 				newprocessed += 1
 				if newprocessed % 1000 == 0:
-					print(mo + " - " + ev + " - Intermediate dump after " + str(rdata["events"]) + " events.")
-					storerankings(rdata, ndatap, mo, ev)
+					print(va + " - " + ev + " - Intermediate dump after " + str(rdata["events"]) + " events.")
+					storerankings(rdata, ndatap, va, ev)
 		
 		if newprocessed >= 1:
-			print(mo + " - " + ev + " - Final dump after " + str(rdata["events"]) + " events.")		
-			storerankings(rdata, ndatap, mo, ev)
+			print(va + " - " + ev + " - Final dump after " + str(rdata["events"]) + " events.")		
+			storerankings(rdata, ndatap, va, ev)
 		else:
-			print(mo + " - " + ev + " - No new events found, so nothing to do.")		
+			print(va + " - " + ev + " - No new events found, so nothing to do.")		
 		
 	#######################################################################################
 	# Special rankings: (Yearly) overall rankings
 	#######################################################################################
 	
-	for year in range(2014, curyear + 1):
+	for year in range(0):#range(2014, curyear + 1):
 		
-		print(mo + " - " + str(year) + " - Running...")
+		print(va + " - " + str(year) + " - Running...")
 		
 		# 0: See if detailed list of tournaments or rankings already exists, then skip
-		if os.path.exists(frpath + mo + "\\" + str(year) + "\\" + mo + "_" + str(year) + "_events.ndjson") and os.path.exists(frpath + mo + "\\" + str(year) + "\\" + mo + "_" + str(year) + "_ranking.json") and os.path.exists(frpath + mo + "\\" + str(year) + "\\" + mo + "_" + str(year) + "_ranking_points.ndjson") and (not year == curyear):
-			print(mo + " - " + str(year) + " - Ranking exists, skipping.")
+		if os.path.exists(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_events.ndjson") and os.path.exists(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_ranking.json") and os.path.exists(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_ranking_points.ndjson") and (not year == curyear):
+			print(va + " - " + str(year) + " - Ranking exists, skipping.")
 			continue
 		
 		# 1: Make detailed list of tournaments for this year, sorted by date
 		tlist = []
 		for ev in event:
 		
-			pref = ev + "_" + mo + "_"
-			folder = ev + "\\" + mo + "\\"
+			pref = ev + "_" + va + "_"
+			folder = ev + "\\" + va + "\\"
 			
 			# See if any tournaments for this event category must be considered
-			if not os.path.exists(fpath + folder + ev + "_" + mo + ".ndjson"):
+			if not os.path.exists(fpath + folder + ev + "_" + va + ".ndjson"):
 				continue
 				
 			# Open detailed tournament list file, if it exists, and copy all entries for this year
-			with open(fpath + folder + ev + "_" + mo + ".ndjson", "r") as tf:
+			with open(fpath + folder + ev + "_" + va + ".ndjson", "r") as tf:
 			
 				# Process lines to see which were played this year
 				for line in tf:
@@ -335,17 +335,17 @@ for mo in mode:
 			
 		# Continue if nothing is to be done anyway
 		if len(tlist) == 0:
-			print(mo + " - " + str(year) + " - No events.")
+			print(va + " - " + str(year) + " - No events.")
 			continue
 			
 		# Create directory if it does not exist
-		if not os.path.exists(frpath + mo + "\\" + str(year) + "\\"):
-			print(mo + " - " + str(year) + " - Creating directory " + frpath + mo + "\\" + str(year) + ".")
-			os.makedirs(frpath + mo + "\\" + str(year) + "\\")	
+		if not os.path.exists(frpath + va + "\\" + str(year) + "\\"):
+			print(va + " - " + str(year) + " - Creating directory " + frpath + va + "\\" + str(year) + ".")
+			os.makedirs(frpath + va + "\\" + str(year) + "\\")	
 		
 		# Sort all events by date and store them in a file
 		tlist.sort(key = lambda v: v["start"])
-		with open(frpath + mo + "\\" + str(year) + "\\" + mo + "_" + str(year) + "_events.ndjson", "w") as outfile:
+		with open(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_events.ndjson", "w") as outfile:
 			tnum = 0
 			for i in range(len(tlist)):
 				tnum += 1
@@ -360,8 +360,8 @@ for mo in mode:
 			# Load tournament info
 			tdata = tlist[i]
 			ev = tdata["type"]
-			pref = ev + "_" + mo + "_"
-			folder = ev + "\\" + mo + "\\"
+			pref = ev + "_" + va + "_"
+			folder = ev + "\\" + va + "\\"
 			
 			# Update global statistics
 			updatestats(rdata, tdata)
@@ -381,30 +381,30 @@ for mo in mode:
 					updateplayer(ndatap[userkey], prank, tdata)
 					rdata["points"] = rdata.get("points", 0) + prank["score"]
 		
-		print(mo + " - " + str(year) + " - Final dump after " + str(rdata["events"]) + " events.")
-		storerankings(rdata, ndatap, mo, str(year))
+		print(va + " - " + str(year) + " - Final dump after " + str(rdata["events"]) + " events.")
+		storerankings(rdata, ndatap, va, str(year))
 		
 	#######################################################################################
-	# GLOBAL rankings: Add up all tournaments per mode (blitz, bullet, ...)
+	# GLOBAL rankings: Add up all tournaments per variant (blitz, bullet, ...)
 	#######################################################################################
 	
-	print(mo + " - all - Running...")
-				
+	print(va + " - all - Running...")
+	#time.pause(10000)				
 	# Create directory if it does not exist
-	if not os.path.exists(frpath + mo + "\\all\\"):
-		print(mo + " - all - Creating directory " + frpath + mo + "\\all.")
-		os.makedirs(frpath + mo + "\\all\\")	
+	if not os.path.exists(frpath + va + "\\all\\"):
+		print(va + " - all - Creating directory " + frpath + va + "\\all.")
+		os.makedirs(frpath + va + "\\all\\")	
 	
 	# Make detailed list of tournaments, sorted by date
 	tlist = []
 	for ev in event:
 		
 		# See if any tournaments for this event category must be considered
-		if not os.path.exists(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson"):
+		if not os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
 			continue
 			
 		# Open detailed tournament list file, if it exists, and copy all entries
-		with open(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson", "r") as tf:
+		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tf:
 		
 			# Process lines
 			for line in tf:
@@ -414,29 +414,30 @@ for mo in mode:
 	
 	# Sort all events by date and store them in a file
 	tlist.sort(key = lambda v: v["start"])
-	with open(frpath + mo + "\\all\\" + mo + "_all_events.ndjson", "w") as outfile:
+	with open(frpath + va + "\\all\\" + va + "_all_events.ndjson", "w") as outfile:
 		tnum = 0
 		for i in range(len(tlist)):
 			tnum += 1
 			tlist[i]["number"] = tnum
 			outfile.write(json.dumps(tlist[i]) + "\n")
 	
+
 	# Add up rankings for different events
 	rdata = dict()
 	ndatap = dict()
 	for ev in event:
 	
 		# See if any tournaments for this event category must be considered
-		if not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json") or not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson"):
+		if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
 			continue
 					
 		# Merge ranking info from both rankings
-		with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "r") as jf:
+		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
 			rdata2 = json.load(jf)
 		mergestats(rdata, rdata2)
 
 		# Load new ranking
-		with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson", "r") as nf:
+		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
 			ndatap2 = dict()
 			for line in nf:
 				dictio = json.loads(line)
@@ -447,16 +448,16 @@ for mo in mode:
 				else:
 					mergeplayer(ndatap[userkey], dictio)
 		
-	print(mo + " - all - Final dump after " + str(rdata["events"]) + " events.")
-	storerankings(rdata, ndatap, mo, "all")
+	print(va + " - all - Final dump after " + str(rdata["events"]) + " events.")
+	storerankings(rdata, ndatap, va, "all")
 
 #######################################################################################
 # GLOBAL rankings: Add up all tournaments per type (hourly, daily, elite, ...)
 #######################################################################################
 
 eventp = event.copy()
-for year in range(2014, curyear + 1):
-	eventp[str(year)] = str(year)
+#for year in range(2014, curyear + 1):
+#	eventp[str(year)] = str(year)
 
 for ev in eventp:
 
@@ -469,14 +470,14 @@ for ev in eventp:
 	
 	# Make detailed list of tournaments, sorted by date
 	tlist = []
-	for mo in mode:
+	for va in variant:
 		
 		# See if any tournaments for this event category must be considered
-		if not os.path.exists(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson"):
+		if not os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
 			continue
 			
 		# Open detailed tournament list file, if it exists, and copy all entries
-		with open(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson", "r") as tf:
+		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tf:
 		
 			# Process lines
 			for line in tf:
@@ -496,19 +497,19 @@ for ev in eventp:
 	# Add up rankings for different events
 	rdata = dict()
 	ndatap = dict()
-	for mo in mode:
+	for va in variant:
 	
 		# See if any tournaments for this event category must be considered
-		if not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json") or not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson"):
+		if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
 			continue
 					
 		# Merge ranking info from both rankings
-		with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "r") as jf:
+		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
 			rdata2 = json.load(jf)
 		mergestats(rdata, rdata2)
 
 		# Load new ranking
-		with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson", "r") as nf:
+		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
 			ndatap2 = dict()
 			for line in nf:
 				dictio = json.loads(line)
@@ -535,15 +536,15 @@ if not os.path.exists(frpath + "all\\all\\"):
 
 # Make detailed list of tournaments, sorted by date
 tlist = []
-for mo in mode:
+for va in variant:
 	for ev in event:
 
 		# See if any tournaments for this event category must be considered
-		if not os.path.exists(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson"):
+		if not os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
 			continue
 			
 		# Open detailed tournament list file, if it exists, and copy all entries
-		with open(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson", "r") as tf:
+		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tf:
 		
 			# Process lines
 			for line in tf:
@@ -563,29 +564,31 @@ with open(frpath + "all\\all\\all_all_events.ndjson", "w") as outfile:
 # Add up rankings for different events
 rdata = dict()
 ndatap = dict()
-for mo in mode:
-	for ev in event:
-		# See if any tournaments for this event category must be considered
-		if not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json") or not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson"):
-			continue
-					
-		# Merge ranking info from both rankings
-		with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "r") as jf:
-			rdata2 = json.load(jf)
-		mergestats(rdata, rdata2)
+for va in variant:
+	#for ev in event:
+	ev = "all"
 
-		# Load new ranking
-		with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson", "r") as nf:
-			ndatap2 = dict()
-			for line in nf:
-				dictio = json.loads(line)
-				userkey = dictio["username"].lower()
-				if not userkey in ndatap:
-					ndatap[userkey] = dictio
-					rdata["players"] = rdata.get("players", 0) + 1
-				else:
-					mergeplayer(ndatap[userkey], dictio)
-	
+	# See if any tournaments for this event category must be considered
+	if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
+		continue
+				
+	# Merge ranking info from both rankings
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
+		rdata2 = json.load(jf)
+	mergestats(rdata, rdata2)
+
+	# Load new ranking
+	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
+		ndatap2 = dict()
+		for line in nf:
+			dictio = json.loads(line)
+			userkey = dictio["username"].lower()
+			if not userkey in ndatap:
+				ndatap[userkey] = dictio
+				rdata["players"] = rdata.get("players", 0) + 1
+			else:
+				mergeplayer(ndatap[userkey], dictio)
+
 print("all - all - Final dump after " + str(rdata["events"]) + " events.")
 storerankings(rdata, ndatap, "all", "all")
 

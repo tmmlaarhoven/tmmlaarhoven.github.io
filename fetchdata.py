@@ -16,7 +16,7 @@ event = {
 	"1300": "&lt;1300",
 	"1500": "&lt;1500",
 	"1600": "&lt;1600",
-	#"1700": "&lt;1700",
+	"1700": "&lt;1700",
 	"2000": "&lt;2000",
 	"hourly": "Hourly",
 	"daily": "Daily",
@@ -30,7 +30,7 @@ event = {
 	"marathon": "Marathon"
 }
 
-mode = {
+variant = {
 	"3check": "Three-check",
 	"antichess": "Antichess",
 	"atomic": "Atomic",
@@ -67,17 +67,17 @@ for ev in event:
 	# Existing files may already contain all/some tournament IDs
 	tourids = dict()
 	tourlistfiles = dict()
-	for mo in mode:
-		tourids[mo] = []
-		tourlistfiles[mo] = fpath + ev + "\\" + ev + "_" + mo + "_tournaments.txt"
-		if os.path.exists(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".txt"):		
-			with open(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".txt", "r") as tourfile:
+	for va in variant:
+		tourids[va] = []
+		tourlistfiles[va] = fpath + ev + "\\" + ev + "_" + va + "_tournaments.txt"
+		if os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".txt"):		
+			with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".txt", "r") as tourfile:
 				for line in tourfile:
-					tourids[mo].append(line[0:8])
+					tourids[va].append(line[0:8])
 					
-			tourids[mo].sort(key=lambda v: v.upper())
+			tourids[va].sort(key=lambda v: v.upper())
 			#with open(tourlistfile, "w") as outfile:
-			#	for tid in tourids[mo]:
+			#	for tid in tourids[va]:
 			#		outfile.write(tid + "\n")
 
 	print(ev + " - Loaded tournament IDs from files.")
@@ -92,7 +92,7 @@ for ev in event:
 		totaltids = 0
 		emptypagesinarow = 0
 		print(ev + " - Fetching new tournaments...")
-		for page in range(15966, 100000):
+		for page in range(1, 100000):
 			
 			# Special URL for elite tournaments
 			if ev == "elite":
@@ -114,18 +114,18 @@ for ev in event:
 			# Partition the tournaments over the right files
 			newonpage = 0
 			totaltids += len(re.findall('/tournament/[0-9a-zA-Z]{8}">', r.text))
-			for mo in mode:
+			for va in variant:
 				
 				# Check for URLs on webpage of the appropriate form and title
 				if ev == "shield":
-					tids = re.findall('/tournament/[0-9a-zA-Z]{8}"><span class="name">' + mode[mo] + ' ' + event[ev] + ' Arena', r.text)	# Shield formatting
+					tids = re.findall('/tournament/[0-9a-zA-Z]{8}"><span class="name">' + variant[va] + ' ' + event[ev] + ' Arena', r.text)	# Shield formatting
 				else:
-					tids = re.findall('/tournament/[0-9a-zA-Z]{8}"><span class="name">' + event[ev] + ' ' + mode[mo] + ' Arena', r.text)	# Monthly, Weekly, Yearly, etc.
+					tids = re.findall('/tournament/[0-9a-zA-Z]{8}"><span class="name">' + event[ev] + ' ' + variant[va] + ' Arena', r.text)	# Monthly, Weekly, Yearly, etc.
 				
 				# Add newly found tournament IDs to file
 				for tid in tids:
-					if not tid[12:20] in tourids[mo]:
-						tourids[mo].append(tid[12:20])		# The tournament code starts on position 12 in that reg. exp.
+					if not tid[12:20] in tourids[va]:
+						tourids[va].append(tid[12:20])		# The tournament code starts on position 12 in that reg. exp.
 						newonpage += 1
 			
 			# Count collisions to stop fetching when we have been here before
@@ -149,23 +149,23 @@ for ev in event:
 	#=========================================================================	
 
 	# Store tournament IDs alphabetically for now
-	for mo in mode:
+	for va in variant:
 		
-		# Skip tournament modes for which no tournaments exist
-		if len(tourids[mo]) == 0:
-			if os.path.exists(tourlistfiles[mo]):
-				os.remove(tourlistfiles[mo])
+		# Skip tournament variants for which no tournaments exist
+		if len(tourids[va]) == 0:
+			if os.path.exists(tourlistfiles[va]):
+				os.remove(tourlistfiles[va])
 			continue
 		
 		# Create directory if it does not exist
-		if not os.path.exists(fpath + ev + "\\" + mo + "\\"):
-			print(ev + " - " + mo + " - Creating directory " + fpath + ev + "\\" + mo + "\\")
-			os.makedirs(fpath + ev + "\\" + mo + "\\")
+		if not os.path.exists(fpath + ev + "\\" + va + "\\"):
+			print(ev + " - " + va + " - Creating directory " + fpath + ev + "\\" + va + "\\")
+			os.makedirs(fpath + ev + "\\" + va + "\\")
 
 		# If tournaments exist, store them in a file  
-		tourids[mo].sort(key=lambda v: v.upper())
-		with open(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".txt", "w") as outfile:
-			for tid in tourids[mo]:
+		tourids[va].sort(key=lambda v: v.upper())
+		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".txt", "w") as outfile:
+			for tid in tourids[va]:
 				outfile.write(tid + "\n")
 
 	#=========================================================================
@@ -176,30 +176,30 @@ for ev in event:
 	touridinfo = dict()
 		
 	# Process each chess variant one at a time
-	for mo in mode:
+	for va in variant:
 	
-		print(ev + " - " + mo + " - Running...")
+		print(ev + " - " + va + " - Running...")
 	
-		pref = ev + "_" + mo + "_"
-		folder = ev + "\\" + mo
+		pref = ev + "_" + va + "_"
+		folder = ev + "\\" + va
 		
 		# Check if the list of tournament files exists and is not empty
-		if len(tourids[mo]) == 0:
-			print(ev + " - " + mo + " - No events found.")
+		if len(tourids[va]) == 0:
+			print(ev + " - " + va + " - No events found.")
 			continue
 			
 		# Create directory if it does not exist
-		if not os.path.exists(fpath + ev + "\\" + mo + "\\"):
-			print(ev + " - " + mo + " - Creating directory " + fpath + folder + "...")
-			os.makedirs(fpath + ev + "\\" + mo + "\\")
+		if not os.path.exists(fpath + ev + "\\" + va + "\\"):
+			print(ev + " - " + va + " - Creating directory " + fpath + folder + "...")
+			os.makedirs(fpath + ev + "\\" + va + "\\")
 
 		# Do rate limit-aware fetching of missing tournament IDs		
 		APIaccess = 0
-		for tid in tourids[mo]:
+		for tid in tourids[va]:
 			
 			# Download results file
 			if not os.path.exists(fpath + folder + "\\" + pref + tid + ".ndjson"):
-				print(ev + " - " + mo + " - Downloading https://lichess.org/api/tournament/" + tid + "/results...")
+				print(ev + " - " + va + " - Downloading https://lichess.org/api/tournament/" + tid + "/results...")
 				r = requests.get("https://lichess.org/api/tournament/" + tid + "/results", headers = {"Authorization": "Bearer " + APItoken})
 				if r.status_code == 429:
 					print("RATE LIMIT!")
@@ -210,7 +210,7 @@ for ev in event:
 				
 			# Download tournament info file
 			if not os.path.exists(fpath + folder + "\\" + pref + tid + ".json"):
-				print(ev + " - " + mo + " - Downloading https://lichess.org/api/tournament/" + tid + "...")
+				print(ev + " - " + va + " - Downloading https://lichess.org/api/tournament/" + tid + "...")
 				r = requests.get("https://lichess.org/api/tournament/" + tid, headers = {"Authorization": "Bearer " + APItoken})
 				if r.status_code == 429:
 					print("RATE LIMIT!")
@@ -226,44 +226,44 @@ for ev in event:
 			
 		# Remove future events
 		if ev == "titled" or ev == "marathon":
-			for tid in tourids[mo]:			
+			for tid in tourids[va]:			
 				with open(fpath + folder + "\\" + pref + tid + ".json", "r") as tf:
 					dictio = json.load(tf)
 				if ("secondsToStart" in dictio) or not dictio.get("isFinished", False):
-					tourids[mo].remove(tid)
+					tourids[va].remove(tid)
 					os.remove(fpath + folder + "\\" + pref + tid + ".ndjson")
 					os.remove(fpath + folder + "\\" + pref + tid + ".json")
-					print(ev + " - " + mo + " - Removing future event " + tid + ".")
+					print(ev + " - " + va + " - Removing future event " + tid + ".")
 		
-		print(ev + " - " + mo + " - Finished downloading tournament information.")
+		print(ev + " - " + va + " - Finished downloading tournament information.")
 		
 		#=========================================================================
 		# 4a: Fetch existing tournament data from ndjson
 		#=========================================================================
 
-		if os.path.exists(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson"):
-			with open(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson", "r") as tfile:
+		if os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
+			with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tfile:
 				for line in tfile:
 					dictio = json.loads(line)
 					touridinfo[dictio["id"]] = dictio
 		
-		print(ev + " - " + mo + " - Loaded tournament info for " + str(len(touridinfo)) + " events in memory.")
+		print(ev + " - " + va + " - Loaded tournament info for " + str(len(touridinfo)) + " events in memory.")
 		
 		#=========================================================================
 		# 4: Fetch tournament dates from json for chronological ordering
 		#=========================================================================
 		
-		for tid in tourids[mo]:
+		for tid in tourids[va]:
 			# -- There was a bug due to lichess API unreachable and a corrupt file being stored...
-			#if mo == "crazyhouse" and ev == "hourly":
-			#	print(ev + " - " + mo + " - TID: " + tid)
+			#if va == "crazyhouse" and ev == "hourly":
+			#	print(ev + " - " + va + " - TID: " + tid)
 			if tid in touridinfo:
 				continue
 			with open(fpath + folder + "\\" + pref + tid + ".json") as datfile:
 				data = json.load(datfile)
 				touridinfo[tid] = dict()
 				touridinfo[tid]["number"] = 0
-				touridinfo[tid]["mode"] = mo
+				touridinfo[tid]["variant"] = va
 				touridinfo[tid]["event"] = ev
 				touridinfo[tid]["id"] = tid
 				touridinfo[tid]["start"] = data["startsAt"]
@@ -289,27 +289,27 @@ for ev in event:
 					print("Weird: " + tid)
 				touridinfo[tid]["topscore"] = data["podium"][0]["score"]
 		
-		print(ev + " - " + mo + " - Retrieved tournament dates from json-files for chronological ordering.")
+		print(ev + " - " + va + " - Retrieved tournament dates from json-files for chronological ordering.")
 		
 		#=========================================================================
 		# 5: Store tournament IDs back in separate files, sorted by date
 		#=========================================================================
 		
 		# Delete empty files as these tournament series apparently do not exist
-		if len(tourids[mo]) == 0:
-			if os.path.exists(tourlistfiles[mo]):
-				os.remove(tourlistfiles[mo])
+		if len(tourids[va]) == 0:
+			if os.path.exists(tourlistfiles[va]):
+				os.remove(tourlistfiles[va])
 			continue
 		
 		# For non-empty files, now store tournaments chronologically (with dates, csv)
-		tourids[mo].sort(key = lambda v: touridinfo[v]["start"])
-		with open(fpath + ev + "\\" + mo + "\\" + ev + "_" + mo + ".ndjson", "w") as outfile:
+		tourids[va].sort(key = lambda v: touridinfo[v]["start"])
+		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "w") as outfile:
 			tnum = 0
-			for tid in tourids[mo]:
+			for tid in tourids[va]:
 				tnum += 1
 				touridinfo[tid]["number"] = tnum
 				outfile.write(json.dumps(touridinfo[tid]) + "\n")
 		
-		print(ev + " - " + mo + " - Stored tournament IDs with json data, chronologically.")
+		print(ev + " - " + va + " - Stored tournament IDs with json data, chronologically.")
 		
 print("ALL DONE!")

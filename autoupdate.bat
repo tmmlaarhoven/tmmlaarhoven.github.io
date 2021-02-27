@@ -18,6 +18,8 @@ git pull
 fetchdata.py
 fetchdata-special.py
 rankings.py
+scanplayers.py
+makeplots.py
 website.py
 git add --all --verbose
 git commit -m "Auto-updater - %updtime%" --verbose

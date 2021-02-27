@@ -43,7 +43,7 @@ event = {
 	"2014": "2014"
 	}
 
-mode = {
+variant = {
 	"3check": "Three-check",
 	"antichess": "Antichess",
 	"atomic": "Atomic",
@@ -68,15 +68,15 @@ order = {"_points": "index.html", "_trophies": "trophies.html", "_events": "even
 # Generate big list of players to scan
 playerstoscan = dict()
 for ev in event:
-	for mo in mode:
+	for va in variant:
 		for ord in order:
-			if os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking" + ord + ".ndjson"):
-				print(mo + " -- " + ev + " -- " + ord)
-				with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking" + ord + ".ndjson", "r") as rf:
+			if os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking" + ord + ".ndjson"):
+				print(va + " -- " + ev + " -- " + ord)
+				with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking" + ord + ".ndjson", "r") as rf:
 					for count, line in enumerate(rf):
 						dictio = json.loads(line.strip())
 						playerstoscan[dictio["username"].lower()] = 1
-						if count > 150:
+						if count > 220:
 							break	
 playerstoscan = {k: v for k, v in sorted(playerstoscan.items(), key = lambda item: item[1], reverse = False)}
 print("Total players: " + str(len(playerstoscan)))
@@ -97,6 +97,7 @@ playersnew = []
 for player in playerstoscan:
 	if not player in playerschecked:
 		playersnew.append(player)
+playersnew.sort()
 print("New players to check: " + str(len(playersnew)))
 
 
@@ -109,11 +110,10 @@ for i in range(math.ceil(len(playersnew) / 50)):
 	time.sleep(3)
 	if i % 60 == 59:
 		time.sleep(60)
-	
-	print("Group: " + str(i))
 		
 	begin = i * 50
 	end = min(i * 50 + 50, len(playersnew))
+	print("Group " + str(i+1) + ": " + playersnew[begin] + " .. " + playersnew[end-1])
 	r = requests.post("https://lichess.org/api/users", headers = {'Authorization': 'Bearer ' + APItoken}, data = ",".join(playersnew[begin:end]))
 	if r.status_code == 429:
 		print("RATE LIMIT!")
@@ -173,3 +173,5 @@ print("Exporting " + str(len(playersall)) + " total checked accounts...")
 with open("E:\\lichess\\playerschecked.txt", "w") as filechecked:
 	for player in playersall:
 		filechecked.write(player + "\n")
+
+print("ALL DONE!")

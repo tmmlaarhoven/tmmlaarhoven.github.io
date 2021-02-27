@@ -37,16 +37,16 @@ def stattable(of, ri, func):
 	of.write("\t\t\t<thead>\n")
 	of.write("\t\t\t<tr>\n")
 	of.write("\t\t\t\t<th class='stats'></th>\n")
-	for index, mo in enumerate(moord):
-		of.write("\t\t\t\t<th class='stats" + ("last" if index == 15 else "") + "'><span title='" + mode[mo] + "'>" + moordicon[mo] + "</span></th>\n")
+	for index, va in enumerate(vaord):
+		of.write("\t\t\t\t<th class='stats" + ("last" if index == 15 else "") + "'><span title='" + variant[va] + "'>" + vaordicon[va] + "</span></th>\n")
 	of.write("\t\t\t</tr>\n")
 	of.write("\t\t\t</thead>\n")
 	of.write("\t\t\t<tbody>\n")
 	for index, ev in enumerate(event):
 		of.write("\t\t\t<tr class='" + ("even" if (index % 2 == 1) else "odd") + "'>\n")
 		of.write("\t\t\t\t<td class='statshead' width='90'>" + event[ev] + "</td>\n")
-		for index, mo in enumerate(moord):
-			of.write("\t\t\t\t<td class='stats" + ("last" if index == 15 else "") + "' width='" + ("50" if index == 15 else "50") + "' align='right'>" + str(func(ri, mo, ev)) + "</td>\n")
+		for index, va in enumerate(vaord):
+			of.write("\t\t\t\t<td class='stats" + ("last" if index == 15 else "") + "' width='" + ("50" if index == 15 else "50") + "' align='right'>" + str(func(ri, va, ev)) + "</td>\n")
 		of.write("\t\t\t</tr>\n")
 	of.write("\t\t\t</tbody>\n")
 	of.write("\t\t</table>\n")
@@ -82,7 +82,7 @@ event = {
 	"2014": "2014",
 }
 
-mode = {
+variant = {
 	"3check": "Three-check",
 	"antichess": "Antichess",
 	"atomic": "Atomic",
@@ -128,8 +128,8 @@ evord = {
 	"2014": "2014"
 }
 
-# Ordered list of variants/modes
-moord = {
+# Ordered list of variants/variants
+vaord = {
 	"all": "All",
 	"ultrabullet": "UltraBullet",
 	"hyperbullet": "HyperBullet",
@@ -148,7 +148,7 @@ moord = {
 	"racingkings": "Racing Kings"
 }
 
-moordicon = {
+vaordicon = {
 	"all": "O", #"&#xe004;",
 	"ultrabullet": "{",
 	"hyperbullet": "T",
@@ -175,18 +175,18 @@ if not os.path.exists(fpathweb):
 	os.makedirs(fpathweb)
 
 #=========================================================================
-# 1: Compact page of rankings per mode
+# 1: Compact page of rankings per variant
 #=========================================================================
 
 # Display top 10 for each type
 nplayers = 10	
-for mo in mode:
-	if not os.path.exists(fpathweb + mo + "\\"):
-		print(mo + " - Creating directory " + fpathweb + mo + "\\")
-		os.makedirs(fpathweb + mo + "\\")
-	# with open(fpathweb + mo + "\\index.html", "w") as ofile:
+for va in variant:
+	if not os.path.exists(fpathweb + va + "\\"):
+		print(va + " - Creating directory " + fpathweb + va + "\\")
+		os.makedirs(fpathweb + va + "\\")
+	# with open(fpathweb + va + "\\index.html", "w") as ofile:
 		# ofile.write("<!DOCTYPE html>\n<html>\n")
-		# ofile.write("<head>\n<title>" + mode[mo] + " Overview</title>\n<link rel='stylesheet' href='../../stylesheets/style.css'>\n</head>\n")
+		# ofile.write("<head>\n<title>" + variant[va] + " Overview</title>\n<link rel='stylesheet' href='../../stylesheets/style.css'>\n</head>\n")
 		# ofile.write("<body>\n<table>\n")
 
 		# # Keep track of number of rankings, put four on each row
@@ -196,16 +196,16 @@ for mo in mode:
 		# for ev in event:
 			
 			# # If file not found, skip
-			# if (not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json")) or (not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson")):
+			# if (not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json")) or (not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson")):
 				# continue
 			
 			# # Load ranking info
-			# with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "r") as rf:
+			# with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as rf:
 				# rankinfo = json.load(rf)
 
 			# # Load top rankings in list
 			# toplist = []
-			# with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking_points.ndjson", "r") as rf:
+			# with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as rf:
 				# for i in range(nplayers):
 					# line = rf.readline()
 					# dictio = json.loads(line.strip())
@@ -217,7 +217,7 @@ for mo in mode:
 			# ofile.write("\t\t<td valign='top' style='padding: 10px;'>\n")
 			# ofile.write("\t\t<table style='width: 230px; border: 1px #000000 solid; border-spacing: 10px 2px; border-collapse: collapse; padding: 0px;'>\n")
 			# ofile.write("\t\t\t<thead style='background: #EEEEEE;'>\n")
-			# ofile.write("\t\t\t<tr>\n\t\t\t\t<th colspan='2' style='padding-top: 5px;'><b>" + event[ev] + " " + mode[mo] + " Arenas</b></th>\n\t\t\t</tr>\n")
+			# ofile.write("\t\t\t<tr>\n\t\t\t\t<th colspan='2' style='padding-top: 5px;'><b>" + event[ev] + " " + variant[va] + " Arenas</b></th>\n\t\t\t</tr>\n")
 			# ofile.write("\t\t\t<tr>\n\t\t\t\t<th colspan='2' style='padding-bottom: 5px'><div style='font-weight: normal; font-size: 11pt'>(" + rankinfo["firststart"][0:4] + (("&ndash;" + rankinfo["laststart"][0:4]) if not (rankinfo["firststart"][0:4] == rankinfo["laststart"][0:4]) else ("")) + ", " + str(rankinfo["events"]) + " events)</div></th>\n\t\t\t</tr>\n\t\t\t</thead>\n")
 			# ofile.write("\t\t\t<tbody style='background: url(logo-g2c.png); background-size: 170px; background-position: center; background-repeat: no-repeat;'>\n")
 			# for i in range(nplayers):
@@ -236,7 +236,7 @@ for mo in mode:
 		# ofile.write("</table>\n</body>\n</html>\n")
 
 #=========================================================================
-# 2: Top rankings per mode and per event
+# 2: Top rankings per variant and per event
 #=========================================================================
 
 playersclosed = dict()
@@ -256,39 +256,39 @@ with open("E:\\lichess\\playersboost.txt", "r") as fileboost:
 
 
 # Display top 1000 for each type
-nplayers = 1000
-for mo in mode:
-#for mo in []:
+nplayers = 200
+for va in variant:
+#for va in []:
 	for ev in event:		
 		ord = {"_points": "index.html", "_trophies": "trophies.html", "_events": "events.html", "_average": "average.html", "_maximum": "maximum.html"}
 		for order in ord:
 		
-			if not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json") or not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking" + order + ".ndjson"):
+			if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking" + order + ".ndjson"):
 				continue
 			
-			print(mo + " - " + ev + " - Building " + ord[order] + "...")
-			if not os.path.exists(fpathweb + mo + "\\" + ev + "\\"):
-				print(mo + " - " + ev + " - Creating directory " + fpathweb + mo + "\\" + ev + "\\")
-				os.makedirs(fpathweb + mo + "\\" + ev + "\\")
+			print(va + " - " + ev + " - Building " + ord[order] + "...")
+			if not os.path.exists(fpathweb + va + "\\" + ev + "\\"):
+				print(va + " - " + ev + " - Creating directory " + fpathweb + va + "\\" + ev + "\\")
+				os.makedirs(fpathweb + va + "\\" + ev + "\\")
 
 			# Load ranking info
-			with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "r") as rf:
+			with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as rf:
 				jinfo = json.load(rf)
 			
-			with open(fpathweb + mo + "\\" + ev + "\\" + ord[order], "w") as ofile:			
+			with open(fpathweb + va + "\\" + ev + "\\" + ord[order], "w") as ofile:			
 				ofile.write("<!DOCTYPE html>\n")
 				ofile.write("<html lang='en-US'>\n")
 				ofile.write("<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping -->\n")
 				ofile.write("<head>\n")
 				if ev == "marathon":
-					ofile.write("<title>Lichess Rankings &middot; " + mode[mo] + " Marathons</title>\n")
-				elif mo == "all" or ev == "titled" or ev == "shield":
-					if mo == "all" and ev == "all":
+					ofile.write("<title>Lichess Rankings &middot; " + variant[va] + " Marathons</title>\n")
+				elif va == "all" or ev == "titled" or ev == "shield":
+					if va == "all" and ev == "all":
 						ofile.write("<title>Lichess Rankings &middot; All Arenas</title>\n")
 					else:
-						ofile.write("<title>Lichess Rankings &middot; " + mode[mo] + " " + event[ev] + " Rankings</title>\n")
+						ofile.write("<title>Lichess Rankings &middot; " + variant[va] + " " + event[ev] + " Rankings</title>\n")
 				else:
-					ofile.write("<title>Lichess Rankings &middot; " + event[ev] + " " + mode[mo] + " Rankings</title>\n")
+					ofile.write("<title>Lichess Rankings &middot; " + event[ev] + " " + variant[va] + " Rankings</title>\n")
 				ofile.write("<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n")
 				ofile.write("<link rel='icon' type='image/png' href='../../../favicon.ico'>\n")
 				ofile.write("<link rel='stylesheet' href='../../../style.css'>\n")
@@ -296,21 +296,21 @@ for mo in mode:
 				ofile.write("<table class='content'>\n")
 				ofile.write("\t<thead>\n")
 				ofile.write("\t<tr>\n")
-				ofile.write("\t\t<th colspan='10' class='mode'>\n")
+				ofile.write("\t\t<th colspan='10' class='variant'>\n")
 				#ofile.write("\t\t\t<a class='" + ("active" if (ev == "all") else "back") + "' href='../all/" + ord[order] + "'>All</a>\n")
-				ofile.write("\t\t\t<a class='mode' href='../../index.html'><span style='font-family: lichess' title='About'>&#xe005;</span></a>\n")
-				for index, mod in enumerate(moord):
+				ofile.write("\t\t\t<a class='variant' href='../../index.html'><span style='font-family: lichess' title='About'>&#xe005;</span></a>\n")
+				for index, mod in enumerate(vaord):
 					if os.path.exists(frpath + mod + "\\" + ev + "\\" + mod + "_" + ev + "_ranking.json") and os.path.exists(frpath + mod + "\\" + ev + "\\" + mod + "_" + ev + "_ranking" + order + ".ndjson"):
-						ofile.write("\t\t\t &middot; <a class='" + ("active" if (mo == mod) else "mode") + "' href='../../" + mod + "/" + ev + "/" + ord[order] + "'><span style='font-family: lichess' title='" + moord[mod] + "'>" + moordicon[mod] + "</span></a>\n")
+						ofile.write("\t\t\t &middot; <a class='" + ("active" if (va == mod) else "variant") + "' href='../../" + mod + "/" + ev + "/" + ord[order] + "'><span style='font-family: lichess' title='" + vaord[mod] + "'>" + vaordicon[mod] + "</span></a>\n")
 					else:
-						ofile.write("\t\t\t &middot; <a class='" + ("active" if (mo == mod) else "mode") + "' href='../../" + mod + "/all/" + ord[order] + "'><span style='font-family: lichess' title='" + moord[mod] + "'>" + moordicon[mod] + "</span></a>\n")
+						ofile.write("\t\t\t &middot; <a class='" + ("active" if (va == mod) else "variant") + "' href='../../" + mod + "/all/" + ord[order] + "'><span style='font-family: lichess' title='" + vaord[mod] + "'>" + vaordicon[mod] + "</span></a>\n")
 				ofile.write("\t\t</th>\n")
 				ofile.write("\t</tr>\n")
 				ofile.write("\t<tr>\n")
 				ofile.write("\t\t<th colspan='10' class='type'>\n")
 				ofile.write("\t\t<a class='" + ("active" if (ev == "all") else "type") + "' href='../all/" + ord[order] + "'>All</a>\n")
 				for eve in evord:
-					if os.path.exists(frpath + mo + "\\" + eve + "\\" + mo + "_" + eve + "_ranking.json") and os.path.exists(frpath + mo + "\\" + eve + "\\" + mo + "_" + eve + "_ranking" + order + ".ndjson"):
+					if os.path.exists(frpath + va + "\\" + eve + "\\" + va + "_" + eve + "_ranking.json") and os.path.exists(frpath + va + "\\" + eve + "\\" + va + "_" + eve + "_ranking" + order + ".ndjson"):
 						ofile.write("\t\t &middot; <a class='" + ("active" if (ev == eve) else "type") + "' href='../" + eve + "/" + ord[order] + "'>" + evord[eve] + "</a>\n")
 					else:
 						ofile.write("\t\t &middot; " + evord[eve] + "\n")
@@ -318,21 +318,21 @@ for mo in mode:
 				ofile.write("\t</tr>\n")
 				ofile.write("\t<tr>\n")
 				ofile.write("\t\t<th colspan='10' class='title'>\n")
-				#ofile.write("\t\t<div class='lefticon'>" + moordicon[mo] + "</div>\n")
+				#ofile.write("\t\t<div class='lefticon'>" + vaordicon[va] + "</div>\n")
 				if ev == "marathon":
-					ofile.write("\t\t" + mode[mo] + " Marathons\n")
-				elif mo == "all" or ev == "titled" or ev == "shield":
-					if mo == "all" and ev == "all":
+					ofile.write("\t\t" + variant[va] + " Marathons\n")
+				elif va == "all" or ev == "titled" or ev == "shield":
+					if va == "all" and ev == "all":
 						ofile.write("\t\tAll Arenas\n")
 					else:
-						ofile.write("\t\t" + mode[mo] + " " + event[ev] + " Arenas\n")
+						ofile.write("\t\t" + variant[va] + " " + event[ev] + " Arenas\n")
 				else:
-					ofile.write("\t\t" + event[ev] + " " + mode[mo] + " Arenas\n")
-				#ofile.write("\t\t<div class='righticon'>" + moordicon[mo] + "</div>\n")
+					ofile.write("\t\t" + event[ev] + " " + variant[va] + " Arenas\n")
+				#ofile.write("\t\t<div class='righticon'>" + vaordicon[va] + "</div>\n")
 				ofile.write("\t\t</th>\n")
 				ofile.write("\t</tr>\n")
 				ofile.write("\t<tr>\n")
-				ofile.write("\t\t<th colspan='10' class='sort'>Show rankings sorted by: &nbsp;&nbsp;&nbsp;\n")
+				ofile.write("\t\t<th colspan='10' class='sort'><a class='sort' href='stats.html'>Show arena Stats</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Show rankings sorted by: &nbsp;\n")
 				ofile.write("\t\t<a class='" + ("active" if (order == "_trophies") else "sort") + "' href='trophies.html'>Trophies</a>\n")
 				ofile.write("\t\t &middot; <a class='" + ("active" if (order == "_points") else "sort") + "' href='index.html'>Points</a>\n")
 				ofile.write("\t\t &middot; <a class='" + ("active" if (order == "_events") else "sort") + "' href='events.html'>Events</a>\n")
@@ -370,7 +370,7 @@ for mo in mode:
 				# Marathons: \
 				# Streamer battles: &#xe003;
 				
-				with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking" + order + ".ndjson", "r") as rf:
+				with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking" + order + ".ndjson", "r") as rf:
 					for line in rf:
 					
 						# Process the player ranking
@@ -417,14 +417,108 @@ for mo in mode:
 				ofile.write("</html>\n")
 
 rankinfo = dict()
-for mo in mode:
-	rankinfo[mo] = dict()
+for va in variant:
+	rankinfo[va] = dict()
 	for ev in event:	
-		rankinfo[mo][ev] = dict()
-		if not os.path.exists(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json"):
+		rankinfo[va][ev] = dict()
+		if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json"):
 			continue
-		with open(frpath + mo + "\\" + ev + "\\" + mo + "_" + ev + "_ranking.json", "r") as rf:
-			rankinfo[mo][ev] = json.load(rf)
+		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as rf:
+			rankinfo[va][ev] = json.load(rf)
+
+
+# Separate pages for nice graphics
+
+for va in variant:
+	for ev in event:		
+		if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json"):
+			continue
+		with open(fpathweb + va + "\\" + ev + "\\stats.html", "w") as ofile:			
+			ofile.write("<!DOCTYPE html>\n")
+			ofile.write("<html lang='en-US'>\n")
+			ofile.write("<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping -->\n")
+			ofile.write("<head>\n")
+			if ev == "marathon":
+				ofile.write("<title>Lichess Rankings &middot; " + variant[va] + " Marathons</title>\n")
+			elif va == "all" or ev == "titled" or ev == "shield":
+				if va == "all" and ev == "all":
+					ofile.write("<title>Lichess Rankings &middot; All Arenas</title>\n")
+				else:
+					ofile.write("<title>Lichess Rankings &middot; " + variant[va] + " " + event[ev] + " Rankings</title>\n")
+			else:
+				ofile.write("<title>Lichess Rankings &middot; " + event[ev] + " " + variant[va] + " Rankings</title>\n")
+			ofile.write("<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n")
+			ofile.write("<link rel='icon' type='image/png' href='../../../favicon.ico'>\n")
+			ofile.write("<link rel='stylesheet' href='../../../style.css'>\n")
+			ofile.write("</head>\n")
+			ofile.write("<table class='content'>\n")
+			ofile.write("\t<thead>\n")
+			ofile.write("\t<tr>\n")
+			ofile.write("\t\t<th colspan='10' class='variant'>\n")
+			#ofile.write("\t\t\t<a class='" + ("active" if (ev == "all") else "back") + "' href='../all/" + ord[order] + "'>All</a>\n")
+			ofile.write("\t\t\t<a class='variant' href='../../index.html'><span style='font-family: lichess' title='About'>&#xe005;</span></a>\n")
+			for index, mod in enumerate(vaord):
+				if os.path.exists(frpath + mod + "\\" + ev + "\\" + mod + "_" + ev + "_ranking.json"):
+					ofile.write("\t\t\t &middot; <a class='" + ("active" if (va == mod) else "variant") + "' href='../../" + mod + "/" + ev + "/stats.html'><span style='font-family: lichess' title='" + vaord[mod] + "'>" + vaordicon[mod] + "</span></a>\n")
+				else:
+					ofile.write("\t\t\t &middot; <a class='" + ("active" if (va == mod) else "variant") + "' href='../../" + mod + "/all/stats.html'><span style='font-family: lichess' title='" + vaord[mod] + "'>" + vaordicon[mod] + "</span></a>\n")
+			ofile.write("\t\t</th>\n")
+			ofile.write("\t</tr>\n")
+			ofile.write("\t<tr>\n")
+			ofile.write("\t\t<th colspan='10' class='type'>\n")
+			ofile.write("\t\t<a class='" + ("active" if (ev == "all") else "type") + "' href='../all/stats.html'>All</a>\n")
+			for eve in evord:
+				if os.path.exists(frpath + va + "\\" + eve + "\\" + va + "_" + eve + "_ranking.json"):
+					ofile.write("\t\t &middot; <a class='" + ("active" if (ev == eve) else "type") + "' href='../" + eve + "/stats.html'>" + evord[eve] + "</a>\n")
+				else:
+					ofile.write("\t\t &middot; " + evord[eve] + "\n")
+			ofile.write("\t\t</th>\n")
+			ofile.write("\t</tr>\n")
+			ofile.write("\t<tr>\n")
+			ofile.write("\t\t<th colspan='10' class='title'>\n")
+			#ofile.write("\t\t<div class='lefticon'>" + vaordicon[va] + "</div>\n")
+			if ev == "marathon":
+				ofile.write("\t\t" + variant[va] + " Marathons\n")
+			elif va == "all" or ev == "titled" or ev == "shield":
+				if va == "all" and ev == "all":
+					ofile.write("\t\tAll Arenas\n")
+				else:
+					ofile.write("\t\t" + variant[va] + " " + event[ev] + " Arenas\n")
+			else:
+				ofile.write("\t\t" + event[ev] + " " + variant[va] + " Arenas\n")
+			#ofile.write("\t\t<div class='righticon'>" + vaordicon[va] + "</div>\n")
+			ofile.write("\t\t</th>\n")
+			ofile.write("\t</tr>\n")
+			ofile.write("\t<tr>\n")
+			ofile.write("\t\t<th colspan='10' class='sort'><a class='active' href='stats.html'>Show arena stats</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Show rankings sorted by: &nbsp;\n")
+			ofile.write("\t\t<a class='sort' href='trophies.html'>Trophies</a>\n")
+			ofile.write("\t\t &middot; <a class='sort' href='index.html'>Points</a>\n")
+			ofile.write("\t\t &middot; <a class='sort' href='events.html'>Events</a>\n")
+			ofile.write("\t\t &middot; <a class='sort' href='average.html'>Average</a>\n")
+			ofile.write("\t\t &middot; <a class='sort' href='maximum.html'>Maximum</a>\n")
+			ofile.write("\t\t</th>\n")
+			ofile.write("\t</tr>\n")
+			ofile.write("\t<tr>\n")
+			ofile.write("\t\t<th colspan='10' class='info' style='padding: 0px; spacing: 0px;'>\n")
+			ofile.write("\t\t<figure style='display: inline-block; padding: 0px; spacing: 0px;'>\n")
+			ofile.write("\t\t<img src='" + va + "_" + ev + "_players.png'>\n")
+			ofile.write("\t\t<img src='" + va + "_" + ev + "_games.png'>\n")
+			ofile.write("\t\t<img src='" + va + "_" + ev + "_moves.png'>\n")
+			ofile.write("\t\t<img src='" + va + "_" + ev + "_rating.png'>\n")
+			ofile.write("\t\t<img src='" + va + "_" + ev + "_berserk.png'>\n")
+			ofile.write("\t\t<img src='" + va + "_" + ev + "_topscore.png'>\n")
+			ofile.write("\t\t<img src='" + va + "_" + ev + "_results.png'>\n")
+			ofile.write("\t\t</figure>\n")
+			ofile.write("\t\t</th>\n")
+			ofile.write("\t</thead>\n")	
+			#ofile.write("\t<tfoot>\n")
+			#ofile.write("\t<tr>\n")
+			#ofile.write("\t\t<td colspan='10'><a href='hmm.html'>Download full CSV file</a></td>\n")
+			#ofile.write("\t</tr>\n")
+			#ofile.write("\t</tfoot>\n")
+			ofile.write("</table>\n")
+			ofile.write("</body>\n")
+			ofile.write("</html>\n")
 
 ################################################################
 # Index page with statistics
@@ -446,11 +540,11 @@ for oth in others:
 		ofile.write("<table class='content'>\n")
 		ofile.write("\t<thead>\n")
 		ofile.write("\t<tr>\n")
-		ofile.write("\t\t<th colspan='10' class='mode'>\n")
+		ofile.write("\t\t<th colspan='10' class='variant'>\n")
 		#ofile.write("\t\t\t<a class='" + ("active" if (ev == "all") else "back") + "' href='../all/" + ord[order] + "'>All</a>\n")
 		ofile.write("\t\t\t<a class='active' href='index.html'><span style='font-family: lichess' title='About'>&#xe005;</span></a>\n")
-		for mod in moord:
-			ofile.write("\t\t\t &middot; <a class='mode' href='" + mod + "/all/index.html'><span style='font-family: lichess' title='" + moord[mod] + "'>" + moordicon[mod] + "</span></a>\n")
+		for mod in vaord:
+			ofile.write("\t\t\t &middot; <a class='variant' href='" + mod + "/all/index.html'><span style='font-family: lichess' title='" + vaord[mod] + "'>" + vaordicon[mod] + "</span></a>\n")
 		ofile.write("\t\t</th>\n")
 		ofile.write("\t</tr>\n")
 		ofile.write("\t<tr>\n")
@@ -479,7 +573,7 @@ for oth in others:
 		ofile.write("\t\t<th colspan='10' class='about'>\n")
 		###############################################################################
 		if oth == "Lichess Rankings":
-			ofile.write("\t\t<span style='padding-top: 0px; font-style: italic; color: #888888;'>Most recent tournament: <a title='Most recent event' href='https://lichess.org/tournament/" + rankinfo["all"]["all"]["lastid"] + "'>" + datestr(rankinfo["all"]["all"]["laststart"][0:10]) + "</a>. To navigate the rankings, use the icons above. The icon <span style='font-family: lichess;'>" + moordicon["all"] + "</span> refers to global rankings for all categories combined. The duplicate icons for bullet and blitz are used to distinguish between (hyper)bullet and (super)blitz arenas.</span>\n")
+			ofile.write("\t\t<span style='padding-top: 0px; font-style: italic; color: #888888;'>Most recent tournament: <a title='Most recent event' href='https://lichess.org/tournament/" + rankinfo["all"]["all"]["lastid"] + "'>" + datestr(rankinfo["all"]["all"]["laststart"][0:10]) + "</a>. To navigate the rankings, use the icons above. The icon <span style='font-family: lichess;'>" + vaordicon["all"] + "</span> refers to global rankings for all categories combined. The duplicate icons for bullet and blitz are used to distinguish between (hyper)bullet and (super)blitz arenas.</span>\n")
 			#ofile.write("\t\t<h1 class='about'>About</h1>\n")
 			ofile.write("\t\t<p>The rankings on this webpage are based on all regularly-scheduled arenas played on <a href='https://lichess.org/'>lichess.org</a> (hourly, daily, weekly, monthly, yearly, eastern, elite, and shield arenas) as well as the <a href='all/marathon/index.html'>seasonal 24h marathons</a> and the <a href='all/titled/trophies.html'>titled arenas</a>. These rankings exclude irregular rating-restricted events (<1700 Bullet Arena, ...), themed arenas (King's Gambit Blitz Arena, ...), and arenas created by Lichess users. In total the rankings cover " + strf(rankinfo["all"]["all"]["events"], "events") + " events, which had a total of " + strf(rankinfo["all"]["all"]["players"], "players") + " unique players participating in the events.</p>") 
 			ofile.write("<p>Additional, detailed statistics can be found on the <a href='stats.html'>statistics</a> page.</p>")
@@ -489,10 +583,10 @@ for oth in others:
 			ofile.write("\t\t<h2 class='head'>Partitioning the data</h2>\n")
 			ofile.write("\t\tThe events in this ranking can be classified into 15 different time controls and/or variants, as listed below.\n")
 			ofile.write("\t\t<ul style='list-style-type: none;'>\n")
-			for mo in moord:
-				if mo == "all":
+			for va in vaord:
+				if va == "all":
 					continue
-				ofile.write("\t\t\t<li><span style='color: #BF811D;'><span style='font-family: lichess;'>" + moordicon[mo] + "</span> &nbsp;" + mode[mo] + ":</span> &nbsp; " + strf(rankinfo[mo]["all"]["events"], "events") + " events, " + strf(rankinfo[mo]["all"]["players"], "players") + " players, " + strf(rankinfo[mo]["all"]["moves"], "moves") + " moves, " + strf(rankinfo[mo]["all"]["games"], "games") + " games, " + strf(rankinfo[mo]["all"]["points"], "points") + " points.</li>\n")
+				ofile.write("\t\t\t<li><span style='color: #BF811D;'><span style='font-family: lichess;'>" + vaordicon[va] + "</span> &nbsp;" + variant[va] + ":</span> &nbsp; " + strf(rankinfo[va]["all"]["events"], "events") + " events, " + strf(rankinfo[va]["all"]["players"], "players") + " players, " + strf(rankinfo[va]["all"]["moves"], "moves") + " moves, " + strf(rankinfo[va]["all"]["games"], "games") + " games, " + strf(rankinfo[va]["all"]["points"], "points") + " points.</li>\n")
 			ofile.write("\t\t</ul>\n")
 			ofile.write("\t\t<p>Partitioning the events included in the rankings by type, we unsurprisingly see that there were many more hourly arenas than yearly arenas. At the same time yearly arenas are more special (and generally last longer) and therefore get more participants per event than hourly arenas.</p>\n")
 			ofile.write("\t\t<ul style='list-style-type:none;'>\n")
@@ -524,10 +618,10 @@ for oth in others:
 			ofile.write("\t\t<h2 class='head'>Event statistics</h2>\n")
 			ofile.write("\t\t<p>The tables below summarize various statistics per game type and per event type of arena tournaments. We briefly discuss some things one may conclude from these tables below.</p>\n")
 			ofile.write("\t\t<ul>\n")
-			ofile.write("\t\t\t<li><span class='title'>Average participants per event:</span> Overall, the average number of participants per event is <span class='dgreen'>165 players</span>. The yearly average grew from 32 in 2014 to 281 in 2020. Overall, rapid events see the most participants on average, and whereas all standard time controls have an average participation of >100 (and >90 for chess 960), all non-standard chess variants have an average of only <60 players per event.</li>\n")
-			ofile.write("\t\t\t<li><span class='title'>Average ratings per event:</span> While average ratings across Lichess may be around 1500, tournaments seem to have a bias towards higher-rated players. As lower-rated players have no chance of winning these events, they may prefer matchmaking over random arena pairings where they lose most of their games. Overall, the average rating in events is around <span class='dgreen'>1750</span>, with slightly higher averages in faster time controls and in crazyhouse. As for types of events with higher averages, we naturally see peaks for titled arenas and elite arenas, which are only open to high-rated players.</li>\n")
-			ofile.write("\t\t\t<li><span class='title'>Average points per player per event:</span> Overall, an average arena participant scored around <span class='dgreen'>8 points</span>. With many players joining for only a few games, and some players playing the entire events and scoring many points, the median might be significantly lower. The average number of points is highest for quick time controls, where it is easier to play many games in a short amount of time.</li>\n")
-			ofile.write("\t\t\t<li><span class='title'>Maximum points achieved in one event:</span> Looking only at the highest scores ever achieved in arenas, we see that the highest score ever achieved was by <span class='title'>GM</span> <a href='https://lichess.org/@/penguingim1'>penguingim1</a> in one of the bullet marathons, scoring <span class='dgreen'>1645</span> points. (As explained on the page with <a href='special.html'>special events</a> this is not the maximum score ever achieved, as six players have scored over 2000 points in 24-hour hyperbullet events.)</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Average participants per event:</span> Overall, the average number of participants per event is <span class='dgreen'>" + str(round(rankinfo["all"]["all"].get("participants", 0) / rankinfo["all"]["all"].get("events", 1))) + " players</span>. The yearly average grew from " + str(round(rankinfo["all"]["2014"].get("participants", 0) / rankinfo["all"]["2014"].get("events", 1))) + " in 2014 to " + str(round(rankinfo["all"]["2021"].get("participants", 0) / rankinfo["all"]["2021"].get("events", 1))) + " in 2021. Overall, rapid events see the most participants on average, and whereas all standard time controls have an average participation of over 100 players (and around 90 for chess 960), all non-standard chess variants have an average of fewer than 60 players per event.</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Average ratings per event:</span> While average ratings across Lichess may be around 1500, tournaments seem to have a bias towards higher-rated players. As lower-rated players have no chance of winning these events, they may prefer matchmaking over random arena pairings where they lose most of their games. Overall, the average rating in events is around <span class='dgreen'>" + str(round(rankinfo["all"]["all"].get("totrating", 0) / rankinfo["all"]["all"].get("participants", 1))) + "</span>, with slightly higher averages in faster time controls and in crazyhouse. As for types of events with higher averages, we naturally see peaks for titled arenas and elite arenas, which are only open to high-rated players.</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Average points per player per event:</span> Overall, an average arena participant scored around <span class='dgreen'>" + str(round(rankinfo["all"]["all"].get("points", 0) / rankinfo["all"]["all"].get("participants", 1))) + " points</span>. With many players joining for only a few games, and some players playing the entire events and scoring many points, the median is even lower. The average number of points is highest for quick time controls, where it is easier to play many games in a short amount of time.</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Maximum points achieved in one event:</span> Looking only at the highest scores ever achieved in arenas, we see that the highest score ever achieved was by <span class='title'>GM</span> <a href='https://lichess.org/@/penguingim1'>penguingim1</a> in one of the bullet marathons, scoring <span class='dgreen'>1645 points</span>. (As explained on the page with <a href='special.html'>special events</a> this is not the maximum score ever achieved, as six players have scored over 2000 points in 24-hour hyperbullet events.)</li>\n")
 			ofile.write("\t\t</ul>\n")
 			#ofile.write("\t\t<p>Average participants per event:</p>\n")
 			ofile.write("\t\t<h2 class='stats'>Average participants per event</h2>\n")
@@ -546,10 +640,10 @@ for oth in others:
 			ofile.write("\t\t<h2 class='head'>Game statistics</h2>\n")
 			ofile.write("\t\t<p>Finally, below are some tables listing game statistics per game type and per event type. We again briefly highlight some things one might observe in these tables.</p>\n")
 			ofile.write("\t\t<ul>\n")
-			ofile.write("\t\t\t<li><span class='title'>Average moves per player per game:</span> On average, games played in all these events lasted around <span class='dgreen'>33 moves</span>. In terms of variants, both extremely short (ultrabullet) and long time controls (classical) have a slightly lower average than \"medium\" time controls such as superblitz or blitz. Of the variants, racing kings (14), atomic (16), and three-check (18) have the lowest average moves per game due to the nature of these variants, while in horde (46) the average is significantly higher than for standard chess games. With the higher average rating and with more at stake, titled arenas (and elite arenas) have a higher average number of moves per game as well.</li>\n")
-			ofile.write("\t\t\t<li><span class='title'>Average score of white players:</span> While white may have a slight edge in chess in general, a (large) difference in playing strength will easily offset this small advantage. Overall, in all arenas combined, white players have scored approximately <span class='dgreen'>51%</span>. White still scores slightly more than 50% in (almost) all events, except in horde, where the black player seems to have a slight edge over white. We further notice a slightly larger win percentage for white in atomic, three-check, and crazyhouse, and due to the higher level of play and the narrower range of playing strengths in these events, in both elite arenas and titled arenas white players score slightly better with a 52% score.</li>\n")
-			ofile.write("\t\t\t<li><span class='title'>Average percentage of draws:</span> As most tournaments are open to a wide range of ratings, and as shorter games played online are more often decisive, it is no surprise that the overall percentage of draws is only around <span class='dgreen'>3%</span>. This percentage is even lower at faster time controls and some variants like crazyhouse and three-check, while racing kings has a remarkably high draw percentage of around 10%.</li>\n")
-			ofile.write("\t\t\t<li><span class='title'>Average percentage of berserked games:</span> On average, players choose the berserk option in around <span class='dgreen'>11%</span> of their arena games. This percentage is slightly higher (20% or more) for slow time controls, since losing half the clock time still leaves plenty of time to play a serious game. In non-standard chess variants, berserking seems especially popular in atomic and racing kings events, a statistic which may be closely related to the lower average game lengths in these variants; if games are often decided in fewer moves, losing time on the clock is not as important as for long games played in e.g. horde arenas.</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Average moves per player per game:</span> On average, games played in all these events lasted around <span class='dgreen'>" + str(round(rankinfo["all"]["all"].get("moves", 0) / rankinfo["all"]["all"].get("games", 1) / 2)) + " moves</span>. In terms of variants, both extremely short (ultrabullet) and long time controls (classical) have a slightly lower average than \"medium\" time controls such as superblitz or blitz. Of the variants, racing kings (14), atomic (16), and three-check (18) have the lowest average moves per game due to the nature of these variants, while in horde (46) the average is significantly higher than for standard chess games. With the higher average rating and with more at stake, titled arenas (and elite arenas) have a higher average number of moves per game as well.</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Average score of white players:</span> While white may have a slight edge in chess in general, a (large) difference in playing strength will easily offset this small advantage. Overall, in all arenas combined, white players have scored approximately <span class='dgreen'>" + str(round(100 * rankinfo["all"]["all"].get("wwins", 0) / rankinfo["all"]["all"].get("games", 1) + 100 * (rankinfo["all"]["all"].get("games", 0) - rankinfo["all"]["all"].get("wwins", 0) - rankinfo["all"]["all"].get("bwins", 0)) / rankinfo["all"]["all"].get("games", 1) / 2)) + "%</span>. White still scores slightly more than 50% in (almost) all events, except in horde, where the black player seems to have a slight edge over white. We further notice a slightly larger win percentage for white in atomic, three-check, and crazyhouse, and due to the higher level of play and the narrower range of playing strengths in these events, in both elite arenas and titled arenas white players score slightly better with a 52% score.</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Average percentage of draws:</span> As most tournaments are open to a wide range of ratings, and as shorter games played online are more often decisive, it is no surprise that the overall percentage of draws is only around <span class='dgreen'>" + str(round(100 * (rankinfo["all"]["all"].get("games", 0) - rankinfo["all"]["all"].get("wwins", 0) - rankinfo["all"]["all"].get("bwins", 0)) / rankinfo["all"]["all"].get("games", 1))) + "%</span>. This percentage is even lower at faster time controls and some variants like crazyhouse and three-check, while racing kings has a remarkably high draw percentage of around 10%.</li>\n")
+			ofile.write("\t\t\t<li><span class='title'>Average percentage of berserked games:</span> On average, players choose the berserk option in around <span class='dgreen'>" + str(round(100 * rankinfo["all"]["all"].get("berserks", 0) / rankinfo["all"]["all"].get("games", 1) / 2)) + "%</span> of their arena games. This percentage is slightly higher (20% or more) for slow time controls, since losing half the clock time still leaves plenty of time to play a serious game. In non-standard chess variants, berserking seems especially popular in atomic and racing kings events, a statistic which may be closely related to the lower average game lengths in these variants; if games are often decided in fewer moves, losing time on the clock is not as important as for long games played in e.g. horde arenas.</li>\n")
 			ofile.write("\t\t</ul>\n")
 			ofile.write("\t\t<h2 class='stats'>Average moves per player per game</h2>\n")
 			favgmoves = lambda r, m, e: (strf(round(r[m][e].get("moves", 0) / r[m][e].get("games", 1) / 2), "moves")) if "moves" in r[m][e] else "-"
