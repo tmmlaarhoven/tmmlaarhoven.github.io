@@ -6,187 +6,19 @@ import collections
 import os.path
 import ndjson
 import json
+import math
 import datetime
 
-# Update ranking information for a player based on new ranking information
-def updateplayer(udata, prank, tdata):
-	udata["ranking"] = 0
-	udata["score"] = udata.get("score", 0) + prank["score"]
-	udata["events"] = udata.get("events", 0) + 1
-	if not "first" in udata:
-		udata["first"] = tdata["start"]
-		udata["firstid"] = tdata["id"]
-	udata["last"] = tdata["start"]
-	udata["lastid"] = tdata["id"]
-	if prank["score"] >= udata.get("maxscore", -1):
-		udata["maxscore"] = prank["score"]
-		udata["maxid"] = tdata["id"]
-	if prank["rank"] <= udata.get("maxrank", 1000000):
-		udata["maxrank"] = prank["rank"]
-		udata["maxrankid"] = tdata["id"]
-	udata["username"] = prank["username"]
-	if "title" in prank:
-		udata["title"] = prank["title"]
-	if prank["rank"] == 1:
-		udata["#1"] = udata.get("#1", 0) + 1
-	if prank["rank"] == 2:
-		udata["#2"] = udata.get("#2", 0) + 1
-	if prank["rank"] == 3:
-		udata["#3"] = udata.get("#3", 0) + 1
-	if prank["score"] == 0:
-		udata["0s"] = udata.get("0s", 0) + 1
+APIToken = ""
+with open("E:\\lichess\\APIToken.txt", "r") as TokenFile:
+	for Line in TokenFile:
+		APIToken = Line.strip()
 
-# Merge ranking information for a player based on two rankings (update to first)
-# ASSUMPTION: BOTH EXIST
-def mergeplayer(udata, udata2):
-	udata["ranking"] = 0
-	udata["score"] = udata.get("score", 0) + udata2.get("score", 0)
-	udata["events"] = udata.get("events", 0) + udata2.get("events", 0)
-	if udata.get("first", "2100-01-01") >= udata2.get("first", "2100-01-01"):
-		udata["first"] = udata2["first"]
-		udata["firstid"] = udata2["firstid"]
-	if udata.get("last", "1900-01-01") <= udata2.get("last", "1900-01-01"):
-		udata["last"] = udata2["last"]
-		udata["lastid"] = udata2["lastid"]
-	if udata.get("maxscore", -1) <= udata2.get("maxscore", -1):
-		udata["maxscore"] = udata2["maxscore"]
-		udata["maxid"] = udata2["maxid"]
-	udata["maxrank"] = min(udata.get("maxrank", 1000000), udata2.get("maxrank", 1000000))
-	if "title" in udata2:
-		udata["title"] = udata2["title"]
-	if ("#1" in udata) or ("#1" in udata2):
-		udata["#1"] = udata.get("#1", 0) + udata2.get("#1", 0)
-	if ("#2" in udata) or ("#2" in udata2):
-		udata["#2"] = udata.get("#2", 0) + udata2.get("#2", 0)
-	if ("#3" in udata) or ("#3" in udata2):
-		udata["#3"] = udata.get("#3", 0) + udata2.get("#3", 0)
-	if ("0s" in udata) or ("0s" in udata2):
-		udata["0s"] = udata.get("0s", 0) + udata2.get("0s", 0)
+PathData = "E:\\lichess\\tournaments\\data\\"
+PathRank = "E:\\lichess\\tournaments\\rankings\\"
+PathWeb = "E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\"
 
-# Update global ranking information based on new tournament ranking
-def updatestats(rdata, tdata):
-	rdata["events"] = rdata.get("events", 0) + 1
-	rdata["participants"] = rdata.get("participants", 0) + tdata["players"]
-	rdata["games"] = rdata.get("games", 0) + tdata["games"]
-	rdata["moves"] = rdata.get("moves", 0) + tdata["moves"]
-	rdata["wwins"] = rdata.get("wwins", 0) + tdata["wwins"]
-	rdata["bwins"] = rdata.get("bwins", 0) + tdata["bwins"]
-	rdata["berserks"] = rdata.get("berserks", 0) + tdata["berserks"]
-	rdata["totrating"] = rdata.get("totrating", 0) + tdata["totrating"]
-	if not "firstid" in rdata:
-		rdata["firststart"] = tdata["start"]
-		rdata["firstid"] = tdata["id"]
-	rdata["laststart"] = tdata["start"]
-	rdata["lastid"] = tdata["id"]
-	if tdata["players"] > rdata.get("maxusers", 0):
-		rdata["maxusers"] = tdata["players"]
-		rdata["maxusersid"] = tdata["id"]
-	if tdata["topscore"] > rdata.get("topscore", 0):
-		rdata["topscore"] = tdata["topscore"]
-		rdata["topid"] = tdata["id"]
-		rdata["topuser"] = tdata["#1"]
-		
-# Merge global ranking information based on two rankings
-def mergestats(rdata, rdata2):
-	rdata["events"] = rdata.get("events", 0) + rdata2["events"]
-	rdata["participants"] = rdata.get("participants", 0) + rdata2["participants"]
-	rdata["points"] = rdata.get("points", 0) + rdata2["points"]
-	rdata["games"] = rdata.get("games", 0) + rdata2["games"]
-	rdata["moves"] = rdata.get("moves", 0) + rdata2["moves"]
-	rdata["wwins"] = rdata.get("wwins", 0) + rdata2["wwins"]
-	rdata["bwins"] = rdata.get("bwins", 0) + rdata2["bwins"]
-	rdata["berserks"] = rdata.get("berserks", 0) + rdata2["berserks"]
-	rdata["totrating"] = rdata.get("totrating", 0) + rdata2["totrating"]
-	if rdata.get("firststart", "2100-01-01") > rdata2["firststart"]:
-		rdata["firststart"] = rdata2["firststart"]
-		rdata["firstid"] = rdata2["firstid"]
-	if rdata.get("laststart", "1900-01-01") < rdata2["laststart"]:
-		rdata["laststart"] = rdata2["laststart"]
-		rdata["lastid"] = rdata2["lastid"]
-	if rdata.get("maxusers", -1) < rdata2["maxusers"]:
-		rdata["maxusers"] = rdata2["maxusers"]
-		rdata["maxusersid"] = rdata2["maxusersid"]
-	if rdata.get("topscore", -1) < rdata2["topscore"]:
-		rdata["topscore"] = rdata2["topscore"]
-		rdata["topid"] = rdata2["topid"]
-		rdata["topuser"] = rdata2["topuser"]
-
-# Store rankings in files in different orders, and only partial lists for some...
-def storerankings(rdata, ndata, va, ev):
-
-	# 4: Print results back to json
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "w") as jf:
-		jf.write(json.dumps(rdata))
-		
-	# 4: Re-sort rankings for proper ordering -- ONLY FULL RANKING, REST IS PARTIAL
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "w") as nf:
-		for index, userkey in enumerate(ndata):
-			ndata[userkey]["ranking"] = index + 1
-			nf.write(json.dumps(ndata[userkey]) + "\n")
-
-	# 4: Re-sort rankings for medal-based ordering
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: 100000000*item[1].get("#1", 0) + 10000*item[1].get("#2", 0) + item[1].get("#3", 0), reverse = True)}
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_trophies.ndjson", "w") as nf:
-		for index, userkey in enumerate(ndata):
-			ndata[userkey]["ranking"] = index + 1
-			nf.write(json.dumps(ndata[userkey]) + "\n")
-			if ndata[userkey]["ranking"] == 1000:
-				break
-
-	# 4: Re-sort rankings for activeness ordering
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["events"] - item[1].get("0s", 0), reverse = True)}
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_events.ndjson", "w") as nf:
-		for index, userkey in enumerate(ndata):
-			ndata[userkey]["ranking"] = index + 1
-			nf.write(json.dumps(ndata[userkey]) + "\n")
-			if ndata[userkey]["ranking"] == 1000:
-				break
-			
-	# 4: Re-sort rankings for aaverages
-	#ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
-	#ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"] / max(1, item[1]["events"] - item[1].get("0s", 0)), reverse = True)}
-	#with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson", "w") as nf:
-	#	for index, userkey in enumerate(ndata):
-	#		ndata[userkey]["ranking"] = index + 1
-	#		nf.write(json.dumps(ndata[userkey]) + "\n")
-	#		if ndata[userkey]["ranking"] == 1000:
-	#			break
-	if os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson"):
-		os.remove(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_average.ndjson")
-		print(va + " - " + ev + " - Removing ranking_average...")
-			
-	# 4: Re-sort rankings for maximum-based ordering
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["score"], reverse = True)}
-	ndata = {k: v for k, v in sorted(ndata.items(), key = lambda item: item[1]["maxscore"], reverse = True)}
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_maximum.ndjson", "w") as nf:
-		for index, userkey in enumerate(ndata):
-			ndata[userkey]["ranking"] = index + 1
-			nf.write(json.dumps(ndata[userkey]) + "\n")
-			if ndata[userkey]["ranking"] == 1000:
-				break
-
-event = {
-	"1300": "&lt;1300",
-	"1500": "&lt;1500",
-	"1600": "&lt;1600",
-	"1700": "&lt;1700",
-	"2000": "&lt;2000",
-	"hourly": "Hourly",
-	"daily": "Daily",
-	"weekly": "Weekly",
-	"monthly": "Monthly",
-	"yearly": "Yearly",
-	"eastern": "Eastern",
-	"elite": "Elite",
-	"shield": "Shield",
-	"titled": "Titled",
-	"marathon": "Marathon"
-}
-
-variant = {
+Variants = {
 	"3check": "Three-check",
 	"antichess": "Antichess",
 	"atomic": "Atomic",
@@ -204,395 +36,472 @@ variant = {
 	"ultrabullet": "UltraBullet"
 }
 
-fpath = "E:\\lichess\\tournaments\\"
-frpath = "E:\\lichess\\tournaments\\rankings\\"
+Events = {
+	"1300": "&lt;1300",
+	"1500": "&lt;1500",
+	"1600": "&lt;1600",
+	"1700": "&lt;1700",
+	"2000": "&lt;2000",
+	"hourly": "Hourly",
+	"daily": "Daily",
+	"weekly": "Weekly",
+	"monthly": "Monthly",
+	"yearly": "Yearly",
+	"eastern": "Eastern",
+	"elite": "Elite",
+	"shield": "Shield",
+	"titled": "Titled",
+	"marathon": "Marathon"
+}
 
-curyear = datetime.datetime.now().year
+def Prefix(V, E):
+	return V + "_" + E + "_"
 
-# Standard rankings: event/variant totals
-for va in variant:
-	for ev in event:
+def Folder(V, E):
+	return V + "\\" + E + "\\"
 	
-		print(va + " - " + ev + " - Running...")
+def PrintMessage(V, E, Message):
+	print("{:<11}".format(V) + " - {:<8}".format(E) + " - " + Message)
 
-		pref = ev + "_" + va + "_"
-		folder = ev + "\\" + va + "\\"
-		
-		# 1: Skip if no detailed tournament info file found (some might not yet be downloaded)
-		if not os.path.exists(fpath + folder + ev + "_" + va + ".ndjson"):
-			print(va + " - " + ev + " - No rankings.")
-			continue
+# Update ranking information for a player based on new ranking information
+# - UserRank: Information about user in this ranking (custom)
+# - UserResult: The result of the user in some event (API-fetched)
+# - ArenaData: Auxiliary information about the event (custom)
+def UpdatePlayer(UserRank, UserResult, ArenaData):
+	UserRank["Ranking"] = 0
+	UserRank["Score"] = UserRank.get("Score", 0) + UserResult["score"]
+	UserRank["Events"] = UserRank.get("Events", 0) + 1
+	if not "First" in UserRank:
+		UserRank["First"] = ArenaData["Start"]
+		UserRank["FirstID"] = ArenaData["ID"]
+	UserRank["Last"] = ArenaData["Start"]
+	UserRank["LastID"] = ArenaData["ID"]
+	if UserRank.get("TopScore", -1) <= UserResult["score"]:
+		UserRank["TopScore"] = UserResult["score"]
+		UserRank["TopScoreID"] = ArenaData["ID"]
+	if UserRank.get("MaxRank", 1000000) >= UserResult["rank"]:
+		UserRank["MaxRank"] = UserResult["rank"]
+		UserRank["MaxRankID"] = ArenaData["ID"]
+	UserRank["Username"] = UserResult["username"]
+	if not "Trophies" in UserRank:
+		UserRank["Trophies"] = [0, 0, 0]
+	UserRank["Trophies"][0] = UserRank["Trophies"][0] + (1 if UserResult["rank"] == 1 else 0)
+	UserRank["Trophies"][1] = UserRank["Trophies"][1] + (1 if UserResult["rank"] == 2 else 0)
+	UserRank["Trophies"][2] = UserRank["Trophies"][2] + (1 if UserResult["rank"] == 3 else 0)
+	if "title" in UserResult:
+		UserRank["Title"] = UserResult["title"]
+	UserRank["Zeros"] = UserRank.get("Zeros", 0) + (1 if UserResult["score"] == 0 else 0)
 
-		# Create directory if it does not exist
-		if not os.path.exists(frpath + va + "\\" + ev):
-			print(va + " - " + ev + " - Creating directory " + frpath + va + "\\" + ev)
-			os.makedirs(frpath + va + "\\" + ev)
+# Update global ranking information based on new tournament ranking
+def UpdateStats(RankInfo, ArenaData):
+	RankInfo["Events"] = RankInfo.get("Events", 0) + 1
+	RankInfo["Participants"] = RankInfo.get("Participants", 0) + ArenaData["Players"]
+	RankInfo["Games"] = RankInfo.get("Games", 0) + ArenaData["Games"]
+	RankInfo["Moves"] = RankInfo.get("Moves", 0) + ArenaData["Moves"]
+	RankInfo["WhiteWins"] = RankInfo.get("WhiteWins", 0) + ArenaData["WhiteWins"]
+	RankInfo["BlackWins"] = RankInfo.get("BlackWins", 0) + ArenaData["BlackWins"]
+	RankInfo["Berserks"] = RankInfo.get("Berserks", 0) + ArenaData["Berserks"]
+	RankInfo["TotalPoints"] = RankInfo.get("TotalPoints", 0) + ArenaData["TotalPoints"]
+	RankInfo["TotalRating"] = RankInfo.get("TotalRating", 0) + ArenaData["TotalRating"]
+	if not "FirstID" in RankInfo:
+		RankInfo["FirstStart"] = ArenaData["Start"]
+		RankInfo["FirstID"] = ArenaData["ID"]
+	RankInfo["LastStart"] = ArenaData["Start"]
+	RankInfo["LastID"] = ArenaData["ID"]
+	if ArenaData["Players"] > RankInfo.get("MaxUsers", 0):
+		RankInfo["MaxUsers"] = ArenaData["Players"]
+		RankInfo["MaxUsersID"] = ArenaData["ID"]
+	if ArenaData["TopScore"] > RankInfo.get("TopScore", 0):
+		RankInfo["TopScore"] = ArenaData["TopScore"]
+		RankInfo["TopScoreID"] = ArenaData["ID"]
+		RankInfo["TopUser"] = ArenaData["#1"]
+
+# Store rankings in files in different orders, and only partial lists for some...
+def StoreRankings(RankInfo, ArenaList, Ranking, V, E):
+
+	ListUsernamesAll = dict()
+	ListUsernamesPlots = dict()
+
+	# 4: Print results back to json
+	with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking.json", "w") as RankInfoFile:
+		RankInfoFile.write(json.dumps(RankInfo))
 		
-		# 2: Load previous ranking, info json and ranking ndjson
-		if os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") and os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
-			with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
-				rdata = json.load(jf)
-			#ndata = []
-			ndatap = dict()
-			with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
-				dictio = dict()
-				for line in nf:
-					dictio = json.loads(line)
-					ndatap[dictio["username"].lower()] = dictio
-		else:
-			rdata = dict()
-			#ndata = []
-			ndatap = dict()
-		
-		# rdata = {"events": 200, "participants": 50240, "players": 12104, "games": 1239052, "moves": 2130935, "firststart": "2014-...", "laststart": "2020-...", "lastid": "s923RMW4", "wwins": 11, "bwins": 12, "maxusers": 12340, "topscore": 123}
-		# ndata = [{}, ..., {"ranking": 7, "score": 4102, "username": "thijscom", "title": "FM", "events": 23, "firstevent": 4, "lastevent": 123, "#1": 0, "#2": 1, "#3": 0, "maxscore": 12, "0s": 3, "maxrank": 5}, ...]
-		# ndatap = {{}, ..., "thijscom": {}, ...}
-		
-		# 3: Scroll through tournament info file until new tournaments are found, then update from each file
-		with open(fpath + folder + ev + "_" + va + ".ndjson", "r") as tf:
+	# 4: Re-sort rankings for proper ordering -- ONLY FULL RANKING, REST IS PARTIAL		item = (Ranking[key], Ranking[value])
+	Ranking = {k: v for k, v in sorted(Ranking.items(), key = lambda item: item[1]["Score"], reverse = True)}
+	with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking_points.ndjson", "w") as RankFile:
+		for Index, UserID in enumerate(Ranking):
+			Ranking[UserID]["Ranking"] = Index + 1
+			RankFile.write(json.dumps(Ranking[UserID]) + "\n")
+			if Index < 10:
+				ListUsernamesPlots[UserID.lower()] = UserID.lower()
+			if Index < 100:
+				ListUsernamesAll[UserID.lower()] = UserID.lower()
+
+	# 4: Re-sort rankings for medal-based ordering
+	Ranking = {k: v for k, v in sorted(Ranking.items(), key = lambda item: item[1]["Score"], reverse = True)}
+	Ranking = {k: v for k, v in sorted(Ranking.items(), key = lambda item: 100000000*item[1]["Trophies"][0] + 10000*item[1]["Trophies"][1] + item[1]["Trophies"][2], reverse = True)}
+	with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking_trophies.ndjson", "w") as RankFile:
+		for Index, UserID in enumerate(Ranking):
+			Ranking[UserID]["Ranking"] = Index + 1
+			RankFile.write(json.dumps(Ranking[UserID]) + "\n")
+			if Index < 10:
+				ListUsernamesPlots[UserID.lower()] = UserID.lower()
+			if Index < 100:
+				ListUsernamesAll[UserID.lower()] = UserID.lower()
+			if Index == 999:
+				break
+
+	# 4: Re-sort rankings for activeness ordering
+	Ranking = {k: v for k, v in sorted(Ranking.items(), key = lambda item: item[1]["Score"], reverse = True)}
+	Ranking = {k: v for k, v in sorted(Ranking.items(), key = lambda item: item[1]["Events"] - item[1].get("Zeros", 0), reverse = True)}
+	with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking_events.ndjson", "w") as RankFile:
+		for Index, UserID in enumerate(Ranking):
+			Ranking[UserID]["Ranking"] = Index + 1
+			RankFile.write(json.dumps(Ranking[UserID]) + "\n")
+			if Index < 10:
+				ListUsernamesPlots[UserID.lower()] = UserID.lower()
+			if Index < 100:
+				ListUsernamesAll[UserID.lower()] = UserID.lower()
+			if Index == 999:
+				break
 			
-			# Do sanity check that last tournament in previous ranking is indeed the Nth in the tournament file
-			if ("events" in rdata) and ("lastid" in rdata):
-				for i in range(rdata["events"] - 1):
-					next(tf)
-				print(va + " - " + ev + " - Skipping " + str(rdata["events"]) + " events...")
-				ptour = json.loads(tf.readline())
-				# check if tournament is consistent
-				if not (ptour["id"] == rdata["lastid"]):
-					print("Error: last id wrong")
-					time.sleep(1000000)
+	# 4: Re-sort rankings for maximum-based ordering
+	Ranking = {k: v for k, v in sorted(Ranking.items(), key = lambda item: item[1]["Score"], reverse = True)}
+	Ranking = {k: v for k, v in sorted(Ranking.items(), key = lambda item: item[1]["TopScore"], reverse = True)}
+	with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking_maximum.ndjson", "w") as RankFile:
+		for Index, UserID in enumerate(Ranking):
+			Ranking[UserID]["Ranking"] = Index + 1
+			RankFile.write(json.dumps(Ranking[UserID]) + "\n")
+			if Index < 10:
+				ListUsernamesPlots[UserID.lower()] = UserID.lower()
+			if Index < 100:
+				ListUsernamesAll[UserID.lower()] = UserID.lower()
+			if Index == 999:
+				break
+
+
+	UpdatePlayers(V, E, ListUsernamesAll, ListUsernamesPlots, RankInfo, ArenaList, Ranking)
+		
+		
+
+# Given variant V and event E, update rankings for this combination
+def UpdateRankings(V, E, TargetIDs = []):
+
+	NewList = []
+	PrintMessage(V, E, "Running...")
+	
+	if (V == "all" or E == "all") and (len(TargetIDs) == 0):
+		PrintMessage(V, E, "Already up to date.")
+		#return None
+
+	# 1: Skip if no detailed tournament info file found (some might not yet be downloaded)
+	if (V != "all") and (E != "all") and (not os.path.exists(PathData + Folder(V, E) + V + "_" + E + ".ndjson")):
+		PrintMessage(V, E, "No rankings.")
+		return NewList
+	
+	# 2: Create directory if it does not exist
+	if not os.path.exists(PathRank + Folder(V, E)):
+		PrintMessage(V, E, "Creating directory " + PathRank + Folder(V, E) + ".")
+		os.makedirs(PathRank + Folder(V, E))
+	
+	# 3: Load previous ranking info json in RankInfo, and ranking arena list ndjson in ArenaList
+	# RankInfo = {"Events": 200, "Participants": 50240, "Players": 12104, "Games": 1239052, "Moves": 2130935, ...}
+	RankInfo = dict()
+	if os.path.exists(PathRank + Folder(V, E) + Prefix(V, E) + "ranking.json"): 
+		with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking.json", "r") as RankInfoFile:
+			RankInfo = json.load(RankInfoFile)
+	
+	# 4: Load previous list of arenas included in the rankings in ArenaList
+	# ArenaList = {"sdk340sd": {"ID": "sdk340sd", ...}, ...}
+	ArenaList = dict()
+	if os.path.exists(PathRank + Folder(V, E) + Prefix(V, E) + "ranking.ndjson"):	
+		with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking.ndjson", "r") as RankListFile:
+			for Line in RankListFile:
+				ArenaData = json.loads(Line)			
+				ArenaList[ArenaData["ID"]] = ArenaData
+	
+	# 5: Load actual previous ranking ndjson in Ranking 
+	# Ranking = {"johnny": {"Ranking": 1, "Score": 5312, "Events": 123, "Username": "johnny", ...}, ..., "thijscom": {}, ...}
+	Ranking = dict()
+	if os.path.exists(PathRank + Folder(V, E) + Prefix(V, E) + "ranking_points.ndjson"):	
+		with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking_points.ndjson", "r") as RankFile:
+			UserRank = dict()
+			for Line in RankFile:
+				UserRank = json.loads(Line)
+				Ranking[UserRank["Username"].lower()] = UserRank
+	
+	# 6: Checks for internal consistency of existing rankings
+	if len(ArenaList) > 0:
+		assert(len(Ranking) > 0), "Inconsistent ranking files. No users in rankings."
+		assert("Events" in RankInfo), "Inconsistent ranking files. No entry Events in RankInfo."
+		assert("FirstID" in RankInfo), "Inconsistent ranking files. No entry FirstID in RankInfo."
+		assert("LastID" in RankInfo), "Inconsistent ranking files. No entry LastID in RankInfo."
+		#assert(RankInfo["Events"] == len(ArenaList)), f"Inconsistent ranking files. Unequal number of events. {RankInfo['Events']} != {len(ArenaList)}"
+		#assert(RankInfo["FirstID"] in ArenaList), "Inconsistent ranking files. Unequal first IDs."
+		#assert(RankInfo["LastID"] in ArenaList), "Inconsistent ranking files. Unequal last IDs."
+	
+	# 7: Scroll through more up to date tournament info file until new tournaments are found, then update from corresponding results file
+	if V != "all" and E != "all":
+		with open(PathData + Folder(V, E) + V + "_" + E + ".ndjson", "r") as RankListFile:
+			
+			# Do sanity check that last tournament in previous ranking is indeed the Nth in the tournament file (only for pure rankings)
+			if ("Events" in RankInfo) and ("LastID" in RankInfo) and (V != "all") and (E != "all"):
+				for i in range(RankInfo["Events"] - 1):
+					next(RankListFile)
+				PrintMessage(V, E, "Skipping " + str(RankInfo["Events"]) + " events...")
+				ArenaInfo = json.loads(RankListFile.readline())
+				assert(ArenaInfo["ID"] == RankInfo["LastID"]), "Inconsistent ranking files. Last ID does not match data file."
 				
 			# Process remaining lines by updating rankings
-			newprocessed = 0
-			for line in tf:
+			NewProcessed = 0
+			for Line in RankListFile:
 				
 				# Load tournament info
-				tdata = json.loads(line)
-				print(va + " - " + ev + " - New event: " + tdata["id"])
+				ArenaData = json.loads(Line)
+				#if (V == "all") or (E == "all"):
+				#	if ArenaData["ID"] in ArenaList:
+				#		continue
+				#	else:
+				#		PrintMessage(V, E, "New event: " + ArenaData["ID"] + ".")
+				#		NewList.append(ArenaData)
+				#else:
+				PrintMessage(V, E, "New event: " + ArenaData["ID"] + ".")
+				NewList.append(ArenaData)
+				assert(not ArenaData["ID"] in ArenaList), "Inconsistent rankings. New tournament ID already included."
 				
 				# Update global statistics
-				updatestats(rdata, tdata)
+				UpdateStats(RankInfo, ArenaData)
+				ArenaList[ArenaData["ID"]] = ArenaData
 				
-				# Load tournament rankings
-				with open(fpath + folder + pref + tdata["id"] + ".ndjson", "r") as tfile:
-					for line in tfile:
-						prank = json.loads(line)
-						# prank: {"rank": 1, "score": 36, "rating": 2267, "username": "kasparovsabe", "title": "FM", "performance": 2454}
-						userkey = prank["username"].lower()
-						if not userkey in ndatap:
+				# Load tournament results
+				with open(PathData + Folder(V, E) + Prefix(V, E) + ArenaData["ID"] + ".ndjson", "r") as ResultsFile:
+					for Line in ResultsFile:
+						UserResult = json.loads(Line)
+						# UserResult: {"rank": 1, "score": 36, "rating": 2267, "username": "kasparovsabe", "title": "FM", "performance": 2454}
+						UserID = UserResult["username"].lower()
+						if not UserID in Ranking:
 							# New player
-							ndatap[userkey] = dict()
-							rdata["players"] = rdata.get("players", 0) + 1
+							Ranking[UserID] = dict()
+							RankInfo["Players"] = RankInfo.get("Players", 0) + 1
 						
 						# Update player information
-						updateplayer(ndatap[userkey], prank, tdata)
-						ndatap[userkey]["username"] = prank["username"]
-						rdata["points"] = rdata.get("points", 0) + prank["score"]
+						UpdatePlayer(Ranking[UserID], UserResult, ArenaData)
+						Ranking[UserID]["Username"] = UserResult["username"]
 				
-				newprocessed += 1
-				if newprocessed % 1000 == 0:
-					print(va + " - " + ev + " - Intermediate dump after " + str(rdata["events"]) + " events.")
-					storerankings(rdata, ndatap, va, ev)
-		
-		if newprocessed >= 1:
-			print(va + " - " + ev + " - Final dump after " + str(rdata["events"]) + " events.")		
-			storerankings(rdata, ndatap, va, ev)
-		else:
-			print(va + " - " + ev + " - No new events found, so nothing to do.")		
-		
-	#######################################################################################
-	# Special rankings: (Yearly) overall rankings
-	#######################################################################################
+				# Update newly processed events, and do intermediate data dumps
+				NewProcessed += 1
+				if NewProcessed % 1000 == 0:
+					PrintMessage(V, E, "Intermediate dump after " + str(RankInfo["Events"]) + " events.")
+					StoreRankings(RankInfo, ArenaList, Ranking, V, E)
 	
-	for year in range(0):#range(2014, curyear + 1):
-		
-		print(va + " - " + str(year) + " - Running...")
-		
-		# 0: See if detailed list of tournaments or rankings already exists, then skip
-		if os.path.exists(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_events.ndjson") and os.path.exists(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_ranking.json") and os.path.exists(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_ranking_points.ndjson") and (not year == curyear):
-			print(va + " - " + str(year) + " - Ranking exists, skipping.")
-			continue
-		
-		# 1: Make detailed list of tournaments for this year, sorted by date
-		tlist = []
-		for ev in event:
-		
-			pref = ev + "_" + va + "_"
-			folder = ev + "\\" + va + "\\"
-			
-			# See if any tournaments for this event category must be considered
-			if not os.path.exists(fpath + folder + ev + "_" + va + ".ndjson"):
-				continue
-				
-			# Open detailed tournament list file, if it exists, and copy all entries for this year
-			with open(fpath + folder + ev + "_" + va + ".ndjson", "r") as tf:
-			
-				# Process lines to see which were played this year
-				for line in tf:
-					tdata = json.loads(line)			
-					if tdata["start"][:4] == str(year):
-						tdata["type"] = ev
-						tlist.append(tdata)
-					if int(tdata["start"][:4]) > year:
-						break
-			
-		# Continue if nothing is to be done anyway
-		if len(tlist) == 0:
-			print(va + " - " + str(year) + " - No events.")
-			continue
-			
-		# Create directory if it does not exist
-		if not os.path.exists(frpath + va + "\\" + str(year) + "\\"):
-			print(va + " - " + str(year) + " - Creating directory " + frpath + va + "\\" + str(year) + ".")
-			os.makedirs(frpath + va + "\\" + str(year) + "\\")	
-		
-		# Sort all events by date and store them in a file
-		tlist.sort(key = lambda v: v["start"])
-		with open(frpath + va + "\\" + str(year) + "\\" + va + "_" + str(year) + "_events.ndjson", "w") as outfile:
-			tnum = 0
-			for i in range(len(tlist)):
-				tnum += 1
-				tlist[i]["number"] = tnum
-				outfile.write(json.dumps(tlist[i]) + "\n")
-		
-		# 2: Make ranking based on all these tournaments
-		rdata = dict()
-		ndatap = dict()
-		for i in range(len(tlist)):
-			
-			# Load tournament info
-			tdata = tlist[i]
-			ev = tdata["type"]
-			pref = ev + "_" + va + "_"
-			folder = ev + "\\" + va + "\\"
+	# For mixed rankings, use list with tournament info/IDs to fetch relevant data
+	else:
+		NewProcessed = 0
+		for ArenaData in TargetIDs:
+			if (V == "all") or (E == "all"):
+				if ArenaData["ID"] in ArenaList:
+					continue
+				else:
+					PrintMessage(V, E, "New event: " + ArenaData["ID"] + ".")
+			else:
+				PrintMessage(V, E, "New event: " + ArenaData["ID"] + ".")
+				assert(not ArenaData["ID"] in ArenaList), "Inconsistent rankings. New tournament ID already included."
 			
 			# Update global statistics
-			updatestats(rdata, tdata)
-				
-			# Load tournament rankings
-			with open(fpath + folder + pref + tdata["id"] + ".ndjson", "r") as tfile:
-				for line in tfile:
-					prank = json.loads(line)
-					# prank: {"rank": 1, "score": 36, "rating": 2267, "username": "kasparovsabe", "title": "FM", "performance": 2454}
-					userkey = prank["username"].lower()
-					if not userkey in ndatap:
+			UpdateStats(RankInfo, ArenaData)
+			ArenaList[ArenaData["ID"]] = ArenaData
+			
+			# Load tournament results
+			Vx = ArenaData["Variant"]
+			Ex = ArenaData["Event"]
+			with open(PathData + Folder(Vx, Ex) + Prefix(Vx, Ex) + ArenaData["ID"] + ".ndjson", "r") as ResultsFile:
+				for Line in ResultsFile:
+					UserResult = json.loads(Line)
+					# UserResult: {"rank": 1, "score": 36, "rating": 2267, "username": "kasparovsabe", "title": "FM", "performance": 2454}
+					UserID = UserResult["username"].lower()
+					if not UserID in Ranking:
 						# New player
-						ndatap[userkey] = dict()
-						rdata["players"] = rdata.get("players", 0) + 1
-				
+						Ranking[UserID] = dict()
+						RankInfo["Players"] = RankInfo.get("Players", 0) + 1
+					
 					# Update player information
-					updateplayer(ndatap[userkey], prank, tdata)
-					rdata["points"] = rdata.get("points", 0) + prank["score"]
-		
-		print(va + " - " + str(year) + " - Final dump after " + str(rdata["events"]) + " events.")
-		storerankings(rdata, ndatap, va, str(year))
-		
-	#######################################################################################
-	# GLOBAL rankings: Add up all tournaments per variant (blitz, bullet, ...)
-	#######################################################################################
-	
-	print(va + " - all - Running...")
-	#time.pause(10000)				
-	# Create directory if it does not exist
-	if not os.path.exists(frpath + va + "\\all\\"):
-		print(va + " - all - Creating directory " + frpath + va + "\\all.")
-		os.makedirs(frpath + va + "\\all\\")	
-	
-	# Make detailed list of tournaments, sorted by date
-	tlist = []
-	for ev in event:
-		
-		# See if any tournaments for this event category must be considered
-		if not os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
-			continue
+					UpdatePlayer(Ranking[UserID], UserResult, ArenaData)
+					Ranking[UserID]["Username"] = UserResult["username"]
 			
-		# Open detailed tournament list file, if it exists, and copy all entries
-		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tf:
+			# Update newly processed events, and do intermediate data dumps
+			NewProcessed += 1
+			if NewProcessed % 1000 == 0:
+				PrintMessage(V, E, "Intermediate dump after " + str(RankInfo["Events"]) + " events.")
+				StoreRankings(RankInfo, ArenaList, Ranking, V, E)
+
+	# 9: If we did do something, update files
+	PrintMessage(V, E, "Final dump after " + str(RankInfo["Events"]) + " events.")		
+	StoreRankings(RankInfo, ArenaList, Ranking, V, E)
+
+	# 8: Wrap up -- Check if anything happened. If not, continue
+	if NewProcessed == 0:
+		PrintMessage(V, E, "No new events found, so nothing to do.")	
+		return NewList
 		
-			# Process lines
-			for line in tf:
-				tdata = json.loads(line)			
-				tdata["type"] = ev
-				tlist.append(tdata)
-	
-	# Sort all events by date and store them in a file
-	tlist.sort(key = lambda v: v["start"])
-	with open(frpath + va + "\\all\\" + va + "_all_events.ndjson", "w") as outfile:
-		tnum = 0
-		for i in range(len(tlist)):
-			tnum += 1
-			tlist[i]["number"] = tnum
-			outfile.write(json.dumps(tlist[i]) + "\n")
+	# Sort all events by date (should be unnecessary) and store them in a file
+	ArenaList = {k: v for k, v in sorted(ArenaList.items(), key = lambda item: item[1]["Start"], reverse = False)}
+	with open(PathRank + Folder(V, E) + Prefix(V, E) + "ranking.ndjson", "w") as RankListFile:
+		for Index, (ID, Arena) in enumerate(ArenaList.items()):
+			Arena["Number"] = Index + 1
+			RankListFile.write(json.dumps(Arena) + "\n")	
+
+	if V != "all" and E != "all":
+		return NewList
+	else:
+		return None
 	
 
-	# Add up rankings for different events
-	rdata = dict()
-	ndatap = dict()
-	for ev in event:
+# Function to update the player ranking file for variant V, event EOFError
+# **bullet_hourly_opperwezen.json**
+# {Variant: bullet, Event: hourly, Username: opperwezen, Events: 1813, LastID: ksdlk402, CumTrophies: [17,3,1], CumPoints: 1209, CumEvents: 87, CumTopScore: 23}
+# **bullet_hourly_opperwezen.ndjson**
+# {Number: 93, ID: 93kdf023, Start: 2014-02-15, CumTrophies: [1,0,0], CumPoints: 23, CumEvents: 1, CumTopScore: 23}
+# {Number: 105, ID: s09sdkjg, Start: 2014-02-17, CumTrophies: [2,0,0], CumPoints: 54, CumEvents: 2, CumTopScore: 31}
+# ...
+# {Number: 1791, ID: er0lsdk9, Start: 2018-10-03, CumTrophies: [17,3,1], CumPoints: 1209, CumEvents: 87, CumTopScore: 23}
+def UpdatePlayers(V, E, ListUsernamesAll, ListUsernamesPlots, RankInfo, ArenaList, Ranking, TargetIDs = []):
 	
-		# See if any tournaments for this event category must be considered
-		if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
-			continue
+	# Two methods: either we need to start from scratch and go through all events or files already exist, and we only update based on new events, either via TargetIDs or by just loading ranking
+	#if not os.file.exists(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + ListUsernames[0] + ".json") or not os.file.exists(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + Username + ".ndjson"):
+
+	if not os.path.exists(PathRank + Folder(V, E) + "players\\"):
+		os.makedirs(PathRank + Folder(V, E) + "players\\")
+	
+
+
+
+	# FOLLOWING CODE ONLY FOR WHEN STARTING FRESH OR WHEN SOME USERNAME HAS NO FILE
+	
+
+	
+	# Initialize empty JSON and NDJSON files
+	UserJSON = dict()
+	UserNDJSON = dict()
+	for Username in ListUsernamesAll:
+		UserID = Username.lower()
+		UserJSON[UserID] = dict()
+		UserJSON[UserID]["Variant"] = V
+		UserJSON[UserID]["Event"] = E
+		UserJSON[UserID]["Username"] = UserID
+		UserJSON[UserID]["Events"] = 0
+		UserJSON[UserID]["LastID"] = "-"
+		UserJSON[UserID]["CumTrophies"] = [0, 0, 0]
+		UserJSON[UserID]["CumPoints"] = 0
+		UserJSON[UserID]["CumEvents"] = 0
+		UserJSON[UserID]["CumTopScore"] = 0
+		UserNDJSON[UserID] = []
+	
+	# Go through all events in the ranking, and update JSON and NDJSON for this user
+	ArenaList = {k: v for k, v in sorted(ArenaList.items(), key = lambda item: item[1]["Start"], reverse = False)}
+	for Index, ID in enumerate(ArenaList):
+		UserJSON[UserID]["LastID"] = ID
+		Vp = ArenaList[ID]["Variant"]
+		Ep = ArenaList[ID]["Event"]
+		with open(PathData + Folder(Vp, Ep) + Prefix(Vp, Ep) + ID + ".ndjson", "r") as ResultsFile:
+			for Line in ResultsFile:
+				UserResult = json.loads(Line)
+				if UserResult["username"].lower() in map(lambda x: x.lower(), ListUsernamesAll) and UserResult["score"] > 0:
 					
-		# Merge ranking info from both rankings
-		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
-			rdata2 = json.load(jf)
-		mergestats(rdata, rdata2)
-
-		# Load new ranking
-		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
-			ndatap2 = dict()
-			for line in nf:
-				dictio = json.loads(line)
-				userkey = dictio["username"].lower()
-				if not userkey in ndatap:
-					ndatap[userkey] = dictio
-					rdata["players"] = rdata.get("players", 0) + 1
-				else:
-					mergeplayer(ndatap[userkey], dictio)
-		
-	print(va + " - all - Final dump after " + str(rdata["events"]) + " events.")
-	storerankings(rdata, ndatap, va, "all")
-
-#######################################################################################
-# GLOBAL rankings: Add up all tournaments per type (hourly, daily, elite, ...)
-#######################################################################################
-
-eventp = event.copy()
-#for year in range(2014, curyear + 1):
-#	eventp[str(year)] = str(year)
-
-for ev in eventp:
-
-	print("all - " + ev + " - Running...")
-				
-	# Create directory if it does not exist
-	if not os.path.exists(frpath + "all\\" + ev + "\\"):
-		print("all - " + ev + " - Creating directory " + frpath + "all\\" + ev + "\\.")
-		os.makedirs(frpath + "all\\" + ev + "\\")	
-	
-	# Make detailed list of tournaments, sorted by date
-	tlist = []
-	for va in variant:
-		
-		# See if any tournaments for this event category must be considered
-		if not os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
-			continue
-			
-		# Open detailed tournament list file, if it exists, and copy all entries
-		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tf:
-		
-			# Process lines
-			for line in tf:
-				tdata = json.loads(line)			
-				tdata["type"] = ev
-				tlist.append(tdata)
-	
-	# Sort all events by date and store them in a file
-	tlist.sort(key = lambda v: v["start"])
-	with open(frpath + "all\\" + ev + "\\all_" + ev + "_events.ndjson", "w") as outfile:
-		tnum = 0
-		for i in range(len(tlist)):
-			tnum += 1
-			tlist[i]["number"] = tnum
-			outfile.write(json.dumps(tlist[i]) + "\n")
-	
-	# Add up rankings for different events
-	rdata = dict()
-	ndatap = dict()
-	for va in variant:
-	
-		# See if any tournaments for this event category must be considered
-		if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
-			continue
+					# Update JSON stats
+					UserID = UserResult["username"].lower()
+					UserJSON[UserID]["Events"] = UserJSON[UserID]["Events"] + 1
+					UserJSON[UserID]["LastID"] = ID
+					if UserResult["rank"] == 1:
+						UserJSON[UserID]["CumTrophies"][0] = UserJSON[UserID]["CumTrophies"][0] + 1
+					elif UserResult["rank"] == 2:
+						UserJSON[UserID]["CumTrophies"][1] = UserJSON[UserID]["CumTrophies"][1] + 1
+					elif UserResult["rank"] == 3:
+						UserJSON[UserID]["CumTrophies"][2] = UserJSON[UserID]["CumTrophies"][2] + 1
+					UserJSON[UserID]["CumPoints"] = UserJSON[UserID]["CumPoints"] + UserResult["score"]
+					UserJSON[UserID]["CumEvents"] = UserJSON[UserID]["CumEvents"] + 1
+					UserJSON[UserID]["CumTopScore"] = max(UserJSON[UserID]["CumTopScore"], UserResult["score"])
 					
-		# Merge ranking info from both rankings
-		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
-			rdata2 = json.load(jf)
-		mergestats(rdata, rdata2)
+					# Update NSJSON stats
+					UserNDJSON[UserID].append({"Number": Index + 1, "ID": ID, "Start": ArenaList[ID]["Start"], "CumTrophies": UserJSON[UserID]["CumTrophies"].copy(), "CumPoints": UserJSON[UserID]["CumPoints"], "CumEvents": UserJSON[UserID]["CumEvents"], "CumTopScore": UserJSON[UserID]["CumTopScore"]})
+					
+		if Index % 1000 == 0 and Index > 0:
+			PrintMessage(V, E, "Player rankings intermediate dump after " + str(Index) + " events.")
 
-		# Load new ranking
-		with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
-			ndatap2 = dict()
-			for line in nf:
-				dictio = json.loads(line)
-				userkey = dictio["username"].lower()
-				if not userkey in ndatap:
-					ndatap[userkey] = dictio
-					rdata["players"] = rdata.get("players", 0) + 1
-				else:
-					mergeplayer(ndatap[userkey], dictio)
-		
-	print("all - " + ev + " - Final dump after " + str(rdata["events"]) + " events.")
-	storerankings(rdata, ndatap, "all", ev)
+			for Username in ListUsernamesAll:
+				UserID = Username.lower() 
+				with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
+					json.dump(UserJSON[UserID], JSONFile)
+				with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
+					for Index in range(len(UserNDJSON[UserID])):
+						NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
 	
-#######################################################################################
-# GLOBAL GLOBAL rankings: Everything
-#######################################################################################
-
-print("all - all - Running...")
+	PrintMessage(V, E, "Player rankings final dump after " + str(len(ArenaList)) + " events.")
+	for Username in ListUsernamesAll:
+		UserID = Username.lower() 
+		with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
+			json.dump(UserJSON[UserID], JSONFile)
+		with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
+			for Index in range(len(UserNDJSON[UserID])):
+				NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
 				
-# Create directory if it does not exist
-if not os.path.exists(frpath + "all\\all\\"):
-	print("all - all - Creating directory " + frpath + "all\\all\\.")
-	os.makedirs(frpath + "all\\all\\")	
+	# Print list of usernames to file
+	#UsernamesSorted = []
+	UsernamesSorted = list(sorted(ListUsernamesAll.keys()))
+	with open(PathRank + Folder(V, E) + "players\\" + V + "_" + E + ".txt", "w") as UsernameFile:
+		for Username in UsernamesSorted:
+			UsernameFile.write(Username.lower() + "\n")
+	
+	
+	
+	
+	
+	# OTHERWISE, ONLY UPDATE RANKINGS
+	
+	
+	
+	
+	#else:
+		# Update player cumulative rankings
 
-# Make detailed list of tournaments, sorted by date
-tlist = []
-for va in variant:
-	for ev in event:
+#curyear = datetime.datetime.now().year
 
-		# See if any tournaments for this event category must be considered
-		if not os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
-			continue
-			
-		# Open detailed tournament list file, if it exists, and copy all entries
-		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tf:
-		
-			# Process lines
-			for line in tf:
-				tdata = json.loads(line)			
-				tdata["type"] = ev
-				tlist.append(tdata)
 
-# Sort all events by date and store them in a file
-tlist.sort(key = lambda v: v["start"])
-with open(frpath + "all\\all\\all_all_events.ndjson", "w") as outfile:
-	tnum = 0
-	for i in range(len(tlist)):
-		tnum += 1
-		tlist[i]["number"] = tnum
-		outfile.write(json.dumps(tlist[i]) + "\n")
+#######################################################################################
+# Standard rankings: For each variant V and event E make rankings
+#######################################################################################	
 
-# Add up rankings for different events
-rdata = dict()
-ndatap = dict()
-for va in variant:
-	#for ev in event:
-	ev = "all"
+# Standard rankings: Events/Variants totals
+# Approach: Load previous ranking file with arena IDs, and see which are not yet included.
+# Possibility that some events last longer than others, and start earlier than other events which were already included.
+# Example: Marathon starts at 1am, and hourly bullets from 2am, 3am, ... are already included before the marathon finished.
+# Solution: For the last week, check IDs of events to see if they are already included in the rankings.
 
-	# See if any tournaments for this event category must be considered
-	if not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json") or not os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson"):
-		continue
-				
-	# Merge ranking info from both rankings
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking.json", "r") as jf:
-		rdata2 = json.load(jf)
-	mergestats(rdata, rdata2)
+# TODO: More targeted update. For each pure variant and event, check for new events. Then for mixed rankings, load rankings, and only update with previously identified new events
 
-	# Load new ranking
-	with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking_points.ndjson", "r") as nf:
-		ndatap2 = dict()
-		for line in nf:
-			dictio = json.loads(line)
-			userkey = dictio["username"].lower()
-			if not userkey in ndatap:
-				ndatap[userkey] = dictio
-				rdata["players"] = rdata.get("players", 0) + 1
-			else:
-				mergeplayer(ndatap[userkey], dictio)
+if not os.path.exists(PathRank):
+	os.makedirs(PathRank)
 
-print("all - all - Final dump after " + str(rdata["events"]) + " events.")
-storerankings(rdata, ndatap, "all", "all")
+NewArenas = dict()
+for V in Variants:
+	NewArenas[V] = dict()
+	for E in Events:
+		#NewArenas[V][E] = []
+		NewArenas[V][E] = UpdateRankings(V, E)
+
+#for V in Variants:
+#	TargetEvents = [Arena for E in Events for Arena in NewArenas[V][E]]
+#	UpdateRankings(V, "all", TargetEvents)
+
+#for E in Events:
+#	TargetEvents = [Arena for V in Variants for Arena in NewArenas[V][E]]
+#	UpdateRankings("all", E, TargetEvents)
+	
+#TargetEvents = [Arena for V in Variants for E in Events for Arena in NewArenas[V][E]]
+#UpdateRankings("all", "all", TargetEvents)
+
+
+
+
 
 print("ALL DONE!")
+

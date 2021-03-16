@@ -2,6 +2,8 @@
 setlocal enabledelayedexpansion
 
 :wait
+set /a "hour=%hour:~0,2%"
+set /a "hour=!hour: =!"
 set /a "minu=%time:~3,2%"
 set /a "minu=!minu: =!"
 if !minu! LEQ 15 (
@@ -15,12 +17,15 @@ timeout !delay!
 :loop
 set updtime=%date%, %time%
 git pull
-fetchdata.py
-fetchdata-special.py
-rankings.py
-scanplayers.py
-makeplots.py
-website.py
+FetchData.py
+FetchDataSpecial.py
+Rankings.py
+ScanPlayers.py
+if !hour! GTR 22 (
+	MakePlots.py
+	RankingsUsers.py
+)
+Website.py
 git add --all --verbose
 git commit -m "Auto-updater - %updtime%" --verbose
 git push --verbose

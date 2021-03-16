@@ -7,17 +7,18 @@ import os.path
 import ndjson
 import json
 import math
+import datetime
 
-APItoken = ""
-with open("E:\\lichess\\APItoken.txt", "r") as tokenfile:
-	for line in tokenfile:
-		APItoken = line.strip()
+APIToken = ""
+with open("E:\\lichess\\APIToken.txt", "r") as TokenFile:
+	for Line in TokenFile:
+		APIToken = Line.strip()
 
-fpath = "E:\\lichess\\tournaments\\"
-frpath = "E:\\lichess\\tournaments\\rankings\\"
-fpathweb = "E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\"
+PathData = "E:\\lichess\\tournaments\\data\\"
+PathRank = "E:\\lichess\\tournaments\\rankings\\"
+PathWeb = "E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\"
 
-event = {
+Events = {
 	"hourly": "Hourly",
 	"2000": "&lt;2000",
 	"1700": "&lt;1700",
@@ -43,7 +44,7 @@ event = {
 	"2014": "2014"
 	}
 
-variant = {
+Variants = {
 	"3check": "Three-check",
 	"antichess": "Antichess",
 	"atomic": "Atomic",
@@ -62,116 +63,134 @@ variant = {
 	"all": "All"
 	}
 	
-order = {"_points": "index.html", "_trophies": "trophies.html", "_events": "events.html", "_average": "average.html", "_maximum": "maximum.html"}
+Order = {
+	"_points": "index.html", 
+	"_trophies": "trophies.html", 
+	"_events": "events.html", 
+	#"_average": "average.html", 
+	"_maximum": "maximum.html"
+	}
+	
+TopToCheck = 200		# Check the top TopToCheck from each ranking
+GroupSize = 50			# API requests in batches of size GroupSize
+	
+def Prefix(V, E):
+	return V + "_" + E + "_"
 
+def Folder(V, E):
+	return V + "\\" + E + "\\"
+	
+def PrintMessage(V, E, Message):
+	print("{:<11}".format(V) + " - {:<8}".format(E) + " - " + Message)
 
 # Generate big list of players to scan
-playerstoscan = dict()
-for ev in event:
-	for va in variant:
-		for ord in order:
-			if os.path.exists(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking" + ord + ".ndjson"):
-				print(va + " -- " + ev + " -- " + ord)
-				with open(frpath + va + "\\" + ev + "\\" + va + "_" + ev + "_ranking" + ord + ".ndjson", "r") as rf:
-					for count, line in enumerate(rf):
-						dictio = json.loads(line.strip())
-						playerstoscan[dictio["username"].lower()] = 1
-						if count > 200:
+PlayersToScan = dict()
+for E in Events:
+	for V in Variants:
+		for O in Order:
+			if os.path.exists(PathRank + Folder(V, E) + V + "_" + E + "_ranking" + O + ".ndjson"):
+				PrintMessage(V, E, "Processing " + Order[O] + ".")
+				with open(PathRank + Folder(V, E) + V + "_" + E + "_ranking" + O + ".ndjson", "r") as RankFile:
+					for Index, Line in enumerate(RankFile):
+						UserRank = json.loads(Line.strip())
+						PlayersToScan[UserRank["Username"].lower()] = 1
+						if Index > TopToCheck:
 							break	
-playerstoscan = {k: v for k, v in sorted(playerstoscan.items(), key = lambda item: item[1], reverse = False)}
-print("Total players: " + str(len(playerstoscan)))
 
+# Sort alphabetically
+PlayersToScan = {k: v for k, v in sorted(PlayersToScan.items(), key = lambda item: item[1], reverse = False)}
+PrintMessage("all", "all", "Total players found: " + str(len(PlayersToScan)) + ".")
 
 # Load those users which have been checked before
-playerschecked = dict()
-if os.path.exists("E:\\lichess\\playerschecked.txt"):
-	with open("E:\\lichess\\playerschecked.txt", "r") as filechecked:
-		for line in filechecked:
-			playerschecked[line.strip().lower()] = 1
-playerschecked = {k: v for k, v in sorted(playerschecked.items(), key = lambda item: item[1], reverse = False)}	
-print("Previously checked players: " + str(len(playerschecked)))
-
+PlayersChecked = dict()
+if os.path.exists(PathWeb + "PlayersChecked.txt"):
+	with open(PathWeb + "PlayersChecked.txt", "r") as FileChecked:
+		for Line in FileChecked:
+			PlayersChecked[Line.strip().lower()] = 1
+PlayersChecked = {k: v for k, v in sorted(PlayersChecked.items(), key = lambda item: item[1], reverse = False)}	
+PrintMessage("all", "all", "Previously checked players: " + str(len(PlayersChecked)) + ".")
 
 # Make list of new users to check
-playersnew = []
-for player in playerstoscan:
-	if not player in playerschecked:
-		playersnew.append(player)
-playersnew.sort()
-print("New players to check: " + str(len(playersnew)))
-
+PlayersNew = []
+for Player in PlayersToScan:
+	if not Player in PlayersChecked:
+		PlayersNew.append(Player)
+PlayersNew.sort()
+PrintMessage("all", "all", "New players to check: " + str(len(PlayersNew)) + ".")
 
 # Obtain user data via API
-playersclosed = dict()
-playersTOS = dict()
-playersboost = dict()
-for i in range(math.ceil(len(playersnew) / 50)):
+PlayersClosed = dict()
+PlayersTOS = dict()
+PlayersBoost = dict()
+PrintMessage("all", "all", "Groups to query via the API: " + str(math.ceil(len(PlayersNew) / GroupSize)) + " of " + str(GroupSize) + " users.")
+for i in range(math.ceil(len(PlayersNew) / GroupSize)):
 	
 	time.sleep(3)
 	if i % 60 == 59:
 		time.sleep(60)
 		
-	begin = i * 50
-	end = min(i * 50 + 50, len(playersnew))
-	print("Group " + str(i+1) + ": " + playersnew[begin] + " .. " + playersnew[end-1])
-	r = requests.post("https://lichess.org/api/users", headers = {'Authorization': 'Bearer ' + APItoken}, data = ",".join(playersnew[begin:end]))
+	begin = i * GroupSize
+	end = min(i * GroupSize + GroupSize, len(PlayersNew))
+	PrintMessage("all", "all", "Group " + str(i+1) + ": Users " + PlayersNew[begin] + " to " + PlayersNew[end-1] + ".")
+	r = requests.post("https://lichess.org/api/users", headers = {"Authorization": "Bearer " + APIToken}, data = ",".join(PlayersNew[begin:end]))
 	if r.status_code == 429:
 		print("RATE LIMIT!")
 		time.sleep(100000)
 
-	dictio = ndjson.loads(r.content)[0]
+	APIResponse = ndjson.loads(r.content)[0]	# List of dictionaries
+	for PlayerInfo in APIResponse:
+		if ("disabled" in PlayerInfo):
+			PlayersClosed[PlayerInfo["id"].lower()] = 1
+		if ("tosViolation" in PlayerInfo):
+			PlayersTOS[PlayerInfo["id"].lower()] = 1
+		if ("booster" in PlayerInfo):
+			PlayersBoost[PlayerInfo["id"].lower()] = 1
 
-	for i in range(len(dictio)):
-		if ("disabled" in dictio[i]):
-			playersclosed[dictio[i]["id"].lower()] = 1
-		if ("tosViolation" in dictio[i]):
-			playersTOS[dictio[i]["id"].lower()] = 1
-		if ("booster" in dictio[i]):
-			playersboost[dictio[i]["id"].lower()] = 1
+# Store closed accounts in file
+if os.path.exists(PathWeb + "PlayersClosed.txt"):
+	with open(PathWeb + "PlayersClosed.txt", "r") as FileClosed:
+		for Line in FileClosed:
+			PlayersClosed[Line.strip().lower()] = 1
+PlayersClosed = {k: v for k, v in sorted(PlayersClosed.items(), key = lambda item: item[0], reverse = False)}	
+PrintMessage("all", "all", "Exporting " + str(len(PlayersClosed)) + " closed accounts...")
+with open(PathWeb + "PlayersClosed.txt", "w") as FileClosed:
+	for Username in PlayersClosed:
+		FileClosed.write(Username + "\n")
 
+# Store TOS accounts in file
+if os.path.exists(PathWeb + "PlayersTOS.txt"):
+	with open(PathWeb + "PlayersTOS.txt", "r") as FileTOS:
+		for Line in FileTOS:
+			PlayersTOS[Line.strip().lower()] = 1
+PlayersTOS = {k: v for k, v in sorted(PlayersTOS.items(), key = lambda item: item[0], reverse = False)}	
+PrintMessage("all", "all", "Exporting " + str(len(PlayersTOS)) + " TOS accounts...")		
+with open(PathWeb + "PlayersTOS.txt", "w") as FileTOS:
+	for Username in PlayersTOS:
+		FileTOS.write(Username + "\n")
 
-# Store new problematic accounts in files
-with open("E:\\lichess\\playersclosed.txt", "r") as fileclosed:
-	for line in fileclosed:
-		playersclosed[line.strip().lower()] = 1
-playersclosed = {k: v for k, v in sorted(playersclosed.items(), key = lambda item: item[0], reverse = False)}	
-print("Exporting " + str(len(playersclosed)) + " closed accounts...")
-with open("E:\\lichess\\playersclosed.txt", "w") as fileclosed:
-	for val in playersclosed:
-		fileclosed.write(val + "\n")
-
-
-with open("E:\\lichess\\playersTOS.txt", "r") as fileTOS:
-	for line in fileTOS:
-		playersTOS[line.strip().lower()] = 1
-playersTOS = {k: v for k, v in sorted(playersTOS.items(), key = lambda item: item[0], reverse = False)}	
-print("Exporting " + str(len(playersTOS)) + " TOS accounts...")		
-with open("E:\\lichess\\playersTOS.txt", "w") as fileTOS:
-	for val in playersTOS:
-		fileTOS.write(val + "\n")
-		
-
-with open("E:\\lichess\\playersboost.txt", "r") as fileboost:
-	for line in fileboost:
-		playersboost[line.strip().lower()] = 1
-playersboost = {k: v for k, v in sorted(playersboost.items(), key = lambda item: item[0], reverse = False)}	
-print("Exporting " + str(len(playersboost)) + " boost accounts...")
-with open("E:\\lichess\\playersboost.txt", "w") as fileboost:
-	for val in playersboost:
-		fileboost.write(val + "\n")
-		
+# Store boostmarked accounts in file		
+if os.path.exists(PathWeb + "PlayersBoost.txt"):
+	with open(PathWeb + "PlayersBoost.txt", "r") as FileBoost:
+		for Line in FileBoost:
+			PlayersBoost[Line.strip().lower()] = 1
+PlayersBoost = {k: v for k, v in sorted(PlayersBoost.items(), key = lambda item: item[0], reverse = False)}	
+PrintMessage("all", "all", "Exporting " + str(len(PlayersBoost)) + " boost accounts...")
+with open(PathWeb + "PlayersBoost.txt", "w") as FileBoost:
+	for Username in PlayersBoost:
+		FileBoost.write(Username + "\n")
 
 # Store new checked users in files
 # Make list of new users to check
-playersall = dict()
-for player in playerschecked:
-	playersall[player.lower()] = 1
-for player in playerstoscan:
-	playersall[player.lower()] = 1
-playersall = {k: v for k, v in sorted(playersall.items(), key = lambda item: item[0], reverse = False)}	
-print("Exporting " + str(len(playersall)) + " total checked accounts...")
-with open("E:\\lichess\\playerschecked.txt", "w") as filechecked:
-	for player in playersall:
-		filechecked.write(player + "\n")
+PlayersAll = dict()
+for Player in PlayersChecked:
+	PlayersAll[Player.lower()] = 1
+for Player in PlayersToScan:
+	PlayersAll[Player.lower()] = 1
+PlayersAll = {k: v for k, v in sorted(PlayersAll.items(), key = lambda item: item[0], reverse = False)}	
+PrintMessage("all", "all", "Exporting " + str(len(PlayersAll)) + " total checked accounts...")
+with open(PathWeb + "PlayersChecked.txt", "w") as FileChecked:
+	for Player in PlayersAll:
+		FileChecked.write(Player + "\n")
 
 print("ALL DONE!")
+

@@ -6,8 +6,19 @@ import collections
 import os.path
 import ndjson
 import json
+import math
+import datetime
 
-event = {
+APItoken = ""
+with open("E:\\lichess\\APItoken.txt", "r") as tokenFile:
+	for line in tokenFile:
+		APItoken = line.strip()
+
+pathData = "E:\\lichess\\tournaments\\data\\"
+pathRank = "E:\\lichess\\tournaments\\rankings\\"
+pathWeb = "E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\"
+
+allEvents = {
 	"special": "Special"
 }
 
@@ -46,9 +57,9 @@ print("special - Fetching new tournaments...")
 for page in range(1, 100000):
 	
 	# Special URL for elite tournaments
-	r = requests.get("https://lichess.org/tournament/history?page=" + str(page))
+	r = requests.get("https://lichess.org/tournament/history?page=" + str(page), headers = {"Authorization": "Bearer " + APItoken})
 		
-	# In the unlikely/impossible event of rate limit, just indicate this and stop until the user notices
+	# In the unlikely/impossible allEvents of rate limit, just indicate this and stop until the user notices
 	if r.status_code == 429:
 		print("RATE LIMIT!")
 		time.sleep(1000000)
@@ -108,7 +119,7 @@ for tid in tourids:
 	# Download results file
 	if not os.path.exists(fpath + "special\\special_" + tid + ".ndjson"):
 		print("special - Downloading https://lichess.org/api/tournament/" + tid + "/results...")
-		r = requests.get("https://lichess.org/api/tournament/" + tid + "/results")
+		r = requests.get("https://lichess.org/api/tournament/" + tid + "/results", headers = {"Authorization": "Bearer " + APItoken})
 		if r.status_code == 429:
 			print("RATE LIMIT!")
 			time.sleep(100000)
@@ -118,7 +129,7 @@ for tid in tourids:
 		
 	# Download tournament info file
 	if not os.path.exists(fpath + "special\\special_" + tid + ".json"):
-		print("special - Downloading https://lichess.org/api/tournament/" + tid + "...")
+		print("special - Downloading https://lichess.org/api/tournament/" + tid + "...", headers = {"Authorization": "Bearer " + APItoken})
 		r = requests.get("https://lichess.org/api/tournament/" + tid)
 		if r.status_code == 429:
 			print("RATE LIMIT!")

@@ -6,13 +6,37 @@ import collections
 import os.path
 import ndjson
 import json
+import math
+import datetime
 
-APItoken = ""
-with open("E:\\lichess\\APItoken.txt", "r") as tokenfile:
-	for line in tokenfile:
-		APItoken = line
+APIToken = ""
+with open("E:\\lichess\\APIToken.txt", "r") as TokenFile:
+	for Line in TokenFile:
+		APIToken = Line.strip()
 
-event = {
+PathData = "E:\\lichess\\tournaments\\data\\"
+PathRank = "E:\\lichess\\tournaments\\rankings\\"
+PathWeb = "E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\"
+
+Variants = {
+	"3check": "Three-check",
+	"antichess": "Antichess",
+	"atomic": "Atomic",
+	"blitz": "Blitz",
+	"bullet": "Bullet",
+	"chess960": "Chess960",
+	"classical": "Classical",
+	"crazyhouse": "Crazyhouse",
+	"horde": "Horde",
+	"hyperbullet": "HyperBullet",
+	"koth": "King of the Hill",
+	"racingkings": "Racing Kings",
+	"rapid": "Rapid",
+	"superblitz": "SuperBlitz",
+	"ultrabullet": "UltraBullet"
+}
+
+Events = {
 	"1300": "&lt;1300",
 	"1500": "&lt;1500",
 	"1600": "&lt;1600",
@@ -30,286 +54,294 @@ event = {
 	"marathon": "Marathon"
 }
 
-variant = {
-	"3check": "Three-check",
-	"antichess": "Antichess",
-	"atomic": "Atomic",
-	"blitz": "Blitz",
-	"bullet": "Bullet",
-	"chess960": "Chess960",
-	"classical": "Classical",
-	"crazyhouse": "Crazyhouse",
-	"horde": "Horde",
-	"hyperbullet": "HyperBullet",
-	"koth": "King of the Hill",
-	"racingkings": "Racing Kings",
-	"rapid": "Rapid",
-	"superblitz": "SuperBlitz",
-	"ultrabullet": "UltraBullet"
-}
+def Prefix(V, E):
+	return f"{V}_{E}_"
+
+def Folder(V, E):
+	return f"{V}\\{E}\\"
+	
+def PrintMessage(V, E, Message):
+	print(f"{V:<11} - {E:<8} - {Message}")
 	
 #=========================================================================
-# INPUT CHOICES
+# Process each event type separately
 #=========================================================================
 
-fpath = "E:\\lichess\\tournaments\\"
+ArenaIDs = dict()
+for V in Variants:
+	ArenaIDs[V] = dict()
+	for E in Events:
+		ArenaIDs[V][E] = []
 
-#=========================================================================
-
-for ev in event:
-	if not os.path.exists(fpath + ev):
-		os.makedirs(fpath + ev)
+for E in Events:
+	#if not os.path.exists(PathData + E):
+	#	os.makedirs(PathData + E)
 
 	#=========================================================================
-	# 1: Load tournament IDs from files
+	# 1. Load tournament IDs from files
 	#=========================================================================
 
 	# Existing files may already contain all/some tournament IDs
-	tourids = dict()
-	tourlistfiles = dict()
-	for va in variant:
-		tourids[va] = []
-		tourlistfiles[va] = fpath + ev + "\\" + ev + "_" + va + "_tournaments.txt"
-		if os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".txt"):		
-			with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".txt", "r") as tourfile:
-				for line in tourfile:
-					tourids[va].append(line[0:8])
-					
-			tourids[va].sort(key=lambda v: v.upper())
-			#with open(tourlistfile, "w") as outfile:
-			#	for tid in tourids[va]:
-			#		outfile.write(tid + "\n")
-
-	print(ev + " - Loaded tournament IDs from files.")
+	for V in Variants:
+		if os.path.exists(f"{PathData}{Folder(V, E)}{V}_{E}.txt"):		
+			with open(f"{PathData}{Folder(V, E)}{V}_{E}.txt", "r") as IDFile:
+				for Line in IDFile:
+					ArenaIDs[V][E].append(Line[0:8])				
+			ArenaIDs[V][E].sort(key = lambda ID: ID.upper())
+		PrintMessage(V, E, f"Loaded {len(ArenaIDs[V][E])} tournament IDs from file.")
 
 	#=========================================================================
-	# 2: Scrape potentially new tournament IDs from internet
+	# 2. Scrape potentially new tournament IDs from internet
 	#=========================================================================	
 
 	# Scrape webpages for tournament ids
-	if not ev == "titled" and not ev == "marathon":
+	if not E == "titled" and not E == "marathon":
 
-		totaltids = 0
-		emptypagesinarow = 0
-		print(ev + " - Fetching new tournaments...")
-		for page in range(1, 100000):
+		TotalIDs = 0
+		EmptyPages = 0
+		PrintMessage("all", E, "Fetching new tournaments...")
+		
+		for Page in range(1, 100000):
 			
-			# Special URL for elite tournaments
-			if ev == "elite":
-				r = requests.get("https://lichess.org/tournament/history/weekend?page=" + str(page), headers = {"Authorization": "Bearer " + APItoken})		# pages start at 1
-			elif ev[3] == "0": # rating-restricted events
-				r = requests.get("https://lichess.org/tournament/history/hourly?page=" + str(page), headers = {"Authorization": "Bearer " + APItoken})	# pages start at 1
-			else:
-				r = requests.get("https://lichess.org/tournament/history/" + ev + "?page=" + str(page), headers = {"Authorization": "Bearer " + APItoken})	# pages start at 1
+			if E == "elite":	# Special URL for elite tournaments
+				r = requests.get(f"https://lichess.org/tournament/history/weekend?page={Page}", headers = {"Authorization": f"Bearer {APIToken}"})		# pages start at 1
+			elif E[3] == "0": 	# Rating-restricted hourly events
+				r = requests.get(f"https://lichess.org/tournament/history/hourly?page={Page}", headers = {"Authorization": f"Bearer {APIToken}"})	# pages start at 1
+			else:				# All other events
+				r = requests.get(f"https://lichess.org/tournament/history/{E}?page={Page}", headers = {"Authorization": f"Bearer {APIToken}"})	# pages start at 1
 				
-			# In the unlikely/impossible event of rate limit, just indicate this and stop until the user notices
+			# In the unlikely/impossible Events of rate limit, just indicate this and stop until the user notices
 			if r.status_code == 429:
 				print("RATE LIMIT!")
 				time.sleep(1000000)
 			
 			# If no tournaments at all, quit
-			if len(re.findall('/tournament/[0-9a-zA-Z]{8}">', r.text)) == 0:
+			if len(re.findall("/tournament/[0-9a-zA-Z]{8}\">", r.text)) == 0:
 				break
 			
 			# Partition the tournaments over the right files
-			newonpage = 0
-			totaltids += len(re.findall('/tournament/[0-9a-zA-Z]{8}">', r.text))
-			for va in variant:
+			NewOnPage = 0
+			TotalIDs += len(re.findall("/tournament/[0-9a-zA-Z]{8}\">", r.text))
+			for V in Variants:
 				
-				# Check for URLs on webpage of the appropriate form and title
-				if ev == "shield":
-					tids = re.findall('/tournament/[0-9a-zA-Z]{8}"><span class="name">' + variant[va] + ' ' + event[ev] + ' Arena', r.text)	# Shield formatting
-				else:
-					tids = re.findall('/tournament/[0-9a-zA-Z]{8}"><span class="name">' + event[ev] + ' ' + variant[va] + ' Arena', r.text)	# Monthly, Weekly, Yearly, etc.
+				if E == "shield":		# Format on webpage for shield events
+					IDs = re.findall(f"/tournament/[0-9a-zA-Z]{8}\"><span class=\"name\">{Variants[V]} {Events[E]} Arena", r.text)	# Shield formatting
+				else:					# Format on webpage for all other events
+					IDs = re.findall(f"/tournament/[0-9a-zA-Z]{8}\"><span class=\"name\">{Events[E]} {Variants[V]} Arena", r.text)	# Monthly, Weekly, Yearly, etc.
 				
 				# Add newly found tournament IDs to file
-				for tid in tids:
-					if not tid[12:20] in tourids[va]:
-						tourids[va].append(tid[12:20])		# The tournament code starts on position 12 in that reg. exp.
-						newonpage += 1
+				for ID in IDs:		# ID: '/tournament/d09wfkjs">...', need entries 12-19
+					if not ID[12:20] in ArenaIDs[V][E]:
+						ArenaIDs[V][E].append(ID[12:20])
+						NewOnPage += 1
 			
-			# Count collisions to stop fetching when we have been here before
-			if newonpage == 0:
-				emptypagesinarow += 1
-				if emptypagesinarow > (10 if ev == "hourly" else 5):
+			# Count collisions to stop fetching when we do not find new entries
+			PrintMessage("all", E, f"Page {Page} - {NewOnPage} new events found.")
+			if NewOnPage == 0:
+				EmptyPages += 1
+				if EmptyPages >= 5:
 					break
 			else:
-				emptypagesinarow = 0
+				EmptyPages = 0
 			
 			# Pause to avoid rate limit
-			print(ev + " - Page " + str(page) + " - " + str(newonpage) + " new events found.")
-			if page % 2 == 0:
-				#print("Finished page " + str(page) + " -- Pausing!")
-				time.sleep(0.5)
+			if Page % 2 == 0:
+				time.sleep(1)
 
-	print(ev + " - Scraped potentially new tournament IDs from internet.")
+	PrintMessage("all", E, "Scraped potentially new tournament IDs from internet.")
 
 	#=========================================================================
-	# Intermezzo: In case of quitting early, store tournament ids in file now
+	# 3. Intermezzo: In case of quitting early, store tournament ids in file now
 	#=========================================================================	
 
 	# Store tournament IDs alphabetically for now
-	for va in variant:
+	for V in Variants:
 		
 		# Skip tournament variants for which no tournaments exist
-		if len(tourids[va]) == 0:
-			if os.path.exists(tourlistfiles[va]):
-				os.remove(tourlistfiles[va])
+		if len(ArenaIDs[V][E]) == 0:
 			continue
 		
 		# Create directory if it does not exist
-		if not os.path.exists(fpath + ev + "\\" + va + "\\"):
-			print(ev + " - " + va + " - Creating directory " + fpath + ev + "\\" + va + "\\")
-			os.makedirs(fpath + ev + "\\" + va + "\\")
+		if not os.path.exists(PathData + Folder(V, E)):
+			PrintMessage(V, E, f"Creating directory {PathData}{Folder(V, E)}.")
+			os.makedirs(f"{PathData}{Folder(V, E)}")
 
-		# If tournaments exist, store them in a file  
-		tourids[va].sort(key=lambda v: v.upper())
-		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".txt", "w") as outfile:
-			for tid in tourids[va]:
-				outfile.write(tid + "\n")
+		# If tournaments exist, store them in a file (alphabetically)
+		ArenaIDs[V][E].sort(key = lambda ID: ID.upper())
+		with open(f"{PathData}{Folder(V, E)}{V}_{E}.txt", "w") as IDFile:
+			for ID in ArenaIDs[V][E]:
+				IDFile.write(f"{ID}\n")
 
 	#=========================================================================
-	# 3: Download tournament information and results files
+	# 4. Download tournament information and results files
 	#=========================================================================
 
 	# Use a dictionary with {id: date}, both in string formats
-	touridinfo = dict()
+	ArenaData = dict()
 		
-	# Process each chess variant one at a time
-	for va in variant:
+	# Process each chess Variants one at a time
+	for V in Variants:
 	
-		print(ev + " - " + va + " - Running...")
-	
-		pref = ev + "_" + va + "_"
-		folder = ev + "\\" + va
+		PrintMessage(V, E, "Running...")
 		
 		# Check if the list of tournament files exists and is not empty
-		if len(tourids[va]) == 0:
-			print(ev + " - " + va + " - No events found.")
+		if len(ArenaIDs[V][E]) == 0:
+			PrintMessage(V, E, "No events found.")
 			continue
 			
 		# Create directory if it does not exist
-		if not os.path.exists(fpath + ev + "\\" + va + "\\"):
-			print(ev + " - " + va + " - Creating directory " + fpath + folder + "...")
-			os.makedirs(fpath + ev + "\\" + va + "\\")
+		if not os.path.exists(PathData + Folder(V, E)):
+			PrintMessage(V, E, f"Creating directory {PathData}{Folder(V, E)}...")
+			os.makedirs(PathData + Folder(V, E))
 
+		#=========================================================================
+		# 4a. Fetch the missing files via the API
+		#=========================================================================		
+		
 		# Do rate limit-aware fetching of missing tournament IDs		
-		APIaccess = 0
-		for tid in tourids[va]:
+		APIRequests = 0
+		for ID in ArenaIDs[V][E]:
 			
 			# Download results file
-			if not os.path.exists(fpath + folder + "\\" + pref + tid + ".ndjson"):
-				print(ev + " - " + va + " - Downloading https://lichess.org/api/tournament/" + tid + "/results...")
-				r = requests.get("https://lichess.org/api/tournament/" + tid + "/results", headers = {"Authorization": "Bearer " + APItoken})
+			if not os.path.exists(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.ndjson"):
+				PrintMessage(V, E, f"Downloading https://lichess.org/api/tournament/{ID}/results...")
+				r = requests.get(f"https://lichess.org/api/tournament/{ID}/results", headers = {"Authorization": f"Bearer {APIToken}"})
 				if r.status_code == 429:
 					print("RATE LIMIT!")
 					time.sleep(100000)
-				with open(fpath + folder + "\\" + pref + tid + ".ndjson", "wb") as localfile:
-					localfile.write(r.content)
-				APIaccess += 1
+				with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.ndjson", "wb") as ArenaResultsFile:
+					ArenaResultsFile.write(r.content)
+				APIRequests += 1
 				
 			# Download tournament info file
-			if not os.path.exists(fpath + folder + "\\" + pref + tid + ".json"):
-				print(ev + " - " + va + " - Downloading https://lichess.org/api/tournament/" + tid + "...")
-				r = requests.get("https://lichess.org/api/tournament/" + tid, headers = {"Authorization": "Bearer " + APItoken})
+			if not os.path.exists(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json"):
+				PrintMessage(V, E, f"Downloading https://lichess.org/api/tournament/{ID}...")
+				r = requests.get(f"https://lichess.org/api/tournament/{ID}", headers = {"Authorization": f"Bearer {APIToken}"})
 				if r.status_code == 429:
 					print("RATE LIMIT!")
 					time.sleep(100000)
-				with open(fpath + folder + "\\" + pref + tid + ".json", "wb") as localfile:
-					localfile.write(r.content)
-				APIaccess += 1
+				with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "wb") as ArenaInfoFile:
+					ArenaInfoFile.write(r.content)
+				APIRequests += 1
 			
 			# Check for many API accesses without pausing
-			if APIaccess > 2:
+			if APIRequests > 2:
 				time.sleep(1)
-				APIaccess = 0
+				APIRequests = 0
 			
 		# Remove future events
-		if ev == "titled" or ev == "marathon":
-			for tid in tourids[va]:			
-				with open(fpath + folder + "\\" + pref + tid + ".json", "r") as tf:
-					dictio = json.load(tf)
-				if ("secondsToStart" in dictio) or not dictio.get("isFinished", False):
-					tourids[va].remove(tid)
-					os.remove(fpath + folder + "\\" + pref + tid + ".ndjson")
-					os.remove(fpath + folder + "\\" + pref + tid + ".json")
-					print(ev + " - " + va + " - Removing future event " + tid + ".")
+		if E == "titled" or E == "marathon":
+			for ID in ArenaIDs[V][E]:			
+				with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "r") as ArenaInfoFile:
+					ArenaInfo = json.load(ArenaInfoFile)
+				if ("secondsToStart" in ArenaInfo) or not ArenaInfo.get("isFinished", False):
+					ArenaIDs[V][E].remove(ID)
+					os.remove(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.ndjson")
+					os.remove(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json")
+					PrintMessage(V, E, f"Removing future/unfinished event {ID}.")
 		
-		print(ev + " - " + va + " - Finished downloading tournament information.")
+		PrintMessage(V, E, "Finished downloading tournament information.")
 		
 		#=========================================================================
-		# 4a: Fetch existing tournament data from ndjson
+		# 4b. Fetch existing tournament data from ndjson
 		#=========================================================================
 
-		if os.path.exists(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson"):
-			with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "r") as tfile:
-				for line in tfile:
-					dictio = json.loads(line)
-					touridinfo[dictio["id"]] = dictio
+		if os.path.exists(f"{PathData}{Folder(V, E)}{V}_{E}.ndjson"):
+			with open(f"{PathData}{Folder(V, E)}{V}_{E}.ndjson", "r") as DataFile:
+				for Line in DataFile:
+					ArenaInfo = json.loads(Line)
+
+					# Update total point count, if not available, for previously stored files
+					if ("TotalPoints" in ArenaInfo):
+						ArenaData[ArenaInfo["ID"]] = ArenaInfo	# New, capitalized format
+						continue
+
+					# stuck in old format from API file
+					# SHOULD NEVER GET HERE
+					PrintMessage(V, E, f'Computing missing total points for tournament {ArenaInfo["kappa"]} with ID {ArenaInfo["id"]}.')
+					#print(ArenaInfo["id"])
+					with open(f'{PathData}{Folder(V, E)}{Prefix(V, E)}{ArenaInfo["id"]}.json', "r") as ArenaInfoFile:
+						ArenaInfo = json.load(ArenaInfoFile) 	# Old, API format
+					if not "stats" in ArenaInfo:
+						ArenaInfo["stats"] = dict()
+					with open(f'{PathData}{Folder(V, E)}{Prefix(V, E)}{ArenaInfo["id"]}.ndjson', "r") as ArenaResultsFile:
+						TotalPoints = 0
+						for Line in ArenaResultsFile:
+							ArenaResults = json.loads(Line)
+							TotalPoints += ArenaResults.get("score", 0)
+					ArenaInfo["stats"]["points"] = TotalPoints
+					with open(f'{PathData}{Folder(V, E)}{Prefix(V, E)}{ArenaInfo["id"]}.json', "w") as ArenaInfoFile:
+						ArenaInfoFile.write(json.dumps(ArenaInfo))	
+					#print(Prefix(V, E) + " - Computed missing total points for tournament " + ArenaInfo["id"] + ".")
 		
-		print(ev + " - " + va + " - Loaded tournament info for " + str(len(touridinfo)) + " events in memory.")
+		PrintMessage(V, E, f"Loaded tournament info for {len(ArenaData)} events in memory.")
 		
 		#=========================================================================
-		# 4: Fetch tournament dates from json for chronological ordering
+		# 4c. Fetch tournament dates from json for chronological ordering
 		#=========================================================================
 		
-		for tid in tourids[va]:
+		for ID in ArenaIDs[V][E]:
 			# -- There was a bug due to lichess API unreachable and a corrupt file being stored...
-			#if va == "crazyhouse" and ev == "hourly":
-			#	print(ev + " - " + va + " - TID: " + tid)
-			if tid in touridinfo:
+			#if V == "crazyhouse" and E == "hourly":
+			#	print(E + " - " + V + " - TID: " + ID)
+			if ID in ArenaData:
 				continue
-			with open(fpath + folder + "\\" + pref + tid + ".json") as datfile:
-				data = json.load(datfile)
-				touridinfo[tid] = dict()
-				touridinfo[tid]["number"] = 0
-				touridinfo[tid]["variant"] = va
-				touridinfo[tid]["event"] = ev
-				touridinfo[tid]["id"] = tid
-				touridinfo[tid]["start"] = data["startsAt"]
-				touridinfo[tid]["players"] = int(data["nbPlayers"])
-				touridinfo[tid]["games"] = int(data["stats"]["games"])
-				touridinfo[tid]["moves"] = int(data["stats"]["moves"])
-				touridinfo[tid]["wwins"] = int(data["stats"]["whiteWins"])
-				touridinfo[tid]["bwins"] = int(data["stats"]["blackWins"])
-				touridinfo[tid]["berserks"] = int(data["stats"]["berserks"])
-				touridinfo[tid]["totrating"] = touridinfo[tid]["players"] * int(data["stats"]["averageRating"])
-				if len(data["podium"]) > 0:
-					touridinfo[tid]["#1"] = data["podium"][0]["name"]
-				else:
-					touridinfo[tid]["#1"] = "???"
-				if len(data["podium"]) > 1:
-					touridinfo[tid]["#2"] = data["podium"][1]["name"]
-				else:
-					touridinfo[tid]["#2"] = "???"
-				if len(data["podium"]) > 2:
-					touridinfo[tid]["#3"] = data["podium"][2]["name"]
-				else:
-					touridinfo[tid]["#3"] = "???"
-					print("Weird: " + tid)
-				touridinfo[tid]["topscore"] = data["podium"][0]["score"]
+			with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "r") as ArenaInfoFile:
+				ArenaInfo = json.load(ArenaInfoFile)
+			
+			if not ("points" in ArenaInfo.get("stats", {})):
+				if not "stats" in ArenaInfo:
+					ArenaInfo["stats"] = dict()
+				with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.ndjson", "r") as ArenaResultsFile:
+					TotalPoints = 0
+					for Line in ArenaResultsFile:
+						ArenaResults = json.loads(Line)
+						TotalPoints += ArenaResults.get("score", 0)
+				ArenaInfo["stats"]["points"] = TotalPoints
+				with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "w") as ArenaInfoFile:
+					ArenaInfoFile.write(json.dumps(ArenaInfo))	
+				PrintMessage(V, E, f'Computed missing total points for tournament {ArenaInfo["id"]}.')
+			
+			ArenaData[ID] = dict()
+			ArenaData[ID]["Number"] = 0
+			ArenaData[ID]["Variant"] = V
+			ArenaData[ID]["Event"] = E
+			ArenaData[ID]["ID"] = ID
+			ArenaData[ID]["Start"] = ArenaInfo["startsAt"]
+			ArenaData[ID]["Players"] = int(ArenaInfo["nbPlayers"])
+			ArenaData[ID]["Games"] = int(ArenaInfo["stats"]["games"])
+			ArenaData[ID]["Moves"] = int(ArenaInfo["stats"]["moves"])
+			ArenaData[ID]["WhiteWins"] = int(ArenaInfo["stats"]["whiteWins"])
+			ArenaData[ID]["BlackWins"] = int(ArenaInfo["stats"]["blackWins"])
+			ArenaData[ID]["Berserks"] = int(ArenaInfo["stats"]["berserks"])
+			ArenaData[ID]["TotalPoints"] = int(ArenaInfo["stats"]["points"])
+			ArenaData[ID]["TotalRating"] = ArenaData[ID]["Players"] * int(ArenaInfo["stats"]["averageRating"])
+			ArenaData[ID]["#1"] = ("???" if len(ArenaInfo["podium"]) == 0 else ArenaInfo["podium"][0]["name"])
+			ArenaData[ID]["#2"] = ("???" if len(ArenaInfo["podium"]) <= 1 else ArenaInfo["podium"][1]["name"])
+			ArenaData[ID]["#3"] = ("???" if len(ArenaInfo["podium"]) <= 2 else ArenaInfo["podium"][2]["name"])
+			ArenaData[ID]["TopScore"] = (0 if len(ArenaInfo["podium"]) == 0 else ArenaInfo["podium"][0]["score"])
 		
-		print(ev + " - " + va + " - Retrieved tournament dates from json-files for chronological ordering.")
+		PrintMessage(V, E, "Retrieved tournament dates from json-files for chronological ordering.")
 		
 		#=========================================================================
-		# 5: Store tournament IDs back in separate files, sorted by date
+		# 4d. Store tournament IDs back in separate files, sorted by date
 		#=========================================================================
 		
 		# Delete empty files as these tournament series apparently do not exist
-		if len(tourids[va]) == 0:
-			if os.path.exists(tourlistfiles[va]):
-				os.remove(tourlistfiles[va])
+		if len(ArenaIDs[V][E]) == 0:
 			continue
 		
 		# For non-empty files, now store tournaments chronologically (with dates, csv)
-		tourids[va].sort(key = lambda v: touridinfo[v]["start"])
-		with open(fpath + ev + "\\" + va + "\\" + ev + "_" + va + ".ndjson", "w") as outfile:
-			tnum = 0
-			for tid in tourids[va]:
-				tnum += 1
-				touridinfo[tid]["number"] = tnum
-				outfile.write(json.dumps(touridinfo[tid]) + "\n")
+		ArenaIDs[V][E].sort(key = lambda ID: ArenaData[ID]["Start"])
+		with open(f"{PathData}{Folder(V, E)}{V}_{E}.ndjson", "w") as DataFile:
+			Number = 0
+			for ID in ArenaIDs[V][E]:
+				Number += 1
+				ArenaData[ID]["Number"] = Number
+				DataFile.write(json.dumps(ArenaData[ID]) + "\n")
 		
-		print(ev + " - " + va + " - Stored tournament IDs with json data, chronologically.")
+		PrintMessage(V, E, "Stored tournament IDs with json data, chronologically.")
+		
+	PrintMessage("all", E, f"Finished processing {E} events.\n")
 		
 print("ALL DONE!")
