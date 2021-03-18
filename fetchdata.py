@@ -125,9 +125,9 @@ for E in Events:
 			for V in Variants:
 				
 				if E == "shield":		# Format on webpage for shield events
-					IDs = re.findall(f"/tournament/[0-9a-zA-Z]{8}\"><span class=\"name\">{Variants[V]} {Events[E]} Arena", r.text)	# Shield formatting
+					IDs = re.findall(f"/tournament/[0-9a-zA-Z]{{8}}\"><span class=\"name\">{Variants[V]} {Events[E]} Arena", r.text)	# Shield formatting
 				else:					# Format on webpage for all other events
-					IDs = re.findall(f"/tournament/[0-9a-zA-Z]{8}\"><span class=\"name\">{Events[E]} {Variants[V]} Arena", r.text)	# Monthly, Weekly, Yearly, etc.
+					IDs = re.findall(f"/tournament/[0-9a-zA-Z]{{8}}\"><span class=\"name\">{Events[E]} {Variants[V]} Arena", r.text)	# Monthly, Weekly, Yearly, etc.
 				
 				# Add newly found tournament IDs to file
 				for ID in IDs:		# ID: '/tournament/d09wfkjs">...', need entries 12-19

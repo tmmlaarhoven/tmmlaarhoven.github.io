@@ -26,12 +26,12 @@ plt.style.use(['dark_background'])
 plt.rcParams.update({
 	"axes.facecolor": 		(0.2, 0.2, 0.2, 1.0),  # green with alpha = 50%
 	"savefig.facecolor": 	(0.0, 0.0, 1.0, 0.0),  # blue  with alpha = 20%
-	"figure.figsize": 		(3.5, 3.5),
+	"figure.figsize": 		(5.0, 5.0),
 	"axes.labelsize": 		12,
-	"xtick.labelsize": 		9,
-	"ytick.labelsize": 		9,
+	"xtick.labelsize": 		11,
+	"ytick.labelsize": 		11,
 	"legend.labelspacing": 	0.3,
-	"legend.handlelength": 	1.0,
+	"legend.handlelength":	2.0,
 	"legend.handletextpad": 0.3,
 	"grid.color": 			(0.8, 0.8, 0.8),
 	"grid.linestyle": 		":",
@@ -129,28 +129,6 @@ def PrintMessage(V, E, Message):
 def MakePlot(V, E, Plot):
 	
 	plt.close()
-	plt.rcParams.update({
-		"axes.facecolor": 		(0.2, 0.2, 0.2, 1.0),  # green with alpha = 50%
-		"savefig.facecolor": 	(0.0, 0.0, 1.0, 0.0),  # blue  with alpha = 20%
-		"figure.figsize": 		(7.0, 7.0),
-		"axes.labelsize": 		12,
-		"xtick.labelsize": 		9,
-		"ytick.labelsize": 		9,
-		"legend.labelspacing": 	0.3,
-		"legend.handlelength": 	1.0,
-		"legend.handletextpad": 0.3,
-		"grid.color": 			(0.8, 0.8, 0.8),
-		"grid.linestyle": 		":",
-		"grid.linewidth": 		0.5,
-		"legend.framealpha":	0.5,
-		"font.family": 			['Roboto', 'serif'],
-	})
-	plt.rcParams.update({
-		"figure.figsize": (7.0, 7.0),
-		"axes.labelsize": 		12,
-		"xtick.labelsize": 		10,
-		"ytick.labelsize": 		10,
-		"legend.handlelength":	2.0})
 	plt.figure()
 	
 	

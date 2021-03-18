@@ -262,9 +262,9 @@ for V in Variants:
 				ofile.write("\t\t\t<a class='variant' href='../../index.html'><span style='font-family: lichess' title='About'>&#xe005;</span></a>\n")
 				for index, mod in enumerate(VariantsOrdered):
 					if os.path.exists(PathRank + mod + "\\" + E + "\\" + mod + "_" + E + "_ranking.json") and os.path.exists(PathRank + mod + "\\" + E + "\\" + mod + "_" + E + "_ranking" + O + ".ndjson"):
-						ofile.write(f"\t\t\t &middot; <a class='{'active' if (V == mod) else 'Variants'}' href='../../{mod}/{E}/{Orders[O]}'><span style='font-family: lichess' title='{VariantsOrdered[mod]}'>{VariantsOrderedIcons[mod]}</span></a>\n")
+						ofile.write(f"\t\t\t &middot; <a class='{'active' if (V == mod) else 'variant'}' href='../../{mod}/{E}/{Orders[O]}'><span style='font-family: lichess' title='{VariantsOrdered[mod]}'>{VariantsOrderedIcons[mod]}</span></a>\n")
 					else:
-						ofile.write(f"\t\t\t &middot; <a class='{'active' if (V == mod) else 'Variants'}' href='../../{mod}/all/{Orders[O]}'><span style='font-family: lichess' title='{VariantsOrdered[mod]}'>{VariantsOrderedIcons[mod]}</span></a>\n")
+						ofile.write(f"\t\t\t &middot; <a class='{'active' if (V == mod) else 'variant'}' href='../../{mod}/all/{Orders[O]}'><span style='font-family: lichess' title='{VariantsOrdered[mod]}'>{VariantsOrderedIcons[mod]}</span></a>\n")
 				ofile.write("\t\t</th>\n")
 				ofile.write("\t</tr>\n")
 				ofile.write("\t<tr>\n")
@@ -422,24 +422,24 @@ for V in Variants:
 			ofile.write("\t\t<th colspan='10' class='type'>\n")
 			ofile.write(f"\t\t<a class='{'active' if (E == 'all') else 'type'}' href='../all/stats.html'>All</a>\n")
 			for eve in EventsOrdered:
-				if os.path.exists(PathRank + V + "\\" + eve + "\\" + V + "_" + eve + "_ranking.json"):
-					ofile.write("\t\t &middot; <a class='" + ("active" if (E == eve) else "type") + "' href='../" + eve + "/stats.html'>" + EventsOrdered[eve] + "</a>\n")
+				if os.path.exists(f"{PathRank}{V}\\{eve}\\{V}_{eve}_ranking.json"):
+					ofile.write(f"\t\t &middot; <a class='{'active' if (E == eve) else 'type'}' href='../{eve}/stats.html'>{EventsOrdered[eve]}</a>\n")
 				else:
-					ofile.write("\t\t &middot; " + EventsOrdered[eve] + "\n")
+					ofile.write(f"\t\t &middot; {EventsOrdered[eve]}\n")
 			ofile.write("\t\t</th>\n")
 			ofile.write("\t</tr>\n")
 			ofile.write("\t<tr>\n")
 			ofile.write("\t\t<th colspan='10' class='title'>\n")
 			#ofile.write("\t\t<div class='lefticon'>" + VariantsOrderedIcons[V] + "</div>\n")
 			if E == "marathon":
-				ofile.write("\t\t" + Variants[V] + " Marathons\n")
+				ofile.write(f"\t\t{Variants[V]} Marathons\n")
 			elif V == "all" or E == "titled" or E == "shield":
 				if V == "all" and E == "all":
-					ofile.write("\t\tAll Arenas\n")
+					ofile.write(f"\t\tAll Arenas\n")
 				else:
-					ofile.write("\t\t" + Variants[V] + " " + Events[E] + " Arenas\n")
+					ofile.write(f"\t\t{Variants[V]} {Events[E]} Arenas\n")
 			else:
-				ofile.write("\t\t" + Events[E] + " " + Variants[V] + " Arenas\n")
+				ofile.write(f"\t\t{Events[E]} {Variants[V]} Arenas\n")
 			#ofile.write("\t\t<div class='righticon'>" + VariantsOrderedIcons[V] + "</div>\n")
 			ofile.write("\t\t</th>\n")
 			ofile.write("\t</tr>\n")
@@ -455,14 +455,14 @@ for V in Variants:
 			ofile.write("\t<tr>\n")
 			ofile.write("\t\t<th colspan='10' class='info' style='padding: 0px; spacing: 0px;'>\n")
 			ofile.write("\t\t<figure style='display: inline-block; padding: 0px; spacing: 0px;'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_players.png'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_games.png'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_points.png'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_moves.png'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_rating.png'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_berserk.png'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_topscore.png'>\n")
-			ofile.write("\t\t<img src='" + V + "_" + E + "_results.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_players.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_games.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_points.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_moves.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_rating.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_berserk.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_topscore.png'>\n")
+			ofile.write(f"\t\t<img src='{V}_{E}_results.png'>\n")
 			ofile.write("\t\t</figure>\n")
 			ofile.write("\t\t</th>\n")
 			ofile.write("\t</thead>\n")	
@@ -499,7 +499,7 @@ for oth in others:
 		#ofile.write("\t\t\t<a class='" + ("active" if (E == "all") else "back") + "' href='../all/" + Orders[O] + "'>All</a>\n")
 		ofile.write("\t\t\t<a class='active' href='index.html'><span style='font-family: lichess' title='About'>&#xe005;</span></a>\n")
 		for mod in VariantsOrdered:
-			ofile.write("\t\t\t &middot; <a class='variant' href='" + mod + "/all/index.html'><span style='font-family: lichess' title='" + VariantsOrdered[mod] + "'>" + VariantsOrderedIcons[mod] + "</span></a>\n")
+			ofile.write(f"\t\t\t &middot; <a class='variant' href='{mod}/all/index.html'><span style='font-family: lichess' title='{VariantsOrdered[mod]}'>{VariantsOrderedIcons[mod]}</span></a>\n")
 		ofile.write("\t\t</th>\n")
 		ofile.write("\t</tr>\n")
 		ofile.write("\t<tr>\n")
@@ -516,7 +516,7 @@ for oth in others:
 		ofile.write("\t<tr>\n")
 		ofile.write("\t\t<th colspan='10' class='title'>\n")
 		#ofile.write("\t\t<div class='lefticon'>&#xe005;</div>\n")
-		ofile.write("\t\t" + oth + "\n")
+		ofile.write(f"\t\t{oth}\n")
 		#ofile.write("\t\t<div class='righticon'>&#xe005;</div>\n")
 		ofile.write("\t\t</th>\n")
 		ofile.write("\t</tr>\n")

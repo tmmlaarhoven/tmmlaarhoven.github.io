@@ -117,7 +117,7 @@ def UpdateStats(RankInfo, ArenaData):
 		RankInfo["TopUser"] = ArenaData["#1"]
 
 # Store rankings in files in different orders, and only partial lists for some...
-def StoreRankings(RankInfo, ArenaList, Ranking, V, E):
+def StoreRankings(RankInfo, ArenaList, Ranking, V, E, NewList, DoPlayers = False):
 
 	ListUsernamesAll = dict()
 	ListUsernamesPlots = dict()
@@ -180,12 +180,13 @@ def StoreRankings(RankInfo, ArenaList, Ranking, V, E):
 				break
 
 
-	UpdatePlayers(V, E, ListUsernamesAll, ListUsernamesPlots, RankInfo, ArenaList, Ranking)
+	if DoPlayers:
+		UpdatePlayers(V, E, ListUsernamesAll, ListUsernamesPlots, RankInfo, ArenaList, Ranking, NewList)
 		
 		
 
 # Given variant V and event E, update rankings for this combination
-def UpdateRankings(V, E, TargetIDs = []):
+def UpdateRankings(V, E):
 
 	NewList = []
 	PrintMessage(V, E, "Running...")
@@ -197,7 +198,7 @@ def UpdateRankings(V, E, TargetIDs = []):
 	# 1: Skip if no detailed tournament info file found (some might not yet be downloaded)
 	if (V != "all") and (E != "all") and (not os.path.exists(PathData + Folder(V, E) + V + "_" + E + ".ndjson")):
 		PrintMessage(V, E, "No rankings.")
-		return NewList
+		return
 	
 	# 2: Create directory if it does not exist
 	if not os.path.exists(PathRank + Folder(V, E)):
@@ -236,9 +237,11 @@ def UpdateRankings(V, E, TargetIDs = []):
 		assert("Events" in RankInfo), "Inconsistent ranking files. No entry Events in RankInfo."
 		assert("FirstID" in RankInfo), "Inconsistent ranking files. No entry FirstID in RankInfo."
 		assert("LastID" in RankInfo), "Inconsistent ranking files. No entry LastID in RankInfo."
-		#assert(RankInfo["Events"] == len(ArenaList)), f"Inconsistent ranking files. Unequal number of events. {RankInfo['Events']} != {len(ArenaList)}"
+		assert(RankInfo["Events"] == len(ArenaList)), f"Inconsistent ranking files. Unequal number of events. {RankInfo['Events']} != {len(ArenaList)}"
 		#assert(RankInfo["FirstID"] in ArenaList), "Inconsistent ranking files. Unequal first IDs."
 		#assert(RankInfo["LastID"] in ArenaList), "Inconsistent ranking files. Unequal last IDs."
+	
+	
 	
 	# 7: Scroll through more up to date tournament info file until new tournaments are found, then update from corresponding results file
 	if V != "all" and E != "all":
@@ -292,7 +295,7 @@ def UpdateRankings(V, E, TargetIDs = []):
 				NewProcessed += 1
 				if NewProcessed % 1000 == 0:
 					PrintMessage(V, E, "Intermediate dump after " + str(RankInfo["Events"]) + " events.")
-					StoreRankings(RankInfo, ArenaList, Ranking, V, E)
+					StoreRankings(RankInfo, ArenaList, Ranking, V, E, [], False)
 	
 	# For mixed rankings, use list with tournament info/IDs to fetch relevant data
 	else:
@@ -332,16 +335,25 @@ def UpdateRankings(V, E, TargetIDs = []):
 			NewProcessed += 1
 			if NewProcessed % 1000 == 0:
 				PrintMessage(V, E, "Intermediate dump after " + str(RankInfo["Events"]) + " events.")
-				StoreRankings(RankInfo, ArenaList, Ranking, V, E)
+				StoreRankings(RankInfo, ArenaList, Ranking, V, E, [], False)
 
 	# 9: If we did do something, update files
-	PrintMessage(V, E, "Final dump after " + str(RankInfo["Events"]) + " events.")		
-	StoreRankings(RankInfo, ArenaList, Ranking, V, E)
+	PrintMessage(V, E, "Final dump after " + str(RankInfo["Events"]) + " events.")	
+	PrintMessage(V, E, "Final dump after " + str(len(ArenaList)) + " events.")	
+	
+	
+	ArenaList = {k: v for k, v in sorted(ArenaList.items(), key = lambda item: item[1]["Start"], reverse = False)}	
+	for Index, (ID, Arena) in enumerate(ArenaList.items()):
+		Arena["Number"] = Index + 1
+	
+	StoreRankings(RankInfo, ArenaList, Ranking, V, E, NewList, True)
 
 	# 8: Wrap up -- Check if anything happened. If not, continue
 	if NewProcessed == 0:
 		PrintMessage(V, E, "No new events found, so nothing to do.")	
-		return NewList
+		return
+		
+	
 		
 	# Sort all events by date (should be unnecessary) and store them in a file
 	ArenaList = {k: v for k, v in sorted(ArenaList.items(), key = lambda item: item[1]["Start"], reverse = False)}
@@ -351,9 +363,9 @@ def UpdateRankings(V, E, TargetIDs = []):
 			RankListFile.write(json.dumps(Arena) + "\n")	
 
 	if V != "all" and E != "all":
-		return NewList
+		return
 	else:
-		return None
+		return
 	
 
 # Function to update the player ranking file for variant V, event EOFError
@@ -364,7 +376,7 @@ def UpdateRankings(V, E, TargetIDs = []):
 # {Number: 105, ID: s09sdkjg, Start: 2014-02-17, CumTrophies: [2,0,0], CumPoints: 54, CumEvents: 2, CumTopScore: 31}
 # ...
 # {Number: 1791, ID: er0lsdk9, Start: 2018-10-03, CumTrophies: [17,3,1], CumPoints: 1209, CumEvents: 87, CumTopScore: 23}
-def UpdatePlayers(V, E, ListUsernamesAll, ListUsernamesPlots, RankInfo, ArenaList, Ranking, TargetIDs = []):
+def UpdatePlayers(V, E, ListUsernamesAll, ListUsernamesPlots, RankInfo, ArenaList, Ranking, NewList = []):
 	
 	# Two methods: either we need to start from scratch and go through all events or files already exist, and we only update based on new events, either via TargetIDs or by just loading ranking
 	#if not os.file.exists(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + ListUsernames[0] + ".json") or not os.file.exists(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + Username + ".ndjson"):
@@ -373,90 +385,177 @@ def UpdatePlayers(V, E, ListUsernamesAll, ListUsernamesPlots, RankInfo, ArenaLis
 		os.makedirs(PathRank + Folder(V, E) + "players\\")
 	
 
-
+	
 
 	# FOLLOWING CODE ONLY FOR WHEN STARTING FRESH OR WHEN SOME USERNAME HAS NO FILE
 	
+	if not os.path.exists(PathRank + Folder(V, E) + "players\\" + V + "_" + E + ".txt"):
+	
+		# Initialize empty JSON and NDJSON files
+		UserJSON = dict()
+		UserNDJSON = dict()
+		for Username in ListUsernamesAll:
+			UserID = Username.lower()
+			UserJSON[UserID] = dict()
+			UserJSON[UserID]["Variant"] = V
+			UserJSON[UserID]["Event"] = E
+			UserJSON[UserID]["Username"] = UserID
+			UserJSON[UserID]["FirstID"] = "-"
+			UserJSON[UserID]["LastID"] = "-"
+			UserJSON[UserID]["CumTrophies"] = [0, 0, 0]
+			UserJSON[UserID]["CumPoints"] = 0
+			UserJSON[UserID]["CumEvents"] = 0
+			UserJSON[UserID]["CumTopScore"] = 0
+			UserNDJSON[UserID] = []
+		
+		# Go through all events in the ranking, and update JSON and NDJSON for this user
+		ArenaList = {k: v for k, v in sorted(ArenaList.items(), key = lambda item: item[1]["Start"], reverse = False)}
+		for Index, ID in enumerate(ArenaList):
+			#UserJSON[UserID]["LastID"] = ID
+			Vp = ArenaList[ID]["Variant"]
+			Ep = ArenaList[ID]["Event"]
+			with open(PathData + Folder(Vp, Ep) + Prefix(Vp, Ep) + ID + ".ndjson", "r") as ResultsFile:
+				for Line in ResultsFile:
+					UserResult = json.loads(Line)
+					if UserResult["username"].lower() in map(lambda x: x.lower(), ListUsernamesAll) and UserResult["score"] > 0:
+						
+						# Update JSON stats
+						UserID = UserResult["username"].lower()
+						if UserJSON[UserID]["FirstID"] == "-":
+							UserJSON[UserID]["FirstID"] = ID
+						UserJSON[UserID]["LastID"] = ID
+						if UserResult["rank"] == 1:
+							UserJSON[UserID]["CumTrophies"][0] = UserJSON[UserID]["CumTrophies"][0] + 1
+						elif UserResult["rank"] == 2:
+							UserJSON[UserID]["CumTrophies"][1] = UserJSON[UserID]["CumTrophies"][1] + 1
+						elif UserResult["rank"] == 3:
+							UserJSON[UserID]["CumTrophies"][2] = UserJSON[UserID]["CumTrophies"][2] + 1
+						UserJSON[UserID]["CumPoints"] = UserJSON[UserID]["CumPoints"] + UserResult["score"]
+						UserJSON[UserID]["CumEvents"] = UserJSON[UserID]["CumEvents"] + 1
+						UserJSON[UserID]["CumTopScore"] = max(UserJSON[UserID]["CumTopScore"], UserResult["score"])
+						
+						# Update NSJSON stats
+						UserNDJSON[UserID].append({"Number": Index + 1, "ID": ID, "Start": ArenaList[ID]["Start"], "CumTrophies": UserJSON[UserID]["CumTrophies"].copy(), "CumPoints": UserJSON[UserID]["CumPoints"], "CumEvents": UserJSON[UserID]["CumEvents"], "CumTopScore": UserJSON[UserID]["CumTopScore"]})
+						
+			if Index % 1000 == 0 and Index > 0:
+				PrintMessage(V, E, "Player rankings intermediate dump after " + str(Index) + " events.")
 
-	
-	# Initialize empty JSON and NDJSON files
-	UserJSON = dict()
-	UserNDJSON = dict()
-	for Username in ListUsernamesAll:
-		UserID = Username.lower()
-		UserJSON[UserID] = dict()
-		UserJSON[UserID]["Variant"] = V
-		UserJSON[UserID]["Event"] = E
-		UserJSON[UserID]["Username"] = UserID
-		UserJSON[UserID]["Events"] = 0
-		UserJSON[UserID]["LastID"] = "-"
-		UserJSON[UserID]["CumTrophies"] = [0, 0, 0]
-		UserJSON[UserID]["CumPoints"] = 0
-		UserJSON[UserID]["CumEvents"] = 0
-		UserJSON[UserID]["CumTopScore"] = 0
-		UserNDJSON[UserID] = []
-	
-	# Go through all events in the ranking, and update JSON and NDJSON for this user
-	ArenaList = {k: v for k, v in sorted(ArenaList.items(), key = lambda item: item[1]["Start"], reverse = False)}
-	for Index, ID in enumerate(ArenaList):
-		UserJSON[UserID]["LastID"] = ID
-		Vp = ArenaList[ID]["Variant"]
-		Ep = ArenaList[ID]["Event"]
-		with open(PathData + Folder(Vp, Ep) + Prefix(Vp, Ep) + ID + ".ndjson", "r") as ResultsFile:
-			for Line in ResultsFile:
-				UserResult = json.loads(Line)
-				if UserResult["username"].lower() in map(lambda x: x.lower(), ListUsernamesAll) and UserResult["score"] > 0:
+				for Username in ListUsernamesAll:
+					UserID = Username.lower() 
+					with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
+						json.dump(UserJSON[UserID], JSONFile)
+					with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
+						for Index in range(len(UserNDJSON[UserID])):
+							NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
+		
+		PrintMessage(V, E, "Player rankings final dump after " + str(len(ArenaList)) + " events.")
+		for Username in ListUsernamesAll:
+			UserID = Username.lower() 
+			with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
+				json.dump(UserJSON[UserID], JSONFile)
+			with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
+				for Index in range(len(UserNDJSON[UserID])):
+					NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
 					
-					# Update JSON stats
-					UserID = UserResult["username"].lower()
-					UserJSON[UserID]["Events"] = UserJSON[UserID]["Events"] + 1
-					UserJSON[UserID]["LastID"] = ID
-					if UserResult["rank"] == 1:
-						UserJSON[UserID]["CumTrophies"][0] = UserJSON[UserID]["CumTrophies"][0] + 1
-					elif UserResult["rank"] == 2:
-						UserJSON[UserID]["CumTrophies"][1] = UserJSON[UserID]["CumTrophies"][1] + 1
-					elif UserResult["rank"] == 3:
-						UserJSON[UserID]["CumTrophies"][2] = UserJSON[UserID]["CumTrophies"][2] + 1
-					UserJSON[UserID]["CumPoints"] = UserJSON[UserID]["CumPoints"] + UserResult["score"]
-					UserJSON[UserID]["CumEvents"] = UserJSON[UserID]["CumEvents"] + 1
-					UserJSON[UserID]["CumTopScore"] = max(UserJSON[UserID]["CumTopScore"], UserResult["score"])
-					
-					# Update NSJSON stats
-					UserNDJSON[UserID].append({"Number": Index + 1, "ID": ID, "Start": ArenaList[ID]["Start"], "CumTrophies": UserJSON[UserID]["CumTrophies"].copy(), "CumPoints": UserJSON[UserID]["CumPoints"], "CumEvents": UserJSON[UserID]["CumEvents"], "CumTopScore": UserJSON[UserID]["CumTopScore"]})
-					
-		if Index % 1000 == 0 and Index > 0:
-			PrintMessage(V, E, "Player rankings intermediate dump after " + str(Index) + " events.")
-
-			for Username in ListUsernamesAll:
-				UserID = Username.lower() 
-				with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
-					json.dump(UserJSON[UserID], JSONFile)
-				with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
-					for Index in range(len(UserNDJSON[UserID])):
-						NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
-	
-	PrintMessage(V, E, "Player rankings final dump after " + str(len(ArenaList)) + " events.")
-	for Username in ListUsernamesAll:
-		UserID = Username.lower() 
-		with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
-			json.dump(UserJSON[UserID], JSONFile)
-		with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
-			for Index in range(len(UserNDJSON[UserID])):
-				NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
-				
-	# Print list of usernames to file
-	#UsernamesSorted = []
-	UsernamesSorted = list(sorted(ListUsernamesAll.keys()))
-	with open(PathRank + Folder(V, E) + "players\\" + V + "_" + E + ".txt", "w") as UsernameFile:
-		for Username in UsernamesSorted:
-			UsernameFile.write(Username.lower() + "\n")
-	
-	
+		# Print list of usernames to file
+		#UsernamesSorted = []
+		UsernamesSorted = list(sorted(ListUsernamesAll.keys()))
+		with open(PathRank + Folder(V, E) + "players\\" + V + "_" + E + ".txt", "w") as UsernameFile:
+			for Username in UsernamesSorted:
+				UsernameFile.write(Username.lower() + "\n")
+		
+		
 	
 	
 	
 	# OTHERWISE, ONLY UPDATE RANKINGS
 	
+	else:
+	
+		# file PathRank + Folder(V, E) + Prefix(V, E) + "ranking.ndjson" has not yet been updated and can be queried
+		
+		if len(NewList) == 0:
+			PrintMessage(V, E, "No new events, nothing to do.")
+			return
+		
+		
+		# Initialize empty JSON and NDJSON files
+		UserJSON = dict()
+		UserNDJSON = dict()
+		ListUsernamesStored = []
+		
+		# Load list of usernames from file
+		with open(PathRank + Folder(V, E) + "players\\" + V + "_" + E + ".txt", "r") as PlayerFile:
+			for Line in PlayerFile:
+				ListUsernamesStored.append(Line.strip())
+				
+		for Username in ListUsernamesStored:
+			UserID = Username.lower()			
+			with open(PathRank + Folder(V, E) + "players\\" + V + "_" + E + "_" + UserID + ".json", "r") as UserInfo:
+				UserJSON[UserID] = json.load(UserInfo)
+			if "Events" in UserJSON:
+				UserJSON.pop("Events")
+			UserNDJSON[UserID] = []
+			with open(PathRank + Folder(V, E) + "players\\" + V + "_" + E + "_" + UserID + ".ndjson", "r") as UserScores:
+				for Line in UserScores:
+					UserNDJSON[UserID].append(json.loads(Line))
+			
+			
+		# Go through all events in the ranking, and update JSON and NDJSON for this user
+		ArenaList = {k: v for k, v in sorted(ArenaList.items(), key = lambda item: item[1]["Start"], reverse = False)}
+		for Index, ID in enumerate(ArenaList):
+			if ID not in NewList:
+				continue
+			Vp = ArenaList[ID]["Variant"]
+			Ep = ArenaList[ID]["Event"]
+			with open(PathData + Folder(Vp, Ep) + Prefix(Vp, Ep) + ID + ".ndjson", "r") as ResultsFile:
+				for Line in ResultsFile:
+					UserResult = json.loads(Line)
+					if UserResult["username"].lower() in map(lambda x: x.lower(), ListUsernamesStored) and UserResult["score"] > 0:
+						
+						# Update JSON stats
+						UserID = UserResult["username"].lower()
+						UserJSON[UserID]["LastID"] = ID
+						if UserResult["rank"] == 1:
+							UserJSON[UserID]["CumTrophies"][0] = UserJSON[UserID]["CumTrophies"][0] + 1
+						elif UserResult["rank"] == 2:
+							UserJSON[UserID]["CumTrophies"][1] = UserJSON[UserID]["CumTrophies"][1] + 1
+						elif UserResult["rank"] == 3:
+							UserJSON[UserID]["CumTrophies"][2] = UserJSON[UserID]["CumTrophies"][2] + 1
+						UserJSON[UserID]["CumPoints"] = UserJSON[UserID]["CumPoints"] + UserResult["score"]
+						UserJSON[UserID]["CumEvents"] = UserJSON[UserID]["CumEvents"] + 1
+						UserJSON[UserID]["CumTopScore"] = max(UserJSON[UserID]["CumTopScore"], UserResult["score"])
+						
+						# Update NSJSON stats
+						UserNDJSON[UserID].append({"Number": Index + 1, "ID": ID, "Start": ArenaList[ID]["Start"], "CumTrophies": UserJSON[UserID]["CumTrophies"].copy(), "CumPoints": UserJSON[UserID]["CumPoints"], "CumEvents": UserJSON[UserID]["CumEvents"], "CumTopScore": UserJSON[UserID]["CumTopScore"]})
+						
+			if Index % 1000 == 0 and Index > 0:
+				PrintMessage(V, E, "Player rankings (update) intermediate dump after " + str(Index) + " events.")
+
+				for Username in ListUsernamesStored:
+					UserID = Username.lower() 
+					with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
+						json.dump(UserJSON[UserID], JSONFile)
+					with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
+						for Index in range(len(UserNDJSON[UserID])):
+							NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
+		
+		PrintMessage(V, E, "Player rankings (update) final dump after " + str(len(ArenaList)) + " events.")
+		for Username in ListUsernamesStored:
+			UserID = Username.lower() 
+			#print(UserID)
+			with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".json", "w") as JSONFile:
+				json.dump(UserJSON[UserID], JSONFile)
+			with open(PathRank + Folder(V, E) + "players\\" + Prefix(V, E) + UserID + ".ndjson", "w") as NDJSONFile:
+				for Index in range(len(UserNDJSON[UserID])):
+					NDJSONFile.write(json.dumps(UserNDJSON[UserID][Index]) + "\n")
+					
+		# Print list of usernames to file
+		#UsernamesSorted = []
+		UsernamesSorted = list(sorted(ListUsernamesStored))
+		with open(PathRank + Folder(V, E) + "players\\" + V + "_" + E + ".txt", "w") as UsernameFile:
+			for Username in UsernamesSorted:
+				UsernameFile.write(Username.lower() + "\n")
 	
 	
 	
