@@ -15,45 +15,44 @@ from matplotlib.ticker import PercentFormatter
 from itertools import product
 
 PureVariants = {
-	"3check": "Three-check",
-	"antichess": "Antichess",
-	"atomic": "Atomic",
-	"blitz": "Blitz",
-	"bullet": "Bullet",
-	"chess960": "Chess960",
-	"classical": "Classical",
-	"crazyhouse": "Crazyhouse",
-	"horde": "Horde",
-	"hyperbullet": "HyperBullet",
-	"koth": "King of the Hill",
-	"racingkings": "Racing Kings",
-	"rapid": "Rapid",
-	"superblitz": "SuperBlitz",
-	"ultrabullet": "UltraBullet"
+	"3check": 		{"Name": "Three-check", 	"Color": [204, 121, 167], 	"WebOrder": 11,		"Icon": "."},
+	"antichess": 	{"Name": "Antichess",		"Color": [223, 83, 83],		"WebOrder": 12,		"Icon": "@"},
+	"atomic": 		{"Name": "Atomic",			"Color": [102, 85, 140],	"WebOrder": 13,		"Icon": ">"},
+	"blitz": 		{"Name": "Blitz",			"Color": [0, 114, 178],		"WebOrder": 5,		"Icon": ")"},
+	"bullet": 		{"Name": "Bullet",			"Color": [86, 180, 233],	"WebOrder": 3,		"Icon": "T"},
+	"chess960": 	{"Name": "Chess960",		"Color": [230, 159, 0],		"WebOrder": 9,		"Icon": "'"},
+	"classical": 	{"Name": "Classical",		"Color": [69, 159, 59],		"WebOrder": 7,		"Icon": "+"},
+	"crazyhouse": 	{"Name": "Crazyhouse",		"Color": [86, 180, 233],	"WebOrder": 8,		"Icon": "&#xe00b;"},
+	"horde": 		{"Name": "Horde",			"Color": [153, 230, 153],	"WebOrder": 14,		"Icon": "_"},
+	"hyperbullet": 	{"Name": "HyperBullet",		"Color": [86, 180, 233],	"WebOrder": 2,		"Icon": "T"},
+	"koth": 		{"Name": "King of the Hill","Color": [213, 94, 0],		"WebOrder": 10,		"Icon": "("},
+	"racingkings": 	{"Name": "Racing Kings",	"Color": [255, 174, 170],	"WebOrder": 15,		"Icon": "&#xe00a;"},
+	"rapid": 		{"Name": "Rapid",			"Color": [0, 158, 115],		"WebOrder": 6,		"Icon": "#"},
+	"superblitz": 	{"Name": "SuperBlitz",		"Color": [0, 114, 178],		"WebOrder": 4,		"Icon": ")"},
+	"ultrabullet": 	{"Name": "UltraBullet",		"Color": [0, 158, 115],		"WebOrder": 1,		"Icon": "{"}
 }
 AllVariants = dict(PureVariants)
-AllVariants["all"] = "All"
+AllVariants["all"] = {"Name": "All",			"Color": [200, 200, 200],	"WebOrder": 0,		"Icon": "O"}
 
 PureEvents = {
-	"hourly": "Hourly",
-	"2000": "&lt;2000",
-	"1700": "&lt;1700",
-	"1600": "&lt;1600",
-	"1500": "&lt;1500",
-	"1300": "&lt;1300",
-	"daily": "Daily",
-	"weekly": "Weekly",
-	"monthly": "Monthly",
-	"yearly": "Yearly",
-	"eastern": "Eastern",
-	"elite": "Elite",
-	"shield": "Shield",
-	"titled": "Titled",
-	"marathon": "Marathon",
-	"special": "Special"
+	"hourly": 		{"Name": "Hourly"},
+	"2000": 		{"Name": "&lt;2000"},
+	"1700": 		{"Name": "&lt;1700"},
+	"1600": 		{"Name": "&lt;1600"},
+	"1500": 		{"Name": "&lt;1500"},
+	"1300": 		{"Name": "&lt;1300"},
+	"daily": 		{"Name": "Daily"},
+	"weekly": 		{"Name": "Weekly"},
+	"monthly": 		{"Name": "Monthly"},
+	"yearly": 		{"Name": "Yearly"},
+	"eastern": 		{"Name": "Eastern"},
+	"elite": 		{"Name": "Elite"},
+	"shield": 		{"Name": "Shield"},
+	"titled": 		{"Name": "Titled"},
+	"marathon": 	{"Name": "Marathon"}
 }
 AllEvents = dict(PureEvents)
-AllEvents["all"] = "All"
+AllEvents["all"] = 	{"Name": "All"}
 	
 #######################################################################################################################################################################################
 #######################################################################################################################################################################################
@@ -98,11 +97,20 @@ class ArenaCategory:
 		self._PathRanking = f"E:\\lichess\\tournaments\\rankings\\{self._V}\\{self._E}\\"
 		self._FileRankingInfo = f"{self._PathRanking}{self._Prefix}_ranking.json"	
 		self._FileRankingList = f"{self._PathRanking}{self._Prefix}_ranking.ndjson"	
-		self._FileRankingPoints = f"{self._PathRanking}{self._Prefix}_ranking_points.ndjson"
-		self._FileRankingTrophies = f"{self._PathRanking}{self._Prefix}_ranking_trophies.ndjson"	
-		self._FileRankingEvents = f"{self._PathRanking}{self._Prefix}_ranking_events.ndjson"	
-		self._FileRankingMaximum = f"{self._PathRanking}{self._Prefix}_ranking_maximum.ndjson"
-
+		self._FileRankingFull = f"{self._PathRanking}{self._Prefix}_ranking_full.ndjson"
+		#self._FileRankingFullOld = f"{self._PathRanking}{self._Prefix}_ranking_points.ndjson"
+		self._FileRankingPoints = f"{self._PathRanking}{self._Prefix}_players_points.ndjson"
+		self._FileRankingTrophies = f"{self._PathRanking}{self._Prefix}_players_trophies.ndjson"	
+		self._FileRankingEvents = f"{self._PathRanking}{self._Prefix}_players_events.ndjson"	
+		self._FileRankingAverage = f"{self._PathRanking}{self._Prefix}_players_average.ndjson"	
+		self._FileRankingMaximum = f"{self._PathRanking}{self._Prefix}_players_maximum.ndjson"
+		
+		# Files stored locally in the rankings directory
+		self._FileArenaNewest = f"{self._PathRanking}{self._Prefix}_arenas_newest.ndjson"	
+		self._FileArenaPlayers = f"{self._PathRanking}{self._Prefix}_arenas_players.ndjson"	
+		self._FileArenaMaximum = f"{self._PathRanking}{self._Prefix}_arenas_maximum.ndjson"
+		self._FileArenaRating = f"{self._PathRanking}{self._Prefix}_arenas_rating.ndjson"	
+		
 		# Storing rankings based on different orderings
 		self._ListFiles = [self._FileRankingPoints, self._FileRankingTrophies, self._FileRankingEvents, self._FileRankingMaximum]
 		self._ListSorts = [self._SortPoints, self._SortTrophies, self._SortEvents, self._SortMaximum]
@@ -146,10 +154,20 @@ class ArenaCategory:
 		return item["Score"]
 	def _SortTrophies(self, item):
 		return 100000000 * item["Trophies"][0] + 10000 * item["Trophies"][1] + item["Trophies"][2]
-	def _SortMaximum(self, item):
-		return item["TopScore"]
 	def _SortEvents(self, item):
 		return item["Events"] - item.get("Zeros", 0)
+	def _SortAverage(self, item):
+		return item["Score"] / max(item["Events"], 1)
+	def _SortMaximum(self, item):
+		return item["TopScore"]
+	def _SortNewest(self, item):
+		return item["Start"]
+	def _SortPlayers(self, item):
+		return item["Players"]
+	def _SortTopScore(self, item):
+		return item["TopScore"]
+	def _SortRating(self, item):
+		return item["TotalRating"] / item["Players"]
 		
 	# Printing a message to the command line, when running in verbose mode.
 	def PrintMessage(self, Message: str):
@@ -191,20 +209,25 @@ class ArenaCategory:
 	# 1. Load all data in memory
 	def LoadRankings(self):
 		self.PrintMessage("1. Loading...")
+		
+		
+		
+		if os.path.exists(f"{self._PathRanking}{self._Prefix}_ranking_events.ndjson"):
+			os.remove(f"{self._PathRanking}{self._Prefix}_ranking_events.ndjson")
+			
+		if os.path.exists(f"{self._PathRanking}{self._Prefix}_ranking_maximum.ndjson"):
+			os.remove(f"{self._PathRanking}{self._Prefix}_ranking_maximum.ndjson")
+			
+		if os.path.exists(f"{self._PathRanking}{self._Prefix}_ranking_trophies.ndjson"):
+			os.remove(f"{self._PathRanking}{self._Prefix}_ranking_trophies.ndjson")
+			
+			
+			
 		self._LoadDataList()			# Up to date data that has been fetched
 		self._LoadRankingInfo()			# Current global information about rankings
 		if len(self._DataList) == self._RankingInfo["Events"]:
 			self._UpToDate = True
 			self.PrintMessage("Nothing to do.")
-			
-			# if len(self._DataList) > 0:
-				# self._LoadRankingList()		# Detailed list of events currently in rankings
-				# self._LoadRankingData()		# Detailed state of rankings
-				# self._LoadPlayerList()		# Top players for cumulative scores
-				# self._LoadPlayerStatus()	# For those top players, load most recent info
-				# self._LoadMissingList()		# Make a list of detailed arena info for updates
-				# self._FIXUSERFILES()		# TEMPORARY FIX
-			
 		else:
 			self._UpToDate = False
 			self.PrintMessage(f"Out of {len(self._DataList)} events, only {self._RankingInfo['Events']} included in rankings so far.")
@@ -213,6 +236,7 @@ class ArenaCategory:
 			self._LoadPlayerList()		# Top players for cumulative scores
 			self._LoadPlayerStatus()	# For those top players, load most recent info
 			self._LoadMissingList()		# Make a list of detailed arena info for updates
+		# self._FIXUSERFILES()		# TEMPORARY FIX	
 	
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 		
@@ -233,10 +257,13 @@ class ArenaCategory:
 		if os.path.exists(self._FileRankingInfo): 
 			with open(self._FileRankingInfo, "r") as FileRankingInfo:
 				self._RankingInfo = json.load(FileRankingInfo)
+			if self._RankingInfo["Events"] == 0:
+				os.remove(self._FileRankingInfo)
 		else:
+			
 			self._RankingInfo = {"Events": 0, "Participants": 0, "Games": 0, "Moves": 0, "WhiteWins": 0, "BlackWins": 0, "Berserks": 0, "TotalPoints": 0, "TotalRating": 0, "FirstStart": "2030-01-01T00:00:00.000Z", "FirstID": "XXXXXXXX", "LastStart": "2010-01-01T00:00:00.000Z", "LastID": "YYYYYYYY", "MaxUsers": 0, "MaxUsersID": "ZZZZZZZZ", "TopScore": 0, "TopScoreID": "WWWWWWWW", "TopUser": "-", "Players": 0, "Points": 0}
-			with open(self._FileRankingInfo, "w") as FileRankingInfo:
-				FileRankingInfo.write(json.dumps(self._RankingInfo))
+			#with open(self._FileRankingInfo, "w") as FileRankingInfo:
+			#	FileRankingInfo.write(json.dumps(self._RankingInfo))
 
 		assert(self._RankingInfo["Events"] <= len(self._DataList)), f"Ranking information shows more events than the more up to date list of IDs!" 		
 
@@ -260,8 +287,8 @@ class ArenaCategory:
 	
 	# 1d. If we need to update rankings, then we need to load the rankings data.
 	def _LoadRankingData(self):
-		if os.path.exists(self._FileRankingPoints):	
-			with open(self._FileRankingPoints, "r") as FileRankingData:
+		if os.path.exists(self._FileRankingFull):	
+			with open(self._FileRankingFull, "r") as FileRankingData:
 				for Line in FileRankingData:
 					UserRank = json.loads(Line)
 					self._Ranking[UserRank["Username"].lower()] = UserRank
@@ -499,6 +526,8 @@ class ArenaCategory:
 			for Index, (ID, Arena) in enumerate(self._DataList.items()):
 				Arena["Number"] = Index + 1
 				RankListFile.write(json.dumps(Arena) + "\n")	
+				
+		self._StoreArenaRankings()
 
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -560,8 +589,8 @@ class ArenaCategory:
 	def _StoreRankings(self):
 	
 		# Different orders for rankings, and sort functions
-		ListFiles = [self._FileRankingPoints, self._FileRankingTrophies, self._FileRankingEvents, self._FileRankingMaximum]
-		ListSorts = [self._SortPoints, self._SortTrophies, self._SortEvents, self._SortMaximum]
+		ListFiles = [self._FileRankingFull, self._FileRankingPoints, self._FileRankingTrophies, self._FileRankingEvents, self._FileRankingAverage, self._FileRankingMaximum]
+		ListSorts = [self._SortPoints, self._SortPoints, self._SortTrophies, self._SortEvents, self._SortAverage, self._SortMaximum]
 		
 		# Store in different orders to different files
 		for i in range(len(ListFiles)):
@@ -577,6 +606,29 @@ class ArenaCategory:
 		# Print information to json
 		with open(self._FileRankingInfo, "w") as RankInfoFile:
 			RankInfoFile.write(json.dumps(self._RankingInfo))
+		
+	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	# 2d. Sort and store lists of arenas to files		
+	def _StoreArenaRankings(self):
+	
+		# Different orders for rankings, and sort functions
+		ListFiles = [self._FileArenaNewest, self._FileArenaPlayers, self._FileArenaMaximum, self._FileArenaRating]
+		ListSorts = [self._SortNewest, self._SortPlayers, self._SortTopScore, self._SortRating]
+	
+		# Store in different orders to different files
+		for i in range(len(ListFiles)):
+			self._DataList = OrderedDict(sorted(self._DataList.items(), key = lambda item: ListSorts[0](item[1]), reverse = True))
+			self._DataList = OrderedDict(sorted(self._DataList.items(), key = lambda item: ListSorts[i](item[1]), reverse = True))
+			with open(ListFiles[i], "w") as ArenaFile:
+				for Index, ArenaID in enumerate(self._DataList):
+					self._DataList[ArenaID]["Number"] = Index + 1
+					ArenaFile.write(json.dumps(self._DataList[ArenaID]) + "\n")					
+					if Index == 999:
+						break
+
+		# Resort data list in proper order
+		self._DataList = OrderedDict(sorted(self._DataList.items(), key = lambda Arena: Arena[1]["Start"], reverse = False))
 		
 	#######################################################################################################################################################################################
 	#######################################################################################################################################################################################

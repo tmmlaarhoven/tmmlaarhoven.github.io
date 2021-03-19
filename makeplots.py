@@ -26,7 +26,7 @@ plt.style.use(['dark_background'])
 plt.rcParams.update({
 	"axes.facecolor": 		(0.2, 0.2, 0.2, 1.0),  # green with alpha = 50%
 	"savefig.facecolor": 	(0.0, 0.0, 1.0, 0.0),  # blue  with alpha = 20%
-	"figure.figsize": 		(5.0, 5.0),
+	"figure.figsize": 		(7.0, 7.0),
 	"axes.labelsize": 		12,
 	"xtick.labelsize": 		11,
 	"ytick.labelsize": 		11,
@@ -263,17 +263,11 @@ def UserHash(Username, Modulus):
 def UserPlot(V, E, Plot):
 	
 	plt.close()
+	plt.figure()
+	
 	if not os.path.exists(PathRank + Folder(V, E) + V + "_" + E + "_ranking.ndjson"):
 		#print(PathRank + Folder(V, E) + V + "_" + E + "_ranking.ndjson does not exist")
 		return
-		
-	plt.rcParams.update({
-		"figure.figsize": (7.0, 7.0),
-		"axes.labelsize": 		12,
-		"xtick.labelsize": 		10,
-		"ytick.labelsize": 		10,
-		"legend.handlelength":	2.0})
-	plt.figure()
 	
 	# https://www.materialui.co/colors - the "A100" colors
 	UserColorsA100 = [(255,138,128), (255,128,171), (234,128,252), (179,136,255), (140,158,255), (130,177,255), (128,216,255), (132,255,255), (167,255,235), (185,246,202), (204,255,144), (244,255,129), (255,255,141), (255,229,127), (255,209,128), (255,158,128)]
