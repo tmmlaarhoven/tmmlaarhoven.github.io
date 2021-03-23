@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Hourly Blitz Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz' checked><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly' checked><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest' checked><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Hourly Blitz Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/5Y6JjP89'>5Y6JjP89</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 17:00 UTC'>Mar 22, 2021</span></td>
+		<td>728</td>
+		<td>1735</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/r_cyclone'>r_cyclone</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/c4YLVPyH'>c4YLVPyH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 16:00 UTC'>Mar 22, 2021</span></td>
+		<td>626</td>
+		<td>1759</td>
+		<td>5</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/varvarap'>varvarap</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/3xP8HmMM'>3xP8HmMM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 15:00 UTC'>Mar 22, 2021</span></td>
+		<td>770</td>
+		<td>1767</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/lexusbond'>lexusbond</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/p5Spntub'>p5Spntub</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 14:00 UTC'>Mar 22, 2021</span></td>
+		<td>839</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/tyutyunov_aleksei'>tyutyunov_aleksei</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/mbkZSOR1'>mbkZSOR1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 12:00 UTC'>Mar 22, 2021</span></td>
+		<td>648</td>
+		<td>1767</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/kazmbaba6411'>kazmbaba6411</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/2KTmwEdP'>2KTmwEdP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 11:00 UTC'>Mar 22, 2021</span></td>
+		<td>495</td>
+		<td>1768</td>
+		<td>5</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/ismayil070109'>ismayil070109</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/Z5bWJDUT'>Z5bWJDUT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 10:00 UTC'>Mar 22, 2021</span></td>
+		<td>477</td>
+		<td>1765</td>
+		<td>4</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/vachekocharyan'>vachekocharyan</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/Y8rPqQDI'>Y8rPqQDI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 09:00 UTC'>Mar 22, 2021</span></td>
+		<td>426</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/jerei50'>jerei50</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/IUDqrCBd'>IUDqrCBd</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 08:00 UTC'>Mar 22, 2021</span></td>
+		<td>341</td>
+		<td>1803</td>
+		<td>4</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/ezusthigany'>ezusthigany</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/sJ8Dt68v'>sJ8Dt68v</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 04:00 UTC'>Mar 22, 2021</span></td>
+		<td>335</td>
+		<td>1781</td>
+		<td>5</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/thunderroar'>thunderroar</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/ujk8TGaF'>ujk8TGaF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 03:00 UTC'>Mar 22, 2021</span></td>
+		<td>260</td>
+		<td>1769</td>
+		<td>5</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/hangemhigh'>hangemhigh</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/9Yh5ofpO'>9Yh5ofpO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 02:00 UTC'>Mar 22, 2021</span></td>
+		<td>324</td>
+		<td>1731</td>
+		<td>5</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/kangahmad'>kangahmad</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/cPb2vzkl'>cPb2vzkl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 01:00 UTC'>Mar 22, 2021</span></td>
+		<td>230</td>
+		<td>1772</td>
+		<td>5</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/haringbastos69'>haringbastos69</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/SgTbd1Zk'>SgTbd1Zk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 00:00 UTC'>Mar 22, 2021</span></td>
+		<td>245</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/ulanru2020'>ulanru2020</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/JMkWfTmQ'>JMkWfTmQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 23:00 UTC'>Mar 21, 2021</span></td>
+		<td>449</td>
+		<td>1759</td>
+		<td>5</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/romerin'>romerin</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/hDoxI2Gi'>hDoxI2Gi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 22:00 UTC'>Mar 21, 2021</span></td>
+		<td>559</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/kirassasin4'>kirassasin4</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/4QLFskDO'>4QLFskDO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 20:00 UTC'>Mar 21, 2021</span></td>
+		<td>622</td>
+		<td>1758</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/automatacelular'>automatacelular</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/FbuV5Qr5'>FbuV5Qr5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 17:00 UTC'>Mar 21, 2021</span></td>
+		<td>615</td>
+		<td>1724</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/lainfumable'>lainfumable</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/WkU5IQJ3'>WkU5IQJ3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 16:00 UTC'>Mar 21, 2021</span></td>
+		<td>752</td>
+		<td>1735</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/lexusbond'>lexusbond</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/reB1p7kL'>reB1p7kL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 15:00 UTC'>Mar 21, 2021</span></td>
+		<td>833</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/victorchartres'>victorchartres</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/JNFTW6bM'>JNFTW6bM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 14:00 UTC'>Mar 21, 2021</span></td>
+		<td>719</td>
+		<td>1752</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/due_angus'>due_angus</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/Xvfm2b9w'>Xvfm2b9w</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 12:00 UTC'>Mar 21, 2021</span></td>
+		<td>842</td>
+		<td>1777</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/sitrup'>sitrup</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/ZYOk6eHX'>ZYOk6eHX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 11:00 UTC'>Mar 21, 2021</span></td>
+		<td>578</td>
+		<td>1782</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/kaliberda_vladimir'>kaliberda_vladimir</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/gF0BT7FC'>gF0BT7FC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 10:00 UTC'>Mar 21, 2021</span></td>
+		<td>659</td>
+		<td>1744</td>
+		<td>5</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/mw1966'>mw1966</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/KwDs8Let'>KwDs8Let</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 09:00 UTC'>Mar 21, 2021</span></td>
+		<td>482</td>
+		<td>1778</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/ahzutalors'>ahzutalors</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/KrjFV8BZ'>KrjFV8BZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 08:00 UTC'>Mar 21, 2021</span></td>
+		<td>446</td>
+		<td>1756</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/inthezone1'>inthezone1</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/SX62V7RZ'>SX62V7RZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 04:00 UTC'>Mar 21, 2021</span></td>
+		<td>435</td>
+		<td>1756</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/leechess6100'>leechess6100</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/yqaYVo1D'>yqaYVo1D</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 03:00 UTC'>Mar 21, 2021</span></td>
+		<td>320</td>
+		<td>1784</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/marc_pistole'>marc_pistole</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/Gxqzo4HJ'>Gxqzo4HJ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 02:00 UTC'>Mar 21, 2021</span></td>
+		<td>299</td>
+		<td>1781</td>
+		<td>5</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/kaliberda_vladimir'>kaliberda_vladimir</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/xoGZ0PZH'>xoGZ0PZH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 01:00 UTC'>Mar 21, 2021</span></td>
+		<td>234</td>
+		<td>1776</td>
+		<td>4</td>
+		<td>35</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/lamagiamoreno'>lamagiamoreno</a></td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/CoHzmKn1'>CoHzmKn1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 00:00 UTC'>Mar 21, 2021</span></td>
+		<td>253</td>
+		<td>1748</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/t6274'>t6274</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/yDYj0IW6'>yDYj0IW6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 23:00 UTC'>Mar 20, 2021</span></td>
+		<td>489</td>
+		<td>1735</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/idenchik'>idenchik</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/4qyaz23d'>4qyaz23d</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 22:00 UTC'>Mar 20, 2021</span></td>
+		<td>489</td>
+		<td>1751</td>
+		<td>5</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/herher01'>herher01</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/89qzWQmn'>89qzWQmn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 20:00 UTC'>Mar 20, 2021</span></td>
+		<td>731</td>
+		<td>1757</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bec'>bec</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/lmWWrRBW'>lmWWrRBW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 17:00 UTC'>Mar 20, 2021</span></td>
+		<td>580</td>
+		<td>1711</td>
+		<td>4</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/ste7'>ste7</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/Gky21y8s'>Gky21y8s</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 16:00 UTC'>Mar 20, 2021</span></td>
+		<td>773</td>
+		<td>1696</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/elgalo'>elgalo</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/AvyaKuzf'>AvyaKuzf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 15:00 UTC'>Mar 20, 2021</span></td>
+		<td>758</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/due_angus'>due_angus</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/QbMqXQja'>QbMqXQja</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 14:00 UTC'>Mar 20, 2021</span></td>
+		<td>727</td>
+		<td>1733</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/zala'>zala</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/5pIEJmyb'>5pIEJmyb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 12:00 UTC'>Mar 20, 2021</span></td>
+		<td>777</td>
+		<td>1775</td>
+		<td>5</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/nikosgeo'>nikosgeo</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/qOVGcXW1'>qOVGcXW1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 11:00 UTC'>Mar 20, 2021</span></td>
+		<td>626</td>
+		<td>1752</td>
+		<td>4</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/nikosgeo'>nikosgeo</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/2GHyDCQw'>2GHyDCQw</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 10:00 UTC'>Mar 20, 2021</span></td>
+		<td>600</td>
+		<td>1724</td>
+		<td>5</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/zala'>zala</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/SjeyygHH'>SjeyygHH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 09:00 UTC'>Mar 20, 2021</span></td>
+		<td>431</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>35</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/vagaviev'>vagaviev</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/UxdW5bPi'>UxdW5bPi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 08:00 UTC'>Mar 20, 2021</span></td>
+		<td>376</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/storvy'>storvy</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/81Rhwv2C'>81Rhwv2C</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 04:00 UTC'>Mar 20, 2021</span></td>
+		<td>438</td>
+		<td>1777</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/profemaxi2'>profemaxi2</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/LCU7QSPP'>LCU7QSPP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 03:00 UTC'>Mar 20, 2021</span></td>
+		<td>344</td>
+		<td>1748</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/tdkjelas'>tdkjelas</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/YEq8cyIk'>YEq8cyIk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 02:00 UTC'>Mar 20, 2021</span></td>
+		<td>270</td>
+		<td>1793</td>
+		<td>5</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/al5'>al5</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/u2u2RKUn'>u2u2RKUn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 01:00 UTC'>Mar 20, 2021</span></td>
+		<td>292</td>
+		<td>1770</td>
+		<td>5</td>
+		<td>35</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/matanzas67'>matanzas67</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/ONJ2RtA4'>ONJ2RtA4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 00:00 UTC'>Mar 20, 2021</span></td>
+		<td>283</td>
+		<td>1764</td>
+		<td>4</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/sciencemelon69'>sciencemelon69</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/AS4rtDXY'>AS4rtDXY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 23:00 UTC'>Mar 19, 2021</span></td>
+		<td>470</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/mrkooshaj'>mrkooshaj</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/Po0qgITz'>Po0qgITz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 22:00 UTC'>Mar 19, 2021</span></td>
+		<td>592</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/twitch_alexval03'>twitch_alexval03</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/Ih3Mh4hB'>Ih3Mh4hB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 20:00 UTC'>Mar 19, 2021</span></td>
+		<td>641</td>
+		<td>1762</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ezusthigany'>ezusthigany</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/VUeGPhg9'>VUeGPhg9</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 17:00 UTC'>Mar 19, 2021</span></td>
+		<td>663</td>
+		<td>1735</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/mirmirri'>mirmirri</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/Qv2SRFYy'>Qv2SRFYy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 16:00 UTC'>Mar 19, 2021</span></td>
+		<td>599</td>
+		<td>1759</td>
+		<td>5</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/manik456'>manik456</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/UZEx6Zyb'>UZEx6Zyb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 15:00 UTC'>Mar 19, 2021</span></td>
+		<td>777</td>
+		<td>1755</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/p223344'>p223344</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/PL8MzGOM'>PL8MzGOM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 14:00 UTC'>Mar 19, 2021</span></td>
+		<td>643</td>
+		<td>1741</td>
+		<td>5</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/lucopy'>lucopy</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/sZSnrtBu'>sZSnrtBu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 12:00 UTC'>Mar 19, 2021</span></td>
+		<td>692</td>
+		<td>1793</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/gambitd1'>gambitd1</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/7GxtQAld'>7GxtQAld</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 11:00 UTC'>Mar 19, 2021</span></td>
+		<td>432</td>
+		<td>1768</td>
+		<td>4</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/jovanpavicevic'>jovanpavicevic</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/Bvxk1uKb'>Bvxk1uKb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 10:00 UTC'>Mar 19, 2021</span></td>
+		<td>453</td>
+		<td>1752</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/arnoldessing'>arnoldessing</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/dN9Svucq'>dN9Svucq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 09:00 UTC'>Mar 19, 2021</span></td>
+		<td>369</td>
+		<td>1756</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ddhvsc'>ddhvsc</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/eH2BIbZS'>eH2BIbZS</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 08:00 UTC'>Mar 19, 2021</span></td>
+		<td>333</td>
+		<td>1751</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/lum_lum177'>lum_lum177</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/ykaQaAOp'>ykaQaAOp</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 04:00 UTC'>Mar 19, 2021</span></td>
+		<td>346</td>
+		<td>1785</td>
+		<td>5</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/leechess6100'>leechess6100</a></td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/EZ5iJsn0'>EZ5iJsn0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 03:00 UTC'>Mar 19, 2021</span></td>
+		<td>335</td>
+		<td>1760</td>
+		<td>5</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/phelot'>phelot</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/jbsNom69'>jbsNom69</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 02:00 UTC'>Mar 19, 2021</span></td>
+		<td>291</td>
+		<td>1757</td>
+		<td>5</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/jupa64'>jupa64</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/aLDKilrw'>aLDKilrw</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 01:00 UTC'>Mar 19, 2021</span></td>
+		<td>301</td>
+		<td>1775</td>
+		<td>5</td>
+		<td>35</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/linoblanco'>linoblanco</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/zhjiYZuQ'>zhjiYZuQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 00:00 UTC'>Mar 19, 2021</span></td>
+		<td>239</td>
+		<td>1749</td>
+		<td>5</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/alexsandr7'>alexsandr7</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/tR5Jtov7'>tR5Jtov7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 23:00 UTC'>Mar 18, 2021</span></td>
+		<td>450</td>
+		<td>1722</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/faisal_kabbogor'>faisal_kabbogor</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/vDRX5DCf'>vDRX5DCf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 22:00 UTC'>Mar 18, 2021</span></td>
+		<td>453</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/zauraminov'>zauraminov</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/1Y1UJAko'>1Y1UJAko</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 20:00 UTC'>Mar 18, 2021</span></td>
+		<td>651</td>
+		<td>1766</td>
+		<td>5</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/fajar_alam'>fajar_alam</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/9uVzeFs1'>9uVzeFs1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 17:00 UTC'>Mar 18, 2021</span></td>
+		<td>580</td>
+		<td>1720</td>
+		<td>4</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/luancaushaj'>luancaushaj</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/GgCNZlwT'>GgCNZlwT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 16:00 UTC'>Mar 18, 2021</span></td>
+		<td>801</td>
+		<td>1732</td>
+		<td>5</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/yalexx'>yalexx</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/tzBL0Ee1'>tzBL0Ee1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 15:00 UTC'>Mar 18, 2021</span></td>
+		<td>746</td>
+		<td>1717</td>
+		<td>4</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/zurus45'>zurus45</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/Kn0NRK54'>Kn0NRK54</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 14:00 UTC'>Mar 18, 2021</span></td>
+		<td>702</td>
+		<td>1739</td>
+		<td>4</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/pesareshoja65'>pesareshoja65</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/5Apv9tji'>5Apv9tji</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 12:00 UTC'>Mar 18, 2021</span></td>
+		<td>655</td>
+		<td>1778</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/munster1'>munster1</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/4gvMH6vj'>4gvMH6vj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 11:00 UTC'>Mar 18, 2021</span></td>
+		<td>479</td>
+		<td>1771</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/juanenricarabello'>juanenricarabello</a></td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/rFM3Ti71'>rFM3Ti71</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 10:00 UTC'>Mar 18, 2021</span></td>
+		<td>507</td>
+		<td>1737</td>
+		<td>5</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/masenik'>masenik</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/JPOaG32H'>JPOaG32H</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 09:00 UTC'>Mar 18, 2021</span></td>
+		<td>375</td>
+		<td>1750</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/turton24'>turton24</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/9gEetRdn'>9gEetRdn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 08:00 UTC'>Mar 18, 2021</span></td>
+		<td>345</td>
+		<td>1788</td>
+		<td>4</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/ezusthigany'>ezusthigany</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/6UhZG7tD'>6UhZG7tD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 04:00 UTC'>Mar 18, 2021</span></td>
+		<td>343</td>
+		<td>1791</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/nfds'>nfds</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/aNfHl4D9'>aNfHl4D9</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 03:00 UTC'>Mar 18, 2021</span></td>
+		<td>282</td>
+		<td>1750</td>
+		<td>5</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/kush_kush421d'>kush_kush421d</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/VLJW8K7J'>VLJW8K7J</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 02:00 UTC'>Mar 18, 2021</span></td>
+		<td>278</td>
+		<td>1723</td>
+		<td>5</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/nikosgeo'>nikosgeo</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/8M6jdtdD'>8M6jdtdD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 01:00 UTC'>Mar 18, 2021</span></td>
+		<td>226</td>
+		<td>1771</td>
+		<td>5</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/redangel77'>redangel77</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/s6afPBYs'>s6afPBYs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 00:00 UTC'>Mar 18, 2021</span></td>
+		<td>266</td>
+		<td>1747</td>
+		<td>5</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/khalid_gourari'>khalid_gourari</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/3pYL4Fdp'>3pYL4Fdp</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 23:00 UTC'>Mar 17, 2021</span></td>
+		<td>379</td>
+		<td>1740</td>
+		<td>5</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/flaviob'>flaviob</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/gHT7WLQ3'>gHT7WLQ3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 16:00 UTC'>Mar 17, 2021</span></td>
+		<td>540</td>
+		<td>1751</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/korenia92140'>korenia92140</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/kL3oe5rr'>kL3oe5rr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 15:00 UTC'>Mar 17, 2021</span></td>
+		<td>688</td>
+		<td>1730</td>
+		<td>5</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/chad_thechamp'>chad_thechamp</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/fia1tWVV'>fia1tWVV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 14:00 UTC'>Mar 17, 2021</span></td>
+		<td>744</td>
+		<td>1716</td>
+		<td>4</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/damianlamy'>damianlamy</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/ASJ0nvDg'>ASJ0nvDg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 12:00 UTC'>Mar 17, 2021</span></td>
+		<td>724</td>
+		<td>1796</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/chessajedrezz2020'>chessajedrezz2020</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/UZpmwkdT'>UZpmwkdT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 11:00 UTC'>Mar 17, 2021</span></td>
+		<td>507</td>
+		<td>1748</td>
+		<td>4</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/skakvaks'>skakvaks</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/Vl4OzHou'>Vl4OzHou</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 10:00 UTC'>Mar 17, 2021</span></td>
+		<td>454</td>
+		<td>1716</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/viktorsr1949'>viktorsr1949</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/pMCINg5V'>pMCINg5V</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 09:00 UTC'>Mar 17, 2021</span></td>
+		<td>334</td>
+		<td>1742</td>
+		<td>4</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/malbicho21'>malbicho21</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/Z9ZRdLNb'>Z9ZRdLNb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 08:00 UTC'>Mar 17, 2021</span></td>
+		<td>320</td>
+		<td>1760</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/tomcio1986'>tomcio1986</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/oHk8yyTw'>oHk8yyTw</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 04:00 UTC'>Mar 17, 2021</span></td>
+		<td>345</td>
+		<td>1782</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/dvboniface'>dvboniface</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/1WbG6kVt'>1WbG6kVt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 03:00 UTC'>Mar 17, 2021</span></td>
+		<td>320</td>
+		<td>1756</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/roger_300656-a'>roger_300656-a</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/XZrkvyqt'>XZrkvyqt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 02:00 UTC'>Mar 17, 2021</span></td>
+		<td>258</td>
+		<td>1744</td>
+		<td>5</td>
+		<td>33</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/t6274'>t6274</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/PQAI2YAM'>PQAI2YAM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 01:00 UTC'>Mar 17, 2021</span></td>
+		<td>267</td>
+		<td>1754</td>
+		<td>5</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/badhabitmarco'>badhabitmarco</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/Uaa6QPP0'>Uaa6QPP0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 00:00 UTC'>Mar 17, 2021</span></td>
+		<td>325</td>
+		<td>1760</td>
+		<td>5</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/patchiny456'>patchiny456</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/s31qN4Yj'>s31qN4Yj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 23:00 UTC'>Mar 16, 2021</span></td>
+		<td>383</td>
+		<td>1736</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ninjago_chess'>ninjago_chess</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/KIDV4FQW'>KIDV4FQW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 22:00 UTC'>Mar 16, 2021</span></td>
+		<td>524</td>
+		<td>1726</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/victorchartres'>victorchartres</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/90C3Td3g'>90C3Td3g</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 20:00 UTC'>Mar 16, 2021</span></td>
+		<td>746</td>
+		<td>1772</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/timetoshine'>timetoshine</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/xs3lVyA2'>xs3lVyA2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 17:00 UTC'>Mar 16, 2021</span></td>
+		<td>576</td>
+		<td>1751</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/sacrificialmaster'>sacrificialmaster</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/ZNx3WJEC'>ZNx3WJEC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 16:00 UTC'>Mar 16, 2021</span></td>
+		<td>741</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>31</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/due_angus'>due_angus</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/JBPbyhhz'>JBPbyhhz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 15:00 UTC'>Mar 16, 2021</span></td>
+		<td>791</td>
+		<td>1732</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/sveniboy'>sveniboy</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/VXcCO8fb'>VXcCO8fb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 14:00 UTC'>Mar 16, 2021</span></td>
+		<td>667</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/manukyan7677'>manukyan7677</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/q6zTT0ZX'>q6zTT0ZX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 12:00 UTC'>Mar 16, 2021</span></td>
+		<td>690</td>
+		<td>1797</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/jm8740'>jm8740</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/e4PbjZKz'>e4PbjZKz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 11:00 UTC'>Mar 16, 2021</span></td>
+		<td>545</td>
+		<td>1731</td>
+		<td>4</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/killeralge'>killeralge</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/WPULok4k'>WPULok4k</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 10:00 UTC'>Mar 16, 2021</span></td>
+		<td>465</td>
+		<td>1742</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/pegasou'>pegasou</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/n0sauJge'>n0sauJge</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 09:00 UTC'>Mar 16, 2021</span></td>
+		<td>396</td>
+		<td>1765</td>
+		<td>4</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/vanquisher-force'>vanquisher-force</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/44sPJFjo'>44sPJFjo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 08:00 UTC'>Mar 16, 2021</span></td>
+		<td>338</td>
+		<td>1781</td>
+		<td>4</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/sergeevboris'>sergeevboris</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/nQnT1Hel'>nQnT1Hel</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 04:00 UTC'>Mar 16, 2021</span></td>
+		<td>333</td>
+		<td>1808</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/bazilov_arman'>bazilov_arman</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/nAYt6JoN'>nAYt6JoN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 03:00 UTC'>Mar 16, 2021</span></td>
+		<td>259</td>
+		<td>1757</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/kavkaz2869'>kavkaz2869</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/fGrl24ZO'>fGrl24ZO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 02:00 UTC'>Mar 16, 2021</span></td>
+		<td>236</td>
+		<td>1762</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/nikosgeo'>nikosgeo</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/WHG14uXs'>WHG14uXs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 01:00 UTC'>Mar 16, 2021</span></td>
+		<td>203</td>
+		<td>1753</td>
+		<td>5</td>
+		<td>34</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/nikosgeo'>nikosgeo</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/pKnwLymo'>pKnwLymo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 00:00 UTC'>Mar 16, 2021</span></td>
+		<td>230</td>
+		<td>1719</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/hessam_29may'>hessam_29may</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/pFtjTY6W'>pFtjTY6W</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 23:00 UTC'>Mar 15, 2021</span></td>
+		<td>359</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>35</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/the_5buckschess'>the_5buckschess</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/pMEiCXYK'>pMEiCXYK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 22:00 UTC'>Mar 15, 2021</span></td>
+		<td>518</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/victoryismine'>victoryismine</a></td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/DgJMWeqg'>DgJMWeqg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 20:00 UTC'>Mar 15, 2021</span></td>
+		<td>666</td>
+		<td>1763</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/storm2288'>storm2288</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/AhyUJFjV'>AhyUJFjV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 17:00 UTC'>Mar 15, 2021</span></td>
+		<td>654</td>
+		<td>1699</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/bazilov_arman'>bazilov_arman</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/ip2BMLGN'>ip2BMLGN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 16:00 UTC'>Mar 15, 2021</span></td>
+		<td>549</td>
+		<td>1747</td>
+		<td>5</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/graugans'>graugans</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/9yhSP4cg'>9yhSP4cg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 15:00 UTC'>Mar 15, 2021</span></td>
+		<td>695</td>
+		<td>1740</td>
+		<td>5</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/tobachess'>tobachess</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/8yCfQMBt'>8yCfQMBt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 14:00 UTC'>Mar 15, 2021</span></td>
+		<td>815</td>
+		<td>1730</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/pchernomordik'>pchernomordik</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/J3BfqazZ'>J3BfqazZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 12:00 UTC'>Mar 15, 2021</span></td>
+		<td>718</td>
+		<td>1778</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/vktchess'>vktchess</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/esRYkLvU'>esRYkLvU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 11:00 UTC'>Mar 15, 2021</span></td>
+		<td>509</td>
+		<td>1737</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/dirtytrix'>dirtytrix</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/FTvZW4no'>FTvZW4no</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 10:00 UTC'>Mar 15, 2021</span></td>
+		<td>487</td>
+		<td>1740</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/krilag'>krilag</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/2bm2DiGR'>2bm2DiGR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 09:00 UTC'>Mar 15, 2021</span></td>
+		<td>418</td>
+		<td>1737</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/hulapov80'>hulapov80</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/Wc7bkJCH'>Wc7bkJCH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 08:00 UTC'>Mar 15, 2021</span></td>
+		<td>374</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/theoldone'>theoldone</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/IfhnMmFR'>IfhnMmFR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 04:00 UTC'>Mar 15, 2021</span></td>
+		<td>295</td>
+		<td>1788</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/oswaldoreina'>oswaldoreina</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/DUOoejL6'>DUOoejL6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 03:00 UTC'>Mar 15, 2021</span></td>
+		<td>264</td>
+		<td>1758</td>
+		<td>4</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/alexlair89'>alexlair89</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/DUqSbDsD'>DUqSbDsD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 02:00 UTC'>Mar 15, 2021</span></td>
+		<td>221</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/kaliberda_vladimir'>kaliberda_vladimir</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/Jq56kctn'>Jq56kctn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 01:00 UTC'>Mar 15, 2021</span></td>
+		<td>268</td>
+		<td>1757</td>
+		<td>5</td>
+		<td>35</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/boris1964'>boris1964</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/XypvinsW'>XypvinsW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 00:00 UTC'>Mar 15, 2021</span></td>
+		<td>268</td>
+		<td>1769</td>
+		<td>5</td>
+		<td>36</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/tsar8x8'>tsar8x8</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/jMhRYYQX'>jMhRYYQX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 23:00 UTC'>Mar 14, 2021</span></td>
+		<td>363</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>32</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/gettriangled'>gettriangled</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/Z9yMrGPz'>Z9yMrGPz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 22:00 UTC'>Mar 14, 2021</span></td>
+		<td>436</td>
+		<td>1755</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/brindisi'>brindisi</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/1qys39mQ'>1qys39mQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 20:00 UTC'>Mar 14, 2021</span></td>
+		<td>643</td>
+		<td>1766</td>
+		<td>5</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/hangemhigh'>hangemhigh</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/z3rQjh2o'>z3rQjh2o</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 17:00 UTC'>Mar 14, 2021</span></td>
+		<td>700</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/baxchiparizh'>baxchiparizh</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/FRD2GGYC'>FRD2GGYC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 16:00 UTC'>Mar 14, 2021</span></td>
+		<td>724</td>
+		<td>1719</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/artempetrovskiy36617'>artempetrovskiy36617</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/TfClKYpZ'>TfClKYpZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 15:00 UTC'>Mar 14, 2021</span></td>
+		<td>826</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/bagera9'>bagera9</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/FY0HM3eR'>FY0HM3eR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 14:00 UTC'>Mar 14, 2021</span></td>
+		<td>765</td>
+		<td>1726</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/nikol1902'>nikol1902</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/LdiEDdci'>LdiEDdci</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 12:00 UTC'>Mar 14, 2021</span></td>
+		<td>779</td>
+		<td>1779</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/serzh1105'>serzh1105</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/DYVvWs9E'>DYVvWs9E</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 11:00 UTC'>Mar 14, 2021</span></td>
+		<td>694</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/qnefe'>qnefe</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/IwGX7X9X'>IwGX7X9X</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 10:00 UTC'>Mar 14, 2021</span></td>
+		<td>656</td>
+		<td>1716</td>
+		<td>5</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/proktolog_na_pensii'>proktolog_na_pensii</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/3ScqvI9s'>3ScqvI9s</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 09:00 UTC'>Mar 14, 2021</span></td>
+		<td>518</td>
+		<td>1736</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ely7'>ely7</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/bC6Yh337'>bC6Yh337</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 08:00 UTC'>Mar 14, 2021</span></td>
+		<td>381</td>
+		<td>1765</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/dimetros'>dimetros</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/mUlkqlZd'>mUlkqlZd</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 04:00 UTC'>Mar 14, 2021</span></td>
+		<td>391</td>
+		<td>1771</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kaliberda_vladimir'>kaliberda_vladimir</a></td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/CJLBdxMr'>CJLBdxMr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 03:00 UTC'>Mar 14, 2021</span></td>
+		<td>287</td>
+		<td>1758</td>
+		<td>4</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kaliberda_vladimir'>kaliberda_vladimir</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/LIxUYlSB'>LIxUYlSB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 02:00 UTC'>Mar 14, 2021</span></td>
+		<td>306</td>
+		<td>1759</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/giovannianse'>giovannianse</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/wOwgCb8k'>wOwgCb8k</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 01:00 UTC'>Mar 14, 2021</span></td>
+		<td>284</td>
+		<td>1781</td>
+		<td>5</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/suadcuric'>suadcuric</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/LrljY6TR'>LrljY6TR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 00:00 UTC'>Mar 14, 2021</span></td>
+		<td>282</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/kaliberda_vladimir'>kaliberda_vladimir</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/OJxfvBJO'>OJxfvBJO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 23:00 UTC'>Mar 13, 2021</span></td>
+		<td>427</td>
+		<td>1753</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/viktorsr1949'>viktorsr1949</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/zM5thJi7'>zM5thJi7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 22:00 UTC'>Mar 13, 2021</span></td>
+		<td>487</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kush_kush421d'>kush_kush421d</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/5Urc0Anv'>5Urc0Anv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 20:00 UTC'>Mar 13, 2021</span></td>
+		<td>644</td>
+		<td>1786</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/halthapal'>halthapal</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/PIEWnoVn'>PIEWnoVn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 17:00 UTC'>Mar 13, 2021</span></td>
+		<td>675</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/skakvaks'>skakvaks</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/hhW1gGso'>hhW1gGso</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 16:00 UTC'>Mar 13, 2021</span></td>
+		<td>671</td>
+		<td>1733</td>
+		<td>5</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/skakvaks'>skakvaks</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/1UsP2R5G'>1UsP2R5G</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 15:00 UTC'>Mar 13, 2021</span></td>
+		<td>933</td>
+		<td>1747</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/brindisi'>brindisi</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/ux0NRIbr'>ux0NRIbr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 14:00 UTC'>Mar 13, 2021</span></td>
+		<td>720</td>
+		<td>1730</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/oeroeboeroe'>oeroeboeroe</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/4jba1sVY'>4jba1sVY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 12:00 UTC'>Mar 13, 2021</span></td>
+		<td>690</td>
+		<td>1774</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/maotao'>maotao</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/uBDbJdMy'>uBDbJdMy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 11:00 UTC'>Mar 13, 2021</span></td>
+		<td>652</td>
+		<td>1733</td>
+		<td>5</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ozenc1029'>ozenc1029</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/NYs9eDhg'>NYs9eDhg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 10:00 UTC'>Mar 13, 2021</span></td>
+		<td>632</td>
+		<td>1736</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/sunf'>sunf</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/aI5A9dc3'>aI5A9dc3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 09:00 UTC'>Mar 13, 2021</span></td>
+		<td>389</td>
+		<td>1745</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/theater'>theater</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/7jwPMG7L'>7jwPMG7L</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 08:00 UTC'>Mar 13, 2021</span></td>
+		<td>393</td>
+		<td>1761</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bagera9'>bagera9</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/3PXSRM3M'>3PXSRM3M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 04:00 UTC'>Mar 13, 2021</span></td>
+		<td>348</td>
+		<td>1777</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/faisal_kabbogor'>faisal_kabbogor</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/dDZFJJKC'>dDZFJJKC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 03:00 UTC'>Mar 13, 2021</span></td>
+		<td>273</td>
+		<td>1772</td>
+		<td>5</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/amal123450'>amal123450</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/e7xKTkqt'>e7xKTkqt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 02:00 UTC'>Mar 13, 2021</span></td>
+		<td>267</td>
+		<td>1773</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/marc_pistole'>marc_pistole</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/NlMPp8pT'>NlMPp8pT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 01:00 UTC'>Mar 13, 2021</span></td>
+		<td>197</td>
+		<td>1782</td>
+		<td>6</td>
+		<td>33</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/easytactics'>easytactics</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/q5Ym6YSr'>q5Ym6YSr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 00:00 UTC'>Mar 13, 2021</span></td>
+		<td>255</td>
+		<td>1767</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/t6274'>t6274</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/2P3UW5t1'>2P3UW5t1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 23:00 UTC'>Mar 12, 2021</span></td>
+		<td>427</td>
+		<td>1767</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/sveniboy'>sveniboy</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/QnomzWfW'>QnomzWfW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 22:00 UTC'>Mar 12, 2021</span></td>
+		<td>469</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/vanych'>vanych</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/TSw5Hpc4'>TSw5Hpc4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 20:00 UTC'>Mar 12, 2021</span></td>
+		<td>716</td>
+		<td>1759</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/bosspotato'>bosspotato</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/NUOIisok'>NUOIisok</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 17:00 UTC'>Mar 12, 2021</span></td>
+		<td>630</td>
+		<td>1726</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/porgy'>porgy</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/4SW1k38m'>4SW1k38m</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 16:00 UTC'>Mar 12, 2021</span></td>
+		<td>649</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/ely7'>ely7</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/5Wgtj4c1'>5Wgtj4c1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 15:00 UTC'>Mar 12, 2021</span></td>
+		<td>739</td>
+		<td>1751</td>
+		<td>5</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/muwafik_kbpl'>muwafik_kbpl</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/WCil6aTc'>WCil6aTc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 14:00 UTC'>Mar 12, 2021</span></td>
+		<td>642</td>
+		<td>1737</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/lexusbond'>lexusbond</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/uqDVqNkO'>uqDVqNkO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 12:00 UTC'>Mar 12, 2021</span></td>
+		<td>688</td>
+		<td>1774</td>
+		<td>5</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/bazinga87'>bazinga87</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/8y7tUHOL'>8y7tUHOL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 11:00 UTC'>Mar 12, 2021</span></td>
+		<td>572</td>
+		<td>1731</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/lexusbond'>lexusbond</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/Ns8NkTwW'>Ns8NkTwW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 10:00 UTC'>Mar 12, 2021</span></td>
+		<td>555</td>
+		<td>1734</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/makar1964'>makar1964</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/04eJOvNy'>04eJOvNy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 09:00 UTC'>Mar 12, 2021</span></td>
+		<td>333</td>
+		<td>1726</td>
+		<td>4</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/remit_01'>remit_01</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/ITVZvHfy'>ITVZvHfy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 08:00 UTC'>Mar 12, 2021</span></td>
+		<td>394</td>
+		<td>1753</td>
+		<td>4</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/innocentguy'>innocentguy</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/xTN6a1OR'>xTN6a1OR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 04:00 UTC'>Mar 12, 2021</span></td>
+		<td>350</td>
+		<td>1783</td>
+		<td>5</td>
+		<td>35</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/etg1234'>etg1234</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/Lmb0vE8b'>Lmb0vE8b</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 03:00 UTC'>Mar 12, 2021</span></td>
+		<td>258</td>
+		<td>1755</td>
+		<td>4</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/esthu'>esthu</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/krzdPxZe'>krzdPxZe</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 02:00 UTC'>Mar 12, 2021</span></td>
+		<td>225</td>
+		<td>1762</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/astrilla'>astrilla</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/oH6P2e0J'>oH6P2e0J</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 01:00 UTC'>Mar 12, 2021</span></td>
+		<td>239</td>
+		<td>1767</td>
+		<td>5</td>
+		<td>36</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/michaelbarron'>michaelbarron</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/fLq8yPBC'>fLq8yPBC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 00:00 UTC'>Mar 12, 2021</span></td>
+		<td>290</td>
+		<td>1721</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/manjust714'>manjust714</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/AUyAE8a7'>AUyAE8a7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 23:00 UTC'>Mar 11, 2021</span></td>
+		<td>329</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/egyfischer_zk'>egyfischer_zk</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/Nqpqi3P1'>Nqpqi3P1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 22:00 UTC'>Mar 11, 2021</span></td>
+		<td>429</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/sorry_bro'>sorry_bro</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/ePqdkIGc'>ePqdkIGc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 20:00 UTC'>Mar 11, 2021</span></td>
+		<td>682</td>
+		<td>1736</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/nikosgeo'>nikosgeo</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/CLSMR2TL'>CLSMR2TL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 17:00 UTC'>Mar 11, 2021</span></td>
+		<td>568</td>
+		<td>1731</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/thatsnikki'>thatsnikki</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/OdvLJEu4'>OdvLJEu4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 16:00 UTC'>Mar 11, 2021</span></td>
+		<td>557</td>
+		<td>1738</td>
+		<td>5</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/prediktor'>prediktor</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/fQEqh89h'>fQEqh89h</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 15:00 UTC'>Mar 11, 2021</span></td>
+		<td>718</td>
+		<td>1757</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/owod7575'>owod7575</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/7WFdQ3Uz'>7WFdQ3Uz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 14:00 UTC'>Mar 11, 2021</span></td>
+		<td>655</td>
+		<td>1726</td>
+		<td>4</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/woow_woow'>woow_woow</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/hJDpbcxf'>hJDpbcxf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 12:00 UTC'>Mar 11, 2021</span></td>
+		<td>647</td>
+		<td>1786</td>
+		<td>5</td>
+		<td>35</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/ricardo956s'>ricardo956s</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/pdFf0xVu'>pdFf0xVu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 11:00 UTC'>Mar 11, 2021</span></td>
+		<td>476</td>
+		<td>1755</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/theater'>theater</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/Z7os56yq'>Z7os56yq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 10:00 UTC'>Mar 11, 2021</span></td>
+		<td>460</td>
+		<td>1747</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/vanych'>vanych</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/NaGgbVex'>NaGgbVex</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 09:00 UTC'>Mar 11, 2021</span></td>
+		<td>470</td>
+		<td>1735</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/tyutyunov_aleksei'>tyutyunov_aleksei</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/BUFxSZxR'>BUFxSZxR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 08:00 UTC'>Mar 11, 2021</span></td>
+		<td>387</td>
+		<td>1778</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/masenik'>masenik</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/4FRNSwUy'>4FRNSwUy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 04:00 UTC'>Mar 11, 2021</span></td>
+		<td>353</td>
+		<td>1773</td>
+		<td>5</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/adham_djurayev'>adham_djurayev</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/5zgwttuf'>5zgwttuf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 03:00 UTC'>Mar 11, 2021</span></td>
+		<td>278</td>
+		<td>1760</td>
+		<td>4</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/gettriangled'>gettriangled</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/HQva56HU'>HQva56HU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 02:00 UTC'>Mar 11, 2021</span></td>
+		<td>312</td>
+		<td>1730</td>
+		<td>4</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/elproisaac'>elproisaac</a></td>
+		<td>22</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/En3774bo'>En3774bo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 01:00 UTC'>Mar 11, 2021</span></td>
+		<td>207</td>
+		<td>1762</td>
+		<td>5</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/remit_01'>remit_01</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/ebQdlHQL'>ebQdlHQL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 00:00 UTC'>Mar 11, 2021</span></td>
+		<td>304</td>
+		<td>1724</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/t6274'>t6274</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/go2p7hPh'>go2p7hPh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 10, 2021 at 23:00 UTC'>Mar 10, 2021</span></td>
+		<td>452</td>
+		<td>1707</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/leonidasmk'>leonidasmk</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/SwdJXnVV'>SwdJXnVV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 10, 2021 at 22:00 UTC'>Mar 10, 2021</span></td>
+		<td>516</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/hessam_29may'>hessam_29may</a></td>
+		<td>29</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Monthly SuperBlitz Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz' checked><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly' checked><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points' checked><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Monthly SuperBlitz Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/KKVW9hqW'>KKVW9hqW</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 29, 2015 at 18:00 UTC'>Nov 29, 2015</span></td>
+		<td>343</td>
+		<td>1743</td>
+		<td>15</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/zvonokchess'>zvonokchess</a></td>
+		<td>150</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/ZePoqsR6'>ZePoqsR6</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 31, 2020 at 17:00 UTC'>Mar 31, 2020</span></td>
+		<td>6057</td>
+		<td>1837</td>
+		<td>14</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>216</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/1fDeLLJF'>1fDeLLJF</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Apr 24, 2016 at 17:00 UTC'>Apr 24, 2016</span></td>
+		<td>514</td>
+		<td>1819</td>
+		<td>13</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/serg01'>serg01</a></td>
+		<td>147</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/QU33siYG'>QU33siYG</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 28, 2016 at 18:00 UTC'>Feb 28, 2016</span></td>
+		<td>366</td>
+		<td>1803</td>
+		<td>13</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/tunakdemir'>tunakdemir</a></td>
+		<td>122</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/nNrpNL2l'>nNrpNL2l</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 27, 2017 at 17:00 UTC'>Jun 27, 2017</span></td>
+		<td>1405</td>
+		<td>1780</td>
+		<td>13</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/unknown-maestro'>unknown-maestro</a></td>
+		<td>128</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/npiRKw57'>npiRKw57</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 31, 2016 at 18:00 UTC'>Jan 31, 2016</span></td>
+		<td>422</td>
+		<td>1770</td>
+		<td>13</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/kingscrusher-youtube'>kingscrusher-youtube</a></td>
+		<td>128</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/oL13NPaa'>oL13NPaa</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 26, 2015 at 17:00 UTC'>Jul 26, 2015</span></td>
+		<td>161</td>
+		<td>1662</td>
+		<td>13</td>
+		<td>34</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/blitzstream-twitch'>blitzstream-twitch</a></td>
+		<td>108</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/Iiu8XfWt'>Iiu8XfWt</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 28, 2015 at 17:00 UTC'>Jun 28, 2015</span></td>
+		<td>118</td>
+		<td>1659</td>
+		<td>13</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/prateekwadhwa'>prateekwadhwa</a></td>
+		<td>92</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/b7RvaPLi'>b7RvaPLi</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 26, 2017 at 17:00 UTC'>Dec 26, 2017</span></td>
+		<td>1875</td>
+		<td>1742</td>
+		<td>13</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/gannikus'>gannikus</a></td>
+		<td>134</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/hUhUZYCW'>hUhUZYCW</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 27, 2015 at 17:00 UTC'>Sep 27, 2015</span></td>
+		<td>204</td>
+		<td>1703</td>
+		<td>13</td>
+		<td>35</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/susamkapara'>susamkapara</a></td>
+		<td>120</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/WVpiE1vo'>WVpiE1vo</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 28, 2017 at 17:00 UTC'>Nov 28, 2017</span></td>
+		<td>1841</td>
+		<td>1746</td>
+		<td>13</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/berserkonly'>berserkonly</a></td>
+		<td>140</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/hWapXX60'>hWapXX60</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Apr 28, 2020 at 17:00 UTC'>Apr 28, 2020</span></td>
+		<td>5728</td>
+		<td>1801</td>
+		<td>13</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/valera_b5'>valera_b5</a></td>
+		<td>126</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/c9CFHw7p'>c9CFHw7p</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 29, 2017 at 17:00 UTC'>Aug 29, 2017</span></td>
+		<td>1486</td>
+		<td>1782</td>
+		<td>13</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/berserkonly'>berserkonly</a></td>
+		<td>158</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/xLLw8HD3'>xLLw8HD3</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 30, 2019 at 17:00 UTC'>Jul 30, 2019</span></td>
+		<td>3019</td>
+		<td>1738</td>
+		<td>13</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/drmelekess'>drmelekess</a></td>
+		<td>154</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/lxbx5uCb'>lxbx5uCb</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 31, 2017 at 17:00 UTC'>Oct 31, 2017</span></td>
+		<td>1627</td>
+		<td>1770</td>
+		<td>13</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/berserkonly'>berserkonly</a></td>
+		<td>175</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/0AmXbWZu'>0AmXbWZu</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 26, 2020 at 17:00 UTC'>May 26, 2020</span></td>
+		<td>5445</td>
+		<td>1774</td>
+		<td>13</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/alexsur81'>alexsur81</a></td>
+		<td>154</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/Nbo0RaDL'>Nbo0RaDL</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 01, 2017 at 17:00 UTC'>Aug 01, 2017</span></td>
+		<td>1352</td>
+		<td>1786</td>
+		<td>12</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/betheking'>betheking</a></td>
+		<td>116</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/cMfIgGog'>cMfIgGog</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 27, 2018 at 17:00 UTC'>Feb 27, 2018</span></td>
+		<td>2128</td>
+		<td>1724</td>
+		<td>12</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>166</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/vXriWUhU'>vXriWUhU</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 28, 2020 at 17:00 UTC'>Jul 28, 2020</span></td>
+		<td>5293</td>
+		<td>1768</td>
+		<td>12</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/alexsur81'>alexsur81</a></td>
+		<td>141</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/CbUuGWYe'>CbUuGWYe</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 25, 2020 at 17:00 UTC'>Feb 25, 2020</span></td>
+		<td>3963</td>
+		<td>1817</td>
+		<td>12</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/chewbacca18'>chewbacca18</a></td>
+		<td>159</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/2IFFLEQF'>2IFFLEQF</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 27, 2016 at 17:00 UTC'>Mar 27, 2016</span></td>
+		<td>485</td>
+		<td>1799</td>
+		<td>12</td>
+		<td>36</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/bekbekus'>bekbekus</a></td>
+		<td>110</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/GymZO7YP'>GymZO7YP</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 31, 2017 at 17:00 UTC'>Jan 31, 2017</span></td>
+		<td>1441</td>
+		<td>1773</td>
+		<td>12</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/vastra91'>vastra91</a></td>
+		<td>137</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/tR3riL3b'>tR3riL3b</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 28, 2017 at 17:00 UTC'>Feb 28, 2017</span></td>
+		<td>1479</td>
+		<td>1769</td>
+		<td>12</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/lance5500'>lance5500</a></td>
+		<td>131</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/J5bHxZcT'>J5bHxZcT</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 01, 2016 at 17:00 UTC'>Nov 01, 2016</span></td>
+		<td>1364</td>
+		<td>1767</td>
+		<td>12</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/shinsei'>shinsei</a></td>
+		<td>115</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/R7czXKVP'>R7czXKVP</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 28, 2017 at 17:00 UTC'>Mar 28, 2017</span></td>
+		<td>1272</td>
+		<td>1757</td>
+		<td>12</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/soporifique'>soporifique</a></td>
+		<td>194</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/YnbglmhU'>YnbglmhU</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 30, 2020 at 17:00 UTC'>Jun 30, 2020</span></td>
+		<td>4978</td>
+		<td>1779</td>
+		<td>12</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/jimakos'>jimakos</a></td>
+		<td>138</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/IZpmLjQc'>IZpmLjQc</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 27, 2016 at 17:00 UTC'>Dec 27, 2016</span></td>
+		<td>1268</td>
+		<td>1779</td>
+		<td>12</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/gilevich'>gilevich</a></td>
+		<td>139</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/i2mLnHKI'>i2mLnHKI</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 01, 2019 at 17:00 UTC'>Jan 01, 2019</span></td>
+		<td>3175</td>
+		<td>1684</td>
+		<td>12</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/papasi'>papasi</a></td>
+		<td>119</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/5V952242'>5V952242</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 23, 2021 at 17:00 UTC'>Feb 23, 2021</span></td>
+		<td>6606</td>
+		<td>1730</td>
+		<td>12</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/krestoman'>krestoman</a></td>
+		<td>144</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/3MZVqTZ6'>3MZVqTZ6</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 27, 2019 at 17:00 UTC'>Aug 27, 2019</span></td>
+		<td>3142</td>
+		<td>1738</td>
+		<td>12</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/alexsur81'>alexsur81</a></td>
+		<td>128</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/kFgR3kSh'>kFgR3kSh</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 27, 2020 at 17:00 UTC'>Oct 27, 2020</span></td>
+		<td>6007</td>
+		<td>1766</td>
+		<td>12</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/benefactorr'>benefactorr</a></td>
+		<td>164</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/ZsYvBZuA'>ZsYvBZuA</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 01, 2020 at 17:00 UTC'>Sep 01, 2020</span></td>
+		<td>5718</td>
+		<td>1757</td>
+		<td>12</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>151</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/ipIFNz6b'>ipIFNz6b</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 26, 2019 at 17:00 UTC'>Nov 26, 2019</span></td>
+		<td>3018</td>
+		<td>1781</td>
+		<td>12</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/drmelekess'>drmelekess</a></td>
+		<td>128</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/dL57l0Th'>dL57l0Th</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 29, 2018 at 17:00 UTC'>May 29, 2018</span></td>
+		<td>2277</td>
+		<td>1729</td>
+		<td>12</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/vsepro100'>vsepro100</a></td>
+		<td>134</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/qdtP4VIl'>qdtP4VIl</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Apr 25, 2017 at 17:00 UTC'>Apr 25, 2017</span></td>
+		<td>1384</td>
+		<td>1769</td>
+		<td>12</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/bvb09'>bvb09</a></td>
+		<td>161</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/Hb6H0QC2'>Hb6H0QC2</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 29, 2016 at 17:00 UTC'>May 29, 2016</span></td>
+		<td>506</td>
+		<td>1831</td>
+		<td>12</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/talbaron-youtube'>talbaron-youtube</a></td>
+		<td>121</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/VUFNKCgL'>VUFNKCgL</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 31, 2016 at 17:00 UTC'>Jul 31, 2016</span></td>
+		<td>591</td>
+		<td>1805</td>
+		<td>12</td>
+		<td>36</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/derrotado'>derrotado</a></td>
+		<td>139</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/imZrBexS'>imZrBexS</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 28, 2020 at 17:00 UTC'>Jan 28, 2020</span></td>
+		<td>3635</td>
+		<td>1808</td>
+		<td>12</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>150</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/Zssok38r'>Zssok38r</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 30, 2018 at 16:00 UTC'>Oct 30, 2018</span></td>
+		<td>2435</td>
+		<td>1707</td>
+		<td>12</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/iwant3000'>iwant3000</a></td>
+		<td>113</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/y3mYRgMO'>y3mYRgMO</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 26, 2021 at 17:00 UTC'>Jan 26, 2021</span></td>
+		<td>6677</td>
+		<td>1736</td>
+		<td>12</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/pap-g'>pap-g</a></td>
+		<td>149</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/UkMjRc4J'>UkMjRc4J</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 01, 2020 at 17:00 UTC'>Dec 01, 2020</span></td>
+		<td>6419</td>
+		<td>1736</td>
+		<td>12</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/pap-g'>pap-g</a></td>
+		<td>161</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/jnscSqj0'>jnscSqj0</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 29, 2019 at 17:00 UTC'>Oct 29, 2019</span></td>
+		<td>3119</td>
+		<td>1781</td>
+		<td>12</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/drmelekess'>drmelekess</a></td>
+		<td>127</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/CaTdaSRg'>CaTdaSRg</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 29, 2020 at 17:00 UTC'>Dec 29, 2020</span></td>
+		<td>6712</td>
+		<td>1745</td>
+		<td>12</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/chessweeb'>chessweeb</a></td>
+		<td>128</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/JSRily73'>JSRily73</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 29, 2019 at 17:00 UTC'>Jan 29, 2019</span></td>
+		<td>2824</td>
+		<td>1675</td>
+		<td>12</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/pe-tro'>pe-tro</a></td>
+		<td>134</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/jjkh2wbX'>jjkh2wbX</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 01, 2018 at 17:00 UTC'>May 01, 2018</span></td>
+		<td>2179</td>
+		<td>1716</td>
+		<td>12</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/weetik'>weetik</a></td>
+		<td>134</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/K4sbgxMt'>K4sbgxMt</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 25, 2019 at 17:00 UTC'>Jun 25, 2019</span></td>
+		<td>2687</td>
+		<td>1719</td>
+		<td>12</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bornofgodandvoid'>bornofgodandvoid</a></td>
+		<td>181</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/Ukz0cr84'>Ukz0cr84</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 29, 2020 at 17:00 UTC'>Sep 29, 2020</span></td>
+		<td>5001</td>
+		<td>1764</td>
+		<td>12</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/yarovoy_dmitriy'>yarovoy_dmitriy</a></td>
+		<td>118</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/7XFwhVWz'>7XFwhVWz</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 01, 2019 at 17:00 UTC'>Oct 01, 2019</span></td>
+		<td>2985</td>
+		<td>1768</td>
+		<td>12</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>141</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/fzGK9A8g'>fzGK9A8g</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 27, 2016 at 17:00 UTC'>Sep 27, 2016</span></td>
+		<td>1089</td>
+		<td>1771</td>
+		<td>12</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/shahoviy_komentator'>shahoviy_komentator</a></td>
+		<td>166</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/78p9rsAk'>78p9rsAk</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 30, 2017 at 17:00 UTC'>May 30, 2017</span></td>
+		<td>1301</td>
+		<td>1769</td>
+		<td>12</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/lance5500'>lance5500</a></td>
+		<td>172</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/RYMcEZqs'>RYMcEZqs</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 26, 2019 at 17:00 UTC'>Mar 26, 2019</span></td>
+		<td>2911</td>
+		<td>1669</td>
+		<td>12</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kazakhfighter04'>kazakhfighter04</a></td>
+		<td>148</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/RiIPPbKT'>RiIPPbKT</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 30, 2018 at 17:00 UTC'>Jan 30, 2018</span></td>
+		<td>2045</td>
+		<td>1733</td>
+		<td>11</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/berserkonly'>berserkonly</a></td>
+		<td>112</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/vZ505xDr'>vZ505xDr</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 28, 2016 at 17:00 UTC'>Aug 28, 2016</span></td>
+		<td>733</td>
+		<td>1791</td>
+		<td>11</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/zugaddict'>zugaddict</a></td>
+		<td>123</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/VB2iIfhV'>VB2iIfhV</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 28, 2018 at 15:00 UTC'>Aug 28, 2018</span></td>
+		<td>2253</td>
+		<td>1713</td>
+		<td>11</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/dabee'>dabee</a></td>
+		<td>120</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/Bw84MPUX'>Bw84MPUX</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 26, 2019 at 17:00 UTC'>Feb 26, 2019</span></td>
+		<td>2865</td>
+		<td>1675</td>
+		<td>11</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/rukia_kuchiki1'>rukia_kuchiki1</a></td>
+		<td>125</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/IfN3Kalo'>IfN3Kalo</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 25, 2018 at 15:00 UTC'>Sep 25, 2018</span></td>
+		<td>2331</td>
+		<td>1700</td>
+		<td>11</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/cresta'>cresta</a></td>
+		<td>136</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/Rq9cSdPp'>Rq9cSdPp</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 27, 2015 at 18:00 UTC'>Dec 27, 2015</span></td>
+		<td>357</td>
+		<td>1739</td>
+		<td>11</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/herecomesthepain'>herecomesthepain</a></td>
+		<td>105</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/7DnUczfV'>7DnUczfV</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 26, 2016 at 17:00 UTC'>Jun 26, 2016</span></td>
+		<td>557</td>
+		<td>1814</td>
+		<td>11</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/nehiel'>nehiel</a></td>
+		<td>132</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/E9LGkfG9'>E9LGkfG9</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Apr 30, 2019 at 17:00 UTC'>Apr 30, 2019</span></td>
+		<td>2895</td>
+		<td>1668</td>
+		<td>11</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/serg_01'>serg_01</a></td>
+		<td>131</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/aHPsUk5e'>aHPsUk5e</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 31, 2019 at 17:00 UTC'>Dec 31, 2019</span></td>
+		<td>3528</td>
+		<td>1794</td>
+		<td>11</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/vivek_verma'>vivek_verma</a></td>
+		<td>119</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/r4tU55UV'>r4tU55UV</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 26, 2017 at 17:00 UTC'>Sep 26, 2017</span></td>
+		<td>1409</td>
+		<td>1755</td>
+		<td>11</td>
+		<td>36</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/tricksonlynl'>tricksonlynl</a></td>
+		<td>121</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/l0DAQ7bE'>l0DAQ7bE</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 27, 2018 at 17:00 UTC'>Mar 27, 2018</span></td>
+		<td>2017</td>
+		<td>1707</td>
+		<td>11</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/fc_rostov'>fc_rostov</a></td>
+		<td>170</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/aaWkbsQo'>aaWkbsQo</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 31, 2018 at 17:00 UTC'>Jul 31, 2018</span></td>
+		<td>2228</td>
+		<td>1720</td>
+		<td>11</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/pizza-in-winter'>pizza-in-winter</a></td>
+		<td>111</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/kxTri9hi'>kxTri9hi</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 25, 2015 at 18:00 UTC'>Oct 25, 2015</span></td>
+		<td>275</td>
+		<td>1747</td>
+		<td>11</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/tiredzvonok'>tiredzvonok</a></td>
+		<td>189</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/c3Tc7fxD'>c3Tc7fxD</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 28, 2019 at 17:00 UTC'>May 28, 2019</span></td>
+		<td>2731</td>
+		<td>1699</td>
+		<td>11</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/soupherjeem'>soupherjeem</a></td>
+		<td>153</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/WRAqEmUK'>WRAqEmUK</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 27, 2018 at 17:00 UTC'>Nov 27, 2018</span></td>
+		<td>2739</td>
+		<td>1682</td>
+		<td>11</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/berserkonly'>berserkonly</a></td>
+		<td>114</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/i9WB1xsg'>i9WB1xsg</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 31, 2015 at 17:00 UTC'>May 31, 2015</span></td>
+		<td>88</td>
+		<td>1678</td>
+		<td>11</td>
+		<td>29</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/honigdachs'>honigdachs</a></td>
+		<td>130</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/X0ismp7c'>X0ismp7c</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 26, 2018 at 17:00 UTC'>Jun 26, 2018</span></td>
+		<td>1909</td>
+		<td>1720</td>
+		<td>11</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/vsepro100'>vsepro100</a></td>
+		<td>143</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/1lyAAqBp'>1lyAAqBp</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 29, 2016 at 17:00 UTC'>Nov 29, 2016</span></td>
+		<td>1395</td>
+		<td>1761</td>
+		<td>11</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/meneermandje'>meneermandje</a></td>
+		<td>162</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/Zlfatmfa'>Zlfatmfa</a></td>
+		<td><span class='info Vsuperblitz' title='SuperBlitz'>sb</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 30, 2015 at 17:00 UTC'>Aug 30, 2015</span></td>
+		<td>189</td>
+		<td>1695</td>
+		<td>10</td>
+		<td>34</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/bikfoot'>bikfoot</a></td>
+		<td>91</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

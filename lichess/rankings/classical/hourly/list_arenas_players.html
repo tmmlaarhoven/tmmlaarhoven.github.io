@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Hourly Classical Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical' checked><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly' checked><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players' checked><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Hourly Classical Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/OupJQ94C'>OupJQ94C</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 04, 2016 at 16:00 UTC'>Dec 04, 2016</span></td>
+		<td>681</td>
+		<td>1693</td>
+		<td>5</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/abal'>abal</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/e7iRplb0'>e7iRplb0</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 07, 2017 at 16:00 UTC'>Jan 07, 2017</span></td>
+		<td>656</td>
+		<td>1692</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/sundoroclasic'>sundoroclasic</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/WHNfWsh2'>WHNfWsh2</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 24, 2016 at 16:00 UTC'>Dec 24, 2016</span></td>
+		<td>654</td>
+		<td>1687</td>
+		<td>5</td>
+		<td>31</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/maverik49'>maverik49</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/7IQ17FWH'>7IQ17FWH</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 06, 2017 at 16:00 UTC'>Jan 06, 2017</span></td>
+		<td>654</td>
+		<td>1684</td>
+		<td>5</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/lavleo67'>lavleo67</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/mBQKyTet'>mBQKyTet</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 10, 2016 at 16:00 UTC'>Dec 10, 2016</span></td>
+		<td>651</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/heriwonosobo'>heriwonosobo</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/SizbifHA'>SizbifHA</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 18, 2016 at 16:00 UTC'>Dec 18, 2016</span></td>
+		<td>647</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/unprotected_sacs'>unprotected_sacs</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/Pkxm7FP4'>Pkxm7FP4</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 05, 2017 at 16:00 UTC'>Feb 05, 2017</span></td>
+		<td>641</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/intobolivian'>intobolivian</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/pL4o2Cv1'>pL4o2Cv1</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 02, 2017 at 16:00 UTC'>Jan 02, 2017</span></td>
+		<td>639</td>
+		<td>1709</td>
+		<td>5</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/euroshima'>euroshima</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/mDUVJ0aN'>mDUVJ0aN</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 14, 2017 at 16:00 UTC'>Jan 14, 2017</span></td>
+		<td>639</td>
+		<td>1667</td>
+		<td>4</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/whydoweplay'>whydoweplay</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/ixRYTRD1'>ixRYTRD1</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 15, 2017 at 16:00 UTC'>Jan 15, 2017</span></td>
+		<td>637</td>
+		<td>1675</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/intobolivian'>intobolivian</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/JqpztSdm'>JqpztSdm</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 17, 2016 at 16:00 UTC'>Dec 17, 2016</span></td>
+		<td>636</td>
+		<td>1691</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/zerd123'>zerd123</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/ztN2hhhW'>ztN2hhhW</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 07, 2017 at 12:00 UTC'>Jan 07, 2017</span></td>
+		<td>633</td>
+		<td>1688</td>
+		<td>5</td>
+		<td>30</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/kristian_zebua'>kristian_zebua</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/zOJJqBLx'>zOJJqBLx</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 24, 2016 at 14:00 UTC'>Dec 24, 2016</span></td>
+		<td>632</td>
+		<td>1698</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/elitetorpedo'>elitetorpedo</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/wOH4CFZE'>wOH4CFZE</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2017 at 16:00 UTC'>Jan 22, 2017</span></td>
+		<td>630</td>
+		<td>1696</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/carvaflu'>carvaflu</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/Wc3tRTs3'>Wc3tRTs3</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 26, 2016 at 16:00 UTC'>Dec 26, 2016</span></td>
+		<td>627</td>
+		<td>1668</td>
+		<td>5</td>
+		<td>30</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/svarnoi'>svarnoi</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/L8me9eLd'>L8me9eLd</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 15, 2017 at 12:00 UTC'>Jan 15, 2017</span></td>
+		<td>627</td>
+		<td>1688</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/ai-84-ios'>ai-84-ios</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/ESAVEuVt'>ESAVEuVt</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2017 at 16:00 UTC'>Jan 16, 2017</span></td>
+		<td>624</td>
+		<td>1698</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/eldestornillador'>eldestornillador</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/BnAFS0Mq'>BnAFS0Mq</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 06, 2017 at 14:00 UTC'>Jan 06, 2017</span></td>
+		<td>622</td>
+		<td>1696</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/gustukas1'>gustukas1</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/TCCqp9PU'>TCCqp9PU</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 17, 2017 at 16:00 UTC'>Feb 17, 2017</span></td>
+		<td>622</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/svarnoi'>svarnoi</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/QeFFGHGy'>QeFFGHGy</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 16, 2016 at 16:00 UTC'>Dec 16, 2016</span></td>
+		<td>618</td>
+		<td>1689</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/bennyk'>bennyk</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/VDAO8fYC'>VDAO8fYC</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 19, 2017 at 16:00 UTC'>Feb 19, 2017</span></td>
+		<td>618</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/smyk76'>smyk76</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/8U2zEGDC'>8U2zEGDC</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 25, 2016 at 16:00 UTC'>Dec 25, 2016</span></td>
+		<td>617</td>
+		<td>1691</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/shozolosa'>shozolosa</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/DZe8f8ah'>DZe8f8ah</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 12, 2017 at 16:00 UTC'>Feb 12, 2017</span></td>
+		<td>617</td>
+		<td>1704</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/akiah326'>akiah326</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/E5RAhmX6'>E5RAhmX6</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 23, 2016 at 16:00 UTC'>Dec 23, 2016</span></td>
+		<td>616</td>
+		<td>1687</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/maverik49'>maverik49</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/994miDTq'>994miDTq</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 18, 2017 at 16:00 UTC'>Jan 18, 2017</span></td>
+		<td>616</td>
+		<td>1688</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/tembos'>tembos</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/RgJu5A38'>RgJu5A38</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 04, 2017 at 16:00 UTC'>Jan 04, 2017</span></td>
+		<td>615</td>
+		<td>1693</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/bang_bang'>bang_bang</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/URO7Hr6s'>URO7Hr6s</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 05, 2017 at 12:00 UTC'>Jan 05, 2017</span></td>
+		<td>613</td>
+		<td>1680</td>
+		<td>5</td>
+		<td>31</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/sailang'>sailang</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/FiNh2YBw'>FiNh2YBw</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 01, 2017 at 16:00 UTC'>Jan 01, 2017</span></td>
+		<td>612</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/akiah326'>akiah326</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/wFw46QGB'>wFw46QGB</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 28, 2016 at 16:00 UTC'>Dec 28, 2016</span></td>
+		<td>611</td>
+		<td>1657</td>
+		<td>5</td>
+		<td>31</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/luigi6900'>luigi6900</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/RceBcGUf'>RceBcGUf</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 07, 2017 at 14:00 UTC'>Jan 07, 2017</span></td>
+		<td>611</td>
+		<td>1693</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/efimka'>efimka</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/aFvdshXx'>aFvdshXx</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 02, 2017 at 14:00 UTC'>Jan 02, 2017</span></td>
+		<td>609</td>
+		<td>1706</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/cibis09'>cibis09</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/EKmv3NzZ'>EKmv3NzZ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 11, 2017 at 16:00 UTC'>Jan 11, 2017</span></td>
+		<td>608</td>
+		<td>1681</td>
+		<td>5</td>
+		<td>31</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/tembos'>tembos</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/oV6bBbdi'>oV6bBbdi</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 15, 2017 at 14:00 UTC'>Jan 15, 2017</span></td>
+		<td>608</td>
+		<td>1697</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/st2orm'>st2orm</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/8UpXL5S2'>8UpXL5S2</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 31, 2016 at 16:00 UTC'>Dec 31, 2016</span></td>
+		<td>605</td>
+		<td>1689</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/pepsi_pepsi'>pepsi_pepsi</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/nC5jcy7c'>nC5jcy7c</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 13, 2017 at 16:00 UTC'>Jan 13, 2017</span></td>
+		<td>605</td>
+		<td>1682</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/aref-qazvini'>aref-qazvini</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/4YHOtWFe'>4YHOtWFe</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 30, 2016 at 16:00 UTC'>Dec 30, 2016</span></td>
+		<td>604</td>
+		<td>1697</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/makemydayrubberduck'>makemydayrubberduck</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/i4UrzL9A'>i4UrzL9A</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 04, 2016 at 14:00 UTC'>Dec 04, 2016</span></td>
+		<td>603</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/shatir'>shatir</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/OcZx4Flw'>OcZx4Flw</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 05, 2017 at 16:00 UTC'>Mar 05, 2017</span></td>
+		<td>603</td>
+		<td>1704</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/demolidor2017'>demolidor2017</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/yQAuWuiD'>yQAuWuiD</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2017 at 12:00 UTC'>Jan 22, 2017</span></td>
+		<td>602</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/chess8320'>chess8320</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/X3OSFllr'>X3OSFllr</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 04, 2017 at 16:00 UTC'>Feb 04, 2017</span></td>
+		<td>601</td>
+		<td>1697</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/samad_110'>samad_110</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/5TF6pwTl'>5TF6pwTl</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 07, 2016 at 16:00 UTC'>Dec 07, 2016</span></td>
+		<td>598</td>
+		<td>1686</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ansuman'>ansuman</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/phedX6V8'>phedX6V8</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 01, 2017 at 14:00 UTC'>Jan 01, 2017</span></td>
+		<td>597</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/gustukas1'>gustukas1</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/e4mImk2d'>e4mImk2d</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 09, 2017 at 16:00 UTC'>Jan 09, 2017</span></td>
+		<td>597</td>
+		<td>1693</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/keyvan777'>keyvan777</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/7t84kkV1'>7t84kkV1</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 24, 2016 at 12:00 UTC'>Dec 24, 2016</span></td>
+		<td>596</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/sanglochon'>sanglochon</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/myGbb7Ba'>myGbb7Ba</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 23, 2016 at 14:00 UTC'>Dec 23, 2016</span></td>
+		<td>595</td>
+		<td>1687</td>
+		<td>4</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/lapos'>lapos</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/eGWFy7k4'>eGWFy7k4</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 05, 2017 at 14:00 UTC'>Jan 05, 2017</span></td>
+		<td>595</td>
+		<td>1689</td>
+		<td>5</td>
+		<td>31</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/gmeli'>gmeli</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/vRT2viZh'>vRT2viZh</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 17, 2016 at 14:00 UTC'>Dec 17, 2016</span></td>
+		<td>594</td>
+		<td>1685</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/stonejoker'>stonejoker</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/gMcyCvRM'>gMcyCvRM</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 06, 2017 at 12:00 UTC'>Jan 06, 2017</span></td>
+		<td>593</td>
+		<td>1692</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/reynoldstreaks'>reynoldstreaks</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/r9PFMoGn'>r9PFMoGn</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2017 at 16:00 UTC'>Feb 18, 2017</span></td>
+		<td>592</td>
+		<td>1709</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/monkeyman999'>monkeyman999</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/Y3nlgloS'>Y3nlgloS</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Apr 14, 2017 at 16:00 UTC'>Apr 14, 2017</span></td>
+		<td>592</td>
+		<td>1707</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/carvaflu'>carvaflu</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/cq52Ek7W'>cq52Ek7W</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 31, 2016 at 12:00 UTC'>Dec 31, 2016</span></td>
+		<td>591</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/wookash_888'>wookash_888</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/wvRibLa6'>wvRibLa6</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 14, 2017 at 14:00 UTC'>Jan 14, 2017</span></td>
+		<td>591</td>
+		<td>1679</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/chesherewego'>chesherewego</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/fsTWCdPV'>fsTWCdPV</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 20, 2017 at 12:00 UTC'>Jan 20, 2017</span></td>
+		<td>591</td>
+		<td>1696</td>
+		<td>4</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/gmeli'>gmeli</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/zVYP7GHe'>zVYP7GHe</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 11, 2017 at 16:00 UTC'>Feb 11, 2017</span></td>
+		<td>591</td>
+		<td>1697</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/open55'>open55</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/YFyREYnT'>YFyREYnT</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 18, 2017 at 12:00 UTC'>Jan 18, 2017</span></td>
+		<td>590</td>
+		<td>1692</td>
+		<td>4</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/you_are_nothing'>you_are_nothing</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/Ewfb3RH9'>Ewfb3RH9</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 27, 2016 at 16:00 UTC'>Nov 27, 2016</span></td>
+		<td>589</td>
+		<td>1681</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/rybkaman'>rybkaman</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/7wfZbzwP'>7wfZbzwP</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 18, 2017 at 14:00 UTC'>Jan 18, 2017</span></td>
+		<td>589</td>
+		<td>1692</td>
+		<td>4</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/warshoe'>warshoe</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/QpWu985P'>QpWu985P</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 06, 2016 at 16:00 UTC'>Dec 06, 2016</span></td>
+		<td>588</td>
+		<td>1693</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/dmekro'>dmekro</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/2ZaAqeTi'>2ZaAqeTi</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 20, 2017 at 16:00 UTC'>Feb 20, 2017</span></td>
+		<td>588</td>
+		<td>1708</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/matanovech'>matanovech</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/NC4LZkM8'>NC4LZkM8</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Apr 17, 2017 at 16:00 UTC'>Apr 17, 2017</span></td>
+		<td>588</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/euggeo'>euggeo</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/wcTEfEiu'>wcTEfEiu</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 05, 2016 at 16:00 UTC'>Dec 05, 2016</span></td>
+		<td>586</td>
+		<td>1683</td>
+		<td>5</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/tengiz2017'>tengiz2017</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/RnK8a3uU'>RnK8a3uU</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2017 at 16:00 UTC'>Mar 19, 2017</span></td>
+		<td>586</td>
+		<td>1690</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/lohifile'>lohifile</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/i1XXcH0Z'>i1XXcH0Z</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2017 at 14:00 UTC'>Jan 22, 2017</span></td>
+		<td>585</td>
+		<td>1721</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/netanya'>netanya</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/j6TbXu2W'>j6TbXu2W</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 04, 2017 at 16:00 UTC'>Mar 04, 2017</span></td>
+		<td>585</td>
+		<td>1703</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/sajadianpor'>sajadianpor</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/uVw91ahJ'>uVw91ahJ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 07, 2016 at 14:00 UTC'>Dec 07, 2016</span></td>
+		<td>584</td>
+		<td>1687</td>
+		<td>4</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/shozolosa'>shozolosa</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/VvgAIPUM'>VvgAIPUM</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 05, 2017 at 14:00 UTC'>Mar 05, 2017</span></td>
+		<td>584</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/vadim61'>vadim61</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/jW898rfi'>jW898rfi</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 19, 2016 at 16:00 UTC'>Dec 19, 2016</span></td>
+		<td>583</td>
+		<td>1708</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/ptzz'>ptzz</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/raadas3d'>raadas3d</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 02, 2017 at 12:00 UTC'>Jan 02, 2017</span></td>
+		<td>583</td>
+		<td>1683</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/metallist1975'>metallist1975</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/dSZn1M9y'>dSZn1M9y</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 13, 2016 at 16:00 UTC'>Dec 13, 2016</span></td>
+		<td>581</td>
+		<td>1673</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/sklerotyk'>sklerotyk</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/GAcB4FSo'>GAcB4FSo</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 21, 2016 at 14:00 UTC'>Dec 21, 2016</span></td>
+		<td>581</td>
+		<td>1698</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/l-e-c-a198'>l-e-c-a198</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/qYpeNKZh'>qYpeNKZh</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 04, 2017 at 14:00 UTC'>Jan 04, 2017</span></td>
+		<td>581</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/belousov1996'>belousov1996</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/lGiV6dFD'>lGiV6dFD</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 14, 2017 at 12:00 UTC'>Jan 14, 2017</span></td>
+		<td>581</td>
+		<td>1677</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/chess8320'>chess8320</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/Hf9X2CKe'>Hf9X2CKe</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 13, 2017 at 14:00 UTC'>Jan 13, 2017</span></td>
+		<td>580</td>
+		<td>1685</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/twx'>twx</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/weiNbuk0'>weiNbuk0</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 29, 2017 at 16:00 UTC'>Jan 29, 2017</span></td>
+		<td>580</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/dhanyr'>dhanyr</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/aZi1QSfU'>aZi1QSfU</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 17, 2017 at 16:00 UTC'>Jan 17, 2017</span></td>
+		<td>579</td>
+		<td>1686</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/pchelkinvk'>pchelkinvk</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/w5wBnfK1'>w5wBnfK1</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 12, 2016 at 16:00 UTC'>Dec 12, 2016</span></td>
+		<td>578</td>
+		<td>1687</td>
+		<td>4</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/yrasputina'>yrasputina</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/xtQ7jLWV'>xtQ7jLWV</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 10, 2017 at 16:00 UTC'>Jan 10, 2017</span></td>
+		<td>578</td>
+		<td>1694</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/meir'>meir</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/FRMdFhvr'>FRMdFhvr</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 29, 2016 at 22:00 UTC'>Nov 29, 2016</span></td>
+		<td>577</td>
+		<td>1656</td>
+		<td>4</td>
+		<td>31</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/romanticchess'>romanticchess</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/9DOzgp0X'>9DOzgp0X</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 20, 2017 at 14:00 UTC'>Jan 20, 2017</span></td>
+		<td>577</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/renatochess'>renatochess</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/JqV6LE5M'>JqV6LE5M</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2017 at 16:00 UTC'>Jan 23, 2017</span></td>
+		<td>576</td>
+		<td>1703</td>
+		<td>5</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ldpsico'>ldpsico</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/IXloEIVb'>IXloEIVb</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2017 at 12:00 UTC'>Mar 12, 2017</span></td>
+		<td>576</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/thepluym'>thepluym</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/8bMXHKf3'>8bMXHKf3</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 26, 2016 at 16:00 UTC'>Nov 26, 2016</span></td>
+		<td>575</td>
+		<td>1677</td>
+		<td>4</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/usuarioconnombre'>usuarioconnombre</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/s7bNB4mx'>s7bNB4mx</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2017 at 14:00 UTC'>Jan 28, 2017</span></td>
+		<td>575</td>
+		<td>1708</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/younes10'>younes10</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/VpS2D8fn'>VpS2D8fn</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Apr 09, 2017 at 16:00 UTC'>Apr 09, 2017</span></td>
+		<td>575</td>
+		<td>1701</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/mironov55'>mironov55</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/KQQt7BsV'>KQQt7BsV</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 20, 2016 at 16:00 UTC'>Nov 20, 2016</span></td>
+		<td>573</td>
+		<td>1698</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/neo_dima86'>neo_dima86</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/QGlbTvtr'>QGlbTvtr</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 11, 2016 at 16:00 UTC'>Dec 11, 2016</span></td>
+		<td>573</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/babash'>babash</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/HaSMvJF5'>HaSMvJF5</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 06, 2017 at 16:00 UTC'>Feb 06, 2017</span></td>
+		<td>573</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/malonbh'>malonbh</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/Cdtf3SGa'>Cdtf3SGa</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 27, 2017 at 16:00 UTC'>Jan 27, 2017</span></td>
+		<td>572</td>
+		<td>1690</td>
+		<td>4</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/zembelek1'>zembelek1</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/IhpUU4NB'>IhpUU4NB</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2017 at 16:00 UTC'>Jan 28, 2017</span></td>
+		<td>571</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/vernons'>vernons</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/nw02CTYi'>nw02CTYi</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 01, 2017 at 16:00 UTC'>Feb 01, 2017</span></td>
+		<td>571</td>
+		<td>1704</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/marloneorhana'>marloneorhana</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/F32SzHOy'>F32SzHOy</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2017 at 14:00 UTC'>Feb 18, 2017</span></td>
+		<td>571</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/voin55115'>voin55115</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/ISxJEgnl'>ISxJEgnl</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 11, 2017 at 12:00 UTC'>Jan 11, 2017</span></td>
+		<td>570</td>
+		<td>1683</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/cubeseeker'>cubeseeker</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/Jewag8K7'>Jewag8K7</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 30, 2016 at 12:00 UTC'>Dec 30, 2016</span></td>
+		<td>569</td>
+		<td>1694</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/cat6ek'>cat6ek</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/zve6AC1n'>zve6AC1n</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 31, 2016 at 14:00 UTC'>Dec 31, 2016</span></td>
+		<td>569</td>
+		<td>1707</td>
+		<td>5</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/intobolivian'>intobolivian</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/CcwvZKuZ'>CcwvZKuZ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 04, 2016 at 12:00 UTC'>Dec 04, 2016</span></td>
+		<td>568</td>
+		<td>1681</td>
+		<td>5</td>
+		<td>30</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/armanto_adikin'>armanto_adikin</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/RJHjZybr'>RJHjZybr</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2017 at 12:00 UTC'>Jan 21, 2017</span></td>
+		<td>568</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/st2orm'>st2orm</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/GbsYzJXp'>GbsYzJXp</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 24, 2017 at 16:00 UTC'>Jan 24, 2017</span></td>
+		<td>568</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/fantarone'>fantarone</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/U8Ym6bgK'>U8Ym6bgK</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2017 at 12:00 UTC'>Feb 18, 2017</span></td>
+		<td>568</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/sawka322'>sawka322</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/pdvTEu3S'>pdvTEu3S</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 20, 2016 at 14:00 UTC'>Dec 20, 2016</span></td>
+		<td>567</td>
+		<td>1689</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/cochondindo'>cochondindo</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/KFBH9Ksz'>KFBH9Ksz</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 09, 2017 at 14:00 UTC'>Jan 09, 2017</span></td>
+		<td>567</td>
+		<td>1687</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/cochondindo'>cochondindo</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/aaMmeHEw'>aaMmeHEw</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 28, 2016 at 14:00 UTC'>Dec 28, 2016</span></td>
+		<td>566</td>
+		<td>1686</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/magnuslo43225256'>magnuslo43225256</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/acOte1rQ'>acOte1rQ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 03, 2017 at 16:00 UTC'>Jan 03, 2017</span></td>
+		<td>565</td>
+		<td>1694</td>
+		<td>5</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/invor'>invor</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/6C4JjXrF'>6C4JjXrF</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2017 at 14:00 UTC'>Jan 21, 2017</span></td>
+		<td>565</td>
+		<td>1699</td>
+		<td>4</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/benkar'>benkar</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/pAFR3sO5'>pAFR3sO5</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 04, 2017 at 14:00 UTC'>Feb 04, 2017</span></td>
+		<td>565</td>
+		<td>1723</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/joko2017'>joko2017</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/JwXpttxi'>JwXpttxi</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 02, 2016 at 16:00 UTC'>Dec 02, 2016</span></td>
+		<td>564</td>
+		<td>1664</td>
+		<td>5</td>
+		<td>30</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/luigi6900'>luigi6900</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/gca3cjfE'>gca3cjfE</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 11, 2016 at 12:00 UTC'>Dec 11, 2016</span></td>
+		<td>564</td>
+		<td>1685</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/alexander790'>alexander790</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/toqLyoLN'>toqLyoLN</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 20, 2017 at 16:00 UTC'>Jan 20, 2017</span></td>
+		<td>564</td>
+		<td>1709</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/svarnoi'>svarnoi</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/ItiCxy2H'>ItiCxy2H</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 30, 2017 at 16:00 UTC'>Jan 30, 2017</span></td>
+		<td>564</td>
+		<td>1703</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/ildivinojohnny'>ildivinojohnny</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/UzddkEol'>UzddkEol</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 24, 2017 at 16:00 UTC'>Feb 24, 2017</span></td>
+		<td>564</td>
+		<td>1695</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/mmaric'>mmaric</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/fcLx4m5n'>fcLx4m5n</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 08, 2016 at 14:00 UTC'>Dec 08, 2016</span></td>
+		<td>563</td>
+		<td>1696</td>
+		<td>4</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bedo777'>bedo777</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/XZcTI9Gd'>XZcTI9Gd</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 03, 2017 at 14:00 UTC'>Jan 03, 2017</span></td>
+		<td>563</td>
+		<td>1682</td>
+		<td>5</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/andicanrac'>andicanrac</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/6m5ysxFo'>6m5ysxFo</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 10, 2017 at 14:00 UTC'>Jan 10, 2017</span></td>
+		<td>563</td>
+		<td>1694</td>
+		<td>4</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/pohyi'>pohyi</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/xaw61Q7f'>xaw61Q7f</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 13, 2016 at 16:00 UTC'>Nov 13, 2016</span></td>
+		<td>562</td>
+		<td>1701</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/mrbug'>mrbug</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/y918fFSV'>y918fFSV</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 22, 2016 at 14:00 UTC'>Dec 22, 2016</span></td>
+		<td>562</td>
+		<td>1687</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/hary_husic'>hary_husic</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/8RJgMbfW'>8RJgMbfW</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 27, 2016 at 14:00 UTC'>Dec 27, 2016</span></td>
+		<td>562</td>
+		<td>1676</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/maverik49'>maverik49</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/MqQJyPLX'>MqQJyPLX</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 17, 2017 at 14:00 UTC'>Jan 17, 2017</span></td>
+		<td>562</td>
+		<td>1673</td>
+		<td>4</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/renatochess'>renatochess</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/gz0J1h9Z'>gz0J1h9Z</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2017 at 16:00 UTC'>Jan 21, 2017</span></td>
+		<td>562</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/carvaflu'>carvaflu</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/h1q5ffki'>h1q5ffki</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 26, 2017 at 14:00 UTC'>Jan 26, 2017</span></td>
+		<td>562</td>
+		<td>1686</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/saragosachess'>saragosachess</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/8gyMtmjB'>8gyMtmjB</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 09, 2016 at 16:00 UTC'>Dec 09, 2016</span></td>
+		<td>561</td>
+		<td>1672</td>
+		<td>5</td>
+		<td>30</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/khamba1996'>khamba1996</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/Nj5GpqP5'>Nj5GpqP5</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 27, 2016 at 16:00 UTC'>Dec 27, 2016</span></td>
+		<td>561</td>
+		<td>1666</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/akinfenwa10'>akinfenwa10</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/S2XWRiXP'>S2XWRiXP</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 29, 2016 at 14:00 UTC'>Dec 29, 2016</span></td>
+		<td>561</td>
+		<td>1699</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/magicmikexxl'>magicmikexxl</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/PDs3qbBd'>PDs3qbBd</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 10, 2017 at 12:00 UTC'>Jan 10, 2017</span></td>
+		<td>561</td>
+		<td>1678</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/leopato'>leopato</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/3Sph0FH2'>3Sph0FH2</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 04, 2017 at 14:00 UTC'>Mar 04, 2017</span></td>
+		<td>560</td>
+		<td>1703</td>
+		<td>4</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/serega25'>serega25</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/TPHyPMMw'>TPHyPMMw</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 03, 2017 at 12:00 UTC'>Jan 03, 2017</span></td>
+		<td>559</td>
+		<td>1678</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/nastya1605'>nastya1605</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/nzrfVVxg'>nzrfVVxg</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 13, 2017 at 12:00 UTC'>Jan 13, 2017</span></td>
+		<td>559</td>
+		<td>1695</td>
+		<td>4</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/temurkenjayev'>temurkenjayev</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/HyyRV1gX'>HyyRV1gX</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 22, 2017 at 16:00 UTC'>Feb 22, 2017</span></td>
+		<td>559</td>
+		<td>1697</td>
+		<td>5</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/dedetuyy'>dedetuyy</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/9c8ZT0qr'>9c8ZT0qr</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 17, 2017 at 12:00 UTC'>Jan 17, 2017</span></td>
+		<td>558</td>
+		<td>1679</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/chess8320'>chess8320</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/LqtOp408'>LqtOp408</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 28, 2016 at 16:00 UTC'>Nov 28, 2016</span></td>
+		<td>557</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/kape333'>kape333</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/On1QYqNd'>On1QYqNd</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 18, 2016 at 12:00 UTC'>Dec 18, 2016</span></td>
+		<td>557</td>
+		<td>1693</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/mr_goodcat'>mr_goodcat</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/Gs3ZxnKY'>Gs3ZxnKY</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 25, 2016 at 14:00 UTC'>Dec 25, 2016</span></td>
+		<td>557</td>
+		<td>1703</td>
+		<td>5</td>
+		<td>31</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/anotheronebadplayer'>anotheronebadplayer</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/Rw9IF4xg'>Rw9IF4xg</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 04, 2017 at 12:00 UTC'>Jan 04, 2017</span></td>
+		<td>557</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/rolkento'>rolkento</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/XZ18MlgG'>XZ18MlgG</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 25, 2016 at 16:00 UTC'>Nov 25, 2016</span></td>
+		<td>556</td>
+		<td>1699</td>
+		<td>5</td>
+		<td>31</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/oH6VKgWg'>oH6VKgWg</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 08, 2017 at 16:00 UTC'>Jan 08, 2017</span></td>
+		<td>556</td>
+		<td>1688</td>
+		<td>4</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/dragana972'>dragana972</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/ADKRTmcB'>ADKRTmcB</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 11, 2017 at 14:00 UTC'>Jan 11, 2017</span></td>
+		<td>556</td>
+		<td>1680</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/shozolosa'>shozolosa</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/8UfaNZbr'>8UfaNZbr</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2017 at 14:00 UTC'>Jan 16, 2017</span></td>
+		<td>556</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/chess_no_sport'>chess_no_sport</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/8eGR6JTs'>8eGR6JTs</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 26, 2017 at 16:00 UTC'>Feb 26, 2017</span></td>
+		<td>556</td>
+		<td>1708</td>
+		<td>4</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/triomphant8'>triomphant8</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/YPJPpnxY'>YPJPpnxY</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 19, 2016 at 14:00 UTC'>Dec 19, 2016</span></td>
+		<td>555</td>
+		<td>1701</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/gilles123'>gilles123</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/VNOHoW9F'>VNOHoW9F</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 14, 2016 at 16:00 UTC'>Dec 14, 2016</span></td>
+		<td>554</td>
+		<td>1687</td>
+		<td>5</td>
+		<td>30</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/andykay'>andykay</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/Phb3T2aS'>Phb3T2aS</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 25, 2016 at 12:00 UTC'>Dec 25, 2016</span></td>
+		<td>554</td>
+		<td>1696</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/amir_talebvand'>amir_talebvand</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/2WQdLthZ'>2WQdLthZ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 25, 2017 at 16:00 UTC'>Feb 25, 2017</span></td>
+		<td>554</td>
+		<td>1706</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/phrygiian'>phrygiian</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/amkeK3oV'>amkeK3oV</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 31, 2017 at 16:00 UTC'>Jan 31, 2017</span></td>
+		<td>553</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/voodoosanta'>voodoosanta</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/B3pyplvP'>B3pyplvP</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 03, 2016 at 12:00 UTC'>Dec 03, 2016</span></td>
+		<td>552</td>
+		<td>1687</td>
+		<td>4</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/rotceh'>rotceh</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/HOH8MA24'>HOH8MA24</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 25, 2017 at 14:00 UTC'>Jan 25, 2017</span></td>
+		<td>552</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/kape333'>kape333</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/sGXyb23j'>sGXyb23j</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 03, 2017 at 16:00 UTC'>Feb 03, 2017</span></td>
+		<td>552</td>
+		<td>1707</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/moZvzmF2'>moZvzmF2</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2017 at 16:00 UTC'>Mar 18, 2017</span></td>
+		<td>552</td>
+		<td>1690</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/sumpor'>sumpor</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/DmfmC7WQ'>DmfmC7WQ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 02, 2016 at 12:00 UTC'>Dec 02, 2016</span></td>
+		<td>551</td>
+		<td>1670</td>
+		<td>4</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/trend19'>trend19</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/hBu8AOuB'>hBu8AOuB</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 03, 2016 at 16:00 UTC'>Dec 03, 2016</span></td>
+		<td>550</td>
+		<td>1685</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/badatthegame'>badatthegame</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/h94avV3h'>h94avV3h</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 10, 2016 at 14:00 UTC'>Dec 10, 2016</span></td>
+		<td>550</td>
+		<td>1707</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/alzis'>alzis</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/i6CeFPQn'>i6CeFPQn</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 11, 2016 at 14:00 UTC'>Dec 11, 2016</span></td>
+		<td>550</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/blaumeow'>blaumeow</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/zB3R0eC4'>zB3R0eC4</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 18, 2016 at 14:00 UTC'>Dec 18, 2016</span></td>
+		<td>550</td>
+		<td>1716</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/neri'>neri</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/MinkYXBM'>MinkYXBM</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2017 at 16:00 UTC'>Mar 11, 2017</span></td>
+		<td>549</td>
+		<td>1688</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/bacchus65'>bacchus65</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/xFwy4pYC'>xFwy4pYC</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 27, 2017 at 16:00 UTC'>Mar 27, 2017</span></td>
+		<td>549</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>31</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/zembelek1'>zembelek1</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/u5O2bLOR'>u5O2bLOR</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 21, 2016 at 16:00 UTC'>Dec 21, 2016</span></td>
+		<td>548</td>
+		<td>1707</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/kandelaberr'>kandelaberr</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/Yg1DvTec'>Yg1DvTec</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 13, 2017 at 16:00 UTC'>Feb 13, 2017</span></td>
+		<td>547</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/themrplanck'>themrplanck</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/6j1gEieW'>6j1gEieW</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Apr 03, 2017 at 16:00 UTC'>Apr 03, 2017</span></td>
+		<td>547</td>
+		<td>1719</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/agnivo'>agnivo</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/tDGG2a11'>tDGG2a11</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 27, 2016 at 14:00 UTC'>Nov 27, 2016</span></td>
+		<td>546</td>
+		<td>1696</td>
+		<td>4</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/trend19'>trend19</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/0IeSIoPL'>0IeSIoPL</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2017 at 16:00 UTC'>Mar 08, 2017</span></td>
+		<td>546</td>
+		<td>1679</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/cacique26'>cacique26</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/KDF7MOOG'>KDF7MOOG</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 26, 2017 at 16:00 UTC'>Mar 26, 2017</span></td>
+		<td>546</td>
+		<td>1697</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/euggeo'>euggeo</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/GO4elwNo'>GO4elwNo</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 13, 2016 at 14:00 UTC'>Dec 13, 2016</span></td>
+		<td>545</td>
+		<td>1715</td>
+		<td>4</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ches151'>ches151</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/YMOGtWOQ'>YMOGtWOQ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 19, 2017 at 14:00 UTC'>Jan 19, 2017</span></td>
+		<td>545</td>
+		<td>1688</td>
+		<td>4</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/netanya'>netanya</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/GwZseWBP'>GwZseWBP</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 19, 2017 at 12:00 UTC'>Feb 19, 2017</span></td>
+		<td>545</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/open55'>open55</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/V08KBBvn'>V08KBBvn</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 02, 2017 at 14:00 UTC'>Feb 02, 2017</span></td>
+		<td>544</td>
+		<td>1709</td>
+		<td>5</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/craciun'>craciun</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/5UCR92fp'>5UCR92fp</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 11, 2017 at 14:00 UTC'>Feb 11, 2017</span></td>
+		<td>544</td>
+		<td>1725</td>
+		<td>4</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/adil77777'>adil77777</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/Oyc76bvE'>Oyc76bvE</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 12, 2017 at 14:00 UTC'>Jan 12, 2017</span></td>
+		<td>543</td>
+		<td>1683</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/kape333'>kape333</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/xatCSi5E'>xatCSi5E</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2017 at 16:00 UTC'>Mar 12, 2017</span></td>
+		<td>543</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/vahidrabiee'>vahidrabiee</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/Rqf3DIux'>Rqf3DIux</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 26, 2016 at 14:00 UTC'>Nov 26, 2016</span></td>
+		<td>542</td>
+		<td>1709</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/yabes'>yabes</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/9127uAFg'>9127uAFg</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 04, 2017 at 12:00 UTC'>Feb 04, 2017</span></td>
+		<td>542</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/ensemo'>ensemo</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/iTthDR6L'>iTthDR6L</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 12, 2017 at 14:00 UTC'>Feb 12, 2017</span></td>
+		<td>542</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/caykovski8'>caykovski8</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/GMRXG83k'>GMRXG83k</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 27, 2016 at 12:00 UTC'>Dec 27, 2016</span></td>
+		<td>540</td>
+		<td>1681</td>
+		<td>5</td>
+		<td>31</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/djoko_atlet81'>djoko_atlet81</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/NR9sb4h3'>NR9sb4h3</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 30, 2016 at 14:00 UTC'>Dec 30, 2016</span></td>
+		<td>540</td>
+		<td>1700</td>
+		<td>4</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/drawdonkey'>drawdonkey</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/3gmB9wFz'>3gmB9wFz</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 05, 2017 at 12:00 UTC'>Feb 05, 2017</span></td>
+		<td>540</td>
+		<td>1722</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/carvaflu'>carvaflu</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/spqcnGUi'>spqcnGUi</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 26, 2016 at 12:00 UTC'>Dec 26, 2016</span></td>
+		<td>539</td>
+		<td>1690</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/halazizou'>halazizou</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/4ZPzgcFq'>4ZPzgcFq</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 29, 2016 at 12:00 UTC'>Dec 29, 2016</span></td>
+		<td>539</td>
+		<td>1692</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/alexrodzgz'>alexrodzgz</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/AWUVnTwI'>AWUVnTwI</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 01, 2017 at 12:00 UTC'>Jan 01, 2017</span></td>
+		<td>539</td>
+		<td>1703</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/biv'>biv</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/kYBTbkjT'>kYBTbkjT</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 25, 2017 at 16:00 UTC'>Mar 25, 2017</span></td>
+		<td>539</td>
+		<td>1688</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/flamenguista'>flamenguista</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/veEVIUAx'>veEVIUAx</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Apr 11, 2017 at 16:00 UTC'>Apr 11, 2017</span></td>
+		<td>539</td>
+		<td>1704</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/smm1347'>smm1347</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/7SazFhBv'>7SazFhBv</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 26, 2016 at 12:00 UTC'>Nov 26, 2016</span></td>
+		<td>538</td>
+		<td>1715</td>
+		<td>4</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/rybkaman'>rybkaman</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/0lEIG83r'>0lEIG83r</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 24, 2017 at 14:00 UTC'>Feb 24, 2017</span></td>
+		<td>538</td>
+		<td>1704</td>
+		<td>5</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/harry030779'>harry030779</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/AgLr1lPx'>AgLr1lPx</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 27, 2017 at 14:00 UTC'>Jan 27, 2017</span></td>
+		<td>537</td>
+		<td>1707</td>
+		<td>4</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/havefun22'>havefun22</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/QZSCQVRw'>QZSCQVRw</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 12, 2017 at 12:00 UTC'>Feb 12, 2017</span></td>
+		<td>537</td>
+		<td>1716</td>
+		<td>5</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/carvaflu'>carvaflu</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/u8qQtAqF'>u8qQtAqF</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 30, 2016 at 16:00 UTC'>Nov 30, 2016</span></td>
+		<td>536</td>
+		<td>1689</td>
+		<td>5</td>
+		<td>31</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/galastor'>galastor</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/SW7qaXx5'>SW7qaXx5</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2017 at 12:00 UTC'>Jan 16, 2017</span></td>
+		<td>536</td>
+		<td>1691</td>
+		<td>4</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/doni88'>doni88</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/78BfYRPd'>78BfYRPd</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 08, 2017 at 16:00 UTC'>Feb 08, 2017</span></td>
+		<td>536</td>
+		<td>1696</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/evilcoyote'>evilcoyote</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/ppaDYgXJ'>ppaDYgXJ</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 26, 2016 at 14:00 UTC'>Dec 26, 2016</span></td>
+		<td>535</td>
+		<td>1698</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/lightroombreadt'>lightroombreadt</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/6PlxRwfs'>6PlxRwfs</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 20, 2016 at 16:00 UTC'>Dec 20, 2016</span></td>
+		<td>534</td>
+		<td>1692</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/badatthegame'>badatthegame</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/mKNJlwsh'>mKNJlwsh</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 19, 2017 at 12:00 UTC'>Jan 19, 2017</span></td>
+		<td>534</td>
+		<td>1680</td>
+		<td>4</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/skalyn'>skalyn</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/wIO8STQL'>wIO8STQL</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2017 at 14:00 UTC'>Jan 23, 2017</span></td>
+		<td>534</td>
+		<td>1717</td>
+		<td>4</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/kape333'>kape333</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/hym44kfb'>hym44kfb</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 06, 2016 at 14:00 UTC'>Dec 06, 2016</span></td>
+		<td>533</td>
+		<td>1685</td>
+		<td>4</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/kingsass'>kingsass</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/LbRO0vZR'>LbRO0vZR</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 22, 2016 at 12:00 UTC'>Dec 22, 2016</span></td>
+		<td>533</td>
+		<td>1694</td>
+		<td>4</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/vlad-russu93'>vlad-russu93</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/2MYmoOxq'>2MYmoOxq</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 09, 2016 at 14:00 UTC'>Dec 09, 2016</span></td>
+		<td>532</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/panaga'>panaga</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/8qds79nz'>8qds79nz</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 05, 2016 at 14:00 UTC'>Dec 05, 2016</span></td>
+		<td>531</td>
+		<td>1691</td>
+		<td>5</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/tooraj1378'>tooraj1378</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/BF88j5pS'>BF88j5pS</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 05, 2017 at 14:00 UTC'>Feb 05, 2017</span></td>
+		<td>531</td>
+		<td>1723</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/bobancio'>bobancio</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/mpezxNbW'>mpezxNbW</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 08, 2016 at 12:00 UTC'>Dec 08, 2016</span></td>
+		<td>530</td>
+		<td>1690</td>
+		<td>4</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/brucki'>brucki</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/7lHC8l7B'>7lHC8l7B</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Dec 09, 2016 at 12:00 UTC'>Dec 09, 2016</span></td>
+		<td>530</td>
+		<td>1703</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/laviateur'>laviateur</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/KwnrpxCL'>KwnrpxCL</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 24, 2017 at 12:00 UTC'>Jan 24, 2017</span></td>
+		<td>530</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/conrad1122'>conrad1122</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/4tvFxNW5'>4tvFxNW5</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 31, 2017 at 14:00 UTC'>Jan 31, 2017</span></td>
+		<td>529</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/shozolosa'>shozolosa</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/uBxVthvl'>uBxVthvl</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 03, 2017 at 14:00 UTC'>Feb 03, 2017</span></td>
+		<td>529</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/lanutriaveloz'>lanutriaveloz</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/rOLd67Ym'>rOLd67Ym</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 14, 2017 at 16:00 UTC'>Feb 14, 2017</span></td>
+		<td>529</td>
+		<td>1705</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/sajadianpor'>sajadianpor</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/qgzer91n'>qgzer91n</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 03, 2017 at 14:00 UTC'>Mar 03, 2017</span></td>
+		<td>529</td>
+		<td>1719</td>
+		<td>4</td>
+		<td>32</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/indonesian-gm'>indonesian-gm</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/yXf1skAu'>yXf1skAu</a></td>
+		<td><span class='info Vclassical' title='Classical'>cl</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 03, 2017 at 16:00 UTC'>Mar 03, 2017</span></td>
+		<td>528</td>
+		<td>1700</td>
+		<td>4</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/sumpor'>sumpor</a></td>
+		<td>40</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

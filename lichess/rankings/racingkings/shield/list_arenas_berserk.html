@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Racing Kings Shield Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings' checked><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield' checked><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk' checked><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Racing Kings Shield Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/3gVSYZTO'>3gVSYZTO</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Oct 23, 2019 at 16:00 UTC'>Oct 23, 2019</span></td>
+		<td>73</td>
+		<td>1764</td>
+		<td>12</td>
+		<td>16</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>214</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/3oiVkx1w'>3oiVkx1w</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 24, 2021 at 16:00 UTC'>Feb 24, 2021</span></td>
+		<td>465</td>
+		<td>1614</td>
+		<td>17</td>
+		<td>14</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/narflorkp'>narflorkp</a></td>
+		<td>327</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/xYJJelka'>xYJJelka</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Aug 21, 2019 at 16:00 UTC'>Aug 21, 2019</span></td>
+		<td>102</td>
+		<td>1761</td>
+		<td>19</td>
+		<td>16</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>183</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/dg2nds7g'>dg2nds7g</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Mar 18, 2020 at 16:00 UTC'>Mar 18, 2020</span></td>
+		<td>159</td>
+		<td>1700</td>
+		<td>16</td>
+		<td>15</td>
+		<td>48%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>214</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/wQcZ8aBe'>wQcZ8aBe</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 20, 2021 at 16:00 UTC'>Jan 20, 2021</span></td>
+		<td>414</td>
+		<td>1656</td>
+		<td>18</td>
+		<td>14</td>
+		<td>45%</td>
+		<td><a href='https://lichess.org/@/captainjackrogers'>captainjackrogers</a></td>
+		<td>322</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/N2u0eIqy'>N2u0eIqy</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jul 24, 2019 at 16:00 UTC'>Jul 24, 2019</span></td>
+		<td>121</td>
+		<td>1758</td>
+		<td>18</td>
+		<td>15</td>
+		<td>45%</td>
+		<td><a href='https://lichess.org/@/moscownevasleepwgirl'>moscownevasleepwgirl</a></td>
+		<td>217</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/j85QljA4'>j85QljA4</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jun 24, 2020 at 16:00 UTC'>Jun 24, 2020</span></td>
+		<td>259</td>
+		<td>1650</td>
+		<td>17</td>
+		<td>14</td>
+		<td>44%</td>
+		<td><a href='https://lichess.org/@/holstentor'>holstentor</a></td>
+		<td>273</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/hVpS87IM'>hVpS87IM</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 23, 2020 at 16:00 UTC'>Dec 23, 2020</span></td>
+		<td>381</td>
+		<td>1672</td>
+		<td>21</td>
+		<td>14</td>
+		<td>43%</td>
+		<td><a href='https://lichess.org/@/thisisrex'>thisisrex</a></td>
+		<td>293</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/oOQY879O'>oOQY879O</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 23, 2019 at 16:00 UTC'>Jan 23, 2019</span></td>
+		<td>129</td>
+		<td>1722</td>
+		<td>17</td>
+		<td>15</td>
+		<td>43%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>302</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/2OJ6egym'>2OJ6egym</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 19, 2020 at 16:00 UTC'>Feb 19, 2020</span></td>
+		<td>105</td>
+		<td>1766</td>
+		<td>16</td>
+		<td>15</td>
+		<td>42%</td>
+		<td><a href='https://lichess.org/@/dannygreene123'>dannygreene123</a></td>
+		<td>194</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/3JrQ3B8n'>3JrQ3B8n</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Mar 20, 2019 at 16:00 UTC'>Mar 20, 2019</span></td>
+		<td>122</td>
+		<td>1736</td>
+		<td>19</td>
+		<td>15</td>
+		<td>41%</td>
+		<td><a href='https://lichess.org/@/babosos'>babosos</a></td>
+		<td>271</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/XUXmbdpT'>XUXmbdpT</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jun 19, 2019 at 16:00 UTC'>Jun 19, 2019</span></td>
+		<td>99</td>
+		<td>1746</td>
+		<td>18</td>
+		<td>15</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/babosos'>babosos</a></td>
+		<td>169</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/JImBwiFj'>JImBwiFj</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Apr 22, 2020 at 16:00 UTC'>Apr 22, 2020</span></td>
+		<td>241</td>
+		<td>1653</td>
+		<td>22</td>
+		<td>14</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/sachmaty8'>sachmaty8</a></td>
+		<td>318</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/v6L7ZsyI'>v6L7ZsyI</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Aug 19, 2020 at 16:00 UTC'>Aug 19, 2020</span></td>
+		<td>296</td>
+		<td>1663</td>
+		<td>17</td>
+		<td>14</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/holstentor'>holstentor</a></td>
+		<td>228</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/b3gLpeG4'>b3gLpeG4</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Oct 21, 2020 at 16:00 UTC'>Oct 21, 2020</span></td>
+		<td>316</td>
+		<td>1648</td>
+		<td>16</td>
+		<td>14</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>220</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/cOepyHhO'>cOepyHhO</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Nov 18, 2020 at 16:00 UTC'>Nov 18, 2020</span></td>
+		<td>350</td>
+		<td>1660</td>
+		<td>17</td>
+		<td>14</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/travisnemata'>travisnemata</a></td>
+		<td>246</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/3q0SQgAe'>3q0SQgAe</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 18, 2019 at 16:00 UTC'>Dec 18, 2019</span></td>
+		<td>71</td>
+		<td>1751</td>
+		<td>13</td>
+		<td>15</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/racingkingsking'>racingkingsking</a></td>
+		<td>197</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/7PxkbOXn'>7PxkbOXn</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='May 20, 2020 at 14:00 UTC'>May 20, 2020</span></td>
+		<td>289</td>
+		<td>1660</td>
+		<td>18</td>
+		<td>14</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/holstentor'>holstentor</a></td>
+		<td>205</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/roj9ULEl'>roj9ULEl</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Sep 18, 2019 at 16:00 UTC'>Sep 18, 2019</span></td>
+		<td>88</td>
+		<td>1741</td>
+		<td>15</td>
+		<td>15</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>189</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/tFjuo5Fr'>tFjuo5Fr</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Nov 20, 2019 at 16:00 UTC'>Nov 20, 2019</span></td>
+		<td>84</td>
+		<td>1758</td>
+		<td>13</td>
+		<td>16</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/royalmaniac'>royalmaniac</a></td>
+		<td>200</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/yYxylMc3'>yYxylMc3</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jul 22, 2020 at 16:00 UTC'>Jul 22, 2020</span></td>
+		<td>298</td>
+		<td>1676</td>
+		<td>16</td>
+		<td>14</td>
+		<td>37%</td>
+		<td><a href='https://lichess.org/@/iblunderalot124'>iblunderalot124</a></td>
+		<td>249</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/KPT5W1kr'>KPT5W1kr</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Aug 26, 2018 at 14:00 UTC'>Aug 26, 2018</span></td>
+		<td>113</td>
+		<td>1770</td>
+		<td>17</td>
+		<td>15</td>
+		<td>36%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>225</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/OQIEzLzG'>OQIEzLzG</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Apr 24, 2019 at 16:00 UTC'>Apr 24, 2019</span></td>
+		<td>154</td>
+		<td>1716</td>
+		<td>16</td>
+		<td>15</td>
+		<td>36%</td>
+		<td><a href='https://lichess.org/@/e101'>e101</a></td>
+		<td>218</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/618l1NvA'>618l1NvA</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Sep 23, 2020 at 16:00 UTC'>Sep 23, 2020</span></td>
+		<td>289</td>
+		<td>1658</td>
+		<td>16</td>
+		<td>14</td>
+		<td>36%</td>
+		<td><a href='https://lichess.org/@/holstentor'>holstentor</a></td>
+		<td>299</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/eIH65ewS'>eIH65ewS</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 19, 2018 at 16:00 UTC'>Dec 19, 2018</span></td>
+		<td>111</td>
+		<td>1727</td>
+		<td>16</td>
+		<td>15</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>233</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/lZ4Nabpp'>lZ4Nabpp</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 20, 2019 at 16:00 UTC'>Feb 20, 2019</span></td>
+		<td>115</td>
+		<td>1719</td>
+		<td>17</td>
+		<td>15</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>193</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/bl6p0451'>bl6p0451</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 28, 2018 at 16:00 UTC'>Jan 28, 2018</span></td>
+		<td>126</td>
+		<td>1758</td>
+		<td>16</td>
+		<td>15</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/golden__king'>golden__king</a></td>
+		<td>228</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/NIuDy2AK'>NIuDy2AK</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jun 24, 2018 at 16:00 UTC'>Jun 24, 2018</span></td>
+		<td>112</td>
+		<td>1733</td>
+		<td>15</td>
+		<td>16</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/shlepalka'>shlepalka</a></td>
+		<td>190</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/en2lQPlE'>en2lQPlE</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Mar 25, 2018 at 16:00 UTC'>Mar 25, 2018</span></td>
+		<td>107</td>
+		<td>1700</td>
+		<td>14</td>
+		<td>15</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/falconpower'>falconpower</a></td>
+		<td>116</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/Q6xNq6Sg'>Q6xNq6Sg</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='May 22, 2019 at 16:00 UTC'>May 22, 2019</span></td>
+		<td>101</td>
+		<td>1707</td>
+		<td>14</td>
+		<td>16</td>
+		<td>31%</td>
+		<td><a href='https://lichess.org/@/sachmaty8'>sachmaty8</a></td>
+		<td>204</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/LNKpfZDS'>LNKpfZDS</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Apr 22, 2018 at 16:00 UTC'>Apr 22, 2018</span></td>
+		<td>120</td>
+		<td>1733</td>
+		<td>17</td>
+		<td>15</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/babosos'>babosos</a></td>
+		<td>156</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/CDy16uSd'>CDy16uSd</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 22, 2020 at 16:00 UTC'>Jan 22, 2020</span></td>
+		<td>99</td>
+		<td>1772</td>
+		<td>14</td>
+		<td>15</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/hipno'>hipno</a></td>
+		<td>172</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/667IBodn'>667IBodn</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Sep 23, 2018 at 14:00 UTC'>Sep 23, 2018</span></td>
+		<td>127</td>
+		<td>1745</td>
+		<td>16</td>
+		<td>16</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/sachmaty8'>sachmaty8</a></td>
+		<td>164</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/kcomS6IQ'>kcomS6IQ</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jul 22, 2018 at 16:00 UTC'>Jul 22, 2018</span></td>
+		<td>107</td>
+		<td>1758</td>
+		<td>15</td>
+		<td>16</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/falconpower'>falconpower</a></td>
+		<td>149</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/h1Cr7gc3'>h1Cr7gc3</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 25, 2018 at 16:00 UTC'>Feb 25, 2018</span></td>
+		<td>97</td>
+		<td>1719</td>
+		<td>12</td>
+		<td>14</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/babosos'>babosos</a></td>
+		<td>226</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/lWMjbDly'>lWMjbDly</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='May 27, 2018 at 16:00 UTC'>May 27, 2018</span></td>
+		<td>122</td>
+		<td>1740</td>
+		<td>12</td>
+		<td>16</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/babosos'>babosos</a></td>
+		<td>146</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/8Xdgc6Hz'>8Xdgc6Hz</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Nov 21, 2018 at 16:00 UTC'>Nov 21, 2018</span></td>
+		<td>158</td>
+		<td>1682</td>
+		<td>13</td>
+		<td>15</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/grainiac'>grainiac</a></td>
+		<td>208</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/4AV3gEPh'>4AV3gEPh</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 24, 2017 at 16:00 UTC'>Dec 24, 2017</span></td>
+		<td>116</td>
+		<td>1742</td>
+		<td>13</td>
+		<td>15</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/sharpmind'>sharpmind</a></td>
+		<td>142</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/pwKN2hN0'>pwKN2hN0</a></td>
+		<td><span class='info Vracingkings' title='Racing Kings'>rk</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Oct 24, 2018 at 16:00 UTC'>Oct 24, 2018</span></td>
+		<td>96</td>
+		<td>1754</td>
+		<td>14</td>
+		<td>15</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/israelak47'>israelak47</a></td>
+		<td>160</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

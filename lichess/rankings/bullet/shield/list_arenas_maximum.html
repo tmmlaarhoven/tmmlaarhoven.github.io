@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Bullet Shield Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet' checked><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield' checked><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum' checked><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Bullet Shield Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/mBazAJI1'>mBazAJI1</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Aug 03, 2020 at 16:00 UTC'>Aug 03, 2020</span></td>
+		<td>4044</td>
+		<td>1764</td>
+		<td>24</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/zaven_chessmood'>zaven_chessmood</a></td>
+		<td>427</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/aerKTdX3'>aerKTdX3</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 08, 2018 at 16:00 UTC'>Jan 08, 2018</span></td>
+		<td>1655</td>
+		<td>1759</td>
+		<td>25</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/manwithavan'>manwithavan</a></td>
+		<td>425</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/U7cFNVi6'>U7cFNVi6</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Sep 07, 2020 at 16:00 UTC'>Sep 07, 2020</span></td>
+		<td>4303</td>
+		<td>1745</td>
+		<td>21</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/zaven_chessmood'>zaven_chessmood</a></td>
+		<td>396</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/v3UoBkaQ'>v3UoBkaQ</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 07, 2020 at 16:00 UTC'>Dec 07, 2020</span></td>
+		<td>4325</td>
+		<td>1728</td>
+		<td>22</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/zaven_chessmood'>zaven_chessmood</a></td>
+		<td>367</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/V9RJBxMS'>V9RJBxMS</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Mar 04, 2019 at 16:00 UTC'>Mar 04, 2019</span></td>
+		<td>2389</td>
+		<td>1703</td>
+		<td>24</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>350</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/kdrPkC8I'>kdrPkC8I</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Oct 07, 2019 at 16:00 UTC'>Oct 07, 2019</span></td>
+		<td>2407</td>
+		<td>1826</td>
+		<td>25</td>
+		<td>36</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>344</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/d9jlcNRc'>d9jlcNRc</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Nov 05, 2018 at 16:00 UTC'>Nov 05, 2018</span></td>
+		<td>1969</td>
+		<td>1727</td>
+		<td>24</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/shprot86'>shprot86</a></td>
+		<td>343</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/PKnWpMLa'>PKnWpMLa</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='May 06, 2019 at 16:00 UTC'>May 06, 2019</span></td>
+		<td>2242</td>
+		<td>1720</td>
+		<td>24</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>341</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/DOdL53im'>DOdL53im</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Nov 04, 2019 at 16:00 UTC'>Nov 04, 2019</span></td>
+		<td>2611</td>
+		<td>1847</td>
+		<td>25</td>
+		<td>35</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>333</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/aLsLOqdt'>aLsLOqdt</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Oct 05, 2020 at 16:00 UTC'>Oct 05, 2020</span></td>
+		<td>3550</td>
+		<td>1744</td>
+		<td>22</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/zaven_chessmood'>zaven_chessmood</a></td>
+		<td>329</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/NgpcwNRQ'>NgpcwNRQ</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Sep 02, 2019 at 16:00 UTC'>Sep 02, 2019</span></td>
+		<td>2531</td>
+		<td>1789</td>
+		<td>24</td>
+		<td>36</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/kastar'>kastar</a></td>
+		<td>328</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/DoYrjk1k'>DoYrjk1k</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Oct 08, 2018 at 14:00 UTC'>Oct 08, 2018</span></td>
+		<td>1873</td>
+		<td>1729</td>
+		<td>23</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>322</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/feZaLa57'>feZaLa57</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Aug 05, 2019 at 16:00 UTC'>Aug 05, 2019</span></td>
+		<td>2292</td>
+		<td>1761</td>
+		<td>24</td>
+		<td>36</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>321</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/3G7qPHzb'>3G7qPHzb</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 02, 2019 at 16:00 UTC'>Dec 02, 2019</span></td>
+		<td>2419</td>
+		<td>1852</td>
+		<td>24</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>320</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/18qhXHAz'>18qhXHAz</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 16:00 UTC'>Mar 08, 2021</span></td>
+		<td>4809</td>
+		<td>1704</td>
+		<td>22</td>
+		<td>34</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/variantsonly'>variantsonly</a></td>
+		<td>316</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/DqSR1hmg'>DqSR1hmg</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Mar 05, 2018 at 16:00 UTC'>Mar 05, 2018</span></td>
+		<td>1781</td>
+		<td>1748</td>
+		<td>26</td>
+		<td>36</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>313</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/n1x4jqvG'>n1x4jqvG</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jul 08, 2019 at 16:00 UTC'>Jul 08, 2019</span></td>
+		<td>2127</td>
+		<td>1755</td>
+		<td>24</td>
+		<td>36</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/zubrrr'>zubrrr</a></td>
+		<td>313</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/fQsRL30h'>fQsRL30h</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 03, 2020 at 16:00 UTC'>Feb 03, 2020</span></td>
+		<td>2747</td>
+		<td>1863</td>
+		<td>22</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>304</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/3ay2ZAsw'>3ay2ZAsw</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 07, 2019 at 16:00 UTC'>Jan 07, 2019</span></td>
+		<td>2668</td>
+		<td>1707</td>
+		<td>27</td>
+		<td>35</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>300</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/Udbx9W51'>Udbx9W51</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 06, 2020 at 16:00 UTC'>Jan 06, 2020</span></td>
+		<td>2762</td>
+		<td>1869</td>
+		<td>25</td>
+		<td>36</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/dark_knight90'>dark_knight90</a></td>
+		<td>294</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/7xII4YUg'>7xII4YUg</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 16:00 UTC'>Feb 08, 2021</span></td>
+		<td>4639</td>
+		<td>1708</td>
+		<td>21</td>
+		<td>34</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/pap-g'>pap-g</a></td>
+		<td>292</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/STHBJi5V'>STHBJi5V</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jul 06, 2020 at 16:00 UTC'>Jul 06, 2020</span></td>
+		<td>3562</td>
+		<td>1785</td>
+		<td>24</td>
+		<td>36</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/zhigalko_sergei'>zhigalko_sergei</a></td>
+		<td>289</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/YtUczAnQ'>YtUczAnQ</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 03, 2018 at 16:00 UTC'>Dec 03, 2018</span></td>
+		<td>1904</td>
+		<td>1708</td>
+		<td>22</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/weetik'>weetik</a></td>
+		<td>285</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/JjlXtGoV'>JjlXtGoV</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='May 04, 2020 at 14:00 UTC'>May 04, 2020</span></td>
+		<td>4249</td>
+		<td>1796</td>
+		<td>24</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/glebbobrov'>glebbobrov</a></td>
+		<td>284</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/106CFLsf'>106CFLsf</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Dec 04, 2017 at 16:00 UTC'>Dec 04, 2017</span></td>
+		<td>1610</td>
+		<td>1738</td>
+		<td>25</td>
+		<td>35</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>281</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/92SdvSzH'>92SdvSzH</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Aug 06, 2018 at 14:00 UTC'>Aug 06, 2018</span></td>
+		<td>1765</td>
+		<td>1745</td>
+		<td>25</td>
+		<td>36</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/djeser'>djeser</a></td>
+		<td>280</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/cokNbruj'>cokNbruj</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Apr 06, 2020 at 16:00 UTC'>Apr 06, 2020</span></td>
+		<td>4207</td>
+		<td>1842</td>
+		<td>25</td>
+		<td>36</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/matthewg-p4p'>matthewg-p4p</a></td>
+		<td>276</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/RlWFwrgr'>RlWFwrgr</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jun 03, 2019 at 16:00 UTC'>Jun 03, 2019</span></td>
+		<td>2012</td>
+		<td>1734</td>
+		<td>23</td>
+		<td>35</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/alexandr_ulanov'>alexandr_ulanov</a></td>
+		<td>275</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/bwMpF5Nb'>bwMpF5Nb</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Nov 02, 2020 at 16:00 UTC'>Nov 02, 2020</span></td>
+		<td>3802</td>
+		<td>1750</td>
+		<td>23</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/ghostfaceprzybilla'>ghostfaceprzybilla</a></td>
+		<td>275</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/cmi9Sa8N'>cmi9Sa8N</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 04, 2019 at 16:00 UTC'>Feb 04, 2019</span></td>
+		<td>2251</td>
+		<td>1712</td>
+		<td>25</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/weetik'>weetik</a></td>
+		<td>273</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/4aYZN8l1'>4aYZN8l1</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Feb 05, 2018 at 16:00 UTC'>Feb 05, 2018</span></td>
+		<td>1772</td>
+		<td>1744</td>
+		<td>24</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/larso'>larso</a></td>
+		<td>270</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/ytc1QGu3'>ytc1QGu3</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jun 08, 2020 at 16:00 UTC'>Jun 08, 2020</span></td>
+		<td>3146</td>
+		<td>1779</td>
+		<td>23</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/bizoo'>bizoo</a></td>
+		<td>270</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/072altoF'>072altoF</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Apr 02, 2018 at 16:00 UTC'>Apr 02, 2018</span></td>
+		<td>1703</td>
+		<td>1745</td>
+		<td>25</td>
+		<td>36</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/gannikus'>gannikus</a></td>
+		<td>265</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/OFWK62cA'>OFWK62cA</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jul 02, 2018 at 16:00 UTC'>Jul 02, 2018</span></td>
+		<td>1684</td>
+		<td>1754</td>
+		<td>23</td>
+		<td>35</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>263</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/eaYAvQoG'>eaYAvQoG</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Mar 02, 2020 at 16:00 UTC'>Mar 02, 2020</span></td>
+		<td>2862</td>
+		<td>1850</td>
+		<td>23</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/zhalmakhanov_r'>zhalmakhanov_r</a></td>
+		<td>254</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/IbBYeHbc'>IbBYeHbc</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Sep 03, 2018 at 14:00 UTC'>Sep 03, 2018</span></td>
+		<td>1839</td>
+		<td>1741</td>
+		<td>25</td>
+		<td>36</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/gokerkan'>gokerkan</a></td>
+		<td>253</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/tX1BF2ji'>tX1BF2ji</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Apr 08, 2019 at 16:00 UTC'>Apr 08, 2019</span></td>
+		<td>2258</td>
+		<td>1706</td>
+		<td>24</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/dezert_eagle'>dezert_eagle</a></td>
+		<td>249</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/yvgml7rm'>yvgml7rm</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='May 07, 2018 at 16:00 UTC'>May 07, 2018</span></td>
+		<td>1911</td>
+		<td>1740</td>
+		<td>25</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/babaramdev'>babaramdev</a></td>
+		<td>244</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/FcEarjFm'>FcEarjFm</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jan 04, 2021 at 16:00 UTC'>Jan 04, 2021</span></td>
+		<td>4866</td>
+		<td>1720</td>
+		<td>22</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/umutcrazy'>umutcrazy</a></td>
+		<td>243</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/ABXdBkpm'>ABXdBkpm</a></td>
+		<td><span class='info Vbullet' title='Bullet'>bu</span>/<span class='info Eshield' title='Shield'>sh</span></td>
+		<td><span class='info' title='Jun 04, 2018 at 16:00 UTC'>Jun 04, 2018</span></td>
+		<td>1796</td>
+		<td>1750</td>
+		<td>25</td>
+		<td>35</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/penguingim1'>penguingim1</a></td>
+		<td>224</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

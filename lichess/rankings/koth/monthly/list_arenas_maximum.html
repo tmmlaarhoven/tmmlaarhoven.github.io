@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Monthly King of the Hill Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth' checked><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly' checked><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum' checked><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Monthly King of the Hill Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/jnBM4WK7'>jnBM4WK7</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 28, 2020 at 19:00 UTC'>Oct 28, 2020</span></td>
+		<td>201</td>
+		<td>1747</td>
+		<td>12</td>
+		<td>26</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/amirkhanlou38'>amirkhanlou38</a></td>
+		<td>168</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/Pahv71a9'>Pahv71a9</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 30, 2020 at 19:00 UTC'>Dec 30, 2020</span></td>
+		<td>239</td>
+		<td>1720</td>
+		<td>12</td>
+		<td>25</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/tomasturek'>tomasturek</a></td>
+		<td>156</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/iPjaV3t1'>iPjaV3t1</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 24, 2021 at 19:00 UTC'>Feb 24, 2021</span></td>
+		<td>215</td>
+		<td>1730</td>
+		<td>10</td>
+		<td>26</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/littlepumpkin'>littlepumpkin</a></td>
+		<td>152</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/ZKMKkoeW'>ZKMKkoeW</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 30, 2020 at 19:00 UTC'>Sep 30, 2020</span></td>
+		<td>172</td>
+		<td>1722</td>
+		<td>10</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/fluke180'>fluke180</a></td>
+		<td>148</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/xc2fQmSf'>xc2fQmSf</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 27, 2018 at 19:00 UTC'>Jun 27, 2018</span></td>
+		<td>137</td>
+		<td>1677</td>
+		<td>8</td>
+		<td>27</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/playchess202020'>playchess202020</a></td>
+		<td>147</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/YAkjP00B'>YAkjP00B</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 27, 2021 at 19:00 UTC'>Jan 27, 2021</span></td>
+		<td>219</td>
+		<td>1719</td>
+		<td>11</td>
+		<td>25</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/paavo87'>paavo87</a></td>
+		<td>147</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/DHd7QYpe'>DHd7QYpe</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 02, 2020 at 19:00 UTC'>Sep 02, 2020</span></td>
+		<td>178</td>
+		<td>1682</td>
+		<td>11</td>
+		<td>25</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/wwjcd'>wwjcd</a></td>
+		<td>146</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/ISnSJYKG'>ISnSJYKG</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 01, 2020 at 19:00 UTC'>Jul 01, 2020</span></td>
+		<td>172</td>
+		<td>1743</td>
+		<td>11</td>
+		<td>28</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/chess_is_life23'>chess_is_life23</a></td>
+		<td>138</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/kTeSENOI'>kTeSENOI</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 02, 2020 at 19:00 UTC'>Dec 02, 2020</span></td>
+		<td>220</td>
+		<td>1712</td>
+		<td>11</td>
+		<td>26</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/fluke180'>fluke180</a></td>
+		<td>138</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/EFfByIJV'>EFfByIJV</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 02, 2016 at 19:00 UTC'>Nov 02, 2016</span></td>
+		<td>310</td>
+		<td>1607</td>
+		<td>9</td>
+		<td>22</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/chessjuice'>chessjuice</a></td>
+		<td>136</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/52UxwszV'>52UxwszV</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 26, 2019 at 19:00 UTC'>Jun 26, 2019</span></td>
+		<td>97</td>
+		<td>1707</td>
+		<td>10</td>
+		<td>27</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/purpledwarf'>purpledwarf</a></td>
+		<td>135</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/EuY2WbJe'>EuY2WbJe</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 01, 2017 at 19:00 UTC'>Feb 01, 2017</span></td>
+		<td>83</td>
+		<td>1810</td>
+		<td>14</td>
+		<td>26</td>
+		<td>41%</td>
+		<td><a href='https://lichess.org/@/gmjycroibov'>gmjycroibov</a></td>
+		<td>132</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/EfWlYblS'>EfWlYblS</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 01, 2019 at 19:00 UTC'>May 01, 2019</span></td>
+		<td>88</td>
+		<td>1725</td>
+		<td>9</td>
+		<td>27</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/j_coca'>j_coca</a></td>
+		<td>126</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/1QwjlrbR'>1QwjlrbR</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 28, 2019 at 19:00 UTC'>Aug 28, 2019</span></td>
+		<td>84</td>
+		<td>1719</td>
+		<td>7</td>
+		<td>30</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+		<td>121</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/oV5IEvCV'>oV5IEvCV</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 29, 2020 at 19:00 UTC'>Jan 29, 2020</span></td>
+		<td>95</td>
+		<td>1734</td>
+		<td>7</td>
+		<td>30</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+		<td>118</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/X52MSuhG'>X52MSuhG</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 29, 2020 at 19:00 UTC'>Jul 29, 2020</span></td>
+		<td>185</td>
+		<td>1719</td>
+		<td>11</td>
+		<td>28</td>
+		<td>34%</td>
+		<td><a href='https://lichess.org/@/onyxz'>onyxz</a></td>
+		<td>114</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/hMxgHuQS'>hMxgHuQS</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 27, 2020 at 19:00 UTC'>May 27, 2020</span></td>
+		<td>148</td>
+		<td>1733</td>
+		<td>11</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/olonorik'>olonorik</a></td>
+		<td>113</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/6zuBiRSV'>6zuBiRSV</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 28, 2016 at 19:00 UTC'>Sep 28, 2016</span></td>
+		<td>231</td>
+		<td>1603</td>
+		<td>8</td>
+		<td>23</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/pastore75'>pastore75</a></td>
+		<td>109</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/VNIXpYDN'>VNIXpYDN</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 27, 2019 at 19:00 UTC'>Mar 27, 2019</span></td>
+		<td>76</td>
+		<td>1751</td>
+		<td>8</td>
+		<td>28</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/esgor'>esgor</a></td>
+		<td>107</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/XTGuTad2'>XTGuTad2</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 30, 2016 at 19:00 UTC'>Nov 30, 2016</span></td>
+		<td>75</td>
+		<td>1835</td>
+		<td>7</td>
+		<td>26</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/francy29'>francy29</a></td>
+		<td>106</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/wtZd1RDT'>wtZd1RDT</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 30, 2017 at 19:00 UTC'>Aug 30, 2017</span></td>
+		<td>67</td>
+		<td>1803</td>
+		<td>16</td>
+		<td>28</td>
+		<td>48%</td>
+		<td><a href='https://lichess.org/@/hollinger'>hollinger</a></td>
+		<td>106</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/fcKez4h3'>fcKez4h3</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Apr 29, 2020 at 19:00 UTC'>Apr 29, 2020</span></td>
+		<td>153</td>
+		<td>1721</td>
+		<td>8</td>
+		<td>27</td>
+		<td>31%</td>
+		<td><a href='https://lichess.org/@/venom93'>venom93</a></td>
+		<td>103</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/T1Sd1J4V'>T1Sd1J4V</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 02, 2019 at 19:00 UTC'>Oct 02, 2019</span></td>
+		<td>68</td>
+		<td>1744</td>
+		<td>10</td>
+		<td>24</td>
+		<td>42%</td>
+		<td><a href='https://lichess.org/@/j_coca'>j_coca</a></td>
+		<td>102</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/1SYeWJNf'>1SYeWJNf</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 27, 2019 at 19:00 UTC'>Feb 27, 2019</span></td>
+		<td>88</td>
+		<td>1749</td>
+		<td>7</td>
+		<td>29</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/iva182'>iva182</a></td>
+		<td>101</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/PyvoHth5'>PyvoHth5</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 29, 2017 at 19:00 UTC'>Nov 29, 2017</span></td>
+		<td>92</td>
+		<td>1758</td>
+		<td>8</td>
+		<td>26</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/dampooo'>dampooo</a></td>
+		<td>100</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/FnHYXMQb'>FnHYXMQb</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 28, 2018 at 19:00 UTC'>Mar 28, 2018</span></td>
+		<td>82</td>
+		<td>1816</td>
+		<td>8</td>
+		<td>29</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/harrylime'>harrylime</a></td>
+		<td>100</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/80Uy0BJx'>80Uy0BJx</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 26, 2020 at 19:00 UTC'>Feb 26, 2020</span></td>
+		<td>97</td>
+		<td>1754</td>
+		<td>12</td>
+		<td>28</td>
+		<td>48%</td>
+		<td><a href='https://lichess.org/@/hipsadly'>hipsadly</a></td>
+		<td>100</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/3fF4u8Wc'>3fF4u8Wc</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 28, 2016 at 19:00 UTC'>Dec 28, 2016</span></td>
+		<td>83</td>
+		<td>1788</td>
+		<td>10</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/cabassog'>cabassog</a></td>
+		<td>99</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/2q0i3f1t'>2q0i3f1t</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 02, 2019 at 19:00 UTC'>Jan 02, 2019</span></td>
+		<td>118</td>
+		<td>1719</td>
+		<td>12</td>
+		<td>25</td>
+		<td>41%</td>
+		<td><a href='https://lichess.org/@/howiwishyouwerebeer'>howiwishyouwerebeer</a></td>
+		<td>99</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/JDdJvT29'>JDdJvT29</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 01, 2017 at 19:00 UTC'>Nov 01, 2017</span></td>
+		<td>92</td>
+		<td>1762</td>
+		<td>9</td>
+		<td>25</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/dampooo'>dampooo</a></td>
+		<td>91</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/Vn2r6HEJ'>Vn2r6HEJ</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 27, 2019 at 19:00 UTC'>Nov 27, 2019</span></td>
+		<td>79</td>
+		<td>1784</td>
+		<td>8</td>
+		<td>28</td>
+		<td>31%</td>
+		<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+		<td>88</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/TaLnIk0I'>TaLnIk0I</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 30, 2019 at 19:00 UTC'>Oct 30, 2019</span></td>
+		<td>87</td>
+		<td>1767</td>
+		<td>6</td>
+		<td>27</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+		<td>87</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/dygL9l9S'>dygL9l9S</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Feb 28, 2018 at 19:00 UTC'>Feb 28, 2018</span></td>
+		<td>92</td>
+		<td>1771</td>
+		<td>7</td>
+		<td>28</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/nyxnyxnyxnyxnyx'>nyxnyxnyxnyxnyx</a></td>
+		<td>86</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/9lCCNuK5'>9lCCNuK5</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 27, 2017 at 19:00 UTC'>Sep 27, 2017</span></td>
+		<td>57</td>
+		<td>1815</td>
+		<td>9</td>
+		<td>26</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/amaidel'>amaidel</a></td>
+		<td>85</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/EdFwplVs'>EdFwplVs</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 01, 2018 at 19:00 UTC'>Aug 01, 2018</span></td>
+		<td>98</td>
+		<td>1773</td>
+		<td>8</td>
+		<td>27</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/luklei12'>luklei12</a></td>
+		<td>85</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/zvssmDR5'>zvssmDR5</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Oct 31, 2018 at 18:00 UTC'>Oct 31, 2018</span></td>
+		<td>91</td>
+		<td>1770</td>
+		<td>7</td>
+		<td>29</td>
+		<td>31%</td>
+		<td><a href='https://lichess.org/@/arvids_andrejevs'>arvids_andrejevs</a></td>
+		<td>82</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/sMIkSPqh'>sMIkSPqh</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 02, 2018 at 19:00 UTC'>May 02, 2018</span></td>
+		<td>75</td>
+		<td>1783</td>
+		<td>9</td>
+		<td>28</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/j_coca'>j_coca</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/06s1Nmo4'>06s1Nmo4</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Apr 01, 2020 at 19:00 UTC'>Apr 01, 2020</span></td>
+		<td>160</td>
+		<td>1747</td>
+		<td>11</td>
+		<td>27</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/soso2710'>soso2710</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/SLoReYji'>SLoReYji</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 29, 2018 at 17:00 UTC'>Aug 29, 2018</span></td>
+		<td>110</td>
+		<td>1768</td>
+		<td>8</td>
+		<td>29</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/dosyuri'>dosyuri</a></td>
+		<td>79</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/vSKOLXZS'>vSKOLXZS</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jul 31, 2019 at 19:00 UTC'>Jul 31, 2019</span></td>
+		<td>88</td>
+		<td>1751</td>
+		<td>8</td>
+		<td>29</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+		<td>79</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/NTZuDzKr'>NTZuDzKr</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Nov 28, 2018 at 19:00 UTC'>Nov 28, 2018</span></td>
+		<td>83</td>
+		<td>1750</td>
+		<td>7</td>
+		<td>27</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/iva182'>iva182</a></td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/EYoBAJ46'>EYoBAJ46</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 30, 2018 at 19:00 UTC'>May 30, 2018</span></td>
+		<td>78</td>
+		<td>1775</td>
+		<td>6</td>
+		<td>30</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/j_coca'>j_coca</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/QV3Xzo6d'>QV3Xzo6d</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 30, 2019 at 19:00 UTC'>Jan 30, 2019</span></td>
+		<td>84</td>
+		<td>1725</td>
+		<td>8</td>
+		<td>28</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/iva182'>iva182</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/oqwGKrRj'>oqwGKrRj</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 31, 2017 at 19:00 UTC'>May 31, 2017</span></td>
+		<td>77</td>
+		<td>1826</td>
+		<td>8</td>
+		<td>28</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/mrolka'>mrolka</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/05zufOhX'>05zufOhX</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Aug 02, 2017 at 19:00 UTC'>Aug 02, 2017</span></td>
+		<td>63</td>
+		<td>1821</td>
+		<td>8</td>
+		<td>28</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/elaynaz'>elaynaz</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/Q6Vuu0nI'>Q6Vuu0nI</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Dec 27, 2017 at 19:00 UTC'>Dec 27, 2017</span></td>
+		<td>92</td>
+		<td>1802</td>
+		<td>11</td>
+		<td>27</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/sedore'>sedore</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/vIEhLgJf'>vIEhLgJf</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 01, 2017 at 19:00 UTC'>Mar 01, 2017</span></td>
+		<td>62</td>
+		<td>1850</td>
+		<td>7</td>
+		<td>26</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/gmjycroibov'>gmjycroibov</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/Dmil4Ywn'>Dmil4Ywn</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Apr 26, 2017 at 19:00 UTC'>Apr 26, 2017</span></td>
+		<td>67</td>
+		<td>1848</td>
+		<td>9</td>
+		<td>28</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/khtabkhmal'>khtabkhmal</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/lqr7SBSo'>lqr7SBSo</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Sep 26, 2018 at 17:00 UTC'>Sep 26, 2018</span></td>
+		<td>97</td>
+		<td>1765</td>
+		<td>10</td>
+		<td>29</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/passw0rds'>passw0rds</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/fGkzwNUr'>fGkzwNUr</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 31, 2018 at 19:00 UTC'>Jan 31, 2018</span></td>
+		<td>90</td>
+		<td>1791</td>
+		<td>8</td>
+		<td>28</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/j_coca'>j_coca</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/L73u3Jdt'>L73u3Jdt</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='May 29, 2019 at 19:00 UTC'>May 29, 2019</span></td>
+		<td>84</td>
+		<td>1727</td>
+		<td>9</td>
+		<td>27</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/willywombats'>willywombats</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/nYSitTF4'>nYSitTF4</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jan 01, 2020 at 19:00 UTC'>Jan 01, 2020</span></td>
+		<td>102</td>
+		<td>1738</td>
+		<td>8</td>
+		<td>27</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/banane_verte'>banane_verte</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/3tuRsqju'>3tuRsqju</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Mar 29, 2017 at 19:00 UTC'>Mar 29, 2017</span></td>
+		<td>73</td>
+		<td>1850</td>
+		<td>8</td>
+		<td>30</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/teentra'>teentra</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/01e3s22D'>01e3s22D</a></td>
+		<td><span class='info Vkoth' title='King of the Hill'>kh</span>/<span class='info Emonthly' title='Monthly'>mo</span></td>
+		<td><span class='info' title='Jun 28, 2017 at 19:00 UTC'>Jun 28, 2017</span></td>
+		<td>65</td>
+		<td>1832</td>
+		<td>5</td>
+		<td>28</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/strokl'>strokl</a></td>
+		<td>43</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

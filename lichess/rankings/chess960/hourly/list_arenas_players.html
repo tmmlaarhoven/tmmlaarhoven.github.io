@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Hourly Chess960 Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960' checked><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly' checked><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players' checked><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Hourly Chess960 Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/IN8KZh6r'>IN8KZh6r</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2021 at 06:00 UTC'>Jan 22, 2021</span></td>
+		<td>107</td>
+		<td>1681</td>
+		<td>7</td>
+		<td>36</td>
+		<td>47%</td>
+		<td><a href='https://lichess.org/@/yopie_kbpl'>yopie_kbpl</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/n7gmg8wj'>n7gmg8wj</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2021 at 02:00 UTC'>Jan 16, 2021</span></td>
+		<td>96</td>
+		<td>1682</td>
+		<td>6</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/fauzilckb'>fauzilckb</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/p9yyYLFz'>p9yyYLFz</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 16:00 UTC'>Feb 18, 2021</span></td>
+		<td>90</td>
+		<td>1673</td>
+		<td>6</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/black5abbath'>black5abbath</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/vSRYGpbn'>vSRYGpbn</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 14:00 UTC'>Mar 13, 2021</span></td>
+		<td>83</td>
+		<td>1724</td>
+		<td>9</td>
+		<td>36</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/bagera9'>bagera9</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/KigYrvIV'>KigYrvIV</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 07, 2021 at 16:00 UTC'>Mar 07, 2021</span></td>
+		<td>81</td>
+		<td>1708</td>
+		<td>5</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/sonrises'>sonrises</a></td>
+		<td>23</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/SIie50nw'>SIie50nw</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 02:00 UTC'>Feb 08, 2021</span></td>
+		<td>80</td>
+		<td>1658</td>
+		<td>6</td>
+		<td>35</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/kurtenkov'>kurtenkov</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/aq1acNW3'>aq1acNW3</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 06, 2021 at 16:00 UTC'>Feb 06, 2021</span></td>
+		<td>78</td>
+		<td>1686</td>
+		<td>7</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/dabee'>dabee</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/RQL6Fdnu'>RQL6Fdnu</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 02, 2021 at 14:00 UTC'>Feb 02, 2021</span></td>
+		<td>76</td>
+		<td>1755</td>
+		<td>7</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/laleyyelorden'>laleyyelorden</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/r752S23G'>r752S23G</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 12:00 UTC'>Mar 14, 2021</span></td>
+		<td>76</td>
+		<td>1747</td>
+		<td>7</td>
+		<td>34</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/monalize'>monalize</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/WrJdjS5Z'>WrJdjS5Z</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 16:00 UTC'>Mar 16, 2021</span></td>
+		<td>74</td>
+		<td>1725</td>
+		<td>7</td>
+		<td>34</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/michodov'>michodov</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/SpcTJj9F'>SpcTJj9F</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 02, 2021 at 20:00 UTC'>Mar 02, 2021</span></td>
+		<td>71</td>
+		<td>1713</td>
+		<td>4</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/40GMnYpF'>40GMnYpF</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 03, 2021 at 16:00 UTC'>Mar 03, 2021</span></td>
+		<td>71</td>
+		<td>1712</td>
+		<td>7</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/zov_ukr'>zov_ukr</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/b8v1cM3c'>b8v1cM3c</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 12:00 UTC'>Mar 15, 2021</span></td>
+		<td>71</td>
+		<td>1685</td>
+		<td>6</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/zugzvang53'>zugzvang53</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/g3rL6cto'>g3rL6cto</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 14:00 UTC'>Mar 19, 2021</span></td>
+		<td>71</td>
+		<td>1727</td>
+		<td>6</td>
+		<td>35</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/kredn'>kredn</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/WwGwvMhD'>WwGwvMhD</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 01, 2021 at 16:00 UTC'>Feb 01, 2021</span></td>
+		<td>70</td>
+		<td>1695</td>
+		<td>6</td>
+		<td>33</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/arielofek'>arielofek</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/NocPfcrz'>NocPfcrz</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 16:00 UTC'>Feb 11, 2021</span></td>
+		<td>70</td>
+		<td>1700</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/walmikh'>walmikh</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/DYw8IUdT'>DYw8IUdT</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 14:00 UTC'>Mar 18, 2021</span></td>
+		<td>70</td>
+		<td>1704</td>
+		<td>8</td>
+		<td>33</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/kredn'>kredn</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/nvGxfqkF'>nvGxfqkF</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 15, 2021 at 14:00 UTC'>Feb 15, 2021</span></td>
+		<td>69</td>
+		<td>1724</td>
+		<td>7</td>
+		<td>33</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/kpblm'>kpblm</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/vrKiRXT4'>vrKiRXT4</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 01, 2021 at 16:00 UTC'>Mar 01, 2021</span></td>
+		<td>69</td>
+		<td>1743</td>
+		<td>6</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/dolphin_2010'>dolphin_2010</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/UXhYduLE'>UXhYduLE</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 02, 2021 at 16:00 UTC'>Mar 02, 2021</span></td>
+		<td>69</td>
+		<td>1688</td>
+		<td>6</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kudasakti20'>kudasakti20</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/KupKJMje'>KupKJMje</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 14:00 UTC'>Mar 15, 2021</span></td>
+		<td>69</td>
+		<td>1766</td>
+		<td>8</td>
+		<td>32</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/kredn'>kredn</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/y2OITPIo'>y2OITPIo</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 16:00 UTC'>Mar 15, 2021</span></td>
+		<td>69</td>
+		<td>1706</td>
+		<td>5</td>
+		<td>32</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/levoca'>levoca</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/q1knfLjp'>q1knfLjp</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 12:00 UTC'>Mar 21, 2021</span></td>
+		<td>69</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>37</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/panzerzug'>panzerzug</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/TV9FCmp0'>TV9FCmp0</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 16, 2021 at 16:00 UTC'>Feb 16, 2021</span></td>
+		<td>68</td>
+		<td>1702</td>
+		<td>6</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/pchernomordik'>pchernomordik</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/la3wxulP'>la3wxulP</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 20, 2021 at 16:00 UTC'>Feb 20, 2021</span></td>
+		<td>68</td>
+		<td>1703</td>
+		<td>6</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/alekhine82'>alekhine82</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/tIwVl5Vu'>tIwVl5Vu</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 15, 2021 at 16:00 UTC'>Jan 15, 2021</span></td>
+		<td>67</td>
+		<td>1681</td>
+		<td>6</td>
+		<td>34</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/aaa_asso'>aaa_asso</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/WhhPYPUQ'>WhhPYPUQ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2021 at 12:00 UTC'>Jan 23, 2021</span></td>
+		<td>67</td>
+		<td>1730</td>
+		<td>7</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/nirous'>nirous</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/ljFuRVXB'>ljFuRVXB</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 25, 2021 at 16:00 UTC'>Jan 25, 2021</span></td>
+		<td>67</td>
+		<td>1707</td>
+		<td>5</td>
+		<td>33</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/pcacyrus_78'>pcacyrus_78</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/WANHCJ7E'>WANHCJ7E</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 12, 2021 at 12:00 UTC'>Feb 12, 2021</span></td>
+		<td>67</td>
+		<td>1699</td>
+		<td>4</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/zov_ukr'>zov_ukr</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/0AcietSR'>0AcietSR</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 14, 2021 at 16:00 UTC'>Feb 14, 2021</span></td>
+		<td>67</td>
+		<td>1718</td>
+		<td>7</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/hckiePv4'>hckiePv4</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 20, 2021 at 14:00 UTC'>Feb 20, 2021</span></td>
+		<td>67</td>
+		<td>1757</td>
+		<td>9</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/borongotoy'>borongotoy</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/fiqSCM5P'>fiqSCM5P</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 16:00 UTC'>Mar 12, 2021</span></td>
+		<td>67</td>
+		<td>1702</td>
+		<td>6</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/dxyLCA93'>dxyLCA93</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 16:00 UTC'>Jan 28, 2021</span></td>
+		<td>66</td>
+		<td>1681</td>
+		<td>6</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/penza2'>penza2</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/yzb3ZkLP'>yzb3ZkLP</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 16:00 UTC'>Feb 07, 2021</span></td>
+		<td>66</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/penza2'>penza2</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/bpUbgM6y'>bpUbgM6y</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 14:00 UTC'>Feb 08, 2021</span></td>
+		<td>66</td>
+		<td>1716</td>
+		<td>8</td>
+		<td>32</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/cyrus_donasco'>cyrus_donasco</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/Pz9F5sKt'>Pz9F5sKt</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 16:00 UTC'>Feb 08, 2021</span></td>
+		<td>66</td>
+		<td>1727</td>
+		<td>6</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bigkinghunt'>bigkinghunt</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/NBex7NaJ'>NBex7NaJ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 17, 2021 at 20:00 UTC'>Feb 17, 2021</span></td>
+		<td>66</td>
+		<td>1727</td>
+		<td>4</td>
+		<td>35</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/just-a-man'>just-a-man</a></td>
+		<td>17</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/0TTXkJdA'>0TTXkJdA</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 16:00 UTC'>Feb 28, 2021</span></td>
+		<td>66</td>
+		<td>1723</td>
+		<td>7</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/littlepumpkin'>littlepumpkin</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/a4YSf3cH'>a4YSf3cH</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 10, 2021 at 12:00 UTC'>Mar 10, 2021</span></td>
+		<td>66</td>
+		<td>1688</td>
+		<td>6</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/just-a-man'>just-a-man</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/cDw4BcfT'>cDw4BcfT</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 17, 2021 at 14:00 UTC'>Jan 17, 2021</span></td>
+		<td>65</td>
+		<td>1704</td>
+		<td>8</td>
+		<td>34</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/alfilparanoico'>alfilparanoico</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/bbXnPCZW'>bbXnPCZW</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 25, 2021 at 14:00 UTC'>Jan 25, 2021</span></td>
+		<td>65</td>
+		<td>1687</td>
+		<td>8</td>
+		<td>35</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/aaael'>aaael</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/4t8ulUqZ'>4t8ulUqZ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 17, 2021 at 16:00 UTC'>Feb 17, 2021</span></td>
+		<td>65</td>
+		<td>1700</td>
+		<td>6</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/gamen'>gamen</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/0yJNkcwb'>0yJNkcwb</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 22, 2021 at 10:00 UTC'>Feb 22, 2021</span></td>
+		<td>65</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/Ylb3BqSd'>Ylb3BqSd</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 27, 2021 at 10:00 UTC'>Feb 27, 2021</span></td>
+		<td>65</td>
+		<td>1729</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/rahadi'>rahadi</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/zJQYtKnC'>zJQYtKnC</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 27, 2021 at 14:00 UTC'>Feb 27, 2021</span></td>
+		<td>65</td>
+		<td>1732</td>
+		<td>9</td>
+		<td>36</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/lady_nika'>lady_nika</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/7nnE0cLl'>7nnE0cLl</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 14:00 UTC'>Mar 08, 2021</span></td>
+		<td>65</td>
+		<td>1749</td>
+		<td>8</td>
+		<td>34</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/lakki67'>lakki67</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/x6E4sn4e'>x6E4sn4e</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 14:00 UTC'>Mar 14, 2021</span></td>
+		<td>65</td>
+		<td>1718</td>
+		<td>8</td>
+		<td>34</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/kmaack'>kmaack</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/hxD7HSgq'>hxD7HSgq</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2021 at 14:00 UTC'>Jan 21, 2021</span></td>
+		<td>64</td>
+		<td>1694</td>
+		<td>8</td>
+		<td>31</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/alfilparanoico'>alfilparanoico</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/oRzzPVfF'>oRzzPVfF</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 30, 2021 at 20:00 UTC'>Jan 30, 2021</span></td>
+		<td>64</td>
+		<td>1696</td>
+		<td>4</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/tman_ricky'>tman_ricky</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/EKqxGTxA'>EKqxGTxA</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 02, 2021 at 16:00 UTC'>Feb 02, 2021</span></td>
+		<td>64</td>
+		<td>1655</td>
+		<td>6</td>
+		<td>31</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/smartalice'>smartalice</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/j3PShDvU'>j3PShDvU</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 09, 2021 at 16:00 UTC'>Feb 09, 2021</span></td>
+		<td>64</td>
+		<td>1741</td>
+		<td>6</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/arielofek'>arielofek</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/3iUi6n1l'>3iUi6n1l</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 20:00 UTC'>Mar 11, 2021</span></td>
+		<td>64</td>
+		<td>1702</td>
+		<td>4</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/chop-that-wood'>chop-that-wood</a></td>
+		<td>17</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/h6ZqjWyy'>h6ZqjWyy</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 20:00 UTC'>Mar 16, 2021</span></td>
+		<td>64</td>
+		<td>1752</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/artemmelekess'>artemmelekess</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/aD5pW0Hc'>aD5pW0Hc</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 16:00 UTC'>Mar 19, 2021</span></td>
+		<td>64</td>
+		<td>1674</td>
+		<td>5</td>
+		<td>31</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/pcacyrus_78'>pcacyrus_78</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/ucCVsGnB'>ucCVsGnB</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 14:00 UTC'>Mar 20, 2021</span></td>
+		<td>64</td>
+		<td>1751</td>
+		<td>9</td>
+		<td>37</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/lettoy_aza'>lettoy_aza</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/Br93rQCb'>Br93rQCb</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 14:00 UTC'>Mar 21, 2021</span></td>
+		<td>64</td>
+		<td>1720</td>
+		<td>8</td>
+		<td>34</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/bagera9'>bagera9</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/u4xXVSuf'>u4xXVSuf</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 26, 2021 at 14:00 UTC'>Jan 26, 2021</span></td>
+		<td>63</td>
+		<td>1702</td>
+		<td>7</td>
+		<td>33</td>
+		<td>3%</td>
+		<td><a href='https://lichess.org/@/chess_fannik'>chess_fannik</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/fmeVQp91'>fmeVQp91</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 30, 2021 at 16:00 UTC'>Jan 30, 2021</span></td>
+		<td>63</td>
+		<td>1687</td>
+		<td>5</td>
+		<td>33</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/retisangil'>retisangil</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/TEYTcBp2'>TEYTcBp2</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 06, 2021 at 12:00 UTC'>Feb 06, 2021</span></td>
+		<td>63</td>
+		<td>1710</td>
+		<td>6</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/bombin08'>bombin08</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/qCr5lWr9'>qCr5lWr9</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 13, 2021 at 12:00 UTC'>Feb 13, 2021</span></td>
+		<td>63</td>
+		<td>1744</td>
+		<td>6</td>
+		<td>31</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/somaja'>somaja</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/Gqvokttm'>Gqvokttm</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 16, 2021 at 14:00 UTC'>Feb 16, 2021</span></td>
+		<td>63</td>
+		<td>1735</td>
+		<td>9</td>
+		<td>35</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/kpblm'>kpblm</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/DJI9AwgJ'>DJI9AwgJ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 12:00 UTC'>Feb 18, 2021</span></td>
+		<td>63</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>36</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/novoselski'>novoselski</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/PR788eVc'>PR788eVc</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 14:00 UTC'>Feb 18, 2021</span></td>
+		<td>63</td>
+		<td>1701</td>
+		<td>7</td>
+		<td>35</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/play_gm'>play_gm</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/hjwTI5hr'>hjwTI5hr</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 20, 2021 at 12:00 UTC'>Feb 20, 2021</span></td>
+		<td>63</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>34</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/bagera9'>bagera9</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/AOqYljg6'>AOqYljg6</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 25, 2021 at 16:00 UTC'>Feb 25, 2021</span></td>
+		<td>63</td>
+		<td>1722</td>
+		<td>5</td>
+		<td>32</td>
+		<td>3%</td>
+		<td><a href='https://lichess.org/@/arielofek'>arielofek</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/GGT2avkF'>GGT2avkF</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 26, 2021 at 16:00 UTC'>Feb 26, 2021</span></td>
+		<td>63</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>37</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/mednerv'>mednerv</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/FWZfk4bv'>FWZfk4bv</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 12:00 UTC'>Feb 28, 2021</span></td>
+		<td>63</td>
+		<td>1712</td>
+		<td>6</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/moblok'>moblok</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/xeWFDlJi'>xeWFDlJi</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 03, 2021 at 14:00 UTC'>Mar 03, 2021</span></td>
+		<td>63</td>
+		<td>1676</td>
+		<td>7</td>
+		<td>34</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/daredevil099'>daredevil099</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/CN3g4pY4'>CN3g4pY4</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 16:00 UTC'>Mar 20, 2021</span></td>
+		<td>63</td>
+		<td>1720</td>
+		<td>6</td>
+		<td>33</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/alumno_malcriado'>alumno_malcriado</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/FiFfQPXd'>FiFfQPXd</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 06:00 UTC'>Jan 28, 2021</span></td>
+		<td>62</td>
+		<td>1693</td>
+		<td>5</td>
+		<td>34</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/ar25minutes'>ar25minutes</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/zIG68ZVI'>zIG68ZVI</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 31, 2021 at 16:00 UTC'>Jan 31, 2021</span></td>
+		<td>62</td>
+		<td>1689</td>
+		<td>6</td>
+		<td>34</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/play_gm'>play_gm</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/1xGNDkb3'>1xGNDkb3</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 04, 2021 at 16:00 UTC'>Feb 04, 2021</span></td>
+		<td>62</td>
+		<td>1671</td>
+		<td>5</td>
+		<td>31</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/botest'>botest</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/Kn5ojqRk'>Kn5ojqRk</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 05, 2021 at 20:00 UTC'>Feb 05, 2021</span></td>
+		<td>62</td>
+		<td>1662</td>
+		<td>5</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/fanchess90'>fanchess90</a></td>
+		<td>17</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/iMBd1xiL'>iMBd1xiL</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 14:00 UTC'>Feb 07, 2021</span></td>
+		<td>62</td>
+		<td>1705</td>
+		<td>9</td>
+		<td>32</td>
+		<td>3%</td>
+		<td><a href='https://lichess.org/@/zenit5'>zenit5</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/YuyWwihI'>YuyWwihI</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 13, 2021 at 16:00 UTC'>Feb 13, 2021</span></td>
+		<td>62</td>
+		<td>1689</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/alexr7777'>alexr7777</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/ofYLRyrg'>ofYLRyrg</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 05, 2021 at 20:00 UTC'>Mar 05, 2021</span></td>
+		<td>62</td>
+		<td>1728</td>
+		<td>5</td>
+		<td>37</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/9sW9tOH4'>9sW9tOH4</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 16:00 UTC'>Mar 08, 2021</span></td>
+		<td>62</td>
+		<td>1723</td>
+		<td>7</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/zov_ukr'>zov_ukr</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/OzPLGrbT'>OzPLGrbT</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 14:00 UTC'>Mar 12, 2021</span></td>
+		<td>62</td>
+		<td>1724</td>
+		<td>7</td>
+		<td>33</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/zov_ukr'>zov_ukr</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/HKrwCvPx'>HKrwCvPx</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 20:00 UTC'>Mar 13, 2021</span></td>
+		<td>62</td>
+		<td>1762</td>
+		<td>6</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/salja_mk'>salja_mk</a></td>
+		<td>19</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/1i5K8fsm'>1i5K8fsm</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 14, 2021 at 17:00 UTC'>Jan 14, 2021</span></td>
+		<td>61</td>
+		<td>1655</td>
+		<td>6</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/nirous'>nirous</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/ipddYKlr'>ipddYKlr</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 01, 2021 at 14:00 UTC'>Feb 01, 2021</span></td>
+		<td>61</td>
+		<td>1734</td>
+		<td>8</td>
+		<td>31</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/agit165'>agit165</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/KMCD13dm'>KMCD13dm</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 06, 2021 at 10:00 UTC'>Feb 06, 2021</span></td>
+		<td>61</td>
+		<td>1684</td>
+		<td>4</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/tatjana1'>tatjana1</a></td>
+		<td>21</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/vEoQwOhQ'>vEoQwOhQ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 06, 2021 at 20:00 UTC'>Feb 06, 2021</span></td>
+		<td>61</td>
+		<td>1698</td>
+		<td>5</td>
+		<td>32</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/hanymr'>hanymr</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/Y80ERO0j'>Y80ERO0j</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 12:00 UTC'>Feb 07, 2021</span></td>
+		<td>61</td>
+		<td>1707</td>
+		<td>6</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/shiva23'>shiva23</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/868S4bOX'>868S4bOX</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 09, 2021 at 14:00 UTC'>Feb 09, 2021</span></td>
+		<td>61</td>
+		<td>1730</td>
+		<td>6</td>
+		<td>32</td>
+		<td>1%</td>
+		<td><a href='https://lichess.org/@/jhong10'>jhong10</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/QeKiNpx3'>QeKiNpx3</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 19, 2021 at 16:00 UTC'>Feb 19, 2021</span></td>
+		<td>61</td>
+		<td>1712</td>
+		<td>6</td>
+		<td>35</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/StQ7n84x'>StQ7n84x</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 27, 2021 at 12:00 UTC'>Feb 27, 2021</span></td>
+		<td>61</td>
+		<td>1729</td>
+		<td>7</td>
+		<td>34</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/former_player'>former_player</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/K7S8vOmg'>K7S8vOmg</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 05, 2021 at 12:00 UTC'>Mar 05, 2021</span></td>
+		<td>61</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>35</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/moppel1966'>moppel1966</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/777Z8qjp'>777Z8qjp</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 09, 2021 at 12:00 UTC'>Mar 09, 2021</span></td>
+		<td>61</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/bcajjhicap53m'>bcajjhicap53m</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/mkxRLlFj'>mkxRLlFj</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 09, 2021 at 14:00 UTC'>Mar 09, 2021</span></td>
+		<td>61</td>
+		<td>1730</td>
+		<td>8</td>
+		<td>33</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/betta2004'>betta2004</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/eoFhcL7I'>eoFhcL7I</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 09, 2021 at 16:00 UTC'>Mar 09, 2021</span></td>
+		<td>61</td>
+		<td>1733</td>
+		<td>5</td>
+		<td>31</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/supranatural_chess'>supranatural_chess</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/gOvTSLOb'>gOvTSLOb</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 20:00 UTC'>Mar 15, 2021</span></td>
+		<td>61</td>
+		<td>1748</td>
+		<td>4</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/lNaLnjBf'>lNaLnjBf</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 19, 2021 at 12:00 UTC'>Jan 19, 2021</span></td>
+		<td>60</td>
+		<td>1683</td>
+		<td>5</td>
+		<td>35</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/skou21'>skou21</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/LeHmCxMY'>LeHmCxMY</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 24, 2021 at 12:00 UTC'>Jan 24, 2021</span></td>
+		<td>60</td>
+		<td>1728</td>
+		<td>7</td>
+		<td>33</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/walmikh'>walmikh</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/a3MuZ4pC'>a3MuZ4pC</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 26, 2021 at 16:00 UTC'>Jan 26, 2021</span></td>
+		<td>60</td>
+		<td>1650</td>
+		<td>6</td>
+		<td>31</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/arielofek'>arielofek</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/XK5MoYbq'>XK5MoYbq</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 26, 2021 at 20:00 UTC'>Jan 26, 2021</span></td>
+		<td>60</td>
+		<td>1695</td>
+		<td>4</td>
+		<td>33</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/fiumedk'>fiumedk</a></td>
+		<td>19</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/t8AM3gUd'>t8AM3gUd</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 12:00 UTC'>Jan 28, 2021</span></td>
+		<td>60</td>
+		<td>1687</td>
+		<td>6</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/payakanak_lopotpole'>payakanak_lopotpole</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/Y3EC5MUI'>Y3EC5MUI</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 01, 2021 at 20:00 UTC'>Feb 01, 2021</span></td>
+		<td>60</td>
+		<td>1735</td>
+		<td>4</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/lukareli'>lukareli</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/LwnvADS0'>LwnvADS0</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 20:00 UTC'>Feb 08, 2021</span></td>
+		<td>60</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/DefMkyMB'>DefMkyMB</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 13, 2021 at 20:00 UTC'>Feb 13, 2021</span></td>
+		<td>60</td>
+		<td>1744</td>
+		<td>4</td>
+		<td>38</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/lukareli'>lukareli</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/g6DoWnRI'>g6DoWnRI</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 16:00 UTC'>Mar 11, 2021</span></td>
+		<td>60</td>
+		<td>1723</td>
+		<td>5</td>
+		<td>33</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/ffaaiizz11'>ffaaiizz11</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/daKIizLM'>daKIizLM</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 14:00 UTC'>Mar 22, 2021</span></td>
+		<td>60</td>
+		<td>1766</td>
+		<td>8</td>
+		<td>37</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/lav-70'>lav-70</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/7Iw4Xd4v'>7Iw4Xd4v</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 17, 2021 at 12:00 UTC'>Jan 17, 2021</span></td>
+		<td>59</td>
+		<td>1731</td>
+		<td>6</td>
+		<td>38</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/alexandermahoun'>alexandermahoun</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/UmqlXh5r'>UmqlXh5r</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 03, 2021 at 14:00 UTC'>Feb 03, 2021</span></td>
+		<td>59</td>
+		<td>1690</td>
+		<td>9</td>
+		<td>32</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/unmillondejaques'>unmillondejaques</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/yBqVO1Tb'>yBqVO1Tb</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 12, 2021 at 20:00 UTC'>Feb 12, 2021</span></td>
+		<td>59</td>
+		<td>1714</td>
+		<td>6</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/nikol1902'>nikol1902</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/X9Efn5Wr'>X9Efn5Wr</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 15, 2021 at 20:00 UTC'>Feb 15, 2021</span></td>
+		<td>59</td>
+		<td>1771</td>
+		<td>5</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/pchernomordik'>pchernomordik</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/QLHPO9Hc'>QLHPO9Hc</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 20:00 UTC'>Feb 18, 2021</span></td>
+		<td>59</td>
+		<td>1702</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/sonrises'>sonrises</a></td>
+		<td>22</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/9r2V2vD6'>9r2V2vD6</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 19, 2021 at 20:00 UTC'>Feb 19, 2021</span></td>
+		<td>59</td>
+		<td>1723</td>
+		<td>5</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/YQ6xmHXk'>YQ6xmHXk</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 21, 2021 at 14:00 UTC'>Feb 21, 2021</span></td>
+		<td>59</td>
+		<td>1711</td>
+		<td>8</td>
+		<td>31</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/klbennett'>klbennett</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/vfbBYdF1'>vfbBYdF1</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 24, 2021 at 16:00 UTC'>Feb 24, 2021</span></td>
+		<td>59</td>
+		<td>1709</td>
+		<td>7</td>
+		<td>32</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/kian_santangbkd'>kian_santangbkd</a></td>
+		<td>22</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/hj94T8vG'>hj94T8vG</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 25, 2021 at 20:00 UTC'>Feb 25, 2021</span></td>
+		<td>59</td>
+		<td>1745</td>
+		<td>5</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/sopran'>sopran</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/rmpCDkgj'>rmpCDkgj</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 02, 2021 at 14:00 UTC'>Mar 02, 2021</span></td>
+		<td>59</td>
+		<td>1721</td>
+		<td>8</td>
+		<td>32</td>
+		<td>3%</td>
+		<td><a href='https://lichess.org/@/billfragkos'>billfragkos</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/OSb1arSC'>OSb1arSC</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 07, 2021 at 14:00 UTC'>Mar 07, 2021</span></td>
+		<td>59</td>
+		<td>1712</td>
+		<td>8</td>
+		<td>30</td>
+		<td>2%</td>
+		<td><a href='https://lichess.org/@/nirous'>nirous</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/zNWRsByn'>zNWRsByn</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 12:00 UTC'>Mar 08, 2021</span></td>
+		<td>59</td>
+		<td>1746</td>
+		<td>5</td>
+		<td>35</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/jacklee'>jacklee</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/fu9tfP1x'>fu9tfP1x</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 09, 2021 at 20:00 UTC'>Mar 09, 2021</span></td>
+		<td>59</td>
+		<td>1714</td>
+		<td>4</td>
+		<td>38</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/zavatIPg'>zavatIPg</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 20:00 UTC'>Mar 17, 2021</span></td>
+		<td>59</td>
+		<td>1716</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/65DbwzQp'>65DbwzQp</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2021 at 16:00 UTC'>Jan 21, 2021</span></td>
+		<td>58</td>
+		<td>1700</td>
+		<td>5</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/moblok'>moblok</a></td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/wdwpXTby'>wdwpXTby</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2021 at 14:00 UTC'>Jan 22, 2021</span></td>
+		<td>58</td>
+		<td>1717</td>
+		<td>8</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/hutgovy'>hutgovy</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/qtjTvPtt'>qtjTvPtt</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2021 at 16:00 UTC'>Jan 23, 2021</span></td>
+		<td>58</td>
+		<td>1708</td>
+		<td>7</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/ffaaiizz11'>ffaaiizz11</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/D9ULakgY'>D9ULakgY</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 30, 2021 at 12:00 UTC'>Jan 30, 2021</span></td>
+		<td>58</td>
+		<td>1704</td>
+		<td>6</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/chilekwaii'>chilekwaii</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/EyqDLrK7'>EyqDLrK7</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 31, 2021 at 10:00 UTC'>Jan 31, 2021</span></td>
+		<td>58</td>
+		<td>1618</td>
+		<td>4</td>
+		<td>37</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/sandro_lacko'>sandro_lacko</a></td>
+		<td>18</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/235Ihnq5'>235Ihnq5</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 06, 2021 at 14:00 UTC'>Feb 06, 2021</span></td>
+		<td>58</td>
+		<td>1666</td>
+		<td>8</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/lakki67'>lakki67</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/ENYTrLQC'>ENYTrLQC</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 09, 2021 at 12:00 UTC'>Feb 09, 2021</span></td>
+		<td>58</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>36</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/swar123'>swar123</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/TLrnjWJH'>TLrnjWJH</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 14, 2021 at 14:00 UTC'>Feb 14, 2021</span></td>
+		<td>58</td>
+		<td>1717</td>
+		<td>8</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/surefinewhatever'>surefinewhatever</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/t0eZoguN'>t0eZoguN</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 25, 2021 at 14:00 UTC'>Feb 25, 2021</span></td>
+		<td>58</td>
+		<td>1730</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/satchitanandaj'>satchitanandaj</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/gbK8poZU'>gbK8poZU</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 14:00 UTC'>Feb 28, 2021</span></td>
+		<td>58</td>
+		<td>1733</td>
+		<td>8</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/zov_ukr'>zov_ukr</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/AxFv6k3E'>AxFv6k3E</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 18, 2021 at 12:00 UTC'>Jan 18, 2021</span></td>
+		<td>57</td>
+		<td>1677</td>
+		<td>6</td>
+		<td>32</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/metacafe2'>metacafe2</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/14VnoBok'>14VnoBok</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2021 at 16:00 UTC'>Jan 22, 2021</span></td>
+		<td>57</td>
+		<td>1675</td>
+		<td>4</td>
+		<td>33</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/joergkiz'>joergkiz</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/w2f7q3nn'>w2f7q3nn</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2021 at 14:00 UTC'>Jan 23, 2021</span></td>
+		<td>57</td>
+		<td>1661</td>
+		<td>7</td>
+		<td>33</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/osojuanferypity31'>osojuanferypity31</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/630WViZc'>630WViZc</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2021 at 20:00 UTC'>Jan 23, 2021</span></td>
+		<td>57</td>
+		<td>1688</td>
+		<td>5</td>
+		<td>33</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/kemp40'>kemp40</a></td>
+		<td>19</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/jMtk0EbB'>jMtk0EbB</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 24, 2021 at 14:00 UTC'>Jan 24, 2021</span></td>
+		<td>57</td>
+		<td>1714</td>
+		<td>7</td>
+		<td>33</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/alfilparanoico'>alfilparanoico</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/p2jwcOfG'>p2jwcOfG</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 09, 2021 at 20:00 UTC'>Feb 09, 2021</span></td>
+		<td>57</td>
+		<td>1673</td>
+		<td>5</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/sopran'>sopran</a></td>
+		<td>16</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/ztuQb4lj'>ztuQb4lj</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 23, 2021 at 14:00 UTC'>Feb 23, 2021</span></td>
+		<td>57</td>
+		<td>1748</td>
+		<td>8</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/lukareli'>lukareli</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/B0u7GQzs'>B0u7GQzs</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 26, 2021 at 10:00 UTC'>Feb 26, 2021</span></td>
+		<td>57</td>
+		<td>1750</td>
+		<td>4</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/smartalice'>smartalice</a></td>
+		<td>21</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/uFfmZPKj'>uFfmZPKj</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 01, 2021 at 14:00 UTC'>Mar 01, 2021</span></td>
+		<td>57</td>
+		<td>1706</td>
+		<td>7</td>
+		<td>32</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/fanchess90'>fanchess90</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/F6EySUt2'>F6EySUt2</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 04, 2021 at 14:00 UTC'>Mar 04, 2021</span></td>
+		<td>57</td>
+		<td>1721</td>
+		<td>8</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/agit165'>agit165</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/rUQooN3j'>rUQooN3j</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 20:00 UTC'>Mar 12, 2021</span></td>
+		<td>57</td>
+		<td>1736</td>
+		<td>4</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/brahmsguitar'>brahmsguitar</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/mpBqStWm'>mpBqStWm</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 14:00 UTC'>Mar 17, 2021</span></td>
+		<td>57</td>
+		<td>1716</td>
+		<td>7</td>
+		<td>32</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/siempreapurado'>siempreapurado</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/G95nhtco'>G95nhtco</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 16:00 UTC'>Mar 18, 2021</span></td>
+		<td>57</td>
+		<td>1725</td>
+		<td>6</td>
+		<td>37</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/botvinnik1999'>botvinnik1999</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/urgXBVl8'>urgXBVl8</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 24, 2021 at 16:00 UTC'>Jan 24, 2021</span></td>
+		<td>56</td>
+		<td>1704</td>
+		<td>6</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/tigran007'>tigran007</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/hylylNVT'>hylylNVT</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 29, 2021 at 20:00 UTC'>Jan 29, 2021</span></td>
+		<td>56</td>
+		<td>1696</td>
+		<td>4</td>
+		<td>32</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/ballard66'>ballard66</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/mNBhn1OP'>mNBhn1OP</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 20:00 UTC'>Feb 11, 2021</span></td>
+		<td>56</td>
+		<td>1695</td>
+		<td>5</td>
+		<td>37</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/hss590'>hss590</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/Gd5MTzcX'>Gd5MTzcX</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 16, 2021 at 12:00 UTC'>Feb 16, 2021</span></td>
+		<td>56</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>33</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/monalize'>monalize</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/C9i8AtRW'>C9i8AtRW</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 22, 2021 at 16:00 UTC'>Feb 22, 2021</span></td>
+		<td>56</td>
+		<td>1706</td>
+		<td>6</td>
+		<td>31</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/ua_snail'>ua_snail</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/QcqrqnAk'>QcqrqnAk</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 23, 2021 at 16:00 UTC'>Feb 23, 2021</span></td>
+		<td>56</td>
+		<td>1722</td>
+		<td>5</td>
+		<td>34</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/buddhibalcoach'>buddhibalcoach</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/a6v6e8Vy'>a6v6e8Vy</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 20:00 UTC'>Mar 08, 2021</span></td>
+		<td>56</td>
+		<td>1783</td>
+		<td>5</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/0J1ncgaZ'>0J1ncgaZ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 14:00 UTC'>Mar 11, 2021</span></td>
+		<td>56</td>
+		<td>1705</td>
+		<td>7</td>
+		<td>32</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/kredn'>kredn</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/5FOEyECw'>5FOEyECw</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2021 at 12:00 UTC'>Jan 16, 2021</span></td>
+		<td>55</td>
+		<td>1702</td>
+		<td>6</td>
+		<td>31</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kemp40'>kemp40</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/Ed6FTlfn'>Ed6FTlfn</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2021 at 14:00 UTC'>Jan 16, 2021</span></td>
+		<td>55</td>
+		<td>1706</td>
+		<td>8</td>
+		<td>32</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/satchitanandaj'>satchitanandaj</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/lMYeXVx4'>lMYeXVx4</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2021 at 20:00 UTC'>Jan 22, 2021</span></td>
+		<td>55</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>36</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/yopi_ivan'>yopi_ivan</a></td>
+		<td>15</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/cbRwTgx4'>cbRwTgx4</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 14:00 UTC'>Jan 28, 2021</span></td>
+		<td>55</td>
+		<td>1725</td>
+		<td>8</td>
+		<td>35</td>
+		<td>2%</td>
+		<td><a href='https://lichess.org/@/lakki67'>lakki67</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/Q9Q8ha3U'>Q9Q8ha3U</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 20:00 UTC'>Jan 28, 2021</span></td>
+		<td>55</td>
+		<td>1656</td>
+		<td>4</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/hss590'>hss590</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/YaCKAJlf'>YaCKAJlf</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 01, 2021 at 12:00 UTC'>Feb 01, 2021</span></td>
+		<td>55</td>
+		<td>1682</td>
+		<td>4</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/qeen11'>qeen11</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/B65JSy1p'>B65JSy1p</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 03, 2021 at 16:00 UTC'>Feb 03, 2021</span></td>
+		<td>55</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>34</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/unmillondejaques'>unmillondejaques</a></td>
+		<td>22</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/RG4FtUjK'>RG4FtUjK</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 03, 2021 at 20:00 UTC'>Feb 03, 2021</span></td>
+		<td>55</td>
+		<td>1722</td>
+		<td>4</td>
+		<td>33</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/imatsuhermatmn'>imatsuhermatmn</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/imJIW7yZ'>imJIW7yZ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 05, 2021 at 14:00 UTC'>Feb 05, 2021</span></td>
+		<td>55</td>
+		<td>1708</td>
+		<td>8</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/nirous'>nirous</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/F3AiN70V'>F3AiN70V</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 10, 2021 at 12:00 UTC'>Feb 10, 2021</span></td>
+		<td>55</td>
+		<td>1729</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/retisangil'>retisangil</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/9QEBmnGs'>9QEBmnGs</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 10, 2021 at 16:00 UTC'>Feb 10, 2021</span></td>
+		<td>55</td>
+		<td>1759</td>
+		<td>6</td>
+		<td>36</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/meddard'>meddard</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/zoYuzW6c'>zoYuzW6c</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 13, 2021 at 14:00 UTC'>Feb 13, 2021</span></td>
+		<td>55</td>
+		<td>1736</td>
+		<td>9</td>
+		<td>33</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/jaime_1969'>jaime_1969</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/SJdfzEc2'>SJdfzEc2</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 25, 2021 at 12:00 UTC'>Feb 25, 2021</span></td>
+		<td>55</td>
+		<td>1757</td>
+		<td>6</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/moblok'>moblok</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/cxMzHwO8'>cxMzHwO8</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 27, 2021 at 16:00 UTC'>Feb 27, 2021</span></td>
+		<td>55</td>
+		<td>1737</td>
+		<td>6</td>
+		<td>35</td>
+		<td>4%</td>
+		<td><a href='https://lichess.org/@/zurdo69'>zurdo69</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/UdAhgAjm'>UdAhgAjm</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 27, 2021 at 20:00 UTC'>Feb 27, 2021</span></td>
+		<td>55</td>
+		<td>1732</td>
+		<td>4</td>
+		<td>36</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/pzkpfwvi'>pzkpfwvi</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/Pfoafuzp'>Pfoafuzp</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 10:00 UTC'>Feb 28, 2021</span></td>
+		<td>55</td>
+		<td>1707</td>
+		<td>4</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/xcheck'>xcheck</a></td>
+		<td>19</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/lmun8aVJ'>lmun8aVJ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 03, 2021 at 12:00 UTC'>Mar 03, 2021</span></td>
+		<td>55</td>
+		<td>1745</td>
+		<td>5</td>
+		<td>31</td>
+		<td>3%</td>
+		<td><a href='https://lichess.org/@/bagera9'>bagera9</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/Xc7JJbjQ'>Xc7JJbjQ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 12:00 UTC'>Mar 19, 2021</span></td>
+		<td>55</td>
+		<td>1706</td>
+		<td>6</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/moblok'>moblok</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/TM5PX7iT'>TM5PX7iT</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2021 at 16:00 UTC'>Jan 16, 2021</span></td>
+		<td>54</td>
+		<td>1693</td>
+		<td>6</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/drowninginthesound'>drowninginthesound</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/rVMzOp8c'>rVMzOp8c</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 20, 2021 at 12:00 UTC'>Jan 20, 2021</span></td>
+		<td>54</td>
+		<td>1651</td>
+		<td>5</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/naijagm_chessmood'>naijagm_chessmood</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/TddfnM9Y'>TddfnM9Y</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 20, 2021 at 20:00 UTC'>Jan 20, 2021</span></td>
+		<td>54</td>
+		<td>1669</td>
+		<td>5</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/carlosmoscoso'>carlosmoscoso</a></td>
+		<td>16</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/dRsWxz4F'>dRsWxz4F</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 10, 2021 at 20:00 UTC'>Feb 10, 2021</span></td>
+		<td>54</td>
+		<td>1690</td>
+		<td>4</td>
+		<td>32</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/pchernomordik'>pchernomordik</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/FyAI1P4r'>FyAI1P4r</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 12:00 UTC'>Feb 11, 2021</span></td>
+		<td>54</td>
+		<td>1711</td>
+		<td>6</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/ydCSzMzn'>ydCSzMzn</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 12, 2021 at 14:00 UTC'>Feb 12, 2021</span></td>
+		<td>54</td>
+		<td>1723</td>
+		<td>8</td>
+		<td>34</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/nirous'>nirous</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/4wtbnE19'>4wtbnE19</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 15, 2021 at 16:00 UTC'>Feb 15, 2021</span></td>
+		<td>54</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>37</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/cyrus_donasco'>cyrus_donasco</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/aqVsQ6S5'>aqVsQ6S5</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 17, 2021 at 14:00 UTC'>Feb 17, 2021</span></td>
+		<td>54</td>
+		<td>1709</td>
+		<td>8</td>
+		<td>30</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/pchernomordik'>pchernomordik</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/Oc5wemAz'>Oc5wemAz</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 23, 2021 at 12:00 UTC'>Feb 23, 2021</span></td>
+		<td>54</td>
+		<td>1711</td>
+		<td>6</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/lakki67'>lakki67</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/QhyzaI5R'>QhyzaI5R</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 03, 2021 at 20:00 UTC'>Mar 03, 2021</span></td>
+		<td>54</td>
+		<td>1746</td>
+		<td>5</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/brahmsguitar'>brahmsguitar</a></td>
+		<td>16</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/ELQ2wlVk'>ELQ2wlVk</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 06, 2021 at 10:00 UTC'>Mar 06, 2021</span></td>
+		<td>54</td>
+		<td>1770</td>
+		<td>4</td>
+		<td>37</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/stsp37'>stsp37</a></td>
+		<td>18</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/LKjd8n9C'>LKjd8n9C</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 06, 2021 at 14:00 UTC'>Mar 06, 2021</span></td>
+		<td>54</td>
+		<td>1721</td>
+		<td>8</td>
+		<td>36</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/kpblm'>kpblm</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/f4FpKbxj'>f4FpKbxj</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 06, 2021 at 16:00 UTC'>Mar 06, 2021</span></td>
+		<td>54</td>
+		<td>1736</td>
+		<td>4</td>
+		<td>33</td>
+		<td>1%</td>
+		<td><a href='https://lichess.org/@/gmisagm'>gmisagm</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/3grVrYEO'>3grVrYEO</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 10:00 UTC'>Mar 08, 2021</span></td>
+		<td>54</td>
+		<td>1721</td>
+		<td>4</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/walterdchess90'>walterdchess90</a></td>
+		<td>21</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/35KvOS5P'>35KvOS5P</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 12:00 UTC'>Mar 22, 2021</span></td>
+		<td>54</td>
+		<td>1712</td>
+		<td>6</td>
+		<td>34</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/lav-70'>lav-70</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/J8Bm4OEz'>J8Bm4OEz</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 16:00 UTC'>Mar 22, 2021</span></td>
+		<td>54</td>
+		<td>1722</td>
+		<td>6</td>
+		<td>31</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/ffaaiizz11'>ffaaiizz11</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/luI4Q6Zx'>luI4Q6Zx</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 15, 2021 at 14:00 UTC'>Jan 15, 2021</span></td>
+		<td>53</td>
+		<td>1677</td>
+		<td>6</td>
+		<td>37</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/satchitanandaj'>satchitanandaj</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/ERr1BFZ2'>ERr1BFZ2</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 16, 2021 at 10:00 UTC'>Jan 16, 2021</span></td>
+		<td>53</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/hirikara'>hirikara</a></td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/mseO3Ngg'>mseO3Ngg</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 18, 2021 at 20:00 UTC'>Jan 18, 2021</span></td>
+		<td>53</td>
+		<td>1665</td>
+		<td>4</td>
+		<td>30</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/manuelsprenger'>manuelsprenger</a></td>
+		<td>18</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/avxBWXIu'>avxBWXIu</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 29, 2021 at 14:00 UTC'>Jan 29, 2021</span></td>
+		<td>53</td>
+		<td>1689</td>
+		<td>8</td>
+		<td>34</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/appie'>appie</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/7TyMsPm3'>7TyMsPm3</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 29, 2021 at 16:00 UTC'>Jan 29, 2021</span></td>
+		<td>53</td>
+		<td>1651</td>
+		<td>5</td>
+		<td>31</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/kemp40'>kemp40</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/F8bW8Bqs'>F8bW8Bqs</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 10, 2021 at 14:00 UTC'>Feb 10, 2021</span></td>
+		<td>53</td>
+		<td>1758</td>
+		<td>8</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/vlad_cepesh'>vlad_cepesh</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/QjlV8Otv'>QjlV8Otv</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 20, 2021 at 10:00 UTC'>Feb 20, 2021</span></td>
+		<td>53</td>
+		<td>1678</td>
+		<td>4</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/firdausmaksum_fm'>firdausmaksum_fm</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/i5G8moS5'>i5G8moS5</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 02, 2021 at 10:00 UTC'>Mar 02, 2021</span></td>
+		<td>53</td>
+		<td>1713</td>
+		<td>4</td>
+		<td>40</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/ap_lckb'>ap_lckb</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/YPE0ZSGq'>YPE0ZSGq</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 16:00 UTC'>Mar 14, 2021</span></td>
+		<td>53</td>
+		<td>1699</td>
+		<td>5</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/gruebler100'>gruebler100</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/MyqNHvCz'>MyqNHvCz</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 12:00 UTC'>Mar 16, 2021</span></td>
+		<td>53</td>
+		<td>1722</td>
+		<td>7</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kmaack'>kmaack</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/kppvf2KR'>kppvf2KR</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 16:00 UTC'>Mar 17, 2021</span></td>
+		<td>53</td>
+		<td>1766</td>
+		<td>6</td>
+		<td>34</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/kmaack'>kmaack</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/aYuXnBVf'>aYuXnBVf</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 12:00 UTC'>Mar 18, 2021</span></td>
+		<td>53</td>
+		<td>1731</td>
+		<td>6</td>
+		<td>35</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/daredevil099'>daredevil099</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/3m8xpLUv'>3m8xpLUv</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 10:00 UTC'>Mar 21, 2021</span></td>
+		<td>53</td>
+		<td>1728</td>
+		<td>5</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/fokkusnik'>fokkusnik</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/LihVrLiA'>LihVrLiA</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 13, 2021 at 14:00 UTC'>Jan 13, 2021</span></td>
+		<td>52</td>
+		<td>1600</td>
+		<td>7</td>
+		<td>34</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/chessgigant'>chessgigant</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/AHxKZSTQ'>AHxKZSTQ</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2021 at 12:00 UTC'>Jan 21, 2021</span></td>
+		<td>52</td>
+		<td>1665</td>
+		<td>6</td>
+		<td>35</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/deneris'>deneris</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/4rHluRRI'>4rHluRRI</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 02, 2021 at 20:00 UTC'>Feb 02, 2021</span></td>
+		<td>52</td>
+		<td>1675</td>
+		<td>4</td>
+		<td>31</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/mednerv'>mednerv</a></td>
+		<td>14</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/D8RzbEGT'>D8RzbEGT</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 04, 2021 at 12:00 UTC'>Feb 04, 2021</span></td>
+		<td>52</td>
+		<td>1675</td>
+		<td>6</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/eminemini'>eminemini</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/zvFqbTCu'>zvFqbTCu</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 05, 2021 at 12:00 UTC'>Feb 05, 2021</span></td>
+		<td>52</td>
+		<td>1739</td>
+		<td>6</td>
+		<td>32</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/alexr7777'>alexr7777</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/LES3Q5nM'>LES3Q5nM</a></td>
+		<td><span class='info Vchess960' title='Chess960'>c9</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 12:00 UTC'>Feb 08, 2021</span></td>
+		<td>52</td>
+		<td>1682</td>
+		<td>6</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/neki_novi_klinac'>neki_novi_klinac</a></td>
+		<td>38</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

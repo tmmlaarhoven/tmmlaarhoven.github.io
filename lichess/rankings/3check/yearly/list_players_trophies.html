@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Yearly Three-check Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='test.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check' checked><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly' checked><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies' checked><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Yearly Three-check Arenas</h1>
+<table class='PlayersList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td></td>
+		<td>Username</td>
+		<td><span class='info' style='font-family: lichess;' title='1st place finishes'>g</span></td>
+		<td><span class='info' style='font-family: lichess;' title='2nd place finishes'>g</span></td>
+		<td><span class='info' style='font-family: lichess;' title='3rd place finishes'>g</span></td>
+		<td><span class='info' title='Total accumulated points'>Points</span></td>
+		<td>/ <span class='info' title='Events with at least 1 point'>Events</span></td>
+		<td><span class='info' title='Dates of first/last events'>First - Last</span></td>
+		<td><span class='info' title='Average points per event'>Avg</span></td>
+		<td><span class='info' title='Maximum score in one event'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>1.</td>
+	<td>NM</td>
+	<td><a href='https://lichess.org/@/legendlord'>legendlord</a></td>
+	<td>1</td>
+	<td></td>
+	<td></td>
+	<td>241</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>241</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>241</a></td>
+	</tr>
+	<tr>
+	<td>2.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/luukdegrote'>luukdegrote</a></td>
+	<td>1</td>
+	<td></td>
+	<td></td>
+	<td>229</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>229</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>229</a></td>
+	</tr>
+	<tr>
+	<td>3.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/volcha_rus'>volcha_rus</a></td>
+	<td></td>
+	<td>1</td>
+	<td></td>
+	<td>333</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>166</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>237</a></td>
+	</tr>
+	<tr>
+	<td>4.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tenthousanddays'>tenthousanddays</a></td>
+	<td></td>
+	<td>1</td>
+	<td></td>
+	<td>208</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>208</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>208</a></td>
+	</tr>
+	<tr>
+	<td>5.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/suci_rahma_garut'>suci_rahma_garut</a></td>
+	<td></td>
+	<td></td>
+	<td>1</td>
+	<td>196</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>196</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>196</a></td>
+	</tr>
+	<tr>
+	<td>6.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/politeia'>politeia</a></td>
+	<td></td>
+	<td></td>
+	<td>1</td>
+	<td>192</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>192</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>192</a></td>
+	</tr>
+	<tr>
+	<td>7.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/lego00'>lego00</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>235</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>118</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>166</a></td>
+	</tr>
+	<tr>
+	<td>8.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/zerotolerance'>zerotolerance</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>212</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>106</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>109</a></td>
+	</tr>
+	<tr>
+	<td>9.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/shoor_veer'>shoor_veer</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>210</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>105</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>106</a></td>
+	</tr>
+	<tr>
+	<td>10.</td>
+	<td>IM</td>
+	<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>186</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>186</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>186</a></td>
+	</tr>
+	<tr>
+	<td>11.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/omnilogos'>omnilogos</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>186</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>186</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>186</a></td>
+	</tr>
+	<tr>
+	<td>12.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/romison'>romison</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>181</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>90</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>101</a></td>
+	</tr>
+	<tr>
+	<td>13.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/meisterpatzer'>meisterpatzer</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>181</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>90</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>113</a></td>
+	</tr>
+	<tr>
+	<td>14.</td>
+	<td>IM</td>
+	<td><a href='https://lichess.org/@/klimenko_sergey_im'>klimenko_sergey_im</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>174</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>174</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>174</a></td>
+	</tr>
+	<tr>
+	<td>15.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/gavity'>gavity</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>170</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>85</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>150</a></td>
+	</tr>
+	<tr>
+	<td>16.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/arimakat'>arimakat</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>164</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>164</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>164</a></td>
+	</tr>
+	<tr>
+	<td>17.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/dreamsmorning48'>dreamsmorning48</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>158</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>79</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>99</a></td>
+	</tr>
+	<tr>
+	<td>18.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/astavakra'>astavakra</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>158</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>158</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>158</a></td>
+	</tr>
+	<tr>
+	<td>19.</td>
+	<td>GM</td>
+	<td><a href='https://lichess.org/@/miromiljkovic'>miromiljkovic</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>156</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>156</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>156</a></td>
+	</tr>
+	<tr>
+	<td>20.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/sjl777'>sjl777</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>153</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>76</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>87</a></td>
+	</tr>
+	<tr>
+	<td>21.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ggbers'>ggbers</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>153</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>153</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>153</a></td>
+	</tr>
+	<tr>
+	<td>22.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/jack15'>jack15</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>150</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>150</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>150</a></td>
+	</tr>
+	<tr>
+	<td>23.</td>
+	<td>IM</td>
+	<td><a href='https://lichess.org/@/dangor'>dangor</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>147</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>147</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>147</a></td>
+	</tr>
+	<tr>
+	<td>24.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/azoha'>azoha</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>146</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>73</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>100</a></td>
+	</tr>
+	<tr>
+	<td>25.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/amateur_im'>amateur_im</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>139</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>139</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>139</a></td>
+	</tr>
+	<tr>
+	<td>26.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/gfmaster'>gfmaster</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>136</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>136</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>136</a></td>
+	</tr>
+	<tr>
+	<td>27.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/aicr1992'>aicr1992</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>136</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>136</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>136</a></td>
+	</tr>
+	<tr>
+	<td>28.</td>
+	<td>IM</td>
+	<td><a href='https://lichess.org/@/firstknight'>firstknight</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>133</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>133</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>133</a></td>
+	</tr>
+	<tr>
+	<td>29.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/jotso'>jotso</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>133</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>133</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>133</a></td>
+	</tr>
+	<tr>
+	<td>30.</td>
+	<td>IM</td>
+	<td><a href='https://lichess.org/@/iakov98'>iakov98</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>131</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>80</a></td>
+	</tr>
+	<tr>
+	<td>31.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/pavel2107'>pavel2107</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>130</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>65</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>82</a></td>
+	</tr>
+	<tr>
+	<td>32.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/jlf287'>jlf287</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>128</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>128</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>128</a></td>
+	</tr>
+	<tr>
+	<td>33.</td>
+	<td>GM</td>
+	<td><a href='https://lichess.org/@/orlando_gloom'>orlando_gloom</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>122</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>122</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>122</a></td>
+	</tr>
+	<tr>
+	<td>34.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/farmvllle'>farmvllle</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>122</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>122</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>122</a></td>
+	</tr>
+	<tr>
+	<td>35.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/queeneatingdragon'>queeneatingdragon</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>122</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>122</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>122</a></td>
+	</tr>
+	<tr>
+	<td>36.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/fanemihan'>fanemihan</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>121</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>121</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>121</a></td>
+	</tr>
+	<tr>
+	<td>37.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/jugo-boss'>jugo-boss</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>119</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>119</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>119</a></td>
+	</tr>
+	<tr>
+	<td>38.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/krawall24'>krawall24</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>118</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>118</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>118</a></td>
+	</tr>
+	<tr>
+	<td>39.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/fluke180'>fluke180</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>118</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>118</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>118</a></td>
+	</tr>
+	<tr>
+	<td>40.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/constantinthebest'>constantinthebest</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>118</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>118</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>118</a></td>
+	</tr>
+	<tr>
+	<td>41.</td>
+	<td>NM</td>
+	<td><a href='https://lichess.org/@/zugaddict'>zugaddict</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>117</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>117</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>117</a></td>
+	</tr>
+	<tr>
+	<td>42.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/superchoc'>superchoc</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>117</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>117</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>117</a></td>
+	</tr>
+	<tr>
+	<td>43.</td>
+	<td>IM</td>
+	<td><a href='https://lichess.org/@/alexr58'>alexr58</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>116</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>116</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>116</a></td>
+	</tr>
+	<tr>
+	<td>44.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tornon'>tornon</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>115</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>115</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>115</a></td>
+	</tr>
+	<tr>
+	<td>45.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ertugrul_gazi'>ertugrul_gazi</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>115</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>115</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>115</a></td>
+	</tr>
+	<tr>
+	<td>46.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/rossianin2020'>rossianin2020</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>115</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>115</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>115</a></td>
+	</tr>
+	<tr>
+	<td>47.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/vavo1'>vavo1</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>114</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>114</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>114</a></td>
+	</tr>
+	<tr>
+	<td>48.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/djalber'>djalber</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>114</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>57</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>60</a></td>
+	</tr>
+	<tr>
+	<td>49.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/rechteckig'>rechteckig</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>113</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>113</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>113</a></td>
+	</tr>
+	<tr>
+	<td>50.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/terminamtor'>terminamtor</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>109</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>109</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>109</a></td>
+	</tr>
+	<tr>
+	<td>51.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/wojhet'>wojhet</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>109</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>109</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>109</a></td>
+	</tr>
+	<tr>
+	<td>52.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/hopefully_anonymous'>hopefully_anonymous</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>107</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>107</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>107</a></td>
+	</tr>
+	<tr>
+	<td>53.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/palko_hra_sach'>palko_hra_sach</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>106</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>53</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>63</a></td>
+	</tr>
+	<tr>
+	<td>54.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/the_knight_of_spring'>the_knight_of_spring</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>106</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>106</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>106</a></td>
+	</tr>
+	<tr>
+	<td>55.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/edgemundp3'>edgemundp3</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>106</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>106</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>106</a></td>
+	</tr>
+	<tr>
+	<td>56.</td>
+	<td>IM</td>
+	<td><a href='https://lichess.org/@/spinaltap'>spinaltap</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>104</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>104</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>104</a></td>
+	</tr>
+	<tr>
+	<td>57.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/signal-sos'>signal-sos</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>104</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>104</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>104</a></td>
+	</tr>
+	<tr>
+	<td>58.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/gunnsibeib'>gunnsibeib</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>103</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>103</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>103</a></td>
+	</tr>
+	<tr>
+	<td>59.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/andriy2006'>andriy2006</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>103</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>52</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>91</a></td>
+	</tr>
+	<tr>
+	<td>60.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ktototo'>ktototo</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>103</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>103</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>103</a></td>
+	</tr>
+	<tr>
+	<td>61.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/bagoysuragoy'>bagoysuragoy</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>102</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>102</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>102</a></td>
+	</tr>
+	<tr>
+	<td>62.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/john3956w'>john3956w</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>102</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>102</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>102</a></td>
+	</tr>
+	<tr>
+	<td>63.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/iceeesnow'>iceeesnow</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>102</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>102</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>102</a></td>
+	</tr>
+	<tr>
+	<td>64.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/mahfuzfan'>mahfuzfan</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>102</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>102</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>102</a></td>
+	</tr>
+	<tr>
+	<td>65.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/babich_roman'>babich_roman</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>101</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>101</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>101</a></td>
+	</tr>
+	<tr>
+	<td>66.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/hypermodernia'>hypermodernia</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>101</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>101</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>101</a></td>
+	</tr>
+	<tr>
+	<td>67.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/herrlasker'>herrlasker</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>100</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>100</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>100</a></td>
+	</tr>
+	<tr>
+	<td>68.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/groupe'>groupe</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>100</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>100</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>100</a></td>
+	</tr>
+	<tr>
+	<td>69.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/derstudier'>derstudier</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>100</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>100</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>100</a></td>
+	</tr>
+	<tr>
+	<td>70.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/cthutq75'>cthutq75</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>99</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>50</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>50</a></td>
+	</tr>
+	<tr>
+	<td>71.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/chess3check'>chess3check</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>99</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>99</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>99</a></td>
+	</tr>
+	<tr>
+	<td>72.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/danzino21'>danzino21</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>98</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>98</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>98</a></td>
+	</tr>
+	<tr>
+	<td>73.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/mr_patatas777'>mr_patatas777</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>97</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>97</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>97</a></td>
+	</tr>
+	<tr>
+	<td>74.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/sinaceritoglu'>sinaceritoglu</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>97</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>97</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>97</a></td>
+	</tr>
+	<tr>
+	<td>75.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/czasnaszachy'>czasnaszachy</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>96</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>96</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>96</a></td>
+	</tr>
+	<tr>
+	<td>76.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ram_123'>ram_123</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>96</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>96</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>96</a></td>
+	</tr>
+	<tr>
+	<td>77.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/elias_belmonte30'>elias_belmonte30</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>96</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>96</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>96</a></td>
+	</tr>
+	<tr>
+	<td>78.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/danrelle'>danrelle</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>94</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>94</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>94</a></td>
+	</tr>
+	<tr>
+	<td>79.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/sergeykashirskiy1'>sergeykashirskiy1</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>94</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>94</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>94</a></td>
+	</tr>
+	<tr>
+	<td>80.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/martoinz'>martoinz</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>94</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>94</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>94</a></td>
+	</tr>
+	<tr>
+	<td>81.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ferociouslion98999'>ferociouslion98999</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>92</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>92</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>92</a></td>
+	</tr>
+	<tr>
+	<td>82.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/gisewuy'>gisewuy</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>92</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>92</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>92</a></td>
+	</tr>
+	<tr>
+	<td>83.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/c2h5oh3'>c2h5oh3</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>90</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>90</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>90</a></td>
+	</tr>
+	<tr>
+	<td>84.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/vishesh7779'>vishesh7779</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>90</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>90</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>90</a></td>
+	</tr>
+	<tr>
+	<td>85.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/sarthak0101'>sarthak0101</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>90</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>90</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>90</a></td>
+	</tr>
+	<tr>
+	<td>86.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/unpredicted'>unpredicted</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>89</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>89</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>89</a></td>
+	</tr>
+	<tr>
+	<td>87.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/jtb102'>jtb102</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>89</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>89</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>89</a></td>
+	</tr>
+	<tr>
+	<td>88.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/papatry'>papatry</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>88</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>88</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>88</a></td>
+	</tr>
+	<tr>
+	<td>89.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/mrbadopening'>mrbadopening</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>88</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>88</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>88</a></td>
+	</tr>
+	<tr>
+	<td>90.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/cristodavi05'>cristodavi05</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>88</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>88</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>88</a></td>
+	</tr>
+	<tr>
+	<td>91.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/inno_sara'>inno_sara</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>88</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>88</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>88</a></td>
+	</tr>
+	<tr>
+	<td>92.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/david_temirkanov'>david_temirkanov</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>86</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>86</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>86</a></td>
+	</tr>
+	<tr>
+	<td>93.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/orrtw'>orrtw</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>86</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>86</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>86</a></td>
+	</tr>
+	<tr>
+	<td>94.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/franck1954'>franck1954</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>86</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>86</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>86</a></td>
+	</tr>
+	<tr>
+	<td>95.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/toog'>toog</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>85</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>85</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>85</a></td>
+	</tr>
+	<tr>
+	<td>96.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/stelldichein'>stelldichein</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>85</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>85</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>85</a></td>
+	</tr>
+	<tr>
+	<td>97.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/cizar'>cizar</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>84</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>84</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>84</a></td>
+	</tr>
+	<tr>
+	<td>98.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tuanismae'>tuanismae</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>84</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>84</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>84</a></td>
+	</tr>
+	<tr>
+	<td>99.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/chrystosakbar'>chrystosakbar</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>84</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>84</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>84</a></td>
+	</tr>
+	<tr>
+	<td>100.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/playerinho'>playerinho</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>84</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>84</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>84</a></td>
+	</tr>
+	<tr>
+	<td>101.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/gepard1988'>gepard1988</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>83</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>83</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>83</a></td>
+	</tr>
+	<tr>
+	<td>102.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/alexsmirnov1990'>alexsmirnov1990</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>83</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>83</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>83</a></td>
+	</tr>
+	<tr>
+	<td>103.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/zloy_diadia'>zloy_diadia</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>82</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>41</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>54</a></td>
+	</tr>
+	<tr>
+	<td>104.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/dismoitout'>dismoitout</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>82</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>82</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>82</a></td>
+	</tr>
+	<tr>
+	<td>105.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/jg2017'>jg2017</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>81</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>81</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>81</a></td>
+	</tr>
+	<tr>
+	<td>106.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tal555'>tal555</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>80</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>80</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>80</a></td>
+	</tr>
+	<tr>
+	<td>107.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/anton7430'>anton7430</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>80</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>40</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>55</a></td>
+	</tr>
+	<tr>
+	<td>108.</td>
+	<td>NM</td>
+	<td><a href='https://lichess.org/@/tallguychess'>tallguychess</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>80</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>80</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>80</a></td>
+	</tr>
+	<tr>
+	<td>109.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/zl123'>zl123</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>80</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>80</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>80</a></td>
+	</tr>
+	<tr>
+	<td>110.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/gfrancesena'>gfrancesena</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>79</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>79</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>79</a></td>
+	</tr>
+	<tr>
+	<td>111.</td>
+	<td>NM</td>
+	<td><a href='https://lichess.org/@/vasiukov'>vasiukov</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>79</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>79</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>79</a></td>
+	</tr>
+	<tr>
+	<td>112.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/vale03'>vale03</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>78</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>78</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>78</a></td>
+	</tr>
+	<tr>
+	<td>113.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/madchild43'>madchild43</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>76</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>76</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>76</a></td>
+	</tr>
+	<tr>
+	<td>114.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/moazo'>moazo</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>76</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>76</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>76</a></td>
+	</tr>
+	<tr>
+	<td>115.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/godliketactics'>godliketactics</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>76</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>76</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>76</a></td>
+	</tr>
+	<tr>
+	<td>116.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/taytaybis1'>taytaybis1</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>75</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>75</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>75</a></td>
+	</tr>
+	<tr>
+	<td>117.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ramgx'>ramgx</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>74</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>74</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>74</a></td>
+	</tr>
+	<tr>
+	<td>118.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/fiddle_master'>fiddle_master</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>74</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>74</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>74</a></td>
+	</tr>
+	<tr>
+	<td>119.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/kirito_7'>kirito_7</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>74</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>74</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>74</a></td>
+	</tr>
+	<tr>
+	<td>120.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/yriy222'>yriy222</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>74</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>74</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>74</a></td>
+	</tr>
+	<tr>
+	<td>121.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/v14n71'>v14n71</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>74</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>74</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>74</a></td>
+	</tr>
+	<tr>
+	<td>122.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/jujuheat'>jujuheat</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>74</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>74</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>74</a></td>
+	</tr>
+	<tr>
+	<td>123.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/dkguy'>dkguy</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>73</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>73</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>73</a></td>
+	</tr>
+	<tr>
+	<td>124.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/doctor_of_love'>doctor_of_love</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>73</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>73</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>73</a></td>
+	</tr>
+	<tr>
+	<td>125.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/gideonosking'>gideonosking</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>73</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>73</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>73</a></td>
+	</tr>
+	<tr>
+	<td>126.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tksphlfinnc'>tksphlfinnc</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>73</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>73</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>73</a></td>
+	</tr>
+	<tr>
+	<td>127.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/kos99'>kos99</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>72</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>72</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>72</a></td>
+	</tr>
+	<tr>
+	<td>128.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/abdallahmagid'>abdallahmagid</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>72</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>72</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>72</a></td>
+	</tr>
+	<tr>
+	<td>129.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/stefan234'>stefan234</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>72</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>72</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>72</a></td>
+	</tr>
+	<tr>
+	<td>130.</td>
+	<td>CM</td>
+	<td><a href='https://lichess.org/@/vovaches'>vovaches</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>72</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>72</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>72</a></td>
+	</tr>
+	<tr>
+	<td>131.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/menelag'>menelag</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>72</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>72</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>72</a></td>
+	</tr>
+	<tr>
+	<td>132.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/annecy22'>annecy22</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>72</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>72</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>72</a></td>
+	</tr>
+	<tr>
+	<td>133.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/estonianpirate'>estonianpirate</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>72</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>72</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>72</a></td>
+	</tr>
+	<tr>
+	<td>134.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/mikhail_khmelev2000'>mikhail_khmelev2000</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>71</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>71</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>71</a></td>
+	</tr>
+	<tr>
+	<td>135.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/rutikanga'>rutikanga</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>71</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>71</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>71</a></td>
+	</tr>
+	<tr>
+	<td>136.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/traktator'>traktator</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>71</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>71</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>71</a></td>
+	</tr>
+	<tr>
+	<td>137.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/cephandrius'>cephandrius</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>71</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>71</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>71</a></td>
+	</tr>
+	<tr>
+	<td>138.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/krishnadas__2004'>krishnadas__2004</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>71</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>71</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>71</a></td>
+	</tr>
+	<tr>
+	<td>139.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/alekhine17'>alekhine17</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>70</a></td>
+	</tr>
+	<tr>
+	<td>140.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/trenertrenera'>trenertrenera</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>70</a></td>
+	</tr>
+	<tr>
+	<td>141.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/achessb'>achessb</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>70</a></td>
+	</tr>
+	<tr>
+	<td>142.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/boberarena'>boberarena</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>70</a></td>
+	</tr>
+	<tr>
+	<td>143.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/breitkopf'>breitkopf</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>70</a></td>
+	</tr>
+	<tr>
+	<td>144.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/efeonat44'>efeonat44</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>70</a></td>
+	</tr>
+	<tr>
+	<td>145.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ennoozunu'>ennoozunu</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>70</a></td>
+	</tr>
+	<tr>
+	<td>146.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/solomonlevy'>solomonlevy</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>70</a></td>
+	</tr>
+	<tr>
+	<td>147.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ardakaan257'>ardakaan257</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>70</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>70</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>70</a></td>
+	</tr>
+	<tr>
+	<td>148.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/hard_utilizator'>hard_utilizator</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>69</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>69</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>69</a></td>
+	</tr>
+	<tr>
+	<td>149.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/maziq6'>maziq6</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>69</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>69</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>69</a></td>
+	</tr>
+	<tr>
+	<td>150.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tammo267'>tammo267</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>69</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>69</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>69</a></td>
+	</tr>
+	<tr>
+	<td>151.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/bigcoomer'>bigcoomer</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>69</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>69</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>69</a></td>
+	</tr>
+	<tr>
+	<td>152.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/askchess'>askchess</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>68</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>68</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>68</a></td>
+	</tr>
+	<tr>
+	<td>153.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/blackknight98'>blackknight98</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>68</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>68</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>68</a></td>
+	</tr>
+	<tr>
+	<td>154.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/chessmasterluke38'>chessmasterluke38</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>68</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>68</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>68</a></td>
+	</tr>
+	<tr>
+	<td>155.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tovarish_stalin'>tovarish_stalin</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>68</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>68</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>68</a></td>
+	</tr>
+	<tr>
+	<td>156.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/amlanbbs'>amlanbbs</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>68</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>68</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>68</a></td>
+	</tr>
+	<tr>
+	<td>157.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/babavatatenda'>babavatatenda</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>68</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>68</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>68</a></td>
+	</tr>
+	<tr>
+	<td>158.</td>
+	<td>GM</td>
+	<td><a href='https://lichess.org/@/khem'>khem</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>67</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>67</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>67</a></td>
+	</tr>
+	<tr>
+	<td>159.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ilya999-durkin'>ilya999-durkin</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>67</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>67</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>67</a></td>
+	</tr>
+	<tr>
+	<td>160.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ezinez'>ezinez</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>67</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>67</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>67</a></td>
+	</tr>
+	<tr>
+	<td>161.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/highwindfantasies'>highwindfantasies</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>66</a></td>
+	</tr>
+	<tr>
+	<td>162.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/rindersuppe'>rindersuppe</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>66</a></td>
+	</tr>
+	<tr>
+	<td>163.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/spiidimonsteri'>spiidimonsteri</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>66</a></td>
+	</tr>
+	<tr>
+	<td>164.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/dhrazzle'>dhrazzle</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>33</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>50</a></td>
+	</tr>
+	<tr>
+	<td>165.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/yudhistira-tn'>yudhistira-tn</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>66</a></td>
+	</tr>
+	<tr>
+	<td>166.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/kemalseviner'>kemalseviner</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>66</a></td>
+	</tr>
+	<tr>
+	<td>167.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/dychess4'>dychess4</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>66</a></td>
+	</tr>
+	<tr>
+	<td>168.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tom_de_g'>tom_de_g</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>66</a></td>
+	</tr>
+	<tr>
+	<td>169.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/t_o_l-bi2006'>t_o_l-bi2006</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>66</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>66</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>66</a></td>
+	</tr>
+	<tr>
+	<td>170.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/mavaboy'>mavaboy</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>65</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>65</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>65</a></td>
+	</tr>
+	<tr>
+	<td>171.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/honocoroko'>honocoroko</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>64</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>64</a></td>
+	</tr>
+	<tr>
+	<td>172.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/orao'>orao</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>64</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>64</a></td>
+	</tr>
+	<tr>
+	<td>173.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/dampooo'>dampooo</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>32</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>40</a></td>
+	</tr>
+	<tr>
+	<td>174.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/simplesimpson03'>simplesimpson03</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>64</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>64</a></td>
+	</tr>
+	<tr>
+	<td>175.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/lonely77'>lonely77</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>64</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>64</a></td>
+	</tr>
+	<tr>
+	<td>176.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/dani_muhdar'>dani_muhdar</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>64</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>64</a></td>
+	</tr>
+	<tr>
+	<td>177.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/kindhearted_manatee'>kindhearted_manatee</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>64</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>64</a></td>
+	</tr>
+	<tr>
+	<td>178.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/richeard'>richeard</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>64</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>64</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>64</a></td>
+	</tr>
+	<tr>
+	<td>179.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/filipebl29'>filipebl29</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>63</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>63</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>63</a></td>
+	</tr>
+	<tr>
+	<td>180.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/sd63'>sd63</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>63</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>63</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>63</a></td>
+	</tr>
+	<tr>
+	<td>181.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/knighty_mighty'>knighty_mighty</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>63</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>63</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>63</a></td>
+	</tr>
+	<tr>
+	<td>182.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/alwaysnever'>alwaysnever</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>62</a></td>
+	</tr>
+	<tr>
+	<td>183.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/bennyk'>bennyk</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>62</a></td>
+	</tr>
+	<tr>
+	<td>184.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/nkumunye'>nkumunye</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>62</a></td>
+	</tr>
+	<tr>
+	<td>185.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/tanos000'>tanos000</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>62</a></td>
+	</tr>
+	<tr>
+	<td>186.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/lolseeker'>lolseeker</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>62</a></td>
+	</tr>
+	<tr>
+	<td>187.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/ikheetchris'>ikheetchris</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 2</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>31</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>45</a></td>
+	</tr>
+	<tr>
+	<td>188.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/czlol'>czlol</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>189.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/connikov'>connikov</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>190.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/zeropoint_nrg'>zeropoint_nrg</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>191.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/af_altamirano'>af_altamirano</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>192.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/fakir120'>fakir120</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>193.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/break-out'>break-out</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>194.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/daniilasker'>daniilasker</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>195.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/grian'>grian</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>196.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/thealessandroshow'>thealessandroshow</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>62</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>62</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>62</a></td>
+	</tr>
+	<tr>
+	<td>197.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/trillani'>trillani</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>61</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>61</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>61</a></td>
+	</tr>
+	<tr>
+	<td>198.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/mandiune'>mandiune</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>61</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RKVWFUcH'>--><span class='info' title='Aug 13, 2020 at 17:00 UTC'>Aug'20</span><!--</a>--></td>
+	<td>61</td>
+	<td><a href='https://lichess.org/tournament/RKVWFUcH'>61</a></td>
+	</tr>
+	<tr>
+	<td>199.</td>
+	<td></td>
+	<td><a href='https://lichess.org/@/robnic'>robnic</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>60</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>60</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>60</a></td>
+	</tr>
+	<tr>
+	<td>200.</td>
+	<td>FM</td>
+	<td><a href='https://lichess.org/@/therigos'>therigos</a></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td>60</td>
+	<td>/ 1</td>
+	<td><!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4p9PP7QZ'>--><span class='info' title='Aug 15, 2019 at 17:00 UTC'>Aug'19</span><!--</a>--></td>
+	<td>60</td>
+	<td><a href='https://lichess.org/tournament/4p9PP7QZ'>60</a></td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

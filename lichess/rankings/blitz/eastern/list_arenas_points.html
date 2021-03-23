@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Eastern Blitz Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz' checked><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern' checked><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points' checked><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; Eastern Blitz Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/FJ9O5fci'>FJ9O5fci</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 22, 2016 at 07:00 UTC'>Feb 22, 2016</span></td>
+		<td>136</td>
+		<td>1734</td>
+		<td>10</td>
+		<td>8</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/anri753'>anri753</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/nvTh3wAW'>nvTh3wAW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 19, 2016 at 06:00 UTC'>Apr 19, 2016</span></td>
+		<td>158</td>
+		<td>1734</td>
+		<td>9</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/paokaraforever'>paokaraforever</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/MNwfz9qe'>MNwfz9qe</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 03, 2015 at 06:00 UTC'>Jul 03, 2015</span></td>
+		<td>93</td>
+		<td>1628</td>
+		<td>9</td>
+		<td>29</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/nikaruhakamura'>nikaruhakamura</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/fnIM51KW'>fnIM51KW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 18, 2020 at 06:00 UTC'>Dec 18, 2020</span></td>
+		<td>2093</td>
+		<td>1794</td>
+		<td>9</td>
+		<td>34</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/pw_kbpl'>pw_kbpl</a></td>
+		<td>80</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/oLyHrJCb'>oLyHrJCb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 06, 2016 at 06:00 UTC'>Apr 06, 2016</span></td>
+		<td>134</td>
+		<td>1767</td>
+		<td>9</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/fatboyslim'>fatboyslim</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/woJq1Mam'>woJq1Mam</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 21, 2016 at 07:00 UTC'>Feb 21, 2016</span></td>
+		<td>140</td>
+		<td>1711</td>
+		<td>8</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/e-player'>e-player</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/0p1FMRxf'>0p1FMRxf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 04, 2015 at 06:00 UTC'>Jun 04, 2015</span></td>
+		<td>67</td>
+		<td>1573</td>
+		<td>8</td>
+		<td>26</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/zahdoud4life'>zahdoud4life</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/yJDn8Zef'>yJDn8Zef</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 26, 2016 at 07:00 UTC'>Feb 26, 2016</span></td>
+		<td>122</td>
+		<td>1734</td>
+		<td>8</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/zdravko_lojanica'>zdravko_lojanica</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/7L63L061'>7L63L061</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 22, 2016 at 06:00 UTC'>May 22, 2016</span></td>
+		<td>178</td>
+		<td>1772</td>
+		<td>8</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/jolief'>jolief</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/tOayoDfT'>tOayoDfT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 06, 2016 at 07:00 UTC'>Mar 06, 2016</span></td>
+		<td>158</td>
+		<td>1757</td>
+		<td>8</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/hooverphonic'>hooverphonic</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/A3Elfco3'>A3Elfco3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 11, 2016 at 07:00 UTC'>Feb 11, 2016</span></td>
+		<td>138</td>
+		<td>1702</td>
+		<td>8</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/sergeybobok1984'>sergeybobok1984</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/HfQCYucq'>HfQCYucq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 24, 2015 at 06:00 UTC'>Jun 24, 2015</span></td>
+		<td>72</td>
+		<td>1584</td>
+		<td>8</td>
+		<td>29</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/kaspat51'>kaspat51</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/xgPDh0to'>xgPDh0to</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 24, 2016 at 06:00 UTC'>May 24, 2016</span></td>
+		<td>167</td>
+		<td>1773</td>
+		<td>8</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/pilonidalsinus'>pilonidalsinus</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/FEHjQauD'>FEHjQauD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 18, 2016 at 06:00 UTC'>Apr 18, 2016</span></td>
+		<td>167</td>
+		<td>1757</td>
+		<td>8</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/chickens0003'>chickens0003</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/CAoIPYDA'>CAoIPYDA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 29, 2015 at 06:00 UTC'>Jun 29, 2015</span></td>
+		<td>69</td>
+		<td>1626</td>
+		<td>8</td>
+		<td>30</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/zahdoud4life'>zahdoud4life</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/21joPYpp'>21joPYpp</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 03, 2020 at 06:00 UTC'>Dec 03, 2020</span></td>
+		<td>1922</td>
+		<td>1773</td>
+		<td>8</td>
+		<td>34</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/odiaza'>odiaza</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/ZhRZVjoD'>ZhRZVjoD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 07, 2015 at 06:00 UTC'>Jul 07, 2015</span></td>
+		<td>73</td>
+		<td>1584</td>
+		<td>8</td>
+		<td>31</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/zdravko_lojanica'>zdravko_lojanica</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/S7A2oq3W'>S7A2oq3W</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 01, 2016 at 06:00 UTC'>Jun 01, 2016</span></td>
+		<td>160</td>
+		<td>1772</td>
+		<td>8</td>
+		<td>35</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/dark_fenix'>dark_fenix</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/LvHho9or'>LvHho9or</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 16, 2016 at 07:00 UTC'>Mar 16, 2016</span></td>
+		<td>122</td>
+		<td>1733</td>
+		<td>8</td>
+		<td>30</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/garrynew'>garrynew</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/BsIce2jI'>BsIce2jI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 02, 2016 at 07:00 UTC'>Feb 02, 2016</span></td>
+		<td>135</td>
+		<td>1687</td>
+		<td>8</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/garrynew'>garrynew</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/iuH9uUWH'>iuH9uUWH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Nov 21, 2015 at 07:00 UTC'>Nov 21, 2015</span></td>
+		<td>95</td>
+		<td>1668</td>
+		<td>8</td>
+		<td>31</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/yura2005'>yura2005</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/gpXxDlTE'>gpXxDlTE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 09, 2016 at 07:00 UTC'>Feb 09, 2016</span></td>
+		<td>135</td>
+		<td>1747</td>
+		<td>8</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/DM9XH7pE'>DM9XH7pE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 08, 2016 at 06:00 UTC'>May 08, 2016</span></td>
+		<td>173</td>
+		<td>1741</td>
+		<td>8</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/ridics'>ridics</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/zB9dtBPd'>zB9dtBPd</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 27, 2016 at 06:00 UTC'>Mar 27, 2016</span></td>
+		<td>187</td>
+		<td>1717</td>
+		<td>8</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/mitLpoWA'>mitLpoWA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 04, 2015 at 06:00 UTC'>Jul 04, 2015</span></td>
+		<td>70</td>
+		<td>1596</td>
+		<td>8</td>
+		<td>32</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/yory21'>yory21</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/YI6t0u7I'>YI6t0u7I</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 15, 2015 at 06:00 UTC'>Jul 15, 2015</span></td>
+		<td>105</td>
+		<td>1585</td>
+		<td>8</td>
+		<td>30</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/yory21'>yory21</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/Aha2qQKh'>Aha2qQKh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 24, 2016 at 07:00 UTC'>Feb 24, 2016</span></td>
+		<td>130</td>
+		<td>1744</td>
+		<td>8</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/lance5501'>lance5501</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/H9PO5EIq'>H9PO5EIq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 13, 2016 at 07:00 UTC'>Mar 13, 2016</span></td>
+		<td>161</td>
+		<td>1711</td>
+		<td>8</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>79</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/QBp86ucg'>QBp86ucg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 07, 2016 at 07:00 UTC'>Feb 07, 2016</span></td>
+		<td>155</td>
+		<td>1714</td>
+		<td>8</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/tatosarane'>tatosarane</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/Aw7hrjrs'>Aw7hrjrs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 27, 2016 at 07:00 UTC'>Feb 27, 2016</span></td>
+		<td>152</td>
+		<td>1763</td>
+		<td>8</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/brayanjunior'>brayanjunior</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/occOyRTH'>occOyRTH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 30, 2016 at 07:00 UTC'>Jan 30, 2016</span></td>
+		<td>158</td>
+		<td>1709</td>
+		<td>8</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/smalichess'>smalichess</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/Ou09a3VR'>Ou09a3VR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 25, 2016 at 07:00 UTC'>Feb 25, 2016</span></td>
+		<td>154</td>
+		<td>1736</td>
+		<td>8</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/brayanjunior'>brayanjunior</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/0PghT1Pc'>0PghT1Pc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 26, 2015 at 06:00 UTC'>Jun 26, 2015</span></td>
+		<td>79</td>
+		<td>1605</td>
+		<td>8</td>
+		<td>31</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/biv'>biv</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/PyE0VREI'>PyE0VREI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 24, 2015 at 06:00 UTC'>Aug 24, 2015</span></td>
+		<td>75</td>
+		<td>1605</td>
+		<td>8</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/spirits'>spirits</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/ekuyPvM6'>ekuyPvM6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 05, 2016 at 07:00 UTC'>Mar 05, 2016</span></td>
+		<td>147</td>
+		<td>1705</td>
+		<td>8</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/smalichess'>smalichess</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/KklF2IYv'>KklF2IYv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 02, 2015 at 06:00 UTC'>Jul 02, 2015</span></td>
+		<td>89</td>
+		<td>1571</td>
+		<td>8</td>
+		<td>31</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/walterjunior'>walterjunior</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/aJudjpUH'>aJudjpUH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 05, 2016 at 06:00 UTC'>Apr 05, 2016</span></td>
+		<td>166</td>
+		<td>1762</td>
+		<td>8</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/fatboyslim'>fatboyslim</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/VdXSRslw'>VdXSRslw</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 20, 2016 at 06:00 UTC'>Jun 20, 2016</span></td>
+		<td>192</td>
+		<td>1737</td>
+		<td>8</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/artmian'>artmian</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/K78KG1R6'>K78KG1R6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 27, 2015 at 06:00 UTC'>Jul 27, 2015</span></td>
+		<td>95</td>
+		<td>1604</td>
+		<td>8</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/pantsontehground'>pantsontehground</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/6ZpWzJjb'>6ZpWzJjb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 26, 2015 at 06:00 UTC'>May 26, 2015</span></td>
+		<td>56</td>
+		<td>1577</td>
+		<td>8</td>
+		<td>29</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/davit_00001'>davit_00001</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/MMNChLmE'>MMNChLmE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 26, 2016 at 06:00 UTC'>Apr 26, 2016</span></td>
+		<td>168</td>
+		<td>1763</td>
+		<td>8</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/WOTsgF5d'>WOTsgF5d</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 19, 2015 at 06:00 UTC'>Aug 19, 2015</span></td>
+		<td>77</td>
+		<td>1607</td>
+		<td>8</td>
+		<td>29</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/jposthuma'>jposthuma</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/iiHrUkOc'>iiHrUkOc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 19, 2015 at 06:00 UTC'>Jun 19, 2015</span></td>
+		<td>70</td>
+		<td>1612</td>
+		<td>8</td>
+		<td>30</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/jeanvaljeanx'>jeanvaljeanx</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/bWsx8xhK'>bWsx8xhK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 26, 2015 at 06:00 UTC'>Aug 26, 2015</span></td>
+		<td>92</td>
+		<td>1637</td>
+		<td>8</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/gross1987'>gross1987</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/YZCo0sa8'>YZCo0sa8</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 19, 2016 at 07:00 UTC'>Mar 19, 2016</span></td>
+		<td>161</td>
+		<td>1757</td>
+		<td>8</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/1h6PyoMN'>1h6PyoMN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 08, 2015 at 06:00 UTC'>Aug 08, 2015</span></td>
+		<td>86</td>
+		<td>1606</td>
+		<td>8</td>
+		<td>28</td>
+		<td>5%</td>
+		<td><a href='https://lichess.org/@/apurba'>apurba</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/FAoeu493'>FAoeu493</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 10, 2015 at 06:00 UTC'>Oct 10, 2015</span></td>
+		<td>85</td>
+		<td>1670</td>
+		<td>8</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/orlando70'>orlando70</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/xcTmN9LQ'>xcTmN9LQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 02, 2016 at 06:00 UTC'>Jul 02, 2016</span></td>
+		<td>229</td>
+		<td>1752</td>
+		<td>8</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/zuykovav'>zuykovav</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/ZdeayVuc'>ZdeayVuc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 30, 2015 at 06:00 UTC'>Jul 30, 2015</span></td>
+		<td>88</td>
+		<td>1615</td>
+		<td>8</td>
+		<td>30</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/saynotoducks'>saynotoducks</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/qFBlPyIK'>qFBlPyIK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 05, 2015 at 06:00 UTC'>Aug 05, 2015</span></td>
+		<td>91</td>
+		<td>1583</td>
+		<td>8</td>
+		<td>30</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/denidoank'>denidoank</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/hmYzjJlf'>hmYzjJlf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 29, 2016 at 07:00 UTC'>Jan 29, 2016</span></td>
+		<td>140</td>
+		<td>1693</td>
+		<td>8</td>
+		<td>32</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/z52'>z52</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/FEjBvkbk'>FEjBvkbk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 10, 2015 at 06:00 UTC'>Jul 10, 2015</span></td>
+		<td>85</td>
+		<td>1581</td>
+		<td>8</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bcx78'>bcx78</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/JSnBzkik'>JSnBzkik</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 01, 2016 at 07:00 UTC'>Feb 01, 2016</span></td>
+		<td>118</td>
+		<td>1703</td>
+		<td>8</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/indoiwong'>indoiwong</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/ILGasxZg'>ILGasxZg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 21, 2016 at 06:00 UTC'>Jul 21, 2016</span></td>
+		<td>238</td>
+		<td>1737</td>
+		<td>8</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/lancerisimo'>lancerisimo</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/1GJUwnKY'>1GJUwnKY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 05, 2015 at 06:00 UTC'>Jul 05, 2015</span></td>
+		<td>80</td>
+		<td>1615</td>
+		<td>8</td>
+		<td>31</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/walterjunior'>walterjunior</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/AfohMTZe'>AfohMTZe</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 06, 2015 at 07:00 UTC'>Dec 06, 2015</span></td>
+		<td>107</td>
+		<td>1679</td>
+		<td>8</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/zdravko_lojanica'>zdravko_lojanica</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/YM5YHurn'>YM5YHurn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 10, 2016 at 07:00 UTC'>Feb 10, 2016</span></td>
+		<td>133</td>
+		<td>1723</td>
+		<td>8</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/saeedshariat1352'>saeedshariat1352</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/S8pKPaPl'>S8pKPaPl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 08, 2016 at 07:00 UTC'>Mar 08, 2016</span></td>
+		<td>145</td>
+		<td>1762</td>
+		<td>8</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/ilg71'>ilg71</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/kE8xX13Q'>kE8xX13Q</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 19, 2016 at 07:00 UTC'>Feb 19, 2016</span></td>
+		<td>136</td>
+		<td>1715</td>
+		<td>8</td>
+		<td>30</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/garrynew'>garrynew</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/F8Ntk0kb'>F8Ntk0kb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 22, 2015 at 06:00 UTC'>Jun 22, 2015</span></td>
+		<td>59</td>
+		<td>1579</td>
+		<td>8</td>
+		<td>30</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/yotoha'>yotoha</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/otW649Cb'>otW649Cb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 09, 2016 at 07:00 UTC'>Mar 09, 2016</span></td>
+		<td>144</td>
+		<td>1757</td>
+		<td>8</td>
+		<td>31</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/ridgecutie'>ridgecutie</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/aIui5dcK'>aIui5dcK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 20, 2016 at 06:00 UTC'>Jul 20, 2016</span></td>
+		<td>227</td>
+		<td>1749</td>
+		<td>8</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/chessworld588'>chessworld588</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/9NqWlS8M'>9NqWlS8M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 13, 2015 at 06:00 UTC'>Jun 13, 2015</span></td>
+		<td>77</td>
+		<td>1604</td>
+		<td>8</td>
+		<td>31</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/zahdoud4life'>zahdoud4life</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/qmpTtHfl'>qmpTtHfl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 01, 2016 at 06:00 UTC'>May 01, 2016</span></td>
+		<td>184</td>
+		<td>1752</td>
+		<td>8</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/malvin'>malvin</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/qLAjOnBX'>qLAjOnBX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 25, 2015 at 06:00 UTC'>Jun 25, 2015</span></td>
+		<td>84</td>
+		<td>1603</td>
+		<td>8</td>
+		<td>31</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/serzh1956'>serzh1956</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/Ko7wPxZp'>Ko7wPxZp</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 08, 2016 at 07:00 UTC'>Feb 08, 2016</span></td>
+		<td>140</td>
+		<td>1702</td>
+		<td>8</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/chesskm8'>chesskm8</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/SeodDgk3'>SeodDgk3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 30, 2015 at 06:00 UTC'>Jun 30, 2015</span></td>
+		<td>65</td>
+		<td>1572</td>
+		<td>8</td>
+		<td>28</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/jmlabelette'>jmlabelette</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/v6r3ahLf'>v6r3ahLf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 31, 2015 at 06:00 UTC'>Jul 31, 2015</span></td>
+		<td>102</td>
+		<td>1611</td>
+		<td>8</td>
+		<td>31</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/jogadore'>jogadore</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/0RakDUqO'>0RakDUqO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 04, 2016 at 06:00 UTC'>Apr 04, 2016</span></td>
+		<td>131</td>
+		<td>1759</td>
+		<td>8</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>82</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/a8RjHryf'>a8RjHryf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 30, 2015 at 06:00 UTC'>May 30, 2015</span></td>
+		<td>87</td>
+		<td>1619</td>
+		<td>8</td>
+		<td>28</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/christo944'>christo944</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/Ud3yUMJs'>Ud3yUMJs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 29, 2016 at 06:00 UTC'>Jun 29, 2016</span></td>
+		<td>205</td>
+		<td>1759</td>
+		<td>8</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/masterbass'>masterbass</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/ZxYXxK7x'>ZxYXxK7x</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 17, 2020 at 04:00 UTC'>May 17, 2020</span></td>
+		<td>1278</td>
+		<td>1723</td>
+		<td>8</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/tsukasa1'>tsukasa1</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/cNhonkgm'>cNhonkgm</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 23, 2016 at 07:00 UTC'>Feb 23, 2016</span></td>
+		<td>157</td>
+		<td>1716</td>
+		<td>8</td>
+		<td>33</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/garrynew'>garrynew</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/Axx9luiP'>Axx9luiP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 28, 2015 at 06:00 UTC'>Jun 28, 2015</span></td>
+		<td>72</td>
+		<td>1643</td>
+		<td>8</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/biv'>biv</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/mdpkmPrP'>mdpkmPrP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 04, 2016 at 06:00 UTC'>May 04, 2016</span></td>
+		<td>151</td>
+		<td>1756</td>
+		<td>8</td>
+		<td>32</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/mrbug'>mrbug</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/sEEWsNh0'>sEEWsNh0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 16, 2020 at 04:00 UTC'>May 16, 2020</span></td>
+		<td>1211</td>
+		<td>1737</td>
+		<td>8</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/herasymenkot2020'>herasymenkot2020</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/m6kgu5L2'>m6kgu5L2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 07, 2015 at 06:00 UTC'>Aug 07, 2015</span></td>
+		<td>73</td>
+		<td>1597</td>
+		<td>8</td>
+		<td>32</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/thecca'>thecca</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/gnhMH9oN'>gnhMH9oN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 06:00 UTC'>Mar 20, 2021</span></td>
+		<td>1999</td>
+		<td>1724</td>
+		<td>8</td>
+		<td>34</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/daelovaaa'>daelovaaa</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/dU9JYUJU'>dU9JYUJU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 26, 2016 at 07:00 UTC'>Mar 26, 2016</span></td>
+		<td>146</td>
+		<td>1744</td>
+		<td>8</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/xNZpPG0n'>xNZpPG0n</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 03, 2020 at 04:00 UTC'>May 03, 2020</span></td>
+		<td>1263</td>
+		<td>1746</td>
+		<td>8</td>
+		<td>35</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/v_vs'>v_vs</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/bGjeE0zt'>bGjeE0zt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 15, 2016 at 07:00 UTC'>Mar 15, 2016</span></td>
+		<td>140</td>
+		<td>1726</td>
+		<td>8</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/c-efi-tres'>c-efi-tres</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/cwjHT90p'>cwjHT90p</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 02, 2015 at 06:00 UTC'>Oct 02, 2015</span></td>
+		<td>60</td>
+		<td>1608</td>
+		<td>8</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/bahtiyar'>bahtiyar</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/gJMEzFD7'>gJMEzFD7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 22, 2016 at 07:00 UTC'>Mar 22, 2016</span></td>
+		<td>161</td>
+		<td>1769</td>
+		<td>8</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ljeskovic_luka_01'>ljeskovic_luka_01</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/IVsWrTrr'>IVsWrTrr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 16, 2016 at 06:00 UTC'>May 16, 2016</span></td>
+		<td>168</td>
+		<td>1753</td>
+		<td>8</td>
+		<td>32</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/uujYW6wW'>uujYW6wW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 15, 2016 at 06:00 UTC'>Apr 15, 2016</span></td>
+		<td>148</td>
+		<td>1737</td>
+		<td>8</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/extremetactic'>extremetactic</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/xvog6mgq'>xvog6mgq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 23, 2016 at 06:00 UTC'>May 23, 2016</span></td>
+		<td>155</td>
+		<td>1756</td>
+		<td>8</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/aegipto'>aegipto</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/z7cG1F8j'>z7cG1F8j</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 05, 2016 at 06:00 UTC'>May 05, 2016</span></td>
+		<td>164</td>
+		<td>1764</td>
+		<td>8</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/asdfghjklxcvbnm'>asdfghjklxcvbnm</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/YGprSz9M'>YGprSz9M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 13, 2015 at 07:00 UTC'>Dec 13, 2015</span></td>
+		<td>85</td>
+		<td>1668</td>
+		<td>8</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/buffalomuch'>buffalomuch</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/tJ1tL7u0'>tJ1tL7u0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 14, 2015 at 06:00 UTC'>Sep 14, 2015</span></td>
+		<td>86</td>
+		<td>1627</td>
+		<td>8</td>
+		<td>28</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/freiheit'>freiheit</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/25RxyZ9F'>25RxyZ9F</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 29, 2016 at 07:00 UTC'>Feb 29, 2016</span></td>
+		<td>107</td>
+		<td>1759</td>
+		<td>8</td>
+		<td>32</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/belcebu'>belcebu</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/o4dpFP75'>o4dpFP75</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 06, 2021 at 06:00 UTC'>Mar 06, 2021</span></td>
+		<td>2075</td>
+		<td>1722</td>
+		<td>8</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/ds_kbpl'>ds_kbpl</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/MmqBZnfJ'>MmqBZnfJ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Nov 15, 2015 at 07:00 UTC'>Nov 15, 2015</span></td>
+		<td>93</td>
+		<td>1653</td>
+		<td>8</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/iiia6aiii'>iiia6aiii</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/vFH2ISVU'>vFH2ISVU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 04, 2016 at 07:00 UTC'>Feb 04, 2016</span></td>
+		<td>126</td>
+		<td>1707</td>
+		<td>8</td>
+		<td>32</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/alrawy'>alrawy</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/T9VguHQh'>T9VguHQh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 23, 2016 at 06:00 UTC'>Apr 23, 2016</span></td>
+		<td>189</td>
+		<td>1761</td>
+		<td>8</td>
+		<td>34</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/metastability'>metastability</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/yx1lL4o8'>yx1lL4o8</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 15, 2015 at 06:00 UTC'>Aug 15, 2015</span></td>
+		<td>79</td>
+		<td>1630</td>
+		<td>8</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/wielkimario'>wielkimario</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/TM8TTvk3'>TM8TTvk3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 25, 2020 at 04:00 UTC'>Apr 25, 2020</span></td>
+		<td>1249</td>
+		<td>1751</td>
+		<td>8</td>
+		<td>35</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/davidvolodya'>davidvolodya</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/heOsk5DO'>heOsk5DO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 25, 2016 at 06:00 UTC'>May 25, 2016</span></td>
+		<td>172</td>
+		<td>1751</td>
+		<td>8</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/idol99'>idol99</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/G2zNQUkg'>G2zNQUkg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 25, 2021 at 06:00 UTC'>Jan 25, 2021</span></td>
+		<td>1616</td>
+		<td>1735</td>
+		<td>7</td>
+		<td>34</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/ds_kbpl'>ds_kbpl</a></td>
+		<td>80</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/l1UkX6qI'>l1UkX6qI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 27, 2018 at 04:00 UTC'>Sep 27, 2018</span></td>
+		<td>460</td>
+		<td>1690</td>
+		<td>7</td>
+		<td>35</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/presiden'>presiden</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/NO6RbviM'>NO6RbviM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 02, 2020 at 04:00 UTC'>May 02, 2020</span></td>
+		<td>1209</td>
+		<td>1721</td>
+		<td>7</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/gerasimenyuk'>gerasimenyuk</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/goHfO8xv'>goHfO8xv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Nov 22, 2015 at 07:00 UTC'>Nov 22, 2015</span></td>
+		<td>98</td>
+		<td>1705</td>
+		<td>7</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/nutzy35'>nutzy35</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/NCt1bNUH'>NCt1bNUH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 27, 2015 at 06:00 UTC'>May 27, 2015</span></td>
+		<td>47</td>
+		<td>1634</td>
+		<td>7</td>
+		<td>28</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/finalito'>finalito</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/aD7e9Y5w'>aD7e9Y5w</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 15, 2016 at 07:00 UTC'>Jan 15, 2016</span></td>
+		<td>113</td>
+		<td>1714</td>
+		<td>7</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/garrynew'>garrynew</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/nw1YtHfm'>nw1YtHfm</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 21, 2016 at 06:00 UTC'>Jun 21, 2016</span></td>
+		<td>226</td>
+		<td>1735</td>
+		<td>7</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/Qd55eBRW'>Qd55eBRW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 04, 2020 at 04:00 UTC'>May 04, 2020</span></td>
+		<td>1197</td>
+		<td>1741</td>
+		<td>7</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/bluepower'>bluepower</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/WYmKKP5b'>WYmKKP5b</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 22, 2016 at 06:00 UTC'>Jun 22, 2016</span></td>
+		<td>219</td>
+		<td>1717</td>
+		<td>7</td>
+		<td>32</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/vampiredi'>vampiredi</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/yKE2Ry4i'>yKE2Ry4i</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 27, 2015 at 07:00 UTC'>Oct 27, 2015</span></td>
+		<td>92</td>
+		<td>1654</td>
+		<td>7</td>
+		<td>32</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/kanat78'>kanat78</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/AwCXok9r'>AwCXok9r</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 12, 2015 at 06:00 UTC'>Jul 12, 2015</span></td>
+		<td>75</td>
+		<td>1607</td>
+		<td>7</td>
+		<td>30</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/trovathor'>trovathor</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/wWvzIyK4'>wWvzIyK4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 06:00 UTC'>Mar 21, 2021</span></td>
+		<td>2122</td>
+		<td>1753</td>
+		<td>7</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/yt_bkd'>yt_bkd</a></td>
+		<td>92</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/VDeUXWod'>VDeUXWod</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 02, 2015 at 07:00 UTC'>Dec 02, 2015</span></td>
+		<td>79</td>
+		<td>1725</td>
+		<td>7</td>
+		<td>31</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/pizzaboy1982'>pizzaboy1982</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/DLzc2CPB'>DLzc2CPB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 18, 2020 at 04:00 UTC'>Apr 18, 2020</span></td>
+		<td>1033</td>
+		<td>1730</td>
+		<td>7</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/mariay2012'>mariay2012</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/NnoDoa2u'>NnoDoa2u</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 28, 2016 at 07:00 UTC'>Feb 28, 2016</span></td>
+		<td>132</td>
+		<td>1742</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/lance5501'>lance5501</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/5aq2TZIE'>5aq2TZIE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 19, 2015 at 06:00 UTC'>Jul 19, 2015</span></td>
+		<td>82</td>
+		<td>1615</td>
+		<td>7</td>
+		<td>31</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/mrboomstick'>mrboomstick</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/6iAqNFZi'>6iAqNFZi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 02, 2021 at 06:00 UTC'>Jan 02, 2021</span></td>
+		<td>1812</td>
+		<td>1722</td>
+		<td>7</td>
+		<td>35</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/fauzi-kbpl'>fauzi-kbpl</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/i6kpN06m'>i6kpN06m</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 18, 2015 at 06:00 UTC'>Oct 18, 2015</span></td>
+		<td>80</td>
+		<td>1708</td>
+		<td>7</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/chessecury'>chessecury</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/sQ7CEvZ3'>sQ7CEvZ3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 26, 2016 at 06:00 UTC'>Jul 26, 2016</span></td>
+		<td>254</td>
+		<td>1708</td>
+		<td>7</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/fortresspieces'>fortresspieces</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/XGI7RwfV'>XGI7RwfV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 21, 2015 at 06:00 UTC'>Jun 21, 2015</span></td>
+		<td>89</td>
+		<td>1592</td>
+		<td>7</td>
+		<td>31</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/serzh1956'>serzh1956</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/z7UxCKyW'>z7UxCKyW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 19, 2016 at 06:00 UTC'>May 19, 2016</span></td>
+		<td>160</td>
+		<td>1777</td>
+		<td>7</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/osakahendraginting'>osakahendraginting</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/7Txcflnh'>7Txcflnh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 04, 2015 at 06:00 UTC'>Sep 04, 2015</span></td>
+		<td>64</td>
+		<td>1655</td>
+		<td>7</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/loginov19510410'>loginov19510410</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/reP3VGAA'>reP3VGAA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 26, 2016 at 06:00 UTC'>Jun 26, 2016</span></td>
+		<td>225</td>
+		<td>1748</td>
+		<td>7</td>
+		<td>33</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/vampiredi'>vampiredi</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/5zCA3abK'>5zCA3abK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 08, 2016 at 06:00 UTC'>Jun 08, 2016</span></td>
+		<td>211</td>
+		<td>1760</td>
+		<td>7</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/esparzaesc72'>esparzaesc72</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/oXoY8tvA'>oXoY8tvA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 28, 2016 at 06:00 UTC'>Aug 28, 2016</span></td>
+		<td>324</td>
+		<td>1717</td>
+		<td>7</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/agustinwyatt'>agustinwyatt</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/k107vQGt'>k107vQGt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 20, 2015 at 07:00 UTC'>Dec 20, 2015</span></td>
+		<td>111</td>
+		<td>1709</td>
+		<td>7</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/ors1962'>ors1962</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/xsy2GT5W'>xsy2GT5W</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 13, 2016 at 06:00 UTC'>May 13, 2016</span></td>
+		<td>151</td>
+		<td>1748</td>
+		<td>7</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/keks100'>keks100</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/d8qaPGgb'>d8qaPGgb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Nov 30, 2015 at 07:00 UTC'>Nov 30, 2015</span></td>
+		<td>81</td>
+		<td>1706</td>
+		<td>7</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/camelclutcher'>camelclutcher</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/QvruGmC6'>QvruGmC6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 07, 2020 at 04:00 UTC'>Apr 07, 2020</span></td>
+		<td>1129</td>
+		<td>1764</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/luizzy'>luizzy</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/XdM7vFJz'>XdM7vFJz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 29, 2020 at 04:00 UTC'>Mar 29, 2020</span></td>
+		<td>966</td>
+		<td>1741</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/chernov_m'>chernov_m</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/snzeE12e'>snzeE12e</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Nov 13, 2015 at 07:00 UTC'>Nov 13, 2015</span></td>
+		<td>74</td>
+		<td>1713</td>
+		<td>7</td>
+		<td>33</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/shein'>shein</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/BIuAokCo'>BIuAokCo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 08, 2015 at 06:00 UTC'>Sep 08, 2015</span></td>
+		<td>99</td>
+		<td>1638</td>
+		<td>7</td>
+		<td>32</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/zembelek'>zembelek</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/LpkprAFO'>LpkprAFO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 13, 2015 at 06:00 UTC'>Oct 13, 2015</span></td>
+		<td>88</td>
+		<td>1731</td>
+		<td>7</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/beukertje'>beukertje</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/c0OstfXZ'>c0OstfXZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 21, 2016 at 06:00 UTC'>May 21, 2016</span></td>
+		<td>196</td>
+		<td>1766</td>
+		<td>7</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/sxEZZoLu'>sxEZZoLu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 20, 2020 at 04:00 UTC'>Apr 20, 2020</span></td>
+		<td>1216</td>
+		<td>1759</td>
+		<td>7</td>
+		<td>35</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/bliwayan'>bliwayan</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/DRwbOUxh'>DRwbOUxh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 02, 2016 at 07:00 UTC'>Mar 02, 2016</span></td>
+		<td>130</td>
+		<td>1749</td>
+		<td>7</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/nektariosb'>nektariosb</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/8KfB3k5R'>8KfB3k5R</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 28, 2016 at 06:00 UTC'>Jul 28, 2016</span></td>
+		<td>211</td>
+		<td>1731</td>
+		<td>7</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/artmian'>artmian</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/CqCN5yV9'>CqCN5yV9</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 11, 2020 at 04:00 UTC'>May 11, 2020</span></td>
+		<td>1166</td>
+		<td>1736</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/pickalito12'>pickalito12</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/tb5LLITE'>tb5LLITE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 14, 2015 at 06:00 UTC'>Aug 14, 2015</span></td>
+		<td>107</td>
+		<td>1582</td>
+		<td>7</td>
+		<td>30</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/ordok'>ordok</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/McpUK44t'>McpUK44t</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 27, 2015 at 06:00 UTC'>Jun 27, 2015</span></td>
+		<td>93</td>
+		<td>1592</td>
+		<td>7</td>
+		<td>31</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/pythonchess'>pythonchess</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/vOEzzz5y'>vOEzzz5y</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 07, 2016 at 06:00 UTC'>May 07, 2016</span></td>
+		<td>181</td>
+		<td>1749</td>
+		<td>7</td>
+		<td>35</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/supercolorado'>supercolorado</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/9lThRbR6'>9lThRbR6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 06, 2020 at 06:00 UTC'>Jun 06, 2020</span></td>
+		<td>1550</td>
+		<td>1713</td>
+		<td>7</td>
+		<td>33</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/elhechicero'>elhechicero</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/qN2oA8jv'>qN2oA8jv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 10, 2016 at 06:00 UTC'>May 10, 2016</span></td>
+		<td>143</td>
+		<td>1764</td>
+		<td>7</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/mohsen_dj'>mohsen_dj</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/GQH4ACoI'>GQH4ACoI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 09, 2020 at 04:00 UTC'>Apr 09, 2020</span></td>
+		<td>1220</td>
+		<td>1752</td>
+		<td>7</td>
+		<td>35</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/chess-network'>chess-network</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/EwBZfOCT'>EwBZfOCT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 20, 2016 at 06:00 UTC'>May 20, 2016</span></td>
+		<td>177</td>
+		<td>1746</td>
+		<td>7</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/pilonidalsinus'>pilonidalsinus</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/wZX8GvRL'>wZX8GvRL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 13, 2016 at 06:00 UTC'>Oct 13, 2016</span></td>
+		<td>295</td>
+		<td>1718</td>
+		<td>7</td>
+		<td>32</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/ariesrudy'>ariesrudy</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/uWKFcjtR'>uWKFcjtR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 07, 2016 at 06:00 UTC'>Apr 07, 2016</span></td>
+		<td>139</td>
+		<td>1752</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/2qXAwZK6'>2qXAwZK6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 28, 2016 at 06:00 UTC'>Apr 28, 2016</span></td>
+		<td>180</td>
+		<td>1772</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/gorno'>gorno</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/aqMpFdc6'>aqMpFdc6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 15, 2020 at 04:00 UTC'>May 15, 2020</span></td>
+		<td>1212</td>
+		<td>1722</td>
+		<td>7</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/jekyllhyde68'>jekyllhyde68</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/8Kzh0yh7'>8Kzh0yh7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 25, 2016 at 06:00 UTC'>Jun 25, 2016</span></td>
+		<td>223</td>
+		<td>1764</td>
+		<td>7</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/crazyaustralianguy'>crazyaustralianguy</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/D2c9qMcI'>D2c9qMcI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 18, 2021 at 06:00 UTC'>Jan 18, 2021</span></td>
+		<td>1591</td>
+		<td>1701</td>
+		<td>7</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/arek_probolinggo'>arek_probolinggo</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/FDoBloaQ'>FDoBloaQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 27, 2016 at 06:00 UTC'>Apr 27, 2016</span></td>
+		<td>162</td>
+		<td>1768</td>
+		<td>7</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/fhIPv7sj'>fhIPv7sj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 19, 2015 at 06:00 UTC'>Oct 19, 2015</span></td>
+		<td>94</td>
+		<td>1647</td>
+		<td>7</td>
+		<td>30</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/sequal'>sequal</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/He526mXM'>He526mXM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 24, 2016 at 06:00 UTC'>Apr 24, 2016</span></td>
+		<td>163</td>
+		<td>1747</td>
+		<td>7</td>
+		<td>33</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/7tTq8Vmx'>7tTq8Vmx</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 01, 2020 at 04:00 UTC'>May 01, 2020</span></td>
+		<td>1252</td>
+		<td>1726</td>
+		<td>7</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/santuenea'>santuenea</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/2Cthdlbi'>2Cthdlbi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 05, 2016 at 06:00 UTC'>Aug 05, 2016</span></td>
+		<td>248</td>
+		<td>1730</td>
+		<td>7</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/parsam'>parsam</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/p2vi2z25'>p2vi2z25</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 05, 2017 at 06:00 UTC'>Jan 05, 2017</span></td>
+		<td>318</td>
+		<td>1713</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/indu_vip'>indu_vip</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/vlmKf2ke'>vlmKf2ke</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 20, 2015 at 06:00 UTC'>Jul 20, 2015</span></td>
+		<td>77</td>
+		<td>1576</td>
+		<td>7</td>
+		<td>32</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/ikurachan'>ikurachan</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/zXi50BPD'>zXi50BPD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 24, 2020 at 04:00 UTC'>Apr 24, 2020</span></td>
+		<td>1119</td>
+		<td>1750</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/marabu74'>marabu74</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/Zje6afrR'>Zje6afrR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 06:00 UTC'>Feb 08, 2021</span></td>
+		<td>1653</td>
+		<td>1736</td>
+		<td>7</td>
+		<td>35</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/khalid_bin_walid'>khalid_bin_walid</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/ePtnzyz7'>ePtnzyz7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 10, 2020 at 04:00 UTC'>May 10, 2020</span></td>
+		<td>1238</td>
+		<td>1742</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/jonathan-1988'>jonathan-1988</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/AG3otbMt'>AG3otbMt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 02, 2015 at 06:00 UTC'>Jun 02, 2015</span></td>
+		<td>69</td>
+		<td>1624</td>
+		<td>7</td>
+		<td>25</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/antimaidan-lyshko'>antimaidan-lyshko</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/Cn41RUoa'>Cn41RUoa</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 06, 2015 at 06:00 UTC'>Aug 06, 2015</span></td>
+		<td>88</td>
+		<td>1601</td>
+		<td>7</td>
+		<td>31</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/saynotoducks'>saynotoducks</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/DYccIUhQ'>DYccIUhQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 02, 2017 at 06:00 UTC'>Jan 02, 2017</span></td>
+		<td>306</td>
+		<td>1705</td>
+		<td>7</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/galatasaray54'>galatasaray54</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/JDLBPO4p'>JDLBPO4p</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 19, 2016 at 06:00 UTC'>Aug 19, 2016</span></td>
+		<td>265</td>
+		<td>1705</td>
+		<td>7</td>
+		<td>33</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/netanya'>netanya</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/hAsKw2nT'>hAsKw2nT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 27, 2015 at 06:00 UTC'>Aug 27, 2015</span></td>
+		<td>94</td>
+		<td>1610</td>
+		<td>7</td>
+		<td>28</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/mikefreeman'>mikefreeman</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/NsnPayRH'>NsnPayRH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 11, 2016 at 06:00 UTC'>Jun 11, 2016</span></td>
+		<td>224</td>
+		<td>1737</td>
+		<td>7</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/gustukas1'>gustukas1</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/ABNfw6Hc'>ABNfw6Hc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 27, 2016 at 06:00 UTC'>Jun 27, 2016</span></td>
+		<td>216</td>
+		<td>1728</td>
+		<td>7</td>
+		<td>32</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/vampiredi'>vampiredi</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/Mxbv69a3'>Mxbv69a3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 16, 2020 at 06:00 UTC'>Dec 16, 2020</span></td>
+		<td>1632</td>
+		<td>1720</td>
+		<td>7</td>
+		<td>34</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/knight-kbpl'>knight-kbpl</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/RVXcDERH'>RVXcDERH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 12, 2020 at 04:00 UTC'>Apr 12, 2020</span></td>
+		<td>1175</td>
+		<td>1757</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/kassablanca'>kassablanca</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/giS0xydI'>giS0xydI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 20, 2020 at 06:00 UTC'>Dec 20, 2020</span></td>
+		<td>1643</td>
+		<td>1735</td>
+		<td>7</td>
+		<td>35</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/v_vs'>v_vs</a></td>
+		<td>80</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/kcGF2xGT'>kcGF2xGT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 30, 2020 at 06:00 UTC'>Jun 30, 2020</span></td>
+		<td>1266</td>
+		<td>1726</td>
+		<td>7</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/jpablito_7'>jpablito_7</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/2oWG90iv'>2oWG90iv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 15, 2016 at 07:00 UTC'>Feb 15, 2016</span></td>
+		<td>135</td>
+		<td>1732</td>
+		<td>7</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/zdravko_lojanica'>zdravko_lojanica</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/BLRcxLRu'>BLRcxLRu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 01, 2016 at 06:00 UTC'>Apr 01, 2016</span></td>
+		<td>116</td>
+		<td>1731</td>
+		<td>7</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/kapabelanka2016'>kapabelanka2016</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/bZCvHmvj'>bZCvHmvj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 31, 2020 at 06:00 UTC'>May 31, 2020</span></td>
+		<td>1489</td>
+		<td>1727</td>
+		<td>7</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/vktchess'>vktchess</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/h2QIkoxh'>h2QIkoxh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 12, 2016 at 06:00 UTC'>Jun 12, 2016</span></td>
+		<td>207</td>
+		<td>1735</td>
+		<td>7</td>
+		<td>34</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/chickens0003'>chickens0003</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/L21KRE79'>L21KRE79</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 11, 2020 at 04:00 UTC'>Apr 11, 2020</span></td>
+		<td>1283</td>
+		<td>1768</td>
+		<td>7</td>
+		<td>35</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/kivanchaznedaroglu'>kivanchaznedaroglu</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/Xgje0Rb3'>Xgje0Rb3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 02, 2015 at 06:00 UTC'>Sep 02, 2015</span></td>
+		<td>74</td>
+		<td>1628</td>
+		<td>7</td>
+		<td>31</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ignacy_m'>ignacy_m</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/Sub1gvq1'>Sub1gvq1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 28, 2016 at 06:00 UTC'>Jun 28, 2016</span></td>
+		<td>210</td>
+		<td>1731</td>
+		<td>7</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kidpoher'>kidpoher</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/xvMUtsed'>xvMUtsed</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 20, 2016 at 07:00 UTC'>Feb 20, 2016</span></td>
+		<td>155</td>
+		<td>1753</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/achja'>achja</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/wKKAutSf'>wKKAutSf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 06, 2020 at 04:00 UTC'>May 06, 2020</span></td>
+		<td>1254</td>
+		<td>1715</td>
+		<td>7</td>
+		<td>35</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/jpablito_7'>jpablito_7</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/TW79uoa6'>TW79uoa6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Apr 27, 2020 at 04:00 UTC'>Apr 27, 2020</span></td>
+		<td>1206</td>
+		<td>1757</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/jpablito_7'>jpablito_7</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/rA5GzJC7'>rA5GzJC7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 30, 2021 at 06:00 UTC'>Jan 30, 2021</span></td>
+		<td>1689</td>
+		<td>1725</td>
+		<td>7</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/mewii2021'>mewii2021</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/aHPHyehx'>aHPHyehx</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 05, 2020 at 04:00 UTC'>May 05, 2020</span></td>
+		<td>1284</td>
+		<td>1725</td>
+		<td>7</td>
+		<td>35</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/good_luck1'>good_luck1</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/Wwihy7o6'>Wwihy7o6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 16, 2015 at 06:00 UTC'>Aug 16, 2015</span></td>
+		<td>85</td>
+		<td>1622</td>
+		<td>7</td>
+		<td>32</td>
+		<td>6%</td>
+		<td><a href='https://lichess.org/@/zdravko_lojanica'>zdravko_lojanica</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/lbxk8zOl'>lbxk8zOl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 02, 2016 at 06:00 UTC'>Jun 02, 2016</span></td>
+		<td>156</td>
+		<td>1769</td>
+		<td>7</td>
+		<td>33</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bronze_dragon'>bronze_dragon</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/JuVAbLx9'>JuVAbLx9</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Mar 17, 2016 at 07:00 UTC'>Mar 17, 2016</span></td>
+		<td>145</td>
+		<td>1730</td>
+		<td>7</td>
+		<td>32</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/akssuu01'>akssuu01</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/Bd2OyIeO'>Bd2OyIeO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 04, 2016 at 06:00 UTC'>Dec 04, 2016</span></td>
+		<td>318</td>
+		<td>1712</td>
+		<td>7</td>
+		<td>34</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/falerito'>falerito</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/77t4ERhA'>77t4ERhA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 14, 2016 at 06:00 UTC'>Jun 14, 2016</span></td>
+		<td>197</td>
+		<td>1728</td>
+		<td>7</td>
+		<td>32</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/spiridon'>spiridon</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/tSCy0kM3'>tSCy0kM3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Dec 26, 2018 at 06:00 UTC'>Dec 26, 2018</span></td>
+		<td>618</td>
+		<td>1673</td>
+		<td>7</td>
+		<td>35</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/penoybuster'>penoybuster</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/Y1SKpBJP'>Y1SKpBJP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 05, 2015 at 06:00 UTC'>Jun 05, 2015</span></td>
+		<td>89</td>
+		<td>1614</td>
+		<td>7</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/gapawa'>gapawa</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/3bqAQcbA'>3bqAQcbA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 07, 2015 at 06:00 UTC'>Jun 07, 2015</span></td>
+		<td>94</td>
+		<td>1600</td>
+		<td>7</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/sfslice'>sfslice</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/3jId7bGT'>3jId7bGT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 23, 2016 at 06:00 UTC'>Aug 23, 2016</span></td>
+		<td>258</td>
+		<td>1714</td>
+		<td>7</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/kathiyitis'>kathiyitis</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/dZdkrdYJ'>dZdkrdYJ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 09, 2020 at 04:00 UTC'>May 09, 2020</span></td>
+		<td>1268</td>
+		<td>1733</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/marabu74'>marabu74</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/Puj6UueD'>Puj6UueD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 30, 2016 at 06:00 UTC'>Jun 30, 2016</span></td>
+		<td>199</td>
+		<td>1762</td>
+		<td>7</td>
+		<td>33</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/chess_no_sport'>chess_no_sport</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/S9hx1hVs'>S9hx1hVs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='May 18, 2020 at 04:00 UTC'>May 18, 2020</span></td>
+		<td>1165</td>
+		<td>1732</td>
+		<td>7</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/matsuiy'>matsuiy</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/Ov2VOheR'>Ov2VOheR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jun 03, 2016 at 06:00 UTC'>Jun 03, 2016</span></td>
+		<td>179</td>
+		<td>1778</td>
+		<td>7</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/anastasiosdr'>anastasiosdr</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/otCBcYaD'>otCBcYaD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 29, 2021 at 06:00 UTC'>Jan 29, 2021</span></td>
+		<td>1820</td>
+		<td>1755</td>
+		<td>7</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/aw_lckb'>aw_lckb</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/ViMqWfSB'>ViMqWfSB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Aug 15, 2016 at 06:00 UTC'>Aug 15, 2016</span></td>
+		<td>286</td>
+		<td>1700</td>
+		<td>7</td>
+		<td>33</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/artmian'>artmian</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/ZokFJx8n'>ZokFJx8n</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Feb 14, 2016 at 07:00 UTC'>Feb 14, 2016</span></td>
+		<td>141</td>
+		<td>1746</td>
+		<td>7</td>
+		<td>34</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/yHK3Y1et'>yHK3Y1et</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Nov 20, 2015 at 07:00 UTC'>Nov 20, 2015</span></td>
+		<td>85</td>
+		<td>1676</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ledorsky'>ledorsky</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/cNZZlqOS'>cNZZlqOS</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jul 06, 2016 at 06:00 UTC'>Jul 06, 2016</span></td>
+		<td>204</td>
+		<td>1745</td>
+		<td>7</td>
+		<td>34</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/chess_19'>chess_19</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/a5kIPMdQ'>a5kIPMdQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Jan 11, 2021 at 06:00 UTC'>Jan 11, 2021</span></td>
+		<td>1775</td>
+		<td>1719</td>
+		<td>7</td>
+		<td>34</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/deni165'>deni165</a></td>
+		<td>69</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

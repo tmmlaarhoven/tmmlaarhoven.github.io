@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; All Antichess Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+</head>
+
+<body>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='test.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess' checked><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all' checked><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk' checked><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+<h1>Lichess Arena Rankings &middot; All Antichess Arenas</h1>
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'>#</span></td>
+		<td>ID</td>
+		<td>Type</td>
+		<td>Date</td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'>Rtng</span></td>
+		<td><span class='info' title='Average points per player'>Pts</span></td>
+		<td><span class='info' title='Average moves per player per game'>Mvs</span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td>Winner</td>
+		<td><span class='info' title='Score of winner'>Max</span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/RYWgIhmv'>RYWgIhmv</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 04, 2021 at 07:00 UTC'>Feb 04, 2021</span></td>
+		<td>62</td>
+		<td>1679</td>
+		<td>9</td>
+		<td>25</td>
+		<td>66%</td>
+		<td><a href='https://lichess.org/@/thatwasbad'>thatwasbad</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/lgomP8SZ'>lgomP8SZ</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 05, 2015 at 11:00 UTC'>Oct 05, 2015</span></td>
+		<td>18</td>
+		<td>1731</td>
+		<td>8</td>
+		<td>21</td>
+		<td>65%</td>
+		<td><a href='https://lichess.org/@/poherok'>poherok</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/Eh16kZOi'>Eh16kZOi</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 22, 2015 at 11:00 UTC'>Sep 22, 2015</span></td>
+		<td>30</td>
+		<td>1676</td>
+		<td>8</td>
+		<td>24</td>
+		<td>64%</td>
+		<td><a href='https://lichess.org/@/byomkesh'>byomkesh</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/i2wo2sof'>i2wo2sof</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 26, 2016 at 00:00 UTC'>Apr 26, 2016</span></td>
+		<td>34</td>
+		<td>1889</td>
+		<td>10</td>
+		<td>25</td>
+		<td>64%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/d98nJTwj'>d98nJTwj</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 13, 2016 at 00:00 UTC'>May 13, 2016</span></td>
+		<td>32</td>
+		<td>1904</td>
+		<td>6</td>
+		<td>25</td>
+		<td>64%</td>
+		<td><a href='https://lichess.org/@/kristina444'>kristina444</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/SjYrTrzR'>SjYrTrzR</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 20, 2021 at 07:00 UTC'>Feb 20, 2021</span></td>
+		<td>57</td>
+		<td>1592</td>
+		<td>9</td>
+		<td>22</td>
+		<td>62%</td>
+		<td><a href='https://lichess.org/@/roman_kh'>roman_kh</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/5dIbttm0'>5dIbttm0</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 07:00 UTC'>Mar 14, 2021</span></td>
+		<td>66</td>
+		<td>1578</td>
+		<td>9</td>
+		<td>24</td>
+		<td>62%</td>
+		<td><a href='https://lichess.org/@/jannnn'>jannnn</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/26D2FLet'>26D2FLet</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 06, 2016 at 00:00 UTC'>Jul 06, 2016</span></td>
+		<td>30</td>
+		<td>1971</td>
+		<td>6</td>
+		<td>24</td>
+		<td>62%</td>
+		<td><a href='https://lichess.org/@/kristina444'>kristina444</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/wKR0CsRi'>wKR0CsRi</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 15, 2016 at 00:00 UTC'>May 15, 2016</span></td>
+		<td>30</td>
+		<td>1968</td>
+		<td>8</td>
+		<td>25</td>
+		<td>61%</td>
+		<td><a href='https://lichess.org/@/avatar_wan'>avatar_wan</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/KdCoCnyB'>KdCoCnyB</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Oct 04, 2015 at 11:00 UTC'>Oct 04, 2015</span></td>
+		<td>22</td>
+		<td>1588</td>
+		<td>6</td>
+		<td>27</td>
+		<td>61%</td>
+		<td><a href='https://lichess.org/@/poherok'>poherok</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/9kaxXXoj'>9kaxXXoj</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 02, 2016 at 00:00 UTC'>Sep 02, 2016</span></td>
+		<td>43</td>
+		<td>1818</td>
+		<td>9</td>
+		<td>23</td>
+		<td>61%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/VOi5auaD'>VOi5auaD</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 07:00 UTC'>Mar 16, 2021</span></td>
+		<td>50</td>
+		<td>1631</td>
+		<td>5</td>
+		<td>24</td>
+		<td>60%</td>
+		<td><a href='https://lichess.org/@/rnbqkrva'>rnbqkrva</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/zaXaaR1s'>zaXaaR1s</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 18, 2021 at 07:00 UTC'>Mar 18, 2021</span></td>
+		<td>72</td>
+		<td>1638</td>
+		<td>9</td>
+		<td>23</td>
+		<td>60%</td>
+		<td><a href='https://lichess.org/@/damnworld'>damnworld</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/693Uf1eU'>693Uf1eU</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 07:00 UTC'>Mar 13, 2021</span></td>
+		<td>60</td>
+		<td>1597</td>
+		<td>9</td>
+		<td>24</td>
+		<td>60%</td>
+		<td><a href='https://lichess.org/@/asvy'>asvy</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/OGzrNunx'>OGzrNunx</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 09, 2021 at 07:00 UTC'>Feb 09, 2021</span></td>
+		<td>65</td>
+		<td>1630</td>
+		<td>3</td>
+		<td>22</td>
+		<td>60%</td>
+		<td><a href='https://lichess.org/@/lech-poznan'>lech-poznan</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/wmf4YVQS'>wmf4YVQS</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 24, 2017 at 00:00 UTC'>Jan 24, 2017</span></td>
+		<td>42</td>
+		<td>1819</td>
+		<td>10</td>
+		<td>24</td>
+		<td>60%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/eVpDFaf2'>eVpDFaf2</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 24, 2015 at 11:00 UTC'>Sep 24, 2015</span></td>
+		<td>29</td>
+		<td>1554</td>
+		<td>7</td>
+		<td>22</td>
+		<td>60%</td>
+		<td><a href='https://lichess.org/@/byomkesh'>byomkesh</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/RFyjutmC'>RFyjutmC</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 07, 2016 at 01:00 UTC'>Feb 07, 2016</span></td>
+		<td>25</td>
+		<td>1875</td>
+		<td>8</td>
+		<td>26</td>
+		<td>59%</td>
+		<td><a href='https://lichess.org/@/elsoupo'>elsoupo</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/UNzXEaP2'>UNzXEaP2</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 07:00 UTC'>Mar 11, 2021</span></td>
+		<td>65</td>
+		<td>1638</td>
+		<td>9</td>
+		<td>24</td>
+		<td>59%</td>
+		<td><a href='https://lichess.org/@/iam-123'>iam-123</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/us6r5V67'>us6r5V67</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 17, 2021 at 07:00 UTC'>Jan 17, 2021</span></td>
+		<td>45</td>
+		<td>1645</td>
+		<td>9</td>
+		<td>25</td>
+		<td>59%</td>
+		<td><a href='https://lichess.org/@/b0stja'>b0stja</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/GibyKe4v'>GibyKe4v</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 07, 2021 at 07:00 UTC'>Mar 07, 2021</span></td>
+		<td>48</td>
+		<td>1620</td>
+		<td>8</td>
+		<td>25</td>
+		<td>59%</td>
+		<td><a href='https://lichess.org/@/kojekude'>kojekude</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/hH4uZzYM'>hH4uZzYM</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 14, 2021 at 11:00 UTC'>Feb 14, 2021</span></td>
+		<td>92</td>
+		<td>1648</td>
+		<td>10</td>
+		<td>23</td>
+		<td>59%</td>
+		<td><a href='https://lichess.org/@/thenutcrusher'>thenutcrusher</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/jrKRyE9J'>jrKRyE9J</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 02, 2021 at 11:00 UTC'>Mar 02, 2021</span></td>
+		<td>85</td>
+		<td>1565</td>
+		<td>8</td>
+		<td>24</td>
+		<td>59%</td>
+		<td><a href='https://lichess.org/@/rexiustus'>rexiustus</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/O5nyvsNO'>O5nyvsNO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 01, 2021 at 11:00 UTC'>Mar 01, 2021</span></td>
+		<td>79</td>
+		<td>1697</td>
+		<td>9</td>
+		<td>25</td>
+		<td>59%</td>
+		<td><a href='https://lichess.org/@/kex09'>kex09</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/ObWAeUnr'>ObWAeUnr</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2021 at 11:00 UTC'>Jan 21, 2021</span></td>
+		<td>91</td>
+		<td>1642</td>
+		<td>8</td>
+		<td>25</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/marktargaryen'>marktargaryen</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/PrEMthBb'>PrEMthBb</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 14, 2021 at 07:00 UTC'>Feb 14, 2021</span></td>
+		<td>66</td>
+		<td>1653</td>
+		<td>8</td>
+		<td>25</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/beeerus'>beeerus</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/IXqi6wXM'>IXqi6wXM</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 11, 2017 at 00:00 UTC'>Jan 11, 2017</span></td>
+		<td>38</td>
+		<td>1884</td>
+		<td>9</td>
+		<td>24</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/UDNMWzf5'>UDNMWzf5</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 22, 2016 at 00:00 UTC'>May 22, 2016</span></td>
+		<td>29</td>
+		<td>1957</td>
+		<td>8</td>
+		<td>23</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/bulletproof91'>bulletproof91</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/U7aZ6l4g'>U7aZ6l4g</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 29, 2021 at 07:00 UTC'>Jan 29, 2021</span></td>
+		<td>55</td>
+		<td>1654</td>
+		<td>8</td>
+		<td>24</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/descon'>descon</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/9f9aWsDN'>9f9aWsDN</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 18, 2016 at 00:00 UTC'>Dec 18, 2016</span></td>
+		<td>43</td>
+		<td>1849</td>
+		<td>11</td>
+		<td>26</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/5v9w8Pti'>5v9w8Pti</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 21, 2015 at 11:00 UTC'>Sep 21, 2015</span></td>
+		<td>16</td>
+		<td>1597</td>
+		<td>10</td>
+		<td>23</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/digger77'>digger77</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/xHfEP9gD'>xHfEP9gD</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 07:00 UTC'>Mar 15, 2021</span></td>
+		<td>58</td>
+		<td>1601</td>
+		<td>8</td>
+		<td>24</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/skymocker'>skymocker</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/2sQLnpwr'>2sQLnpwr</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 09, 2021 at 11:00 UTC'>Mar 09, 2021</span></td>
+		<td>85</td>
+		<td>1608</td>
+		<td>8</td>
+		<td>25</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/xiped'>xiped</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/ep7U9KX7'>ep7U9KX7</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 26, 2017 at 00:00 UTC'>Jun 26, 2017</span></td>
+		<td>27</td>
+		<td>1801</td>
+		<td>7</td>
+		<td>23</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/cr0123'>cr0123</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/EQ7qy2C5'>EQ7qy2C5</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 14, 2021 at 01:00 UTC'>Jan 14, 2021</span></td>
+		<td>40</td>
+		<td>1663</td>
+		<td>11</td>
+		<td>26</td>
+		<td>58%</td>
+		<td><a href='https://lichess.org/@/link'>link</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/QREeVxWz'>QREeVxWz</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 03, 2021 at 07:00 UTC'>Feb 03, 2021</span></td>
+		<td>58</td>
+		<td>1681</td>
+		<td>7</td>
+		<td>25</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/descon'>descon</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/ApadFXDd'>ApadFXDd</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 24, 2021 at 07:00 UTC'>Jan 24, 2021</span></td>
+		<td>53</td>
+		<td>1620</td>
+		<td>6</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/sergioperez04'>sergioperez04</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/BSVoA7IB'>BSVoA7IB</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 13, 2015 at 23:00 UTC'>Sep 13, 2015</span></td>
+		<td>22</td>
+		<td>1715</td>
+		<td>15</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/byomkesh'>byomkesh</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/odToLSca'>odToLSca</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 11:00 UTC'>Mar 22, 2021</span></td>
+		<td>75</td>
+		<td>1687</td>
+		<td>7</td>
+		<td>26</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/solomon_key'>solomon_key</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/3IQvjKok'>3IQvjKok</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 30, 2015 at 00:00 UTC'>Nov 30, 2015</span></td>
+		<td>21</td>
+		<td>1695</td>
+		<td>11</td>
+		<td>22</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/byomkesh'>byomkesh</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/UhizZAjW'>UhizZAjW</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 07, 2016 at 00:00 UTC'>Jul 07, 2016</span></td>
+		<td>38</td>
+		<td>1961</td>
+		<td>9</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/vqwYBfrI'>vqwYBfrI</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 18, 2021 at 07:00 UTC'>Jan 18, 2021</span></td>
+		<td>58</td>
+		<td>1624</td>
+		<td>8</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/glEqFPoy'>glEqFPoy</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 26, 2021 at 07:00 UTC'>Feb 26, 2021</span></td>
+		<td>57</td>
+		<td>1645</td>
+		<td>8</td>
+		<td>23</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/yeaithinkso'>yeaithinkso</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/2fP3j1cu'>2fP3j1cu</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 26, 2021 at 07:00 UTC'>Jan 26, 2021</span></td>
+		<td>50</td>
+		<td>1629</td>
+		<td>11</td>
+		<td>22</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/dP9YHzNE'>dP9YHzNE</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 07:00 UTC'>Mar 21, 2021</span></td>
+		<td>66</td>
+		<td>1621</td>
+		<td>7</td>
+		<td>23</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/rnbqkrva'>rnbqkrva</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/CW9i5y5P'>CW9i5y5P</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 11:00 UTC'>Feb 11, 2021</span></td>
+		<td>79</td>
+		<td>1664</td>
+		<td>9</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/binjov'>binjov</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/KpAKbg93'>KpAKbg93</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 10, 2017 at 00:00 UTC'>Jul 10, 2017</span></td>
+		<td>21</td>
+		<td>1778</td>
+		<td>9</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/bennyk'>bennyk</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/LZHIKmvG'>LZHIKmvG</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 08, 2021 at 07:00 UTC'>Feb 08, 2021</span></td>
+		<td>55</td>
+		<td>1592</td>
+		<td>8</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/beeerus'>beeerus</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/ixOLZKDM'>ixOLZKDM</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2021 at 11:00 UTC'>Jan 23, 2021</span></td>
+		<td>79</td>
+		<td>1648</td>
+		<td>9</td>
+		<td>23</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/antiboss'>antiboss</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/itsnkIeb'>itsnkIeb</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 11, 2016 at 00:00 UTC'>Aug 11, 2016</span></td>
+		<td>32</td>
+		<td>1891</td>
+		<td>9</td>
+		<td>24</td>
+		<td>57%</td>
+		<td><a href='https://lichess.org/@/katy2'>katy2</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/jmMt8DBL'>jmMt8DBL</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 06, 2016 at 00:00 UTC'>Dec 06, 2016</span></td>
+		<td>45</td>
+		<td>1885</td>
+		<td>10</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/kristina444'>kristina444</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/GFFQkHyO'>GFFQkHyO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 04, 2021 at 21:00 UTC'>Mar 04, 2021</span></td>
+		<td>69</td>
+		<td>1663</td>
+		<td>10</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/cro-c0p'>cro-c0p</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/gjv6IXTy'>gjv6IXTy</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Oct 04, 2020 at 05:00 UTC'>Oct 04, 2020</span></td>
+		<td>52</td>
+		<td>1634</td>
+		<td>8</td>
+		<td>24</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/ultimatesuperplayer'>ultimatesuperplayer</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/psgR4tAc'>psgR4tAc</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 06, 2016 at 01:00 UTC'>Feb 06, 2016</span></td>
+		<td>19</td>
+		<td>1742</td>
+		<td>8</td>
+		<td>24</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/elsoupo'>elsoupo</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/Q8ufj4de'>Q8ufj4de</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 23, 2017 at 00:00 UTC'>Jan 23, 2017</span></td>
+		<td>39</td>
+		<td>1798</td>
+		<td>13</td>
+		<td>26</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/kjFZV8OL'>kjFZV8OL</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 23, 2021 at 07:00 UTC'>Jan 23, 2021</span></td>
+		<td>81</td>
+		<td>1637</td>
+		<td>9</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/bayeroku1'>bayeroku1</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/Nuu5iSqV'>Nuu5iSqV</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 08, 2017 at 00:00 UTC'>May 08, 2017</span></td>
+		<td>32</td>
+		<td>1796</td>
+		<td>7</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/cr0123'>cr0123</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/A9mY6o9R'>A9mY6o9R</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 24, 2016 at 01:00 UTC'>Jan 24, 2016</span></td>
+		<td>27</td>
+		<td>1862</td>
+		<td>7</td>
+		<td>21</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/checking1992'>checking1992</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/JNYcSUcq'>JNYcSUcq</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 02, 2016 at 00:00 UTC'>May 02, 2016</span></td>
+		<td>43</td>
+		<td>1897</td>
+		<td>9</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/yellowitaly'>yellowitaly</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/KFlAcYbe'>KFlAcYbe</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 17, 2021 at 11:00 UTC'>Jan 17, 2021</span></td>
+		<td>86</td>
+		<td>1643</td>
+		<td>7</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/nV1Tbe9g'>nV1Tbe9g</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 13, 2016 at 00:00 UTC'>Sep 13, 2016</span></td>
+		<td>38</td>
+		<td>1846</td>
+		<td>9</td>
+		<td>23</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/avatar-wan'>avatar-wan</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/dFStH6v6'>dFStH6v6</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 27, 2016 at 00:00 UTC'>Apr 27, 2016</span></td>
+		<td>23</td>
+		<td>1785</td>
+		<td>4</td>
+		<td>22</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/philosopher5'>philosopher5</a></td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/6cC39naO'>6cC39naO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 25, 2021 at 11:00 UTC'>Jan 25, 2021</span></td>
+		<td>81</td>
+		<td>1605</td>
+		<td>8</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/akj5'>akj5</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/GsYCBcUq'>GsYCBcUq</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 10, 2016 at 00:00 UTC'>Jun 10, 2016</span></td>
+		<td>16</td>
+		<td>1942</td>
+		<td>7</td>
+		<td>25</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/bulletproof91'>bulletproof91</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/m63CFUL3'>m63CFUL3</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 25, 2016 at 00:00 UTC'>Jul 25, 2016</span></td>
+		<td>34</td>
+		<td>1943</td>
+		<td>10</td>
+		<td>27</td>
+		<td>55%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/8cbbmxSd'>8cbbmxSd</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 10, 2016 at 00:00 UTC'>Oct 10, 2016</span></td>
+		<td>40</td>
+		<td>1758</td>
+		<td>9</td>
+		<td>26</td>
+		<td>55%</td>
+		<td><a href='https://lichess.org/@/krtekcze'>krtekcze</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/Ns9sYUQN'>Ns9sYUQN</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 22, 2021 at 07:00 UTC'>Feb 22, 2021</span></td>
+		<td>55</td>
+		<td>1547</td>
+		<td>8</td>
+		<td>22</td>
+		<td>55%</td>
+		<td><a href='https://lichess.org/@/roman_kh'>roman_kh</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/B0vXA3NO'>B0vXA3NO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 22, 2021 at 07:00 UTC'>Jan 22, 2021</span></td>
+		<td>65</td>
+		<td>1652</td>
+		<td>9</td>
+		<td>24</td>
+		<td>55%</td>
+		<td><a href='https://lichess.org/@/ftfdrk'>ftfdrk</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/AnLVdmeh'>AnLVdmeh</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 24, 2021 at 07:00 UTC'>Feb 24, 2021</span></td>
+		<td>70</td>
+		<td>1588</td>
+		<td>8</td>
+		<td>22</td>
+		<td>55%</td>
+		<td><a href='https://lichess.org/@/douthy'>douthy</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/15DBfW6r'>15DBfW6r</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 07, 2016 at 00:00 UTC'>May 07, 2016</span></td>
+		<td>46</td>
+		<td>1960</td>
+		<td>10</td>
+		<td>24</td>
+		<td>55%</td>
+		<td><a href='https://lichess.org/@/alimahmoodi'>alimahmoodi</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/TLtzBj7v'>TLtzBj7v</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 17, 2021 at 07:00 UTC'>Feb 17, 2021</span></td>
+		<td>55</td>
+		<td>1739</td>
+		<td>8</td>
+		<td>24</td>
+		<td>55%</td>
+		<td><a href='https://lichess.org/@/douthy'>douthy</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/DXRD31Qx'>DXRD31Qx</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 05, 2021 at 07:00 UTC'>Mar 05, 2021</span></td>
+		<td>78</td>
+		<td>1607</td>
+		<td>8</td>
+		<td>23</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/hgambit'>hgambit</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/FLKVRKGG'>FLKVRKGG</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 09, 2021 at 21:00 UTC'>Feb 09, 2021</span></td>
+		<td>69</td>
+		<td>1704</td>
+		<td>10</td>
+		<td>24</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/yakupdeger'>yakupdeger</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/QODnNrkO'>QODnNrkO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 05, 2016 at 00:00 UTC'>Jun 05, 2016</span></td>
+		<td>35</td>
+		<td>1889</td>
+		<td>10</td>
+		<td>23</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/CTAw3jkU'>CTAw3jkU</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 20, 2021 at 11:00 UTC'>Feb 20, 2021</span></td>
+		<td>67</td>
+		<td>1629</td>
+		<td>8</td>
+		<td>24</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/yymRtFng'>yymRtFng</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 07:00 UTC'>Mar 08, 2021</span></td>
+		<td>51</td>
+		<td>1519</td>
+		<td>9</td>
+		<td>24</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/professorkitten'>professorkitten</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/XfuJ3TSi'>XfuJ3TSi</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 17, 2016 at 00:00 UTC'>Jan 17, 2016</span></td>
+		<td>36</td>
+		<td>1815</td>
+		<td>10</td>
+		<td>23</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/amperarash'>amperarash</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/TdoT1Etg'>TdoT1Etg</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 28, 2017 at 00:00 UTC'>Jun 28, 2017</span></td>
+		<td>31</td>
+		<td>1871</td>
+		<td>9</td>
+		<td>26</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/springer007'>springer007</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/Qfah0aIR'>Qfah0aIR</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 03, 2021 at 11:00 UTC'>Feb 03, 2021</span></td>
+		<td>79</td>
+		<td>1655</td>
+		<td>8</td>
+		<td>25</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/rr007'>rr007</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/ZUTDIPCS'>ZUTDIPCS</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 25, 2016 at 01:00 UTC'>Jan 25, 2016</span></td>
+		<td>18</td>
+		<td>1892</td>
+		<td>14</td>
+		<td>21</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/Ii6a7MpI'>Ii6a7MpI</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 25, 2021 at 07:00 UTC'>Jan 25, 2021</span></td>
+		<td>58</td>
+		<td>1675</td>
+		<td>7</td>
+		<td>26</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/thatwasbad'>thatwasbad</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/GaHMCSfv'>GaHMCSfv</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 25, 2017 at 00:00 UTC'>Jul 25, 2017</span></td>
+		<td>25</td>
+		<td>1867</td>
+		<td>7</td>
+		<td>24</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/mayoss1'>mayoss1</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/DIAb9uN1'>DIAb9uN1</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 25, 2016 at 00:00 UTC'>Jun 25, 2016</span></td>
+		<td>33</td>
+		<td>1887</td>
+		<td>7</td>
+		<td>23</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/kristina444'>kristina444</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/qe44dAF8'>qe44dAF8</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 11:00 UTC'>Feb 18, 2021</span></td>
+		<td>90</td>
+		<td>1672</td>
+		<td>9</td>
+		<td>24</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/beeerus'>beeerus</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/JVLBbxkk'>JVLBbxkk</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 11, 2016 at 00:00 UTC'>Jan 11, 2016</span></td>
+		<td>38</td>
+		<td>1778</td>
+		<td>6</td>
+		<td>23</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/antichessuser'>antichessuser</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/Ybs9lkvS'>Ybs9lkvS</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 01, 2021 at 07:00 UTC'>Mar 01, 2021</span></td>
+		<td>55</td>
+		<td>1668</td>
+		<td>7</td>
+		<td>24</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/grabthem'>grabthem</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/sHQt8IJr'>sHQt8IJr</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 07:00 UTC'>Feb 28, 2021</span></td>
+		<td>60</td>
+		<td>1581</td>
+		<td>8</td>
+		<td>23</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/douthy'>douthy</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/b8yxNjMH'>b8yxNjMH</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 07:00 UTC'>Jan 28, 2021</span></td>
+		<td>65</td>
+		<td>1658</td>
+		<td>6</td>
+		<td>23</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/rr007'>rr007</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/iGUH9YfA'>iGUH9YfA</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 22, 2017 at 00:00 UTC'>Jun 22, 2017</span></td>
+		<td>35</td>
+		<td>1906</td>
+		<td>9</td>
+		<td>25</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/kuhar'>kuhar</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/hzqMbWws'>hzqMbWws</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 31, 2021 at 11:00 UTC'>Jan 31, 2021</span></td>
+		<td>82</td>
+		<td>1589</td>
+		<td>8</td>
+		<td>24</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/aleksschtin'>aleksschtin</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/NCIrGc0j'>NCIrGc0j</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 10, 2017 at 00:00 UTC'>Jan 10, 2017</span></td>
+		<td>35</td>
+		<td>1859</td>
+		<td>9</td>
+		<td>24</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/ZymsvWbL'>ZymsvWbL</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Oct 28, 2020 at 01:30 UTC'>Oct 28, 2020</span></td>
+		<td>20</td>
+		<td>1697</td>
+		<td>9</td>
+		<td>24</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/theunknownguyreborn'>theunknownguyreborn</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/VOhKsIT1'>VOhKsIT1</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 08, 2016 at 00:00 UTC'>Nov 08, 2016</span></td>
+		<td>49</td>
+		<td>1890</td>
+		<td>9</td>
+		<td>25</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/DXDRDYZ8'>DXDRDYZ8</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 06, 2021 at 07:00 UTC'>Mar 06, 2021</span></td>
+		<td>61</td>
+		<td>1637</td>
+		<td>8</td>
+		<td>25</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/marktargaryen'>marktargaryen</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/0i8ROIEx'>0i8ROIEx</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 11:00 UTC'>Mar 19, 2021</span></td>
+		<td>77</td>
+		<td>1667</td>
+		<td>8</td>
+		<td>23</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/kex09'>kex09</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/ojx6hbgx'>ojx6hbgx</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 03, 2015 at 23:00 UTC'>Oct 03, 2015</span></td>
+		<td>29</td>
+		<td>1682</td>
+		<td>8</td>
+		<td>23</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/kimouu'>kimouu</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/bOvwWkBx'>bOvwWkBx</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 07:00 UTC'>Mar 19, 2021</span></td>
+		<td>65</td>
+		<td>1581</td>
+		<td>8</td>
+		<td>22</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/GGw2GYvw'>GGw2GYvw</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 27, 2021 at 07:00 UTC'>Feb 27, 2021</span></td>
+		<td>60</td>
+		<td>1598</td>
+		<td>7</td>
+		<td>23</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/zxbbHwZy'>zxbbHwZy</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 01, 2021 at 07:00 UTC'>Feb 01, 2021</span></td>
+		<td>59</td>
+		<td>1658</td>
+		<td>7</td>
+		<td>23</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/rnbqkrva'>rnbqkrva</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/LP8V3XoO'>LP8V3XoO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 21, 2016 at 00:00 UTC'>Dec 21, 2016</span></td>
+		<td>36</td>
+		<td>1941</td>
+		<td>8</td>
+		<td>25</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/SMioUvey'>SMioUvey</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 26, 2015 at 11:00 UTC'>Sep 26, 2015</span></td>
+		<td>13</td>
+		<td>1703</td>
+		<td>6</td>
+		<td>19</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/byomkesh'>byomkesh</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/9eU05OqQ'>9eU05OqQ</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 21, 2021 at 07:00 UTC'>Feb 21, 2021</span></td>
+		<td>45</td>
+		<td>1614</td>
+		<td>7</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/roman_kh'>roman_kh</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/VGSi2y5M'>VGSi2y5M</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 30, 2016 at 00:00 UTC'>Jun 30, 2016</span></td>
+		<td>38</td>
+		<td>1901</td>
+		<td>7</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/funny_life'>funny_life</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/crVMVeed'>crVMVeed</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 29, 2016 at 00:00 UTC'>May 29, 2016</span></td>
+		<td>20</td>
+		<td>1959</td>
+		<td>7</td>
+		<td>25</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/link'>link</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/FjRxsPpH'>FjRxsPpH</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 20, 2021 at 21:00 UTC'>Jan 20, 2021</span></td>
+		<td>71</td>
+		<td>1770</td>
+		<td>10</td>
+		<td>25</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/kex09'>kex09</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/b5pU7ULP'>b5pU7ULP</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 11:00 UTC'>Mar 13, 2021</span></td>
+		<td>81</td>
+		<td>1683</td>
+		<td>7</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/basschess_1989'>basschess_1989</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/t9zbPurX'>t9zbPurX</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 03, 2016 at 00:00 UTC'>Aug 03, 2016</span></td>
+		<td>34</td>
+		<td>1836</td>
+		<td>11</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/fire_starter'>fire_starter</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/ei13Cboo'>ei13Cboo</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eeastern' title='Eastern'>ea</span></td>
+		<td><span class='info' title='Sep 25, 2015 at 11:00 UTC'>Sep 25, 2015</span></td>
+		<td>14</td>
+		<td>1525</td>
+		<td>5</td>
+		<td>21</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/daraiki'>daraiki</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/8oFDvJRh'>8oFDvJRh</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 23, 2016 at 01:00 UTC'>Jan 23, 2016</span></td>
+		<td>30</td>
+		<td>1796</td>
+		<td>11</td>
+		<td>23</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/antibot'>antibot</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/IyyOLA4z'>IyyOLA4z</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 22, 2017 at 00:00 UTC'>Jan 22, 2017</span></td>
+		<td>33</td>
+		<td>1818</td>
+		<td>9</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/isPaAnbT'>isPaAnbT</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 02, 2021 at 07:00 UTC'>Feb 02, 2021</span></td>
+		<td>61</td>
+		<td>1664</td>
+		<td>7</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/thatwasbad'>thatwasbad</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/8t8wgPnG'>8t8wgPnG</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 30, 2021 at 07:00 UTC'>Jan 30, 2021</span></td>
+		<td>73</td>
+		<td>1596</td>
+		<td>7</td>
+		<td>25</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/thatwasbad'>thatwasbad</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/0Aa1NBh5'>0Aa1NBh5</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 11:00 UTC'>Mar 14, 2021</span></td>
+		<td>74</td>
+		<td>1657</td>
+		<td>10</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/kotov_syndrome'>kotov_syndrome</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/xvVmxPBN'>xvVmxPBN</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 08, 2017 at 00:00 UTC'>Apr 08, 2017</span></td>
+		<td>21</td>
+		<td>1793</td>
+		<td>9</td>
+		<td>23</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/jvFlxEro'>jvFlxEro</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 27, 2021 at 07:00 UTC'>Jan 27, 2021</span></td>
+		<td>68</td>
+		<td>1639</td>
+		<td>8</td>
+		<td>23</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/thatwasbad'>thatwasbad</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/4CHXvz4S'>4CHXvz4S</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 21:00 UTC'>Mar 21, 2021</span></td>
+		<td>55</td>
+		<td>1666</td>
+		<td>10</td>
+		<td>26</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/wishgrantor'>wishgrantor</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/61M2sZIz'>61M2sZIz</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 02, 2021 at 07:00 UTC'>Mar 02, 2021</span></td>
+		<td>73</td>
+		<td>1569</td>
+		<td>6</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/ultimatesuperplayer'>ultimatesuperplayer</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/uALL6IgT'>uALL6IgT</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 11:00 UTC'>Jan 28, 2021</span></td>
+		<td>71</td>
+		<td>1720</td>
+		<td>8</td>
+		<td>26</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/vadimst'>vadimst</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/PMhqoqMP'>PMhqoqMP</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 25, 2017 at 00:00 UTC'>Jan 25, 2017</span></td>
+		<td>36</td>
+		<td>1858</td>
+		<td>10</td>
+		<td>24</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/wZ9bE4xl'>wZ9bE4xl</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 03, 2019 at 00:00 UTC'>Aug 03, 2019</span></td>
+		<td>34</td>
+		<td>1782</td>
+		<td>12</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/cro-c0p'>cro-c0p</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/chbEbucy'>chbEbucy</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 13, 2021 at 16:00 UTC'>Jan 13, 2021</span></td>
+		<td>113</td>
+		<td>1655</td>
+		<td>9</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/yabbadabbadooooooo'>yabbadabbadooooooo</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/aq6Hgx4R'>aq6Hgx4R</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 11:00 UTC'>Feb 28, 2021</span></td>
+		<td>87</td>
+		<td>1672</td>
+		<td>9</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/solomon_key'>solomon_key</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/mkNxTl5n'>mkNxTl5n</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 26, 2016 at 00:00 UTC'>Dec 26, 2016</span></td>
+		<td>30</td>
+		<td>1892</td>
+		<td>8</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/aC1RFjum'>aC1RFjum</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 11:00 UTC'>Mar 20, 2021</span></td>
+		<td>65</td>
+		<td>1677</td>
+		<td>7</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/kotov_syndrome'>kotov_syndrome</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/eJS8zqmO'>eJS8zqmO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 01, 2021 at 21:00 UTC'>Feb 01, 2021</span></td>
+		<td>70</td>
+		<td>1703</td>
+		<td>10</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/basschess_1989'>basschess_1989</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/wfTpYE36'>wfTpYE36</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eweekly' title='Weekly'>we</span></td>
+		<td><span class='info' title='Jun 16, 2017 at 19:00 UTC'>Jun 16, 2017</span></td>
+		<td>111</td>
+		<td>1792</td>
+		<td>17</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/sportsment'>sportsment</a></td>
+		<td>100</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/jcnFzUOl'>jcnFzUOl</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 29, 2016 at 00:00 UTC'>Aug 29, 2016</span></td>
+		<td>46</td>
+		<td>1849</td>
+		<td>8</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/HL604EHy'>HL604EHy</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Aug 16, 2020 at 01:30 UTC'>Aug 16, 2020</span></td>
+		<td>15</td>
+		<td>1590</td>
+		<td>8</td>
+		<td>23</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/paper2019'>paper2019</a></td>
+		<td>24</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/3CygnTY3'>3CygnTY3</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 04, 2021 at 11:00 UTC'>Feb 04, 2021</span></td>
+		<td>80</td>
+		<td>1665</td>
+		<td>8</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/rr007'>rr007</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/J1Ad4f12'>J1Ad4f12</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 21:00 UTC'>Feb 07, 2021</span></td>
+		<td>71</td>
+		<td>1706</td>
+		<td>11</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/cro-c0p'>cro-c0p</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/uTggVZoC'>uTggVZoC</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 12, 2021 at 11:00 UTC'>Mar 12, 2021</span></td>
+		<td>92</td>
+		<td>1686</td>
+		<td>9</td>
+		<td>23</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/nikodem4545'>nikodem4545</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/8Wp1CuUP'>8Wp1CuUP</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 11:00 UTC'>Mar 11, 2021</span></td>
+		<td>109</td>
+		<td>1624</td>
+		<td>9</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/ZYyQNTlv'>ZYyQNTlv</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 16, 2021 at 07:00 UTC'>Feb 16, 2021</span></td>
+		<td>60</td>
+		<td>1694</td>
+		<td>7</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/yeaithinkso'>yeaithinkso</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/KmFTrz0W'>KmFTrz0W</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 22, 2015 at 23:00 UTC'>Oct 22, 2015</span></td>
+		<td>19</td>
+		<td>1675</td>
+		<td>8</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/calvirno'>calvirno</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/AfQMtHVH'>AfQMtHVH</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 06, 2021 at 11:00 UTC'>Feb 06, 2021</span></td>
+		<td>93</td>
+		<td>1680</td>
+		<td>8</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/lopdatynko'>lopdatynko</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/rYzJvZdP'>rYzJvZdP</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 03:00 UTC'>Jan 28, 2021</span></td>
+		<td>40</td>
+		<td>1684</td>
+		<td>12</td>
+		<td>26</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/ultimatesuperplayer'>ultimatesuperplayer</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/ah9ywNS6'>ah9ywNS6</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 01, 2019 at 00:00 UTC'>Jul 01, 2019</span></td>
+		<td>52</td>
+		<td>1835</td>
+		<td>9</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/cro-c0p'>cro-c0p</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/T8za8x3n'>T8za8x3n</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 09, 2021 at 07:00 UTC'>Mar 09, 2021</span></td>
+		<td>66</td>
+		<td>1637</td>
+		<td>8</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/taeth'>taeth</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/P3UKcFA7'>P3UKcFA7</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 29, 2017 at 00:00 UTC'>Jun 29, 2017</span></td>
+		<td>26</td>
+		<td>1915</td>
+		<td>7</td>
+		<td>21</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/montrea13x'>montrea13x</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/iirIx2Dd'>iirIx2Dd</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 07:00 UTC'>Mar 22, 2021</span></td>
+		<td>50</td>
+		<td>1663</td>
+		<td>7</td>
+		<td>25</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/thenutcrusher'>thenutcrusher</a></td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/ZEl6hxVc'>ZEl6hxVc</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 30, 2017 at 00:00 UTC'>Jul 30, 2017</span></td>
+		<td>28</td>
+		<td>1858</td>
+		<td>6</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/chesstitans92'>chesstitans92</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/MOn0DW6y'>MOn0DW6y</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 26, 2021 at 11:00 UTC'>Jan 26, 2021</span></td>
+		<td>63</td>
+		<td>1669</td>
+		<td>9</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/qrzNRPh5'>qrzNRPh5</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 11:00 UTC'>Feb 07, 2021</span></td>
+		<td>82</td>
+		<td>1716</td>
+		<td>7</td>
+		<td>24</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/bertfighter'>bertfighter</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/RvkS9fSj'>RvkS9fSj</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 31, 2021 at 21:00 UTC'>Jan 31, 2021</span></td>
+		<td>75</td>
+		<td>1705</td>
+		<td>8</td>
+		<td>26</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/descon'>descon</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/MHDCPLQe'>MHDCPLQe</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='May 21, 2020 at 09:00 UTC'>May 21, 2020</span></td>
+		<td>90</td>
+		<td>1631</td>
+		<td>9</td>
+		<td>23</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/grohochetgrom'>grohochetgrom</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/nJZJ8oJA'>nJZJ8oJA</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 11, 2016 at 00:00 UTC'>May 11, 2016</span></td>
+		<td>29</td>
+		<td>1995</td>
+		<td>10</td>
+		<td>23</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/tcHqfxlW'>tcHqfxlW</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 28, 2016 at 00:00 UTC'>Nov 28, 2016</span></td>
+		<td>34</td>
+		<td>1935</td>
+		<td>10</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/jt9iflWh'>jt9iflWh</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 21:00 UTC'>Feb 18, 2021</span></td>
+		<td>71</td>
+		<td>1721</td>
+		<td>9</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/ahmedsudan'>ahmedsudan</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/8IrK8ydL'>8IrK8ydL</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 26, 2017 at 00:00 UTC'>Jan 26, 2017</span></td>
+		<td>44</td>
+		<td>1872</td>
+		<td>8</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/xniQvQ5H'>xniQvQ5H</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 24, 2021 at 11:00 UTC'>Jan 24, 2021</span></td>
+		<td>88</td>
+		<td>1665</td>
+		<td>8</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/psamhie'>psamhie</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/1OTlhSka'>1OTlhSka</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 20, 2016 at 00:00 UTC'>Dec 20, 2016</span></td>
+		<td>40</td>
+		<td>1851</td>
+		<td>10</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/azzarrak'>azzarrak</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/AWdmMy2f'>AWdmMy2f</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 22, 2016 at 01:00 UTC'>Feb 22, 2016</span></td>
+		<td>34</td>
+		<td>1905</td>
+		<td>12</td>
+		<td>26</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/c1lY3Xbr'>c1lY3Xbr</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 07:00 UTC'>Mar 20, 2021</span></td>
+		<td>63</td>
+		<td>1560</td>
+		<td>7</td>
+		<td>23</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/godofrapid'>godofrapid</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/2gPYFwhq'>2gPYFwhq</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 10, 2021 at 07:00 UTC'>Mar 10, 2021</span></td>
+		<td>55</td>
+		<td>1614</td>
+		<td>8</td>
+		<td>23</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/grabthem'>grabthem</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/irQddJZ8'>irQddJZ8</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 20, 2020 at 00:00 UTC'>Jan 20, 2020</span></td>
+		<td>39</td>
+		<td>1799</td>
+		<td>12</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/botantibot'>botantibot</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/rZ9IwXcd'>rZ9IwXcd</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 27, 2021 at 21:00 UTC'>Jan 27, 2021</span></td>
+		<td>62</td>
+		<td>1685</td>
+		<td>8</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/dragonissimo'>dragonissimo</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/JVxKKi5d'>JVxKKi5d</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 09, 2016 at 01:00 UTC'>Feb 09, 2016</span></td>
+		<td>19</td>
+		<td>1815</td>
+		<td>10</td>
+		<td>23</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/jeff-thekiller'>jeff-thekiller</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/oeNx1AQp'>oeNx1AQp</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 15, 2016 at 01:00 UTC'>Feb 15, 2016</span></td>
+		<td>28</td>
+		<td>1850</td>
+		<td>9</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/jeff-thekiller'>jeff-thekiller</a></td>
+		<td>80</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/Xzpvm34W'>Xzpvm34W</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 09, 2016 at 00:00 UTC'>May 09, 2016</span></td>
+		<td>36</td>
+		<td>2004</td>
+		<td>12</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/goLyULo9'>goLyULo9</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 04, 2016 at 00:00 UTC'>Aug 04, 2016</span></td>
+		<td>25</td>
+		<td>1888</td>
+		<td>7</td>
+		<td>22</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/pandaa'>pandaa</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/02wgfySo'>02wgfySo</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 24, 2016 at 00:00 UTC'>Aug 24, 2016</span></td>
+		<td>23</td>
+		<td>1691</td>
+		<td>5</td>
+		<td>20</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/fire_starter'>fire_starter</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/DPIeaDmv'>DPIeaDmv</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 18, 2016 at 00:00 UTC'>Oct 18, 2016</span></td>
+		<td>43</td>
+		<td>1879</td>
+		<td>8</td>
+		<td>23</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/truthinthedetails'>truthinthedetails</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/1oQiSR4A'>1oQiSR4A</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 03, 2020 at 00:00 UTC'>Feb 03, 2020</span></td>
+		<td>34</td>
+		<td>1782</td>
+		<td>9</td>
+		<td>26</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/strangeopenings1'>strangeopenings1</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/NGltQnvj'>NGltQnvj</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Nov 19, 2020 at 05:00 UTC'>Nov 19, 2020</span></td>
+		<td>49</td>
+		<td>1671</td>
+		<td>11</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/edithputhie'>edithputhie</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/2vxwl2fF'>2vxwl2fF</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 15, 2021 at 07:00 UTC'>Feb 15, 2021</span></td>
+		<td>53</td>
+		<td>1625</td>
+		<td>8</td>
+		<td>26</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/douthy'>douthy</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/4WAhx7Ie'>4WAhx7Ie</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 19, 2021 at 11:00 UTC'>Feb 19, 2021</span></td>
+		<td>78</td>
+		<td>1666</td>
+		<td>8</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/bhuvii'>bhuvii</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/4tFwm8mJ'>4tFwm8mJ</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 25, 2021 at 07:00 UTC'>Feb 25, 2021</span></td>
+		<td>60</td>
+		<td>1579</td>
+		<td>7</td>
+		<td>23</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/vishal1998'>vishal1998</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/A6mZkYyT'>A6mZkYyT</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 07, 2021 at 11:00 UTC'>Mar 07, 2021</span></td>
+		<td>65</td>
+		<td>1587</td>
+		<td>9</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/zooey'>zooey</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/13D3wrop'>13D3wrop</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 11:00 UTC'>Mar 17, 2021</span></td>
+		<td>80</td>
+		<td>1613</td>
+		<td>8</td>
+		<td>23</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/victoriafunmi'>victoriafunmi</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/79BHl3Ce'>79BHl3Ce</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 26, 2021 at 11:00 UTC'>Feb 26, 2021</span></td>
+		<td>87</td>
+		<td>1626</td>
+		<td>7</td>
+		<td>23</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/ultimatesuperplayer'>ultimatesuperplayer</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/QnwYreMZ'>QnwYreMZ</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 07:00 UTC'>Feb 18, 2021</span></td>
+		<td>50</td>
+		<td>1638</td>
+		<td>8</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/balelol15'>balelol15</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/yGMjJ2b6'>yGMjJ2b6</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 24, 2019 at 00:00 UTC'>Oct 24, 2019</span></td>
+		<td>38</td>
+		<td>1772</td>
+		<td>10</td>
+		<td>26</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/kSxLn9D4'>kSxLn9D4</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 15, 2021 at 11:00 UTC'>Mar 15, 2021</span></td>
+		<td>94</td>
+		<td>1662</td>
+		<td>8</td>
+		<td>25</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/kex09'>kex09</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/fgXagf5x'>fgXagf5x</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 18, 2018 at 00:00 UTC'>May 18, 2018</span></td>
+		<td>67</td>
+		<td>1730</td>
+		<td>11</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/noworries'>noworries</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/wAJ6owU9'>wAJ6owU9</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 26, 2021 at 21:00 UTC'>Jan 26, 2021</span></td>
+		<td>84</td>
+		<td>1705</td>
+		<td>9</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/dragonissimo'>dragonissimo</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/7kTL8Zvh'>7kTL8Zvh</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eweekly' title='Weekly'>we</span></td>
+		<td><span class='info' title='Mar 27, 2020 at 19:00 UTC'>Mar 27, 2020</span></td>
+		<td>209</td>
+		<td>1672</td>
+		<td>14</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/viaiv'>viaiv</a></td>
+		<td>114</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/TZx7hrVJ'>TZx7hrVJ</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Aug 18, 2020 at 05:00 UTC'>Aug 18, 2020</span></td>
+		<td>39</td>
+		<td>1759</td>
+		<td>9</td>
+		<td>26</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/lunchisonme'>lunchisonme</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/rn6g7Mrt'>rn6g7Mrt</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 17, 2017 at 00:00 UTC'>Jan 17, 2017</span></td>
+		<td>38</td>
+		<td>1856</td>
+		<td>8</td>
+		<td>26</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/bookerd'>bookerd</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/GC0U4ED1'>GC0U4ED1</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 16, 2021 at 11:00 UTC'>Mar 16, 2021</span></td>
+		<td>82</td>
+		<td>1668</td>
+		<td>7</td>
+		<td>24</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/marktargaryen'>marktargaryen</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/u9Cc7r3P'>u9Cc7r3P</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 10, 2016 at 00:00 UTC'>Jan 10, 2016</span></td>
+		<td>34</td>
+		<td>1718</td>
+		<td>9</td>
+		<td>25</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/byomkesh'>byomkesh</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/bXiGmK5e'>bXiGmK5e</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 01, 2017 at 00:00 UTC'>Feb 01, 2017</span></td>
+		<td>35</td>
+		<td>1886</td>
+		<td>8</td>
+		<td>24</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/azzarrak'>azzarrak</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/DgXOgfux'>DgXOgfux</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 22, 2015 at 23:00 UTC'>Jun 22, 2015</span></td>
+		<td>23</td>
+		<td>1552</td>
+		<td>11</td>
+		<td>22</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/chris240zx'>chris240zx</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/MkuMTiCE'>MkuMTiCE</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 02, 2017 at 00:00 UTC'>Jan 02, 2017</span></td>
+		<td>30</td>
+		<td>1903</td>
+		<td>7</td>
+		<td>24</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/wswqZk59'>wswqZk59</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 11:00 UTC'>Mar 08, 2021</span></td>
+		<td>85</td>
+		<td>1587</td>
+		<td>8</td>
+		<td>23</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/archadia'>archadia</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/BK1L4q4k'>BK1L4q4k</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 21, 2021 at 07:00 UTC'>Jan 21, 2021</span></td>
+		<td>76</td>
+		<td>1560</td>
+		<td>8</td>
+		<td>23</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/ultimatesuperplayer'>ultimatesuperplayer</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/ZApa9uK9'>ZApa9uK9</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 16, 2019 at 00:00 UTC'>Aug 16, 2019</span></td>
+		<td>39</td>
+		<td>1776</td>
+		<td>10</td>
+		<td>26</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/raicosta'>raicosta</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/Dz1gWfD7'>Dz1gWfD7</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Eweekly' title='Weekly'>we</span></td>
+		<td><span class='info' title='Jun 15, 2018 at 19:00 UTC'>Jun 15, 2018</span></td>
+		<td>156</td>
+		<td>1797</td>
+		<td>13</td>
+		<td>25</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/nookie10'>nookie10</a></td>
+		<td>139</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/88kwKrt0'>88kwKrt0</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 13, 2016 at 00:00 UTC'>Jan 13, 2016</span></td>
+		<td>36</td>
+		<td>1780</td>
+		<td>10</td>
+		<td>21</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/am-veriitas'>am-veriitas</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/NZiIcANL'>NZiIcANL</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 05, 2016 at 00:00 UTC'>Sep 05, 2016</span></td>
+		<td>31</td>
+		<td>1807</td>
+		<td>9</td>
+		<td>24</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/6pk9gwb9'>6pk9gwb9</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 21, 2016 at 00:00 UTC'>Apr 21, 2016</span></td>
+		<td>30</td>
+		<td>1867</td>
+		<td>10</td>
+		<td>24</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/diepiecesdie'>diepiecesdie</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/XBi3nLqW'>XBi3nLqW</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 23, 2019 at 00:00 UTC'>Sep 23, 2019</span></td>
+		<td>50</td>
+		<td>1725</td>
+		<td>12</td>
+		<td>24</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/dreadful'>dreadful</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/EXNUUy3T'>EXNUUy3T</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 21:00 UTC'>Feb 11, 2021</span></td>
+		<td>77</td>
+		<td>1725</td>
+		<td>7</td>
+		<td>25</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/marktargaryen'>marktargaryen</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/dAXzHchO'>dAXzHchO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 03, 2019 at 00:00 UTC'>Dec 03, 2019</span></td>
+		<td>56</td>
+		<td>1753</td>
+		<td>10</td>
+		<td>24</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/a_k_47'>a_k_47</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/SiYwFukN'>SiYwFukN</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 20, 2019 at 00:00 UTC'>Sep 20, 2019</span></td>
+		<td>42</td>
+		<td>1780</td>
+		<td>11</td>
+		<td>25</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/cro-c0p'>cro-c0p</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/xpl6F96U'>xpl6F96U</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Jan 19, 2021 at 21:00 UTC'>Jan 19, 2021</span></td>
+		<td>67</td>
+		<td>1766</td>
+		<td>8</td>
+		<td>26</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/forgetnot'>forgetnot</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/L0TpGSvZ'>L0TpGSvZ</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 27, 2017 at 00:00 UTC'>Jun 27, 2017</span></td>
+		<td>27</td>
+		<td>1785</td>
+		<td>8</td>
+		<td>23</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/forhayley'>forhayley</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/i5dHcWJv'>i5dHcWJv</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 29, 2015 at 00:00 UTC'>Nov 29, 2015</span></td>
+		<td>22</td>
+		<td>1730</td>
+		<td>10</td>
+		<td>22</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/azzarrakk'>azzarrakk</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/KEDwVwgO'>KEDwVwgO</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Mar 17, 2021 at 07:00 UTC'>Mar 17, 2021</span></td>
+		<td>65</td>
+		<td>1556</td>
+		<td>8</td>
+		<td>23</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/drooksh'>drooksh</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/48at7P0a'>48at7P0a</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 06, 2017 at 00:00 UTC'>Jun 06, 2017</span></td>
+		<td>28</td>
+		<td>1856</td>
+		<td>7</td>
+		<td>24</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/winleggs'>winleggs</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/cSgu8v4O'>cSgu8v4O</a></td>
+		<td><span class='info Vantichess' title='Antichess'>an</span>/<span class='info Ehourly' title='Hourly'>ho</span></td>
+		<td><span class='info' title='Aug 15, 2020 at 05:00 UTC'>Aug 15, 2020</span></td>
+		<td>45</td>
+		<td>1705</td>
+		<td>9</td>
+		<td>25</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/bluebird99'>bluebird99</a></td>
+		<td>39</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>
