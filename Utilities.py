@@ -1214,7 +1214,7 @@ class ArenaCategory:
 		
 		# List or graph?
 		File.write("\t<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>\n")
-		File.write(f"\t\t<input type='radio' name='Type' value='list' id='list'{' checked' if Type == 'list' else ''}><label for='list'><span class='VariantIcon'>?</span> List</label>")
+		File.write(f"\t\t<input type='radio' name='Type' value='list' id='list'{' checked' if Type == 'list' else ''}><label for='list'><span class='VariantIcon'>?</span> List</label>\n")
 		File.write(f"\t\t<input type='radio' name='Type' value='graph' id='graph'{' checked' if Type == 'graph' else ''}><label for='graph'><span class='VariantIcon'>9</span> Graph</label>")
 		File.write("\t</span>\n")
 		
@@ -1253,11 +1253,11 @@ class ArenaCategory:
 	def _MakeRedirects(self):
 		self.PrintMessage("Building redirect pages...")
 		Redirects = {
-			"trophies.html": 	f"{self._PathWeb}list_players_trophies.html", 
-			"index.html":		f"{self._PathWeb}list_players_points.html",
-			"events.html":		f"{self._PathWeb}list_players_events.html",
-			"maximum.html":		f"{self._PathWeb}list_players_maximum.html",
-			"stats.html":		f"{self._PathWeb}list_arenas_players.html"
+			"trophies.html": 	f"list_players_trophies.html", 
+			"index.html":		f"list_players_points.html",
+			"events.html":		f"list_players_events.html",
+			"maximum.html":		f"list_players_maximum.html",
+			"stats.html":		f"list_arenas_players.html"
 		}
 		for OldPage in Redirects:
 			NewPage = Redirects[OldPage]
