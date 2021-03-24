@@ -7,10 +7,10 @@ set /a "hour=!hour: =!"
 set /a "minu=%time:~3,2%"
 set /a "minu=!minu: =!"
 if !minu! LEQ 15 (
-	set /a "delay=(15-!minu!)*60"
+	set /a "delay=(15-!minu!)*60+21600"
 )
 if !minu! GTR 15 (
-	set /a "delay=(75-!minu!)*60"
+	set /a "delay=(75-!minu!)*60+21600"
 )
 timeout !delay!
 
@@ -19,13 +19,7 @@ set updtime=%date%, %time%
 git pull
 FetchData.py
 FetchDataSpecial.py
-Rankings.py
-ScanPlayers.py
-if !hour! GTR 22 (
-	MakePlots.py
-	RankingsUsers.py
-)
-Website.py
+Caller.py
 git add --all --verbose
 git commit -m "Auto-updater - %updtime%" --verbose
 git push --verbose
