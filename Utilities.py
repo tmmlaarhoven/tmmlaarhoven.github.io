@@ -9,6 +9,7 @@ import math
 import datetime
 import numpy as np
 import matplotlib.pyplot as mpl
+import random
 from collections import OrderedDict
 from typing import List, Union
 from matplotlib.ticker import PercentFormatter
@@ -91,6 +92,73 @@ for E in PureEvents:
 		PureEvents[E]["RGB"] = Colors100[PureEvents[E]["WebOrder"] - 1]
 	else:
 		PureEvents[E]["RGB"] = Colors100[PureEvents[E]["WebOrder"]]
+
+
+
+def FixPoints():
+	for V in AllVariants:
+		for E in AllEvents:
+			if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json") and os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_arenas.ndjson"):
+				print(f"Fixing {V} / {E}.")
+				TotalPoints = 0
+				with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_arenas.ndjson", "r") as ArenaFile:
+					for Line in ArenaFile:
+						ArenaData = json.loads(Line)
+						TotalPoints = TotalPoints + ArenaData["TotalPoints"]
+				with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json", "r") as CatStatFile:
+					CatStats = json.load(CatStatFile)
+				print(f"New total for {V} / {E}: from {CatStats['TotalPoints']} to {TotalPoints}.")
+				CatStats["TotalPoints"] = TotalPoints
+				if "Points" in CatStats:
+					del CatStats["Points"]
+				with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json", "w") as CatStatFile:
+					CatStatFile.write(json.dumps(CatStats))
+
+
+# 
+def SomePieChart():
+	
+	mpl.close()
+	mpl.figure()
+	valout = list()
+	colout = list()
+	labout = list()
+	valin = list()
+	colin = list()
+	labin = list()
+	
+	key = "Games"
+	NewPureVariants = PureVariants.copy()
+	NewPureVariants = dict(sorted(NewPureVariants.items(), key = lambda item: item[1]["WebOrder"]))
+	for V in NewPureVariants:
+		for E in PureEvents:
+			if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json"):
+				with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json", "r") as CatStatFile:
+					CatStats = json.load(CatStatFile)
+				newval = CatStats[key]	
+			else:
+				newval = 0
+			valin.append(newval)
+			colin.append(tuple(x/255. for x in PureEvents[E]["RGB"]))
+			labin.append(PureEvents[E]["Code"])
+		if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\all\\{V}_all_ranking.json"):
+			with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\all\\{V}_all_ranking.json", "r") as CatStatFile:
+				CatStats = json.load(CatStatFile)
+			newval = CatStats[key]	
+		else:
+			newval = 0
+		valout.append(newval)
+		colout.append(tuple(x/255. for x in NewPureVariants[V]["RGB"]))
+		labout.append(NewPureVariants[V]["Name"])
+		
+	fig1, ax1 = mpl.subplots()
+	ax1.pie(valout, radius=1, colors=colout, labels=labout, rotatelabels =True, labeldistance=1.1, textprops={'fontsize': 10}, wedgeprops=dict(width=0.4, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
+	#ax1.pie(valin, radius=0.6, colors=colin, labels=labin, labeldistance=1.1, textprops={'fontsize': 0}, wedgeprops=dict(width=0.3, edgecolor='w'))
+	ax1.pie(valin, radius=0.6, colors=colin, wedgeprops=dict(width=0.3, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
+	ax1.set(aspect="equal")
+	
+	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\pie_{key}.png")
+	mpl.clf()	
 
 #######################################################################################################################################################################################
 #######################################################################################################################################################################################
@@ -404,7 +472,7 @@ class ArenaCategory:
 				os.remove(self._FileRankingInfo)
 		else:
 			
-			self._RankingInfo = {"Events": 0, "Participants": 0, "Games": 0, "Moves": 0, "WhiteWins": 0, "BlackWins": 0, "Berserks": 0, "TotalPoints": 0, "TotalRating": 0, "FirstStart": "2030-01-01T00:00:00.000Z", "FirstID": "XXXXXXXX", "LastStart": "2010-01-01T00:00:00.000Z", "LastID": "YYYYYYYY", "MaxUsers": 0, "MaxUsersID": "ZZZZZZZZ", "TopScore": 0, "TopScoreID": "WWWWWWWW", "TopUser": "-", "Players": 0, "Points": 0}
+			self._RankingInfo = {"Events": 0, "Participants": 0, "Games": 0, "Moves": 0, "WhiteWins": 0, "BlackWins": 0, "Berserks": 0, "TotalPoints": 0, "TotalRating": 0, "FirstStart": "2030-01-01T00:00:00.000Z", "FirstID": "XXXXXXXX", "LastStart": "2010-01-01T00:00:00.000Z", "LastID": "YYYYYYYY", "MaxUsers": 0, "MaxUsersID": "ZZZZZZZZ", "TopScore": 0, "TopScoreID": "WWWWWWWW", "TopUser": "-", "Players": 0}
 			if len(self._DataList) > 0:
 				for ID in self._DataList:
 					self._RankingInfo["FirstID"] = self._DataList[ID]["ID"]
