@@ -115,8 +115,8 @@ def FixPoints():
 					CatStatFile.write(json.dumps(CatStats))
 
 
-# 
-def SomePieChart():
+# For the index page
+def SomePieChart(Key, Title):
 	
 	mpl.close()
 	mpl.figure()
@@ -127,7 +127,7 @@ def SomePieChart():
 	colin = list()
 	labin = list()
 	
-	key = "Games"
+	#key = "Games"
 	NewPureVariants = PureVariants.copy()
 	NewPureVariants = dict(sorted(NewPureVariants.items(), key = lambda item: item[1]["WebOrder"]))
 	for V in NewPureVariants:
@@ -135,7 +135,7 @@ def SomePieChart():
 			if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json"):
 				with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json", "r") as CatStatFile:
 					CatStats = json.load(CatStatFile)
-				newval = CatStats[key]	
+				newval = CatStats[Key]	
 			else:
 				newval = 0
 			valin.append(newval)
@@ -144,7 +144,7 @@ def SomePieChart():
 		if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\all\\{V}_all_ranking.json"):
 			with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\all\\{V}_all_ranking.json", "r") as CatStatFile:
 				CatStats = json.load(CatStatFile)
-			newval = CatStats[key]	
+			newval = CatStats[Key]	
 		else:
 			newval = 0
 		valout.append(newval)
@@ -152,13 +152,58 @@ def SomePieChart():
 		labout.append(NewPureVariants[V]["Name"])
 		
 	fig1, ax1 = mpl.subplots()
-	ax1.pie(valout, radius=1, colors=colout, labels=labout, rotatelabels =True, labeldistance=1.1, textprops={'fontsize': 10}, wedgeprops=dict(width=0.4, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
+	ax1.pie(valout, radius=1, colors=colout, labels=labout, rotatelabels =True, labeldistance=1.05, textprops={'fontsize': 10}, wedgeprops=dict(width=0.4, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
 	#ax1.pie(valin, radius=0.6, colors=colin, labels=labin, labeldistance=1.1, textprops={'fontsize': 0}, wedgeprops=dict(width=0.3, edgecolor='w'))
 	ax1.pie(valin, radius=0.6, colors=colin, wedgeprops=dict(width=0.3, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
 	ax1.set(aspect="equal")
-	
-	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\pie_{key}.png")
+	ax1.set_title(Title, fontdict={'fontsize': 14})
+	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\pie_{Key}.png")
 	mpl.clf()	
+	
+
+
+def SomeBoxPlot(Function, Filename, Title):
+# win/draw/loss
+# berserk percentages
+# high score
+# participants per event
+# average rating of say last 100 events
+# moves per game of say last 100 or 1000 events
+
+	mpl.close()
+	mpl.figure()
+	val = list()
+	col = list()
+	lab = list()
+	fig1, ax1 = mpl.subplots()
+	
+	#key = "Games"
+	NewPureVariants = PureVariants.copy()
+	NewPureVariants = dict(sorted(NewPureVariants.items(), key = lambda item: item[1]["WebOrder"]))
+	for Index, V in enumerate(NewPureVariants):
+		newlist = list()
+		if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\hourly\\{V}_hourly_arenas_newest.ndjson"):
+			with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\hourly\\{V}_hourly_arenas_newest.ndjson", "r") as ArenaFile:
+				for Line in ArenaFile:
+					ArenaData = json.loads(Line)
+					newval = Function(ArenaData)
+					newlist.append(newval)
+		col1 = (tuple(min(1.,x/200.) for x in NewPureVariants[V]["RGB"]))
+		col2 = (tuple(x/350. for x in NewPureVariants[V]["RGB"]))
+		bp = ax1.boxplot([newlist], positions=[Index], widths=0.8, patch_artist=True)
+		for element in ['boxes', 'whiskers', 'fliers', 'means', 'medians', 'caps']:
+			mpl.setp(bp[element], color=col1)
+		mpl.setp(bp['fliers'], markeredgecolor=col2)
+		mpl.setp(bp['boxes'], facecolor=col2)
+		
+	mpl.xticks(range(15), list(NewPureVariants[x]['Name'] for x in NewPureVariants))
+	mpl.setp(ax1.get_xticklabels(), rotation=45)
+	ax1.set_title(Title, fontdict={'fontsize': 14})
+	ax1.yaxis.grid(True) # Show the horizontal gridlines
+	mpl.tight_layout()
+	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\box_{Filename}.png")
+	mpl.clf()	
+
 
 #######################################################################################################################################################################################
 #######################################################################################################################################################################################
