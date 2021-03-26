@@ -94,7 +94,7 @@ for E in PureEvents:
 		PureEvents[E]["RGB"] = Colors100[PureEvents[E]["WebOrder"]]
 
 
-
+# Temporary function to fix points, which was corrupted for some mixed categories (name changed from "Points" to "TotalPoints" at some point)
 def FixPoints():
 	for V in AllVariants:
 		for E in AllEvents:
@@ -115,8 +115,130 @@ def FixPoints():
 					CatStatFile.write(json.dumps(CatStats))
 
 
-# For the index page
-def SomePieChart(Key, Title):
+# Website: index page
+def BuildIndexPage():
+	
+	# Pie charts
+	SomePieChart(lambda RankingInfo: RankingInfo["Participants"], "participants", "Total participants in each arena category")
+	SomePieChart(lambda RankingInfo: RankingInfo["Events"], "events", "Total events in each arena category")
+	SomePieChart(lambda RankingInfo: RankingInfo["Games"], "games", "Total games played in each arena category")
+	SomePieChart(lambda RankingInfo: RankingInfo["Moves"], "moves", "Total moves made in each arena category")
+	SomePieChart(lambda RankingInfo: RankingInfo["TotalPoints"], "points", "Total points scored in each arena category")
+
+	# Build box plots
+	SomeBoxPlot(lambda ArenaData: ArenaData["Players"], "participants", "Participants per hourly arena")
+	SomeBoxPlot(lambda ArenaData: ArenaData["TotalRating"] / ArenaData["Players"], "rating", "Average rating per hourly arena")
+	SomeBoxPlot(lambda ArenaData: ArenaData["Moves"] / ArenaData["Games"] / 2., "moves", "Moves per player per game in hourly arenas")
+	SomeBoxPlot(lambda ArenaData: ArenaData["TopScore"], "topscore", "Top scores in hourly arenas")
+	SomeBoxPlot(lambda ArenaData: 100. * ArenaData["Berserks"] / ArenaData["Games"] / 2., "berserk", "Berserk rates in hourly arenas")
+	SomeBoxPlot(lambda ArenaData: 100. * (ArenaData["Games"] - ArenaData["WhiteWins"] - ArenaData["BlackWins"]) / ArenaData["Games"], "draws", "Draw rates in hourly arenas")
+	SomeBoxPlot(lambda ArenaData: 100. * (ArenaData["WhiteWins"] + 0.5 * (ArenaData["Games"] - ArenaData["WhiteWins"] - ArenaData["BlackWins"])) / ArenaData["Games"], "white", "White's score in hourly arenas")
+	
+	FilePlayersSorts = {
+		"points": 		{"Name": "Players by total points",		"Plot": "Total points"},
+		"trophies": 	{"Name": "Players by trophies",			"Plot": "Tournament victories"},
+		"events":		{"Name": "Players by events",			"Plot": "Events participated"},
+		#"average":		{"Name": "Players by average score",	"Plot": "Average score"},
+		"maximum":		{"Name": "Players by high score",		"Plot": "High score"},
+		"title":		{"Name": "Players by title",			"Plot": "Titled players by points"}
+	}
+
+	# Sorted partial rankings of arenas
+	FileArenasSorts = {
+		"newest": 		{"Name": "Arenas by date",				"Plot": "Cumulative arenas"},
+		"players": 		{"Name": "Arenas by participants",		"Plot": "Participants"},
+		"points": 		{"Name": "Arenas by points per player",	"Plot": "Points per player"},
+		#"games":		{"Name": "Arenas by games per player",	"Plot": "Games per player"},
+		"moves":		{"Name": "Arenas by moves per game",	"Plot": "Moves per player per game"},
+		"rating":		{"Name": "Arenas by average rating",	"Plot": "Average rating"},
+		"maximum":		{"Name": "Arenas by high score",		"Plot": "High score"},
+		"berserk":		{"Name": "Arenas by berserk rate",		"Plot": "Berserk rate"}
+	}
+
+	# Build actual webpage
+	with open("E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\index.html", "w") as File:
+		File.write("<!DOCTYPE html>\n")
+		File.write("<html lang='en-US'>\n")
+		File.write("<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->\n")
+		File.write("<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->\n")
+		File.write("<head>\n")
+		File.write(f"<title>Lichess Arena Rankings</title>\n")
+		File.write("<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n")
+		File.write("<link rel='icon' type='image/png' href='../favicon.ico'>\n")
+		File.write("<link rel='stylesheet' href='../style-new.css'>\n")
+		File.write("<link rel='stylesheet' href='../style-colors.css'>\n")
+		#File.write("<link rel='stylesheet' href='style-new.css'>\n")
+		File.write("</head>\n\n")
+		File.write("<body>\n")
+		
+		# Begin menu
+		File.write("<div class='menu'>\n")
+		
+		# Information icon
+		File.write("\t<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='index.html'>&#xe005;</a></span>\n")
+		
+		# Variants menu
+		File.write("\t<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>\n")
+		for V, Val in sorted(AllVariants.items(), key = lambda item: item[1]["WebOrder"]):
+			File.write(f"\t\t<input type='radio' name='Variant' value='lichess/rankings/{V}' id='variant-{V}'{' checked' if V == 'all' else ''}><label class='V{V}' for='variant-{V}'><span class='VariantIcon'>{AllVariants[V]['Icon']}</span> {AllVariants[V]['Name'] if V != 'all' else 'All variants'}</label>\n")
+		File.write("\t</span>\n")
+		
+		# Events menu
+		File.write("\t<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>\n")
+		for E, Val in sorted(AllEvents.items(), key = lambda item: item[1]["WebOrder"]):
+			File.write(f"\t\t<input type='radio' name='Event' value='{E}' id='events-{E}'{' checked' if E == 'all' else ''}><label class='E{E}' for='events-{E}'>{AllEvents[E]['Name'] + ' Arenas' if E != 'marathon' else 'Marathons'}</label>\n")
+		File.write("\t</span>\n")
+		
+		# Sorting menu
+		File.write("\t<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>\n")
+		for O in FilePlayersSorts:
+			File.write(f"\t\t<input type='radio' name='Page' value='players_{O}' id='players_{O}'{' checked' if ('players_' + O) == 'players_trophies' else ''}><label for='players_{O}'>{FilePlayersSorts[O]['Name']}</label>\n")
+		for O in FileArenasSorts:
+			File.write(f"\t\t<input type='radio' name='Page' value='arenas_{O}' id='arenas_{O}'><label for='arenas_{O}'>{FileArenasSorts[O]['Name']}</label>\n")
+		File.write("\t</span>\n")
+		
+		# List or graph?
+		File.write("\t<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>\n")
+		File.write(f"\t\t<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>\n")
+		File.write(f"\t\t<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>")
+		File.write("\t</span>\n")
+		
+		File.write("</div>\n\n")				
+		# End menu
+		
+		File.write("<span class='maincontent'>\n")
+		File.write("<!-- START OF ACTUAL CONTENT -->\n\n")
+		
+		File.write("<h1>Lichess Arena Rankings</h1>\n")
+		File.write("The rankings on this webpage are based on all official regularly-scheduled arenas played on <a href='https://lichess.org'>lichess.org</a> (hourly, <2000, <1700, <1600, <1500, <1300, daily, weekly, monthly, yearly, eastern, elite, and shield arenas) as well as the seasonal 24h marathons and the titled arenas. These rankings exclude irregular themed arenas (King's Gambit Blitz Arena, ...), and custom arenas created by users. In total these rankings cover over 400.000 events, in which over 200.000.000 games were played by over 80.000.000 arena participants (over 1.500.000 unique users), and together in all these games the users made over 14.000.000.000 moves. <br/><br/>\n\n")
+		File.write("Some additional, detailed statistics about the rankings can be found below.")
+		
+		File.write("<img src='pie_participants.png' class='Graph'>\n")
+		File.write("<img src='pie_events.png' class='Graph'>\n")
+		File.write("<img src='pie_games.png' class='Graph'>\n")
+		File.write("<img src='pie_moves.png' class='Graph'>\n")
+		File.write("<img src='pie_points.png' class='Graph'>\n")
+		
+		File.write("<img src='box_participants.png' class='Graph'>\n")
+		File.write("<img src='box_rating.png' class='Graph'>\n")
+		File.write("<img src='box_moves.png' class='Graph'>\n")
+		File.write("<img src='box_topscore.png' class='Graph'>\n")
+		File.write("<img src='box_berserk.png' class='Graph'>\n")
+		File.write("<img src='box_draws.png' class='Graph'>\n")
+		File.write("<img src='box_white.png' class='Graph'>\n")
+		
+		
+		
+		File.write("<!-- END OF ACTUAL CONTENT -->\n")
+		File.write("</span>\n")
+		File.write("<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>\n")
+		File.write("<script src='../menu.js'></script>\n")
+		File.write("</body>\n")
+		File.write("</html>\n")
+	
+
+# For the index page: Pie charts
+def SomePieChart(Function, Filename, Title):
 	
 	mpl.close()
 	mpl.figure()
@@ -135,7 +257,7 @@ def SomePieChart(Key, Title):
 			if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json"):
 				with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\{E}\\{V}_{E}_ranking.json", "r") as CatStatFile:
 					CatStats = json.load(CatStatFile)
-				newval = CatStats[Key]	
+				newval = Function(CatStats)	
 			else:
 				newval = 0
 			valin.append(newval)
@@ -144,7 +266,7 @@ def SomePieChart(Key, Title):
 		if os.path.exists(f"E:\\lichess\\tournaments\\rankings\\{V}\\all\\{V}_all_ranking.json"):
 			with open(f"E:\\lichess\\tournaments\\rankings\\{V}\\all\\{V}_all_ranking.json", "r") as CatStatFile:
 				CatStats = json.load(CatStatFile)
-			newval = CatStats[Key]	
+			newval = Function(CatStats)	
 		else:
 			newval = 0
 		valout.append(newval)
@@ -152,23 +274,19 @@ def SomePieChart(Key, Title):
 		labout.append(NewPureVariants[V]["Name"])
 		
 	fig1, ax1 = mpl.subplots()
-	ax1.pie(valout, radius=1, colors=colout, labels=labout, rotatelabels =True, labeldistance=1.05, textprops={'fontsize': 10}, wedgeprops=dict(width=0.4, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
+	ax1.pie(valout, radius=1, colors=colout, labels=labout, rotatelabels=True, labeldistance=1.05, textprops={'fontsize': 10}, wedgeprops=dict(width=0.4, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
 	#ax1.pie(valin, radius=0.6, colors=colin, labels=labin, labeldistance=1.1, textprops={'fontsize': 0}, wedgeprops=dict(width=0.3, edgecolor='w'))
 	ax1.pie(valin, radius=0.6, colors=colin, wedgeprops=dict(width=0.3, linewidth=0.5, edgecolor=(0.5,0.5,0.5)))
 	ax1.set(aspect="equal")
 	ax1.set_title(Title, fontdict={'fontsize': 14})
-	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\pie_{Key}.png")
+	mpl.tight_layout()
+	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\pie_{Filename}.png")
+	print(f"Saving pie_{Filename}.png")
 	mpl.clf()	
 	
 
-
+# For the index page: box plots
 def SomeBoxPlot(Function, Filename, Title):
-# win/draw/loss
-# berserk percentages
-# high score
-# participants per event
-# average rating of say last 100 events
-# moves per game of say last 100 or 1000 events
 
 	mpl.close()
 	mpl.figure()
@@ -197,11 +315,18 @@ def SomeBoxPlot(Function, Filename, Title):
 		mpl.setp(bp['boxes'], facecolor=col2)
 		
 	mpl.xticks(range(15), list(NewPureVariants[x]['Name'] for x in NewPureVariants))
+	if Filename in {"draws", "white", "berserk"}:
+		mpl.gca().yaxis.set_major_formatter(PercentFormatter(decimals = 0))
+	if Filename in {"white", "berserk"}:
+		mpl.gca().set_ylim([0, 100])
+	if Filename in {"draws", "moves", "participants", "topscore"}:
+		mpl.gca().set_ylim([0, None])
 	mpl.setp(ax1.get_xticklabels(), rotation=45)
 	ax1.set_title(Title, fontdict={'fontsize': 14})
 	ax1.yaxis.grid(True) # Show the horizontal gridlines
 	mpl.tight_layout()
-	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\box_{Filename}.png")
+	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\box_{Filename}.png")
+	print(f"Saving box_{Filename}.png")
 	mpl.clf()	
 
 
