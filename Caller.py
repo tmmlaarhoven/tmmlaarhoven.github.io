@@ -14,6 +14,6 @@ for V in AllVariants:
 		Cat[V][E] = ArenaCategory(V, E)
 		Cat[V][E].LoadRankings()
 		Cat[V][E].UpdateRankings()
-		#Cat[V][E].UpdatePlots()
+		Cat[V][E].UpdatePlots()
 		Cat[V][E].UpdateWebsite()
 		del Cat[V][E]
