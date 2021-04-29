@@ -18,7 +18,6 @@ timeout !delay!
 set updtime=%date%, %time%
 git pull
 FetchData.py
-FetchDataSpecial.py
 Caller.py
 git add --all --verbose
 git commit -m "Auto-updater - %updtime%" --verbose
