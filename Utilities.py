@@ -877,14 +877,21 @@ class ArenaCategory:
 							print("RATE LIMIT!")
 							time.sleep(100000)
 					
+						if V == "superblitz":
+							Vp = "blitz"
+						elif V == "hyperbullet":
+							Vp = "bullet"
+						else:
+							Vp = V
+						
 						UserScore = UserResult["score"]
 						UserAPI = json.loads(UserRequest.content)
-						UserGames = UserAPI['perfs'][V]['games']
+						UserGames = UserAPI['perfs'][Vp]['games']
 						UserDays = round((time.time() - UserAPI['createdAt'] / 1000) / 3600 / 24)
 
 						# Don't report 'old' accounts with 'many' games
 						if (UserDays < 100) or (UserGames < 1000):
-							Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}>) ({UserGames} {V} games, {UserDays} days old) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
+							Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}>) ({UserGames} {Vp} games, {UserDays} days old) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
 							Response = Webhook.execute()					
 					
 					
