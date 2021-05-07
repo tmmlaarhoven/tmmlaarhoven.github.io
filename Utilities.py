@@ -868,9 +868,24 @@ class ArenaCategory:
 					UserID = UserResult["username"].lower()
 					
 					
-					if (UserResult["score"] >= 40) and (E in {"2000", "1700", "1600", "1500", "1300"}):
-						Webhook = DiscordWebhook(url = self._Webhook, content = f"{UserID} scored {UserResult['score']} points in [<{E} {V} Arena](https://lichess.org/tournament/{ID}).")
-						Response = Webhook.execute()
+					
+					# Check for sus sandbaggers
+					if (UserResult["score"] >= 40) and (E in {"2000", "1700", "1600", "1500", "1300"}) and (E == self._E) and (V == self._V):
+					
+						UserRequest = requests.get(f"https://lichess.org/api/user/{UserID}")
+						if UserRequest.status_code == 429:
+							print("RATE LIMIT!")
+							time.sleep(100000)
+							
+						UserAPI = json.loads(UserRequest.content)
+						UserGames = UserAPI['perfs'][V]['games']
+						UserDays = round((time.time() - UserAPI['createdAt'] / 1000) / 3600 / 24)
+
+						# Don't report 'old' accounts with 'many' games
+						if (UserDays < 100) or (UserGames < 1000):
+							Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}>) ({UserGames} {V} games, {UserDays} days old) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ArenaID}>).")
+							Response = Webhook.execute()					
+					
 					
 					if UserID not in self._Ranking:
 						# New player
