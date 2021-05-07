@@ -884,7 +884,7 @@ class ArenaCategory:
 
 						# Don't report 'old' accounts with 'many' games
 						if (UserDays < 100) or (UserGames < 1000):
-							Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}>) ({UserGames} {V} games, {UserDays} days old) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ArenaID}>).")
+							Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}>) ({UserGames} {V} games, {UserDays} days old) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
 							Response = Webhook.execute()					
 					
 					
