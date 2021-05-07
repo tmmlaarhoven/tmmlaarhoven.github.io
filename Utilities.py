@@ -490,7 +490,12 @@ class ArenaCategory:
 			for Line in TokenFile:
 				self._APIToken = Line.strip()
 				assert(len(self._APIToken) == 16), f"API token not of length 16."
-	
+
+		# Load boost webhook URL
+		with open(f"E:\\lichess\\webhook.txt", "r") as WebhookFile:
+			for Line in WebhookFile:
+				self._Webhook = Line.strip()
+
 	
 	#######################################################################################################################################################################################
 	#######################################################################################################################################################################################
@@ -860,6 +865,12 @@ class ArenaCategory:
 					UserResult = json.loads(Line)
 					# UserResult: {"rank": 1, "score": 36, "rating": 2267, "username": "kasparovsabe", "title": "FM", "performance": 2454}
 					UserID = UserResult["username"].lower()
+					
+					
+					if (UserResult["score"] >= 40) and (E in {"2000", "1700", "1600", "1500", "1300"}):
+						Webhook = DiscordWebhook(url = self._Webhook, content = f"{UserID} scored {UserResult['score']} points in [<{E} {V} Arena](https://lichess.org/tournament/{ID}).")
+						Response = Webhook.execute()
+					
 					if UserID not in self._Ranking:
 						# New player
 						self._Ranking[UserID] = dict()
