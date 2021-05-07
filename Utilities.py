@@ -868,9 +868,8 @@ class ArenaCategory:
 					UserID = UserResult["username"].lower()
 					
 					
-					
 					# Check for sus sandbaggers
-					if (UserResult["score"] >= 40) and (E in {"2000", "1700", "1600", "1500", "1300"}) and (E == self._E) and (V == self._V):
+					if (UserResult["score"] >= 30) and (E in {"2000", "1700", "1600", "1500", "1300"}) and (E == self._E) and (V == self._V):
 					
 						UserRequest = requests.get(f"https://lichess.org/api/user/{UserID}")
 						if UserRequest.status_code == 429:
@@ -887,11 +886,24 @@ class ArenaCategory:
 						UserScore = UserResult["score"]
 						UserAPI = json.loads(UserRequest.content)
 						UserGames = UserAPI['perfs'][Vp]['games']
+						UserRating = int(UserResult["rating"])
+						ArenaRatingLimit = int(E)
 						UserDays = round((time.time() - UserAPI['createdAt'] / 1000) / 3600 / 24)
 
-						# Don't report 'old' accounts with 'many' games
-						if (UserDays < 100) or (UserGames < 1000):
-							Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}>) ({UserGames} {Vp} games, {UserDays} days old) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
+						# Report high scores for accounts that are at least somewhat new
+						WebReport = False
+						if (UserScore >= 40):
+							if (UserDays < 100) or (UserGames < 1000) or (UserRating < ArenaRatingLimit - 100):
+								WebReport = True
+
+						# Also report lower (but still high-ish) scores for very new accounts
+						elif (UserScore >= 30):
+							if (UserDays < 10) or (UserGames < 100) or (UserRating < ArenaRatingLimit - 200):
+								WebReport = True
+					
+						# Push cases to discord
+						if WebReport:
+							Webhook = DiscordWebhook(url = self._Webhook, content = f"https://lichess.org/@/{UserID}?mod scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
 							Response = Webhook.execute()					
 					
 					
