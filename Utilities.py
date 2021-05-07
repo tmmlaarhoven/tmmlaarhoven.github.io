@@ -876,7 +876,8 @@ class ArenaCategory:
 						if UserRequest.status_code == 429:
 							print("RATE LIMIT!")
 							time.sleep(100000)
-							
+					
+						UserScore = UserResult["score"]
 						UserAPI = json.loads(UserRequest.content)
 						UserGames = UserAPI['perfs'][V]['games']
 						UserDays = round((time.time() - UserAPI['createdAt'] / 1000) / 3600 / 24)
