@@ -875,36 +875,39 @@ class ArenaCategory:
 						if UserRequest.status_code == 429:
 							print("RATE LIMIT!")
 							time.sleep(100000)
-					
-						if V == "superblitz":
-							Vp = "blitz"
-						elif V == "hyperbullet":
-							Vp = "bullet"
-						else:
-							Vp = V
-						
-						UserScore = UserResult["score"]
 						UserAPI = json.loads(UserRequest.content)
-						UserGames = UserAPI['perfs'][Vp]['games']
-						UserRating = int(UserResult["rating"])
-						ArenaRatingLimit = int(E)
-						UserDays = round((time.time() - UserAPI['createdAt'] / 1000) / 3600 / 24)
+						
+						if "perfs" in UserAPI:
+							# Otherwise likely closed account
+							
+							if V == "superblitz":
+								Vp = "blitz"
+							elif V == "hyperbullet":
+								Vp = "bullet"
+							else:
+								Vp = V
+							
+							UserScore = UserResult["score"]
+							UserGames = UserAPI["perfs"][Vp]["games"]
+							UserRating = int(UserResult["rating"])
+							ArenaRatingLimit = int(E)
+							UserDays = round((time.time() - UserAPI["createdAt"] / 1000) / 3600 / 24)
 
-						# Report high scores for accounts that are at least somewhat new
-						WebReport = False
-						if (UserScore >= 40):
-							if (UserDays < 100) or (UserGames < 1000) or (UserRating < ArenaRatingLimit - 100):
-								WebReport = True
+							# Report high scores for accounts that are at least somewhat new
+							WebReport = False
+							if (UserScore >= 40):
+								if (UserDays < 100) or (UserGames < 1000) or (UserRating < ArenaRatingLimit - 100):
+									WebReport = True
 
-						# Also report lower (but still high-ish) scores for very new accounts
-						elif (UserScore >= 30):
-							if (UserDays < 10) or (UserGames < 100) or (UserRating < ArenaRatingLimit - 200):
-								WebReport = True
-					
-						# Push cases to discord
-						if WebReport:
-							Webhook = DiscordWebhook(url = self._Webhook, content = f"https://lichess.org/@/{UserID}?mod scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
-							Response = Webhook.execute()					
+							# Also report lower (but still high-ish) scores for very new accounts
+							elif (UserScore >= 30):
+								if (UserDays < 10) or (UserGames < 100) or (UserRating < ArenaRatingLimit - 200):
+									WebReport = True
+						
+							# Push cases to discord
+							if WebReport:
+								Webhook = DiscordWebhook(url = self._Webhook, content = f"https://lichess.org/@/{UserID}?mod scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
+								Response = Webhook.execute()					
 					
 					
 					if UserID not in self._Ranking:
