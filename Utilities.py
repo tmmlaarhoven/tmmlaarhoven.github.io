@@ -906,7 +906,7 @@ class ArenaCategory:
 						
 							# Push cases to discord
 							if WebReport:
-								Webhook = DiscordWebhook(url = self._Webhook, content = f"https://lichess.org/@/{UserID}?mod scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
+								Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}?mod>) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
 								Response = Webhook.execute()					
 					
 					
