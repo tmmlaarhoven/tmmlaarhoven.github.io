@@ -904,6 +904,10 @@ class ArenaCategory:
 								if (UserDays < 10) or (UserGames < 100) or (UserRating < ArenaRatingLimit - 200):
 									WebReport = True
 						
+							# Do not report if already marked
+							if "tosViolation" in UserAPI:
+								WebReport = False
+						
 							# Push cases to discord
 							if WebReport:
 								Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}?mod>) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
