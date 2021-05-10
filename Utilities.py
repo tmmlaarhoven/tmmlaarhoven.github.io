@@ -894,16 +894,21 @@ class ArenaCategory:
 							UserDays = round((time.time() - UserAPI["createdAt"] / 1000) / 3600 / 24)
 
 							# Thresholds for "extreme" scores per time control
-							ScoreThresholdLow  = {"bullet": 30, "superblitz": 30, "blitz": 25, "rapid": 20}
-							ScoreThresholdHigh = {"bullet": 35, "superblitz": 35, "blitz": 30, "rapid": 25}
-							
-							# Report high scores for accounts that are at least somewhat new
+							ScoreThresholdSuper = {"bullet": 45, "superblitz": 45, "blitz": 40, "rapid": 35}
+							ScoreThresholdHigh  = {"bullet": 35, "superblitz": 35, "blitz": 30, "rapid": 25}
+							ScoreThresholdLow   = {"bullet": 30, "superblitz": 30, "blitz": 25, "rapid": 20}
 							WebReport = False
+							
+							# Always report extremely high scores
+							if (UserScore >= ScoreThresholdSuper[V]):
+								WebReport = True
+
+							# Report high-ish scores for accounts that are somewhat new
 							if (UserScore >= ScoreThresholdHigh[V]):
 								if (UserDays < 100) or (UserGames < 1000) or (UserRating < ArenaRatingLimit - 100):
 									WebReport = True
 
-							# Also report lower (but still high-ish) scores for very new accounts
+							# Report moderately high scores for very new accounts
 							elif (UserScore >= ScoreThresholdLow[V]):
 								if (UserDays < 10) or (UserGames < 100) or (UserRating < ArenaRatingLimit - 200):
 									WebReport = True
