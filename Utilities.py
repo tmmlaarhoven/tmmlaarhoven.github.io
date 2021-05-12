@@ -904,7 +904,7 @@ class ArenaCategory:
 								WebReport = True
 
 							# Report high-ish scores for accounts that are somewhat new
-							if (UserScore >= ScoreThresholdHigh[V]):
+							elif (UserScore >= ScoreThresholdHigh[V]):
 								if (UserDays < 100) or (UserGames < 1000) or (UserRating < ArenaRatingLimit - 100):
 									WebReport = True
 
@@ -1346,6 +1346,16 @@ class ArenaCategory:
 				
 				else:
 					# Start of ranking list
+					WebFile.write(
+					
+					WebFile.write(f"\t\tThe ranking below is based on a total of {self._['Events'], 'events')} events played on <a href='https://lichess.org/'>lichess.org</a>, which in total featured {strf(jinfo['Games'], 'games')} games (with {strf(jinfo['Moves'], 'moves')} moves).\n")
+				ofile.write(f"Overall, in these events white scored <span class='info' title='{jinfo['WhiteWins']} out of {jinfo['Games']} games'>{round(100 * jinfo['WhiteWins'] / jinfo['Games'])}%</span> wins, <span class='info' title='{jinfo['Games'] - jinfo['WhiteWins'] - jinfo['BlackWins']} out of {jinfo['Games']} games'>{round(100 * (jinfo['Games'] - jinfo['WhiteWins'] - jinfo['BlackWins']) / jinfo['Games'])}%</span> draws, and <span class='info' title='{jinfo['BlackWins']} out of {jinfo['Games']} games'>{round(100 * jinfo['BlackWins'] / jinfo['Games'])}%</span> losses.\n")
+				ofile.write(f"The events in this ranking took place between <a title='First event' href='https://lichess.org/tournament/{jinfo['FirstID']}'>{DateString(jinfo['FirstStart'][0:10])}</a> and <a title='Last event' href='https://lichess.org/tournament/{jinfo['LastID']}'>{DateString(jinfo['LastStart'][0:10])}</a>.\n")
+				ofile.write(f"\t\tIn total these events featured {strf(jinfo['Participants'], 'participants')} participants ({strf(jinfo['Players'], 'players')} unique players).\n")
+				ofile.write(f"\t\tThe maximum number of participants in one event is <a title='Event with most players' href='https://lichess.org/tournament/{jinfo['MaxUsersID']}'>{jinfo['MaxUsers']}</a>.\n")
+				ofile.write(f"\t\tThe highest score achieved in one event is <a title='Event with highest score' href='https://lichess.org/tournament/{jinfo['TopScoreID']}'>{jinfo['TopScore']}</a> by <a href='https://lichess.org/@/{jinfo['TopUser']}'>{jinfo['TopUser']}</a>.\n")
+					
+					)
 					WebFile.write("<table class='PlayersList'>\n")
 					WebFile.write("\t<thead>\n")
 					WebFile.write("\t<tr height='40px'>\n")
