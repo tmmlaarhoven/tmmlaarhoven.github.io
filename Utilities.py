@@ -492,11 +492,6 @@ class ArenaCategory:
 				self._APIToken = Line.strip()
 				assert(len(self._APIToken) == 16), f"API token not of length 16."
 
-		# Load boost webhook URL
-		with open(f"E:\\lichess\\webhook.txt", "r") as WebhookFile:
-			for Line in WebhookFile:
-				self._Webhook = Line.strip()
-
 	
 	#######################################################################################################################################################################################
 	#######################################################################################################################################################################################
@@ -866,62 +861,6 @@ class ArenaCategory:
 					UserResult = json.loads(Line)
 					# UserResult: {"rank": 1, "score": 36, "rating": 2267, "username": "kasparovsabe", "title": "FM", "performance": 2454}
 					UserID = UserResult["username"].lower()
-					
-					
-					# Check for sus sandbaggers
-					if (UserResult["score"] >= 30) and (E in {"2000", "1700", "1600", "1500", "1300"}) and (E == self._E) and (V == self._V):
-					
-						UserRequest = requests.get(f"https://lichess.org/api/user/{UserID}")
-						if UserRequest.status_code == 429:
-							print("RATE LIMIT!")
-							time.sleep(100000)
-						UserAPI = json.loads(UserRequest.content)
-						
-						if "perfs" in UserAPI:
-							# Otherwise likely closed account
-							
-							if V == "superblitz":
-								Vp = "blitz"
-							elif V == "hyperbullet":
-								Vp = "bullet"
-							else:
-								Vp = V
-							
-							UserScore = UserResult["score"]
-							UserGames = UserAPI["perfs"][Vp]["games"]
-							UserRating = int(UserResult["rating"])
-							ArenaRatingLimit = int(E)
-							UserDays = round((time.time() - UserAPI["createdAt"] / 1000) / 3600 / 24)
-
-							# Thresholds for "extreme" scores per time control
-							ScoreThresholdSuper = {"bullet": 45, "superblitz": 45, "blitz": 40, "rapid": 35}
-							ScoreThresholdHigh  = {"bullet": 35, "superblitz": 35, "blitz": 30, "rapid": 25}
-							ScoreThresholdLow   = {"bullet": 30, "superblitz": 30, "blitz": 25, "rapid": 20}
-							WebReport = False
-							
-							# Always report extremely high scores
-							if (UserScore >= ScoreThresholdSuper[V]):
-								WebReport = True
-
-							# Report high-ish scores for accounts that are somewhat new
-							elif (UserScore >= ScoreThresholdHigh[V]):
-								if (UserDays < 100) or (UserGames < 1000) or (UserRating < ArenaRatingLimit - 100):
-									WebReport = True
-
-							# Report moderately high scores for very new accounts
-							elif (UserScore >= ScoreThresholdLow[V]):
-								if (UserDays < 10) or (UserGames < 100) or (UserRating < ArenaRatingLimit - 200):
-									WebReport = True
-						
-							# Do not report if already marked
-							if "tosViolation" in UserAPI:
-								WebReport = False
-						
-							# Push cases to discord
-							if WebReport:
-								Webhook = DiscordWebhook(url = self._Webhook, content = f"[{UserID}](<https://lichess.org/@/{UserID}?mod>) scored {UserScore} points in [<{E} {PureVariants[V]['Name']} Arena](<https://lichess.org/tournament/{ID}>).")
-								Response = Webhook.execute()					
-					
 					
 					if UserID not in self._Ranking:
 						# New player
