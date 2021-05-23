@@ -95,6 +95,28 @@ for E in PureEvents:
 		PureEvents[E]["RGB"] = Colors100[PureEvents[E]["WebOrder"]]
 
 
+def strf(num, type):
+	if num > 10000000000:
+		return f"<span class='info' title='{str(num)[:-9]},{str(num)[-9:-6]},{str(num)[-6:-3]},{str(num)[-3:]} {type}'>{round(num / 1000000000)}B</span>"
+	elif num > 1000000000: 
+		return f"<span class='info' title='{str(num)[:-9]},{str(num)[-9:-6]},{str(num)[-6:-3]},{str(num)[-3:]} {type}'>{round(num / 100000000) / 10}B</span>"
+	elif num > 10000000:
+		return f"<span class='info' title='{str(num)[-9:-6]},{str(num)[-6:-3]},{str(num)[-3:]} {type}'>{round(num / 1000000)}M</span>"
+	elif num > 1000000:
+		return f"<span class='info' title='{str(num)[-9:-6]},{str(num)[-6:-3]},{str(num)[-3:]} {type}'>{round(num / 100000) / 10}M</span>"
+	elif num > 10000:
+		return f"<span class='info' title='{str(num)[-6:-3]},{str(num)[-3:]} {type}'>{round(num / 1000)}K</span>"
+	elif num > 1000:
+		return f"<span class='info' title='{str(num)[-6:-3]},{str(num)[-3:]} {type}'>{round(num / 100) / 10}K</span>"
+	else:
+		return str(num)
+		
+Months = {"01": "Jan", "02": "Feb", "03": "Mar", "04": "Apr", "05": "May", "06": "Jun", "07": "Jul", "08": "Aug", "09": "Sep", "10": "Oct", "11": "Nov", "12": "Dec"}
+def DateString(dstr):
+	# dstr: "2020-02-27"
+	return f"{Months[dstr[5:7]]} {dstr[8:10]}, {dstr[0:4]}"
+		
+		
 # Temporary function to fix points, which was corrupted for some mixed categories (name changed from "Points" to "TotalPoints" at some point)
 def FixPoints():
 	for V in AllVariants:
@@ -1285,16 +1307,18 @@ class ArenaCategory:
 				
 				else:
 					# Start of ranking list
-					#WebFile.write(
+					WebFile.write(f"The ranking below is based on a total of {strf(len(self._DataList), 'events')} events played on <a href='https://lichess.org/'>lichess.org</a>, which in total featured {strf(self._RankingInfo['Games'], 'games')} games (with {strf(self._RankingInfo['Moves'], 'moves')} moves), and users scoring a total of {strf(self._RankingInfo['TotalPoints'], 'points')} points.\n")
 					
-					#WebFile.write(f"\t\tThe ranking below is based on a total of {self._['Events'], 'events')} events played on <a href='https://lichess.org/'>lichess.org</a>, which in total featured {strf(jinfo['Games'], 'games')} games (with {strf(jinfo['Moves'], 'moves')} moves).\n")
-				#ofile.write(f"Overall, in these events white scored <span class='info' title='{jinfo['WhiteWins']} out of {jinfo['Games']} games'>{round(100 * jinfo['WhiteWins'] / jinfo['Games'])}%</span> wins, <span class='info' title='{jinfo['Games'] - jinfo['WhiteWins'] - jinfo['BlackWins']} out of {jinfo['Games']} games'>{round(100 * (jinfo['Games'] - jinfo['WhiteWins'] - jinfo['BlackWins']) / jinfo['Games'])}%</span> draws, and <span class='info' title='{jinfo['BlackWins']} out of {jinfo['Games']} games'>{round(100 * jinfo['BlackWins'] / jinfo['Games'])}%</span> losses.\n")
-				#ofile.write(f"The events in this ranking took place between <a title='First event' href='https://lichess.org/tournament/{jinfo['FirstID']}'>{DateString(jinfo['FirstStart'][0:10])}</a> and <a title='Last event' href='https://lichess.org/tournament/{jinfo['LastID']}'>{DateString(jinfo['LastStart'][0:10])}</a>.\n")
-				#ofile.write(f"\t\tIn total these events featured {strf(jinfo['Participants'], 'participants')} participants ({strf(jinfo['Players'], 'players')} unique players).\n")
-				#ofile.write(f"\t\tThe maximum number of participants in one event is <a title='Event with most players' href='https://lichess.org/tournament/{jinfo['MaxUsersID']}'>{jinfo['MaxUsers']}</a>.\n")
-				#ofile.write(f"\t\tThe highest score achieved in one event is <a title='Event with highest score' href='https://lichess.org/tournament/{jinfo['TopScoreID']}'>{jinfo['TopScore']}</a> by <a href='https://lichess.org/@/{jinfo['TopUser']}'>{jinfo['TopUser']}</a>.\n")
+					WebFile.write(f"Overall, in these events white scored <span class='info' title='{self._RankingInfo['WhiteWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['WhiteWins'] / self._RankingInfo['Games'])}%</span> wins, <span class='info' title='{self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * (self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']) / self._RankingInfo['Games'])}%</span> draws, and <span class='info' title='{self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['BlackWins'] / self._RankingInfo['Games'])}%</span> losses.\n")
 					
-					#)
+					WebFile.write(f"The events in this ranking took place between <a title='First event' href='https://lichess.org/tournament/{self._RankingInfo['FirstID']}'>{DateString(self._RankingInfo['FirstStart'][0:10])}</a> and <a title='Last event' href='https://lichess.org/tournament/{self._RankingInfo['LastID']}'>{DateString(self._RankingInfo['LastStart'][0:10])}</a>.\n")
+					
+					WebFile.write(f"\t\tIn total these events featured {strf(self._RankingInfo['Participants'], 'participants')} participants ({strf(self._RankingInfo['Players'], 'players')} unique players).\n")
+					
+					WebFile.write(f"\t\tThe maximum number of participants in one event is <a title='Event with most players' href='https://lichess.org/tournament/{self._RankingInfo['MaxUsersID']}'>{self._RankingInfo['MaxUsers']}</a>.\n")
+					
+					WebFile.write(f"\t\tThe highest score achieved in one event is <a title='Event with highest score' href='https://lichess.org/tournament/{self._RankingInfo['TopScoreID']}'>{self._RankingInfo['TopScore']}</a> by <a href='https://lichess.org/@/{self._RankingInfo['TopUser']}'>{self._RankingInfo['TopUser']}</a>.\n")
+					
 					WebFile.write("<table class='PlayersList'>\n")
 					WebFile.write("\t<thead>\n")
 					WebFile.write("\t<tr height='40px'>\n")
