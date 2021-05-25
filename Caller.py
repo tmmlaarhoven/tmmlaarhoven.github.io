@@ -9,7 +9,7 @@ import shutil
 from Utilities import *
 
 # Default: No plots
-DrawPlots = False
+DrawPlots = True
 
 Cat = dict()
 for V in AllVariants:
