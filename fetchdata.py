@@ -51,7 +51,8 @@ Events = {
 	"elite": "Elite",
 	"shield": "Shield",
 	"titled": "Titled",
-	"marathon": "Marathon"
+	"marathon": "Marathon",
+	"liga": "Liga"
 }
 
 def Prefix(V, E):
@@ -95,7 +96,65 @@ for E in Events:
 	#=========================================================================	
 
 	# Scrape webpages for tournament ids
-	if not E == "titled" and not E == "marathon":
+	#if (E == "liga"):
+	
+	#	pass
+	
+		# TotalIDs = 0
+		# EmptyPages = 0
+		# PrintMessage("all", E, "Fetching new tournaments...")
+		
+		# for Page in range(1, 100000):
+			
+			# r = requests.get(f"https://lichess.org/@/jeffforever/tournaments/created?page={Page}", headers = {"Authorization": f"Bearer {APIToken}"})		# pages start at 1
+				
+			# # In the unlikely/impossible Events of rate limit, just indicate this and stop until the user notices
+			# if r.status_code == 429:
+				# print("RATE LIMIT!")
+				# time.sleep(1000000)
+			
+			# # If no tournaments at all, quit
+			# if len(re.findall("/tournament/[0-9a-zA-Z]{8}\">", r.text)) == 0:
+				# break
+			
+			# # Partition the tournaments over the right files
+			# NewOnPage = 0
+			# TotalIDs += len(re.findall("/tournament/[0-9a-zA-Z]{8}\">", r.text))
+			# IDs = re.findall(f"/tournament/[0-9a-zA-Z]{{8}}\"><span class=\"name\">", r.text)
+				
+			# # Add newly found tournament IDs to file
+			# for ID in IDs:		# ID: '/tournament/d09wfkjs">...', need entries 12-19
+			
+				# RealID = ID[12:20]
+				# PosInText = r.text.find(RealID)
+				# TimeControlPos = r.text.find("+", PosInText) - 1
+				# TimeControl = r.text[TimeControlPos:TimeControlPos+3]
+				# if TimeControl == "3+0":
+					# V == "superblitz"
+				# else:
+					# V == "blitz"
+					
+				# if not RealID in ArenaIDs[V][E]:
+					# ArenaIDs[V][E].append(RealID)
+					# NewOnPage += 1
+			
+			# # Count collisions to stop fetching when we do not find new entries
+			# PrintMessage("all", E, f"Page {Page} - {NewOnPage} new events found.")
+			# if NewOnPage == 0:
+				# EmptyPages += 1
+				# if EmptyPages >= 5:
+					# break
+			# else:
+				# EmptyPages = 0
+			
+			# # Pause to avoid rate limit
+			# if Page % 2 == 0:
+				# time.sleep(1)
+	
+	
+		# pass
+	
+	if (not E == "titled") and (not E == "marathon") and not (E == "liga"):
 
 		TotalIDs = 0
 		EmptyPages = 0
@@ -230,15 +289,17 @@ for E in Events:
 				APIRequests = 0
 			
 		# Remove future events
-		if E == "titled" or E == "marathon":
+		if E == "titled" or E == "marathon" or E == "liga":
 			for ID in ArenaIDs[V][E]:			
-				with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "r") as ArenaInfoFile:
-					ArenaInfo = json.load(ArenaInfoFile)
-				if ("secondsToStart" in ArenaInfo) or not ArenaInfo.get("isFinished", False):
-					ArenaIDs[V][E].remove(ID)
-					os.remove(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.ndjson")
-					os.remove(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json")
-					PrintMessage(V, E, f"Removing future/unfinished event {ID}.")
+				if os.path.exists(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json"):
+					with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "r", encoding = "utf-8") as ArenaInfoFile:
+						#print(ID)
+						ArenaInfo = json.load(ArenaInfoFile)
+					if ("secondsToStart" in ArenaInfo) or not ArenaInfo.get("isFinished", False):
+						ArenaIDs[V][E].remove(ID)
+						os.remove(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.ndjson")
+						os.remove(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json")
+						PrintMessage(V, E, f"Removing future/unfinished event {ID}.")
 		
 		PrintMessage(V, E, "Finished downloading tournament information.")
 		
@@ -286,7 +347,7 @@ for E in Events:
 			#	print(E + " - " + V + " - TID: " + ID)
 			if ID in ArenaData:
 				continue
-			with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "r") as ArenaInfoFile:
+			with open(f"{PathData}{Folder(V, E)}{Prefix(V, E)}{ID}.json", "r", encoding = "utf-8") as ArenaInfoFile:
 				ArenaInfo = json.load(ArenaInfoFile)
 			
 			if not ("points" in ArenaInfo.get("stats", {})):
@@ -309,17 +370,17 @@ for E in Events:
 			ArenaData[ID]["ID"] = ID
 			ArenaData[ID]["Start"] = ArenaInfo["startsAt"]
 			ArenaData[ID]["Players"] = int(ArenaInfo["nbPlayers"])
-			ArenaData[ID]["Games"] = int(ArenaInfo["stats"]["games"])
-			ArenaData[ID]["Moves"] = int(ArenaInfo["stats"]["moves"])
-			ArenaData[ID]["WhiteWins"] = int(ArenaInfo["stats"]["whiteWins"])
-			ArenaData[ID]["BlackWins"] = int(ArenaInfo["stats"]["blackWins"])
-			ArenaData[ID]["Berserks"] = int(ArenaInfo["stats"]["berserks"])
-			ArenaData[ID]["TotalPoints"] = int(ArenaInfo["stats"]["points"])
-			ArenaData[ID]["TotalRating"] = ArenaData[ID]["Players"] * int(ArenaInfo["stats"]["averageRating"])
-			ArenaData[ID]["#1"] = ("???" if len(ArenaInfo["podium"]) == 0 else ArenaInfo["podium"][0]["name"])
-			ArenaData[ID]["#2"] = ("???" if len(ArenaInfo["podium"]) <= 1 else ArenaInfo["podium"][1]["name"])
-			ArenaData[ID]["#3"] = ("???" if len(ArenaInfo["podium"]) <= 2 else ArenaInfo["podium"][2]["name"])
-			ArenaData[ID]["TopScore"] = (0 if len(ArenaInfo["podium"]) == 0 else ArenaInfo["podium"][0]["score"])
+			ArenaData[ID]["Games"] = int(ArenaInfo.get("stats", {}).get("games", 0))
+			ArenaData[ID]["Moves"] = int(ArenaInfo.get("stats", {}).get("moves", 0))
+			ArenaData[ID]["WhiteWins"] = int(ArenaInfo.get("stats", {}).get("whiteWins", 0))
+			ArenaData[ID]["BlackWins"] = int(ArenaInfo.get("stats", {}).get("blackWins", 0))
+			ArenaData[ID]["Berserks"] = int(ArenaInfo.get("stats", {}).get("berserks", 0))
+			ArenaData[ID]["TotalPoints"] = int(ArenaInfo.get("stats", {}).get("points", 0))
+			ArenaData[ID]["TotalRating"] = ArenaData[ID]["Players"] * int(ArenaInfo.get("stats", {}).get("averageRating", 0))
+			ArenaData[ID]["#1"] = ("???" if len(ArenaInfo.get("podium", [])) == 0 else ArenaInfo["podium"][0]["name"])
+			ArenaData[ID]["#2"] = ("???" if len(ArenaInfo.get("podium", [])) <= 1 else ArenaInfo["podium"][1]["name"])
+			ArenaData[ID]["#3"] = ("???" if len(ArenaInfo.get("podium", [])) <= 2 else ArenaInfo["podium"][2]["name"])
+			ArenaData[ID]["TopScore"] = (0 if len(ArenaInfo.get("podium", [])) == 0 else ArenaInfo["podium"][0]["score"])
 		
 		PrintMessage(V, E, "Retrieved tournament dates from json-files for chronological ordering.")
 		

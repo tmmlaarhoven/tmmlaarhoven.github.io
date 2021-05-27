@@ -14,7 +14,6 @@ from collections import OrderedDict
 from typing import List, Union
 from matplotlib.ticker import PercentFormatter
 from itertools import product
-from discord_webhook import DiscordWebhook
 
 #######################################################################################################################################################################################
 #######################################################################################################################################################################################
@@ -55,7 +54,8 @@ PureEvents = {
 	"elite": 		{"Name": "Elite",				"RGB": (  0,158,115),	"WebOrder": 12,		"Code": "el"},
 	"shield": 		{"Name": "Shield",				"RGB": (  0,158,115),	"WebOrder": 13,		"Code": "sh"},
 	"titled": 		{"Name": "Titled",				"RGB": (  0,158,115),	"WebOrder": 14,		"Code": "ti"},
-	"marathon": 	{"Name": "Marathon",			"RGB": (  0,158,115),	"WebOrder": 15,		"Code": "ma"}
+	"marathon": 	{"Name": "Marathon",			"RGB": (  0,158,115),	"WebOrder": 15,		"Code": "ma"},
+	"liga": 		{"Name": "Liga",				"RGB": (  0,158,115),	"WebOrder": 16,		"Code": "li"}
 }
 AllEvents = dict(PureEvents)
 AllEvents["all"] = 	{"Name": "All",					"RGB": (200,200,200),	"WebOrder": 0,		"Code": "al"}
@@ -89,10 +89,7 @@ for V in PureVariants:
 
 # Events: Use 100 series, skip 12th entry
 for E in PureEvents:
-	if PureEvents[E]["WebOrder"] < 12:
-		PureEvents[E]["RGB"] = Colors100[PureEvents[E]["WebOrder"] - 1]
-	else:
-		PureEvents[E]["RGB"] = Colors100[PureEvents[E]["WebOrder"]]
+	PureEvents[E]["RGB"] = Colors100[PureEvents[E]["WebOrder"] - 1]
 
 
 def strf(num, type):

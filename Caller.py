@@ -9,7 +9,9 @@ import shutil
 from Utilities import *
 
 # Default: No plots
-DrawPlots = True
+DrawPlots = False
+
+BuildIndexPage()
 
 Cat = dict()
 for V in AllVariants:
