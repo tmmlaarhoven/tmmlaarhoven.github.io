@@ -206,7 +206,7 @@ def BuildIndexPage():
 		# Events menu
 		File.write("\t<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>\n")
 		for E, Val in sorted(AllEvents.items(), key = lambda item: item[1]["WebOrder"]):
-			File.write(f"\t\t<input type='radio' name='Event' value='{E}' id='events-{E}'{' checked' if E == 'all' else ''}><label class='E{E}' for='events-{E}'>{AllEvents[E]['Name'] + ' Arenas' if E != 'marathon' else 'Marathons'}</label>\n")
+			File.write(f"\t\t<input type='radio' name='Event' value='{E}' id='events-{E}'{' checked' if E == 'all' else ''}><label class='E{E}' for='events-{E}'>{AllEvents[E]['Name'] + ' Arenas' if E not in ['marathon', 'liga'] else ('Marathons' if E == 'marathon' else 'Bundesliga')}</label>\n")
 		File.write("\t</span>\n")
 		
 		# Sorting menu
@@ -437,6 +437,8 @@ class ArenaCategory:
 		# Name of category for displays
 		if self._E == "marathon":
 			self._Name = f"{AllVariants[self._V]['Name']} Marathons"
+		elif self._E == "liga":
+			self._Name = f"{AllVariants[self._V]['Name']} Bundesliga Arenas"
 		elif self._E == "all" and self._V == "all":
 			self._Name = f"All Arenas"
 		elif self._E == "shield" or (self._V == "all" and self._E != "all" and self._E != "marathon"):
@@ -1472,7 +1474,7 @@ class ArenaCategory:
 		# Events menu
 		File.write("\t<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>\n")
 		for E, Val in sorted(AllEvents.items(), key = lambda item: item[1]["WebOrder"]):
-			File.write(f"\t\t<input type='radio' name='Event' value='{E}' id='events-{E}'{' checked' if E == self._E else ''}><label class='E{E}' for='events-{E}'>{AllEvents[E]['Name'] + ' Arenas' if E != 'marathon' else 'Marathons'}</label>\n")
+			File.write(f"\t\t<input type='radio' name='Event' value='{E}' id='events-{E}'{' checked' if E == self._E else ''}><label class='E{E}' for='events-{E}'>{AllEvents[E]['Name'] + ' Arenas' if E not in ['marathon', 'liga'] else ('Marathons' if E == 'marathon' else 'Bundesliga')}</label>\n")
 		File.write("\t</span>\n")
 		
 		# Sorting menu
