@@ -1224,6 +1224,8 @@ class ArenaCategory:
 				while len(X) > Thresholds[CurThreshold + 1]:
 					CurThreshold = CurThreshold + 1
 				WindowSize = round(Thresholds[CurThreshold] / 50)
+				if self._E == "liga" and WindowSize < 100:
+					WindowSize = 100
 				HalfWindow = round(WindowSize / 2)
 				XMean = []
 				YMean = []
