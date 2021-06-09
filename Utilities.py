@@ -1314,11 +1314,11 @@ class ArenaCategory:
 					
 					WebFile.write(f"The events in this ranking took place between <a title='First event' href='https://lichess.org/tournament/{self._RankingInfo['FirstID']}'>{DateString(self._RankingInfo['FirstStart'][0:10])}</a> and <a title='Last event' href='https://lichess.org/tournament/{self._RankingInfo['LastID']}'>{DateString(self._RankingInfo['LastStart'][0:10])}</a>.\n")
 					
-					WebFile.write(f"\t\tIn total these events featured {strf(self._RankingInfo['Participants'], 'participants')} participants ({strf(self._RankingInfo['Players'], 'players')} unique players).\n")
+					WebFile.write(f"In total these events featured {strf(self._RankingInfo['Participants'], 'participants')} participants ({strf(self._RankingInfo['Players'], 'players')} unique players).\n")
 					
-					WebFile.write(f"\t\tThe maximum number of participants in one event is <a title='Event with most players' href='https://lichess.org/tournament/{self._RankingInfo['MaxUsersID']}'>{self._RankingInfo['MaxUsers']}</a>.\n")
+					WebFile.write(f"The maximum number of participants in one event is <a title='Event with most players' href='https://lichess.org/tournament/{self._RankingInfo['MaxUsersID']}'>{self._RankingInfo['MaxUsers']}</a>.\n")
 					
-					WebFile.write(f"\t\tThe highest score achieved in one event is <a title='Event with highest score' href='https://lichess.org/tournament/{self._RankingInfo['TopScoreID']}'>{self._RankingInfo['TopScore']}</a> by <a href='https://lichess.org/@/{self._RankingInfo['TopUser']}'>{self._RankingInfo['TopUser']}</a>.\n")
+					WebFile.write(f"The highest score achieved in one event is <a title='Event with highest score' href='https://lichess.org/tournament/{self._RankingInfo['TopScoreID']}'>{self._RankingInfo['TopScore']}</a> by <a href='https://lichess.org/@/{self._RankingInfo['TopUser']}'>{self._RankingInfo['TopUser']}</a>.\n")
 					
 					WebFile.write("<table class='PlayersList'>\n")
 					WebFile.write("\t<thead>\n")
@@ -1342,20 +1342,20 @@ class ArenaCategory:
 						for Index, Line in enumerate(PlayersFile):
 							PlayerData = json.loads(Line)
 							WebFile.write("\t<tr>\n")
-							WebFile.write(f"\t<td>{Index + 1}.</td>\n")
-							WebFile.write(f"\t<td>{PlayerData.get('Title', '')}</td>\n")
-							WebFile.write(f"\t<td><a href='https://lichess.org/@/{PlayerData['Username'].lower()}'>{PlayerData['Username'].lower()}</a></td>\n")
-							WebFile.write(f"\t<td>{PlayerData['Trophies'][0] if PlayerData['Trophies'][0] > 0 else ''}</td>\n")
-							WebFile.write(f"\t<td>{PlayerData['Trophies'][1] if PlayerData['Trophies'][1] > 0 else ''}</td>\n")
-							WebFile.write(f"\t<td>{PlayerData['Trophies'][2] if PlayerData['Trophies'][2] > 0 else ''}</td>\n")
-							WebFile.write(f"\t<td>{PlayerData['Score']}</td>\n")
-							WebFile.write(f"\t<td>/ {PlayerData['Events'] - PlayerData['Zeros']}</td>\n")
-							WebFile.write(f"\t<td><!--<a href='https://lichess.org/tournament/{PlayerData['FirstID']}'>-->{self.TimeRange1(PlayerData['First'])}<!--</a>--> - ")
+							WebFile.write(f"\t\t<td>{Index + 1}.</td>\n")
+							WebFile.write(f"\t\t<td>{PlayerData.get('Title', '')}</td>\n")
+							WebFile.write(f"\t\t<td><a href='https://lichess.org/@/{PlayerData['Username'].lower()}'>{PlayerData['Username'].lower()}</a></td>\n")
+							WebFile.write(f"\t\t<td>{PlayerData['Trophies'][0] if PlayerData['Trophies'][0] > 0 else ''}</td>\n")
+							WebFile.write(f"\t\t<td>{PlayerData['Trophies'][1] if PlayerData['Trophies'][1] > 0 else ''}</td>\n")
+							WebFile.write(f"\t\t<td>{PlayerData['Trophies'][2] if PlayerData['Trophies'][2] > 0 else ''}</td>\n")
+							WebFile.write(f"\t\t<td>{PlayerData['Score']}</td>\n")
+							WebFile.write(f"\t\t<td>/ {PlayerData['Events'] - PlayerData['Zeros']}</td>\n")
+							WebFile.write(f"\t\t<td><!--<a href='https://lichess.org/tournament/{PlayerData['FirstID']}'>-->{self.TimeRange1(PlayerData['First'])}<!--</a>--> - ")
 							WebFile.write(f"<!--<a href='https://lichess.org/tournament/{PlayerData['LastID']}'>-->{self.TimeRange2(PlayerData['Last'])}<!--</a>--></td>\n")
 							#WebFile.write(f"\t<td><a href='https://lichess.org/tournament/{PlayerData['FirstID']}'>{self.TimeRange1(PlayerData['First'])}</a> - ")
 							#WebFile.write(f"<a href='https://lichess.org/tournament/{PlayerData['LastID']}'>{self.TimeRange2(PlayerData['Last'])}</a></td>\n")
-							WebFile.write(f"\t<td>{round(PlayerData['Score'] / max(1, (PlayerData['Events'] - PlayerData['Zeros'])))}</td>\n")
-							WebFile.write(f"\t<td><a href='https://lichess.org/tournament/{PlayerData['TopScoreID']}'>{PlayerData['TopScore']}</a></td>\n")
+							WebFile.write(f"\t\t<td>{round(PlayerData['Score'] / max(1, (PlayerData['Events'] - PlayerData['Zeros'])))}</td>\n")
+							WebFile.write(f"\t\t<td><a href='https://lichess.org/tournament/{PlayerData['TopScoreID']}'>{PlayerData['TopScore']}</a></td>\n")
 							WebFile.write("\t</tr>\n")
 							if Index == self._WebListLength - 1:
 								break
@@ -1490,7 +1490,7 @@ class ArenaCategory:
 		# List or graph?
 		File.write("\t<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>\n")
 		File.write(f"\t\t<input type='radio' name='Type' value='list' id='list'{' checked' if Type == 'list' else ''}><label for='list'><span class='VariantIcon'>?</span> List</label>\n")
-		File.write(f"\t\t<input type='radio' name='Type' value='graph' id='graph'{' checked' if Type == 'graph' else ''}><label for='graph'><span class='VariantIcon'>9</span> Graph</label>")
+		File.write(f"\t\t<input type='radio' name='Type' value='graph' id='graph'{' checked' if Type == 'graph' else ''}><label for='graph'><span class='VariantIcon'>9</span> Graph</label>\n")
 		File.write("\t</span>\n")
 		
 		File.write("</div>\n\n")				
