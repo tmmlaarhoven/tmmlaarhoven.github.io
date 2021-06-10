@@ -190,27 +190,28 @@ def BuildIndexPage():
 		#File.write("<link rel='stylesheet' href='style-new.css'>\n")
 		File.write("</head>\n\n")
 		File.write("<body>\n")
+		File.write(f"<div class=\"title\">Lichess Arena Rankings</div>\n")
 		
 		# Begin menu
 		File.write("<div class='menu'>\n")
 		
 		# Information icon
-		File.write("\t<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='index.html'>&#xe005;</a></span>\n")
+		File.write("\t<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px;'><a href='index.html'>&#xe005;</a></span>\n")
 		
 		# Variants menu
-		File.write("\t<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 30px; min-width: 190px; max-width: 190px;'>\n")
 		for V, Val in sorted(AllVariants.items(), key = lambda item: item[1]["WebOrder"]):
 			File.write(f"\t\t<input type='radio' name='Variant' value='lichess/rankings/{V}' id='variant-{V}'{' checked' if V == 'all' else ''}><label class='V{V}' for='variant-{V}'><span class='VariantIcon'>{AllVariants[V]['Icon']}</span> {AllVariants[V]['Name'] if V != 'all' else 'All variants'}</label>\n")
 		File.write("\t</span>\n")
 		
 		# Events menu
-		File.write("\t<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 230px; min-width: 170px; max-width: 170px;'>\n")
 		for E, Val in sorted(AllEvents.items(), key = lambda item: item[1]["WebOrder"]):
 			File.write(f"\t\t<input type='radio' name='Event' value='{E}' id='events-{E}'{' checked' if E == 'all' else ''}><label class='E{E}' for='events-{E}'>{AllEvents[E]['Name'] + ' Arenas' if E not in ['marathon', 'liga'] else ('Marathons' if E == 'marathon' else 'Bundesliga')}</label>\n")
 		File.write("\t</span>\n")
 		
 		# Sorting menu
-		File.write("\t<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 410px; min-width: 260px; max-width: 260px;'>\n")
 		for O in FilePlayersSorts:
 			File.write(f"\t\t<input type='radio' name='Page' value='players_{O}' id='players_{O}'{' checked' if ('players_' + O) == 'players_trophies' else ''}><label for='players_{O}'>{FilePlayersSorts[O]['Name']}</label>\n")
 		for O in FileArenasSorts:
@@ -218,7 +219,7 @@ def BuildIndexPage():
 		File.write("\t</span>\n")
 		
 		# List or graph?
-		File.write("\t<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 680px; min-width: 120px; max-width: 120px;'>\n")
 		File.write(f"\t\t<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>\n")
 		File.write(f"\t\t<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>")
 		File.write("\t</span>\n")
@@ -229,7 +230,6 @@ def BuildIndexPage():
 		File.write("<span class='maincontent'>\n")
 		File.write("<!-- START OF ACTUAL CONTENT -->\n\n")
 		
-		File.write("<h1>Lichess Arena Rankings</h1>\n")
 		File.write("The rankings on this webpage are based on all official regularly-scheduled arenas played on <a href='https://lichess.org'>lichess.org</a> (hourly, <2000, <1700, <1600, <1500, <1300, daily, weekly, monthly, yearly, eastern, elite, and shield arenas) as well as the seasonal 24h marathons and the titled arenas. These rankings exclude irregular themed arenas (King's Gambit Blitz Arena, ...), and custom arenas created by users. In total these rankings cover over 400.000 events, in which over 200.000.000 games were played by over 80.000.000 arena participants (over 1.500.000 unique users), and together in all these games the users made over 14.000.000.000 moves. <br/><br/>\n\n")
 		File.write("Some additional, detailed statistics about the rankings can be found below.")
 		
@@ -1301,39 +1301,34 @@ class ArenaCategory:
 				
 				# Write preamble
 				self._WritePre(WebFile, "players_" + SortPlayerOrder, "list")
-				WebFile.write(f"<h1>Lichess Arena Rankings &middot; {self._Name}</h1>\n")
 						
 				if len(self._DataList) == 0:
 					WebFile.write("No rankings.")
 				
 				else:
 					# Start of ranking list
-					WebFile.write(f"The ranking below is based on a total of {strf(len(self._DataList), 'events')} events played on <a href='https://lichess.org/'>lichess.org</a>, which in total featured {strf(self._RankingInfo['Games'], 'games')} games (with {strf(self._RankingInfo['Moves'], 'moves')} moves), and users scoring a total of {strf(self._RankingInfo['TotalPoints'], 'points')} points.\n")
+					WebFile.write(f"This ranking is based on {strf(len(self._DataList), 'events')} events held between <a title='First event' href='https://lichess.org/tournament/{self._RankingInfo['FirstID']}'>{DateString(self._RankingInfo['FirstStart'][0:10])}</a> and <a title='Last event' href='https://lichess.org/tournament/{self._RankingInfo['LastID']}'>{DateString(self._RankingInfo['LastStart'][0:10])}</a>.\n\n")
+
+					WebFile.write(f"In total, these arenas featured {strf(self._RankingInfo['Games'], 'games')} games (with {strf(self._RankingInfo['Moves'], 'moves')} moves), and the {strf(self._RankingInfo['Participants'], 'participants')} participants ({strf(self._RankingInfo['Players'], 'players')} unique players) scored a total of {strf(self._RankingInfo['TotalPoints'], 'points')} arena points.\n\n")
 					
-					WebFile.write(f"Overall, in these events white scored <span class='info' title='{self._RankingInfo['WhiteWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['WhiteWins'] / self._RankingInfo['Games'])}%</span> wins, <span class='info' title='{self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * (self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']) / self._RankingInfo['Games'])}%</span> draws, and <span class='info' title='{self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['BlackWins'] / self._RankingInfo['Games'])}%</span> losses.\n")
+					WebFile.write(f"In these games, white scored <span class='info' title='{self._RankingInfo['WhiteWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['WhiteWins'] / self._RankingInfo['Games'])}%</span> wins, <span class='info' title='{self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * (self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']) / self._RankingInfo['Games'])}%</span> draws, and <span class='info' title='{self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['BlackWins'] / self._RankingInfo['Games'])}%</span> losses.\n\n")
 					
-					WebFile.write(f"The events in this ranking took place between <a title='First event' href='https://lichess.org/tournament/{self._RankingInfo['FirstID']}'>{DateString(self._RankingInfo['FirstStart'][0:10])}</a> and <a title='Last event' href='https://lichess.org/tournament/{self._RankingInfo['LastID']}'>{DateString(self._RankingInfo['LastStart'][0:10])}</a>.\n")
-					
-					WebFile.write(f"In total these events featured {strf(self._RankingInfo['Participants'], 'participants')} participants ({strf(self._RankingInfo['Players'], 'players')} unique players).\n")
-					
-					WebFile.write(f"The maximum number of participants in one event is <a title='Event with most players' href='https://lichess.org/tournament/{self._RankingInfo['MaxUsersID']}'>{self._RankingInfo['MaxUsers']}</a>.\n")
-					
-					WebFile.write(f"The highest score achieved in one event is <a title='Event with highest score' href='https://lichess.org/tournament/{self._RankingInfo['TopScoreID']}'>{self._RankingInfo['TopScore']}</a> by <a href='https://lichess.org/@/{self._RankingInfo['TopUser']}'>{self._RankingInfo['TopUser']}</a>.\n")
+					WebFile.write(f"The average berserk rate is <span class='info' title='{self._RankingInfo['Berserks']} berserks in {self._RankingInfo['Games']} games'>{round(500. * self._RankingInfo['Berserks'] / self._RankingInfo['Games']) / 10}%</span>, and the average rating is <span class='info' title='{self._RankingInfo['TotalRating']} over {self._RankingInfo['Participants']} participants'>{round(self._RankingInfo['TotalRating'] / self._RankingInfo['Participants'])}</span>.\n\n")
 					
 					WebFile.write("<table class='PlayersList'>\n")
 					WebFile.write("\t<thead>\n")
-					WebFile.write("\t<tr height='40px'>\n")
-					WebFile.write("\t\t<td><span class='info' title='Ranking'>#</span></td>\n")
+					WebFile.write("\t<tr height='30px'>\n")
+					WebFile.write("\t\t<td><span class='info' title='Ranking'><b>#</b></span></td>\n")
 					WebFile.write("\t\t<td></td>\n")
-					WebFile.write("\t\t<td>Username</td>\n")
+					WebFile.write("\t\t<td><b>Username</b></td>\n")
 					WebFile.write("\t\t<td><span class='info' style='font-family: lichess;' title='1st place finishes'>g</span></td>\n")
 					WebFile.write("\t\t<td><span class='info' style='font-family: lichess;' title='2nd place finishes'>g</span></td>\n")
 					WebFile.write("\t\t<td><span class='info' style='font-family: lichess;' title='3rd place finishes'>g</span></td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Total accumulated points'>Points</span></td>\n")
-					WebFile.write("\t\t<td>/ <span class='info' title='Events with at least 1 point'>Events</span></td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Dates of first/last events'>First - Last</span></td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Average points per event'>Avg</span></td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Maximum score in one event'>Max</span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Total accumulated points'><b>Points</b></span></td>\n")
+					WebFile.write("\t\t<td>/ <span class='info' title='Events with at least 1 point'><b>Events</b></span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Dates of first/last events'><b>First - Last</b></span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Average points per event'><b>Avg</b></span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Maximum score in one event'><b>Max</b></span></td>\n")
 					WebFile.write("\t</tr>\n")
 					WebFile.write("\t</thead>\n")
 					WebFile.write("\t<tbody>\n")
@@ -1387,29 +1382,37 @@ class ArenaCategory:
 				
 				# Write preamble
 				self._WritePre(WebFile, "arenas_" + SortArenaOrder, "list")
-				WebFile.write(f"<h1>Lichess Arena Rankings &middot; {self._Name}</h1>\n")
 				
 				if len(self._DataList) == 0:
 					WebFile.write("No rankings.")
 				
 				else:
+			
 					# Start of ranking list
+					WebFile.write(f"This ranking is based on {strf(len(self._DataList), 'events')} events held between <a title='First event' href='https://lichess.org/tournament/{self._RankingInfo['FirstID']}'>{DateString(self._RankingInfo['FirstStart'][0:10])}</a> and <a title='Last event' href='https://lichess.org/tournament/{self._RankingInfo['LastID']}'>{DateString(self._RankingInfo['LastStart'][0:10])}</a>.\n\n")
+
+					WebFile.write(f"In total, these arenas featured {strf(self._RankingInfo['Games'], 'games')} games (with {strf(self._RankingInfo['Moves'], 'moves')} moves), and the {strf(self._RankingInfo['Participants'], 'participants')} participants ({strf(self._RankingInfo['Players'], 'players')} unique players) scored a total of {strf(self._RankingInfo['TotalPoints'], 'points')} arena points.\n\n")
+					
+					WebFile.write(f"In these games, white scored <span class='info' title='{self._RankingInfo['WhiteWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['WhiteWins'] / self._RankingInfo['Games'])}%</span> wins, <span class='info' title='{self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * (self._RankingInfo['Games'] - self._RankingInfo['WhiteWins'] - self._RankingInfo['BlackWins']) / self._RankingInfo['Games'])}%</span> draws, and <span class='info' title='{self._RankingInfo['BlackWins']} out of {self._RankingInfo['Games']} games'>{round(100 * self._RankingInfo['BlackWins'] / self._RankingInfo['Games'])}%</span> losses.\n\n")
+					
+					WebFile.write(f"The average berserk rate is <span class='info' title='{self._RankingInfo['Berserks']} berserks in {self._RankingInfo['Games']} games'>{round(500. * self._RankingInfo['Berserks'] / self._RankingInfo['Games']) / 10}%</span>, and the average rating is <span class='info' title='{self._RankingInfo['TotalRating']} over {self._RankingInfo['Participants']} participants'>{round(self._RankingInfo['TotalRating'] / self._RankingInfo['Participants'])}</span>.\n\n")
+
 					WebFile.write("<table class='ArenasList'>\n")
 					WebFile.write("\t<thead>\n")
 					WebFile.write("\t<tr height='40px'>\n")
-					WebFile.write("\t\t<td><span class='info' title='Ranking'>#</span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Ranking'><b>#</b></span></td>\n")
 					WebFile.write("\t\t<td>ID</td>\n")
-					WebFile.write("\t\t<td>Type</td>\n")
-					WebFile.write("\t\t<td>Date</td>\n")
+					WebFile.write("\t\t<td><b>Type</b></td>\n")
+					WebFile.write("\t\t<td><b>Date</b></td>\n")
 					WebFile.write("\t\t<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Average rating over all players'>Rtng</span></td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Average points per player'>Pts</span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Average rating over all players'><b>Rtng</b></span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Average points per player'><b>Pts</b></span></td>\n")
 					#WebFile.write("\t\t<td><span class='info' title='Average games per player'>Gms</span></td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Average moves per player per game'>Mvs</span></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Average moves per player per game'><b>Mvs</b></span></td>\n")
 					WebFile.write("\t\t<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>\n")
 					#WebFile.write("\t\t<td><span class='info' title='White wins/draws/black wins'>Result</span></td>\n")
-					WebFile.write("\t\t<td>Winner</td>\n")
-					WebFile.write("\t\t<td><span class='info' title='Score of winner'>Max</span></td>\n")
+					WebFile.write("\t\t<td><b>Winner</b></td>\n")
+					WebFile.write("\t\t<td><span class='info' title='Score of winner'><b>Max</b></span></td>\n")
 					WebFile.write("\t</tr>\n")
 					WebFile.write("\t</thead>\n")
 					WebFile.write("\t<tbody>\n")
@@ -1460,27 +1463,28 @@ class ArenaCategory:
 		#File.write("<link rel='stylesheet' href='style-new.css'>\n")
 		File.write("</head>\n\n")
 		File.write("<body>\n")
+		File.write(f"<div class=\"title\">Lichess Arena Rankings &middot; {self._Name}</div>\n")
 		
 		# Begin menu
 		File.write("<div class='menu'>\n")
 		
 		# Information icon
-		File.write("\t<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px; top: 3px;'><a href='../../index.html'>&#xe005;</a></span>\n")
+		File.write("\t<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px;'><a href='../../index.html'>&#xe005;</a></span>\n")
 		
 		# Variants menu
-		File.write("\t<span class='dropdown-el' style='left: 30px; top: 0px; min-width: 190px; max-width: 190px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 30px; min-width: 190px; max-width: 190px;'>\n")
 		for V, Val in sorted(AllVariants.items(), key = lambda item: item[1]["WebOrder"]):
 			File.write(f"\t\t<input type='radio' name='Variant' value='{V}' id='variant-{V}'{' checked' if V == self._V else ''}><label class='V{V}' for='variant-{V}'><span class='VariantIcon'>{AllVariants[V]['Icon']}</span> {AllVariants[V]['Name'] if V != 'all' else 'All variants'}</label>\n")
 		File.write("\t</span>\n")
 		
 		# Events menu
-		File.write("\t<span class='dropdown-el' style='left: 230px; top: 0px; min-width: 170px; max-width: 170px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 230px; min-width: 170px; max-width: 170px;'>\n")
 		for E, Val in sorted(AllEvents.items(), key = lambda item: item[1]["WebOrder"]):
 			File.write(f"\t\t<input type='radio' name='Event' value='{E}' id='events-{E}'{' checked' if E == self._E else ''}><label class='E{E}' for='events-{E}'>{AllEvents[E]['Name'] + ' Arenas' if E not in ['marathon', 'liga'] else ('Marathons' if E == 'marathon' else 'Bundesliga')}</label>\n")
 		File.write("\t</span>\n")
 		
 		# Sorting menu
-		File.write("\t<span class='dropdown-el' style='left: 410px; top: 0px; min-width: 260px; max-width: 260px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 410px; min-width: 260px; max-width: 260px;'>\n")
 		for O in self._FilePlayersSorts:
 			File.write(f"\t\t<input type='radio' name='Page' value='players_{O}' id='players_{O}'{' checked' if ('players_' + O) == Page else ''}><label for='players_{O}'>{self._FilePlayersSorts[O]['Name']}</label>\n")
 		for O in self._FileArenasSorts:
@@ -1488,7 +1492,7 @@ class ArenaCategory:
 		File.write("\t</span>\n")
 		
 		# List or graph?
-		File.write("\t<span class='dropdown-el' style='left: 680px; top: 0px; min-width: 120px; max-width: 120px;'>\n")
+		File.write("\t<span class='dropdown-el' style='left: 680px; min-width: 120px; max-width: 120px;'>\n")
 		File.write(f"\t\t<input type='radio' name='Type' value='list' id='list'{' checked' if Type == 'list' else ''}><label for='list'><span class='VariantIcon'>?</span> List</label>\n")
 		File.write(f"\t\t<input type='radio' name='Type' value='graph' id='graph'{' checked' if Type == 'graph' else ''}><label for='graph'><span class='VariantIcon'>9</span> Graph</label>\n")
 		File.write("\t</span>\n")
