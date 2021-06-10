@@ -182,7 +182,7 @@ def BuildIndexPage():
 		File.write("<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->\n")
 		File.write("<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->\n")
 		File.write("<head>\n")
-		File.write(f"<title>Lichess Arena Rankings</title>\n")
+		File.write(f"<title>Lichess Arena Rankings &middot; Information</title>\n")
 		File.write("<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n")
 		File.write("<link rel='icon' type='image/png' href='../favicon.ico'>\n")
 		File.write("<link rel='stylesheet' href='../style-new.css'>\n")
@@ -190,7 +190,7 @@ def BuildIndexPage():
 		#File.write("<link rel='stylesheet' href='style-new.css'>\n")
 		File.write("</head>\n\n")
 		File.write("<body>\n")
-		File.write(f"<div class=\"title\">Lichess Arena Rankings</div>\n")
+		File.write(f"<div class=\"title\">Lichess Arena Rankings &middot; Information</div>\n")
 		
 		# Begin menu
 		File.write("<div class='menu'>\n")
