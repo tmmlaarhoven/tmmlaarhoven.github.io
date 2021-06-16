@@ -14,7 +14,7 @@ DrawPlots = False
 BuildIndexPage()
 
 Cat = dict()
-for V in []:#AllVariants:
+for V in AllVariants:
 	Cat[V] = dict()
 	for E in AllEvents:
 
