@@ -1468,7 +1468,7 @@ class ArenaCategory:
 		File.write("<meta property='og:type' content='website'>\n")
 		File.write(f"<meta property='og:title' content='Lichess Arena Rankings &middot; {self._Name}' />\n")
 		File.write("<meta property='og:description' content='Statistics and rankings built from official Lichess arenas, ranging from hourly bullet arenas to titled arenas to bundesliga events. See who scored the most tournament victories, who played in the most events, who holds the all-time record for the highest score in each type of arena, and more!' />\n")
-		File.write(f"<meta property='og:url' content='https://tmmlaarhoven.github.io/lichess/rankings/{self._V}/{self._E}' />\n")
+		File.write(f"<meta property='og:url' content='https://tmmlaarhoven.github.io/lichess/rankings/{self._V}/{self._E}/{Type}_{Page}.html' />\n")
 		File.write(f"<meta property='og:image' content='https://tmmlaarhoven.github.io/lichess/rankings/{self._V}/{self._E}/figures/{self._V}_{self._E}_players_points.png' />\n")
 		#File.write("<link rel='stylesheet' href='style-new.css'>\n")
 		File.write("</head>\n\n")
