@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; All Blitz Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+<meta property='og:type' content='website'>
+<meta property='og:title' content='Lichess Arena Rankings &middot; All Blitz Arenas' />
+<meta property='og:description' content='Statistics and rankings built from official Lichess arenas, ranging from hourly bullet arenas to titled arenas to bundesliga events. See who scored the most tournament victories, who played in the most events, who holds the all-time record for the highest score in each type of arena, and more!' />
+<meta property='og:url' content='https://tmmlaarhoven.github.io/lichess/rankings/blitz/all/list_arenas_rating.html' />
+<meta property='og:image' content='https://tmmlaarhoven.github.io/lichess/rankings/blitz/all/figures/blitz_all_players_points.png' />
+</head>
+
+<body>
+<div class="title">Lichess Arena Rankings &middot; All Blitz Arenas</div>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz' checked><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all' checked><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily'><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+		<input type='radio' name='Event' value='liga' id='events-liga'><label class='Eliga' for='events-liga'>Bundesliga</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating' checked><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>
+		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>
+	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+This ranking is based on <span class='info' title='87,883 events'>88K</span> events held between <a title='First event' href='https://lichess.org/tournament/HIhWt1er'>Apr 10, 2014</a> and <a title='Last event' href='https://lichess.org/tournament/TLAqQyZw'>Jun 27, 2021</a>.
+
+In total, these arenas featured <span class='info' title='47,333,534 games'>47M</span> games (with <span class='info' title='3,211,589,915 moves'>3.2B</span> moves), and the <span class='info' title='21,745,007 participants'>22M</span> participants (<span class='info' title='1,002,709 players'>1.0M</span> unique players) scored a total of <span class='info' title='117,497,694 points'>117M</span> arena points.
+
+In these games, white scored <span class='info' title='23275236 out of 47333534 games'>49%</span> wins, <span class='info' title='2051787 out of 47333534 games'>4%</span> draws, and <span class='info' title='22006511 out of 47333534 games'>46%</span> losses.
+
+The average berserk rate is <span class='info' title='11057891 berserks in 47333534 games'>11.7%</span>, and the average rating is <span class='info' title='35578169557 over 21745007 participants'>1636</span>.
+
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'><b>#</b></span></td>
+		<td>ID</td>
+		<td><b>Type</b></td>
+		<td><b>Date</b></td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'><b>Rtng</b></span></td>
+		<td><span class='info' title='Average points per player'><b>Pts</b></span></td>
+		<td><span class='info' title='Average moves per player per game'><b>Mvs</b></span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td><b>Winner</b></td>
+		<td><span class='info' title='Score of winner'><b>Max</b></span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/nQ5KbYA5'>nQ5KbYA5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 04, 2020 at 18:01 UTC'>Jun 04, 2020</span></td>
+		<td>242</td>
+		<td>2243</td>
+		<td>19</td>
+		<td>38</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/mturov'>mturov</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/M00cRpuF'>M00cRpuF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 17, 2020 at 18:01 UTC'>Sep 17, 2020</span></td>
+		<td>301</td>
+		<td>2242</td>
+		<td>21</td>
+		<td>38</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/drmelekess'>drmelekess</a></td>
+		<td>90</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/GJf0nDGn'>GJf0nDGn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 19:01 UTC'>Feb 11, 2021</span></td>
+		<td>246</td>
+		<td>2233</td>
+		<td>16</td>
+		<td>39</td>
+		<td>34%</td>
+		<td><a href='https://lichess.org/@/gguseinov'>gguseinov</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/mwad1gem'>mwad1gem</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 28, 2020 at 18:01 UTC'>May 28, 2020</span></td>
+		<td>218</td>
+		<td>2232</td>
+		<td>21</td>
+		<td>40</td>
+		<td>47%</td>
+		<td><a href='https://lichess.org/@/jasugi99'>jasugi99</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/f7T29mVo'>f7T29mVo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 27, 2020 at 18:01 UTC'>Sep 27, 2020</span></td>
+		<td>323</td>
+		<td>2228</td>
+		<td>18</td>
+		<td>39</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/dr_martic'>dr_martic</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/WfcUGQE5'>WfcUGQE5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 25, 2020 at 18:01 UTC'>Jun 25, 2020</span></td>
+		<td>264</td>
+		<td>2227</td>
+		<td>18</td>
+		<td>39</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/kiborg799'>kiborg799</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/EXbgatN0'>EXbgatN0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Aug 06, 2020 at 18:01 UTC'>Aug 06, 2020</span></td>
+		<td>219</td>
+		<td>2226</td>
+		<td>18</td>
+		<td>39</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/fasak007'>fasak007</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/JZg9bzRb'>JZg9bzRb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 13, 2021 at 18:01 UTC'>May 13, 2021</span></td>
+		<td>110</td>
+		<td>2225</td>
+		<td>15</td>
+		<td>39</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/thobisch'>thobisch</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/3aZkOiAc'>3aZkOiAc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 16, 2021 at 18:01 UTC'>May 16, 2021</span></td>
+		<td>146</td>
+		<td>2225</td>
+		<td>17</td>
+		<td>40</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/gakolchess765'>gakolchess765</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/LnydzybX'>LnydzybX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 19:01 UTC'>Mar 14, 2021</span></td>
+		<td>181</td>
+		<td>2224</td>
+		<td>16</td>
+		<td>40</td>
+		<td>37%</td>
+		<td><a href='https://lichess.org/@/lctc'>lctc</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/o1BpKxkB'>o1BpKxkB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 14, 2020 at 18:02 UTC'>May 14, 2020</span></td>
+		<td>183</td>
+		<td>2222</td>
+		<td>21</td>
+		<td>40</td>
+		<td>36%</td>
+		<td><a href='https://lichess.org/@/somemightsay'>somemightsay</a></td>
+		<td>76</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/0ZNPph0h'>0ZNPph0h</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 25, 2020 at 18:01 UTC'>Jun 25, 2020</span></td>
+		<td>226</td>
+		<td>2218</td>
+		<td>17</td>
+		<td>38</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/elasesinofavorito'>elasesinofavorito</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/CmEED6ul'>CmEED6ul</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 07, 2020 at 18:01 UTC'>Jun 07, 2020</span></td>
+		<td>241</td>
+		<td>2217</td>
+		<td>20</td>
+		<td>38</td>
+		<td>34%</td>
+		<td><a href='https://lichess.org/@/benefactorr'>benefactorr</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/IM891aFG'>IM891aFG</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 10, 2020 at 18:01 UTC'>Sep 10, 2020</span></td>
+		<td>325</td>
+		<td>2217</td>
+		<td>20</td>
+		<td>39</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/korneta'>korneta</a></td>
+		<td>79</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/zJfNaHbE'>zJfNaHbE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 28, 2020 at 18:01 UTC'>May 28, 2020</span></td>
+		<td>143</td>
+		<td>2215</td>
+		<td>24</td>
+		<td>39</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/chessiando'>chessiando</a></td>
+		<td>83</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/2oxynlKY'>2oxynlKY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 14, 2020 at 18:01 UTC'>Jun 14, 2020</span></td>
+		<td>159</td>
+		<td>2214</td>
+		<td>19</td>
+		<td>39</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/georgmeier'>georgmeier</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/diE5v78U'>diE5v78U</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 01, 2020 at 18:01 UTC'>Oct 01, 2020</span></td>
+		<td>304</td>
+		<td>2214</td>
+		<td>23</td>
+		<td>38</td>
+		<td>54%</td>
+		<td><a href='https://lichess.org/@/neverenough'>neverenough</a></td>
+		<td>93</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/ARkIRazg'>ARkIRazg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 16, 2021 at 18:01 UTC'>May 16, 2021</span></td>
+		<td>187</td>
+		<td>2211</td>
+		<td>15</td>
+		<td>39</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/masterofpuppets2'>masterofpuppets2</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/kgJVAuID'>kgJVAuID</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 19:01 UTC'>Mar 11, 2021</span></td>
+		<td>206</td>
+		<td>2209</td>
+		<td>16</td>
+		<td>38</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/sgchess01'>sgchess01</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/6jdXLC7M'>6jdXLC7M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 07, 2020 at 18:01 UTC'>Jun 07, 2020</span></td>
+		<td>136</td>
+		<td>2207</td>
+		<td>20</td>
+		<td>39</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/dr-bassemamin'>dr-bassemamin</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/nL2c0cYF'>nL2c0cYF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 19:01 UTC'>Feb 07, 2021</span></td>
+		<td>332</td>
+		<td>2207</td>
+		<td>15</td>
+		<td>39</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/jonasbjerre'>jonasbjerre</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/jDyH2jp0'>jDyH2jp0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 10, 2020 at 18:02 UTC'>May 10, 2020</span></td>
+		<td>190</td>
+		<td>2206</td>
+		<td>19</td>
+		<td>39</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/georgmeier'>georgmeier</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/Uw0aNuiw'>Uw0aNuiw</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 19, 2020 at 18:01 UTC'>Apr 19, 2020</span></td>
+		<td>210</td>
+		<td>2205</td>
+		<td>19</td>
+		<td>37</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/catask'>catask</a></td>
+		<td>88</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/9NzWCatg'>9NzWCatg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 14, 2020 at 18:01 UTC'>Jun 14, 2020</span></td>
+		<td>225</td>
+		<td>2205</td>
+		<td>19</td>
+		<td>37</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/keepserene'>keepserene</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/5Mmx6Mq3'>5Mmx6Mq3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 17, 2021 at 19:01 UTC'>Jan 17, 2021</span></td>
+		<td>396</td>
+		<td>2205</td>
+		<td>15</td>
+		<td>39</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/dmitrij_im'>dmitrij_im</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/5lwJ2PH5'>5lwJ2PH5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 18, 2020 at 18:01 UTC'>Jun 18, 2020</span></td>
+		<td>303</td>
+		<td>2203</td>
+		<td>20</td>
+		<td>38</td>
+		<td>41%</td>
+		<td><a href='https://lichess.org/@/pozvonochek'>pozvonochek</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/YpLU7ydb'>YpLU7ydb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 19:01 UTC'>Mar 21, 2021</span></td>
+		<td>153</td>
+		<td>2203</td>
+		<td>17</td>
+		<td>38</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/dalmatinac101'>dalmatinac101</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/ewrymS6X'>ewrymS6X</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 24, 2020 at 18:01 UTC'>May 24, 2020</span></td>
+		<td>138</td>
+		<td>2202</td>
+		<td>19</td>
+		<td>39</td>
+		<td>7%</td>
+		<td><a href='https://lichess.org/@/dj_haubi'>dj_haubi</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/9v21ZVLs'>9v21ZVLs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 19:01 UTC'>Mar 11, 2021</span></td>
+		<td>379</td>
+		<td>2202</td>
+		<td>16</td>
+		<td>39</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/rasulovvugar'>rasulovvugar</a></td>
+		<td>92</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/oYcyGYjo'>oYcyGYjo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 19:01 UTC'>Mar 21, 2021</span></td>
+		<td>350</td>
+		<td>2200</td>
+		<td>15</td>
+		<td>38</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/crow03'>crow03</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/oXZoKeAy'>oXZoKeAy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 25, 2021 at 19:01 UTC'>Mar 25, 2021</span></td>
+		<td>178</td>
+		<td>2200</td>
+		<td>17</td>
+		<td>38</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/keepserene'>keepserene</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/ynBnqEVY'>ynBnqEVY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 08, 2020 at 18:01 UTC'>Oct 08, 2020</span></td>
+		<td>150</td>
+		<td>2199</td>
+		<td>16</td>
+		<td>38</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/shaxevmat64'>shaxevmat64</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/MapHGZwx'>MapHGZwx</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 10, 2021 at 19:01 UTC'>Jan 10, 2021</span></td>
+		<td>234</td>
+		<td>2199</td>
+		<td>16</td>
+		<td>39</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/saparmyrat'>saparmyrat</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/gYFnRNND'>gYFnRNND</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 04, 2021 at 18:01 UTC'>Apr 04, 2021</span></td>
+		<td>338</td>
+		<td>2199</td>
+		<td>17</td>
+		<td>39</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/funo09'>funo09</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/XYzTiDMc'>XYzTiDMc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 11, 2021 at 18:01 UTC'>Apr 11, 2021</span></td>
+		<td>260</td>
+		<td>2199</td>
+		<td>16</td>
+		<td>41</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/schaefchen'>schaefchen</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/7TTvnxxk'>7TTvnxxk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 07, 2020 at 18:01 UTC'>Jun 07, 2020</span></td>
+		<td>137</td>
+		<td>2198</td>
+		<td>22</td>
+		<td>39</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/kubalibre420'>kubalibre420</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/kHjOqjfM'>kHjOqjfM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Aug 09, 2020 at 18:01 UTC'>Aug 09, 2020</span></td>
+		<td>201</td>
+		<td>2198</td>
+		<td>20</td>
+		<td>39</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/vladimirbelous'>vladimirbelous</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/PHxgahvC'>PHxgahvC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 17, 2021 at 19:01 UTC'>Jan 17, 2021</span></td>
+		<td>180</td>
+		<td>2198</td>
+		<td>16</td>
+		<td>39</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/selendic95'>selendic95</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/xbCtOjK2'>xbCtOjK2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 08, 2020 at 18:01 UTC'>Oct 08, 2020</span></td>
+		<td>207</td>
+		<td>2197</td>
+		<td>14</td>
+		<td>40</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/msb2'>msb2</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/MenaAf99'>MenaAf99</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 04, 2021 at 19:01 UTC'>Mar 04, 2021</span></td>
+		<td>151</td>
+		<td>2197</td>
+		<td>17</td>
+		<td>40</td>
+		<td>37%</td>
+		<td><a href='https://lichess.org/@/dr-cro'>dr-cro</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/D6J5FiDm'>D6J5FiDm</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 01, 2021 at 18:01 UTC'>Apr 01, 2021</span></td>
+		<td>125</td>
+		<td>2197</td>
+		<td>15</td>
+		<td>37</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/simonmkrtchyan'>simonmkrtchyan</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/oPcVb5C2'>oPcVb5C2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 04, 2021 at 18:01 UTC'>Apr 04, 2021</span></td>
+		<td>120</td>
+		<td>2197</td>
+		<td>17</td>
+		<td>38</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/plukizpettefleta'>plukizpettefleta</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/I9fe3aLi'>I9fe3aLi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 18, 2020 at 18:01 UTC'>Jun 18, 2020</span></td>
+		<td>135</td>
+		<td>2196</td>
+		<td>19</td>
+		<td>39</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/no_move_left'>no_move_left</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/1sizFjth'>1sizFjth</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 25, 2021 at 19:01 UTC'>Mar 25, 2021</span></td>
+		<td>405</td>
+		<td>2196</td>
+		<td>17</td>
+		<td>39</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/drmelekess'>drmelekess</a></td>
+		<td>80</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/8Yg6EOqr'>8Yg6EOqr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 10, 2020 at 18:01 UTC'>May 10, 2020</span></td>
+		<td>244</td>
+		<td>2195</td>
+		<td>22</td>
+		<td>37</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/catask'>catask</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/ww4CbMip'>ww4CbMip</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 18, 2020 at 18:01 UTC'>Jun 18, 2020</span></td>
+		<td>201</td>
+		<td>2195</td>
+		<td>19</td>
+		<td>39</td>
+		<td>36%</td>
+		<td><a href='https://lichess.org/@/bozorov_makhsum'>bozorov_makhsum</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/Y63DvY7m'>Y63DvY7m</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 09, 2020 at 18:01 UTC'>Jul 09, 2020</span></td>
+		<td>126</td>
+		<td>2194</td>
+		<td>19</td>
+		<td>38</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/msb2'>msb2</a></td>
+		<td>85</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/xo1sAaf4'>xo1sAaf4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 23, 2020 at 18:01 UTC'>Apr 23, 2020</span></td>
+		<td>248</td>
+		<td>2193</td>
+		<td>22</td>
+		<td>39</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/telitmas'>telitmas</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/CZrq4KUn'>CZrq4KUn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 07, 2021 at 19:01 UTC'>Jan 07, 2021</span></td>
+		<td>567</td>
+		<td>2193</td>
+		<td>14</td>
+		<td>38</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/Tu0EYwFo'>Tu0EYwFo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 21, 2021 at 19:01 UTC'>Feb 21, 2021</span></td>
+		<td>204</td>
+		<td>2193</td>
+		<td>17</td>
+		<td>41</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/ly4o'>ly4o</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/EeixV4Uc'>EeixV4Uc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 03, 2020 at 18:01 UTC'>May 03, 2020</span></td>
+		<td>253</td>
+		<td>2192</td>
+		<td>23</td>
+		<td>38</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/dr-bassemamin'>dr-bassemamin</a></td>
+		<td>74</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/tgzefsPV'>tgzefsPV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 24, 2020 at 18:01 UTC'>May 24, 2020</span></td>
+		<td>166</td>
+		<td>2191</td>
+		<td>19</td>
+		<td>38</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/chessiando'>chessiando</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/KZqQ6p1b'>KZqQ6p1b</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 28, 2020 at 18:01 UTC'>Jun 28, 2020</span></td>
+		<td>125</td>
+		<td>2191</td>
+		<td>22</td>
+		<td>39</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/bigellow'>bigellow</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/gFFXWKTL'>gFFXWKTL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 19, 2020 at 18:01 UTC'>Jul 19, 2020</span></td>
+		<td>200</td>
+		<td>2191</td>
+		<td>20</td>
+		<td>38</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/gevo199064'>gevo199064</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/2R6u9ZQs'>2R6u9ZQs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 31, 2020 at 18:00 UTC'>Mar 31, 2020</span></td>
+		<td>170</td>
+		<td>2190</td>
+		<td>20</td>
+		<td>39</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/verdenotte'>verdenotte</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/zLvLgOux'>zLvLgOux</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 31, 2021 at 19:01 UTC'>Jan 31, 2021</span></td>
+		<td>266</td>
+		<td>2190</td>
+		<td>17</td>
+		<td>41</td>
+		<td>44%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/1oeCb5LV'>1oeCb5LV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Aug 20, 2020 at 18:01 UTC'>Aug 20, 2020</span></td>
+		<td>195</td>
+		<td>2189</td>
+		<td>21</td>
+		<td>39</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/vincentkeymer2004'>vincentkeymer2004</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/U9ZnGTbN'>U9ZnGTbN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 19:01 UTC'>Feb 28, 2021</span></td>
+		<td>172</td>
+		<td>2189</td>
+		<td>16</td>
+		<td>38</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/amadeus69'>amadeus69</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/9L498Z4n'>9L498Z4n</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 14, 2020 at 18:01 UTC'>Jun 14, 2020</span></td>
+		<td>283</td>
+		<td>2188</td>
+		<td>19</td>
+		<td>39</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/ledinavelosipede'>ledinavelosipede</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/Syj0siXg'>Syj0siXg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 09, 2020 at 18:01 UTC'>Jul 09, 2020</span></td>
+		<td>354</td>
+		<td>2188</td>
+		<td>18</td>
+		<td>40</td>
+		<td>43%</td>
+		<td><a href='https://lichess.org/@/asala1975'>asala1975</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/OUUubXYU'>OUUubXYU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 21, 2020 at 19:05 UTC'>May 21, 2020</span></td>
+		<td>134</td>
+		<td>2187</td>
+		<td>12</td>
+		<td>38</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/kiborg799'>kiborg799</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/Xnb2DM0V'>Xnb2DM0V</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 04, 2020 at 18:01 UTC'>Jun 04, 2020</span></td>
+		<td>234</td>
+		<td>2187</td>
+		<td>19</td>
+		<td>38</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/abdisalimov'>abdisalimov</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/fjwIyxe7'>fjwIyxe7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 02, 2020 at 18:01 UTC'>Apr 02, 2020</span></td>
+		<td>184</td>
+		<td>2186</td>
+		<td>21</td>
+		<td>37</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/somemightsay'>somemightsay</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/sSXaThxk'>sSXaThxk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 13, 2021 at 18:01 UTC'>May 13, 2021</span></td>
+		<td>231</td>
+		<td>2186</td>
+		<td>14</td>
+		<td>40</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/crazytogether'>crazytogether</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/1oz1nQnY'>1oz1nQnY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 23, 2021 at 18:01 UTC'>May 23, 2021</span></td>
+		<td>206</td>
+		<td>2186</td>
+		<td>14</td>
+		<td>38</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/sailor1951'>sailor1951</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/59ehWnoa'>59ehWnoa</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 04, 2020 at 18:01 UTC'>Jun 04, 2020</span></td>
+		<td>158</td>
+		<td>2185</td>
+		<td>20</td>
+		<td>38</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/pyama_ninja'>pyama_ninja</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/gKJA5lm4'>gKJA5lm4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 04, 2021 at 18:01 UTC'>Apr 04, 2021</span></td>
+		<td>208</td>
+		<td>2185</td>
+		<td>17</td>
+		<td>39</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/lazycat11'>lazycat11</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/tP6kycQD'>tP6kycQD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 28, 2020 at 18:01 UTC'>May 28, 2020</span></td>
+		<td>130</td>
+		<td>2184</td>
+		<td>20</td>
+		<td>39</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/gabi_g'>gabi_g</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/MFrRdoup'>MFrRdoup</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 16, 2020 at 18:01 UTC'>Jul 16, 2020</span></td>
+		<td>391</td>
+		<td>2184</td>
+		<td>19</td>
+		<td>38</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/asala1'>asala1</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/mPMwVBRq'>mPMwVBRq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 29, 2020 at 19:01 UTC'>Oct 29, 2020</span></td>
+		<td>163</td>
+		<td>2184</td>
+		<td>15</td>
+		<td>38</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/sharingan69'>sharingan69</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/4fhsItx2'>4fhsItx2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 27, 2021 at 18:01 UTC'>May 27, 2021</span></td>
+		<td>141</td>
+		<td>2184</td>
+		<td>15</td>
+		<td>39</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/mrsavic777'>mrsavic777</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/R1ZJwApR'>R1ZJwApR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 28, 2020 at 18:01 UTC'>May 28, 2020</span></td>
+		<td>258</td>
+		<td>2183</td>
+		<td>22</td>
+		<td>39</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/qGuQezHA'>qGuQezHA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 28, 2020 at 18:01 UTC'>Jun 28, 2020</span></td>
+		<td>244</td>
+		<td>2183</td>
+		<td>18</td>
+		<td>39</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/tfaf2020'>tfaf2020</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/2pque232'>2pque232</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 21, 2021 at 19:01 UTC'>Jan 21, 2021</span></td>
+		<td>298</td>
+		<td>2183</td>
+		<td>17</td>
+		<td>40</td>
+		<td>52%</td>
+		<td><a href='https://lichess.org/@/greennight'>greennight</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/MXSXQ5KI'>MXSXQ5KI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 06, 2021 at 18:01 UTC'>May 06, 2021</span></td>
+		<td>188</td>
+		<td>2183</td>
+		<td>16</td>
+		<td>38</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/gabi_g'>gabi_g</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/Xu80Yg16'>Xu80Yg16</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 21, 2020 at 19:04 UTC'>May 21, 2020</span></td>
+		<td>170</td>
+		<td>2182</td>
+		<td>13</td>
+		<td>37</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/cresswell'>cresswell</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/BER4XUY2'>BER4XUY2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 28, 2021 at 19:01 UTC'>Jan 28, 2021</span></td>
+		<td>276</td>
+		<td>2182</td>
+		<td>15</td>
+		<td>39</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/msb2'>msb2</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/XzNLmcFB'>XzNLmcFB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 04, 2021 at 19:01 UTC'>Mar 04, 2021</span></td>
+		<td>199</td>
+		<td>2182</td>
+		<td>16</td>
+		<td>40</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/ragadingdong'>ragadingdong</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/5jcn15MB'>5jcn15MB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 13, 2021 at 18:01 UTC'>May 13, 2021</span></td>
+		<td>168</td>
+		<td>2182</td>
+		<td>14</td>
+		<td>40</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/baron_von_koenig'>baron_von_koenig</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/vLJiaaFD'>vLJiaaFD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 20, 2020 at 18:01 UTC'>Sep 20, 2020</span></td>
+		<td>174</td>
+		<td>2181</td>
+		<td>20</td>
+		<td>40</td>
+		<td>43%</td>
+		<td><a href='https://lichess.org/@/alekineeltactico12'>alekineeltactico12</a></td>
+		<td>80</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/WntzlyUm'>WntzlyUm</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 18, 2020 at 18:01 UTC'>Oct 18, 2020</span></td>
+		<td>421</td>
+		<td>2180</td>
+		<td>15</td>
+		<td>39</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/sindarovgm'>sindarovgm</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/EsjJ1rCQ'>EsjJ1rCQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 19:01 UTC'>Mar 14, 2021</span></td>
+		<td>425</td>
+		<td>2180</td>
+		<td>17</td>
+		<td>40</td>
+		<td>53%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/P9U0HwWb'>P9U0HwWb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 06, 2020 at 18:01 UTC'>Sep 06, 2020</span></td>
+		<td>304</td>
+		<td>2179</td>
+		<td>16</td>
+		<td>38</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/zaven_chessmood'>zaven_chessmood</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/adrekpFf'>adrekpFf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Nov 08, 2020 at 19:01 UTC'>Nov 08, 2020</span></td>
+		<td>380</td>
+		<td>2179</td>
+		<td>17</td>
+		<td>37</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>85</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/Pw1sCcIT'>Pw1sCcIT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 25, 2021 at 18:01 UTC'>Apr 25, 2021</span></td>
+		<td>116</td>
+		<td>2178</td>
+		<td>19</td>
+		<td>39</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/gabuzyan_chessmood'>gabuzyan_chessmood</a></td>
+		<td>83</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/F55mdqFf'>F55mdqFf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 19:01 UTC'>Mar 11, 2021</span></td>
+		<td>284</td>
+		<td>2177</td>
+		<td>16</td>
+		<td>38</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/Dkduz17T'>Dkduz17T</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 22, 2021 at 18:01 UTC'>Apr 22, 2021</span></td>
+		<td>212</td>
+		<td>2177</td>
+		<td>14</td>
+		<td>41</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/samisahi'>samisahi</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/AXLo8fau'>AXLo8fau</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 05, 2020 at 18:01 UTC'>Jul 05, 2020</span></td>
+		<td>177</td>
+		<td>2176</td>
+		<td>20</td>
+		<td>37</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/fireonboard'>fireonboard</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/zmYrjFzF'>zmYrjFzF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 29, 2020 at 19:01 UTC'>Oct 29, 2020</span></td>
+		<td>109</td>
+		<td>2176</td>
+		<td>16</td>
+		<td>38</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/vladibakki'>vladibakki</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/gQiFV3dD'>gQiFV3dD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 21, 2021 at 19:01 UTC'>Feb 21, 2021</span></td>
+		<td>271</td>
+		<td>2176</td>
+		<td>19</td>
+		<td>40</td>
+		<td>46%</td>
+		<td><a href='https://lichess.org/@/neverenough'>neverenough</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/ZK5zvzcF'>ZK5zvzcF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 02, 2021 at 18:01 UTC'>May 02, 2021</span></td>
+		<td>233</td>
+		<td>2176</td>
+		<td>15</td>
+		<td>38</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/yakimkin_igor'>yakimkin_igor</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/7G67qOCH'>7G67qOCH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 21, 2020 at 19:02 UTC'>May 21, 2020</span></td>
+		<td>212</td>
+		<td>2175</td>
+		<td>11</td>
+		<td>38</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/abdisalimov'>abdisalimov</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/CMPpGf74'>CMPpGf74</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 19:01 UTC'>Feb 28, 2021</span></td>
+		<td>252</td>
+		<td>2175</td>
+		<td>15</td>
+		<td>40</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/reddingtonbl'>reddingtonbl</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/Gllygv31'>Gllygv31</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 25, 2021 at 19:01 UTC'>Mar 25, 2021</span></td>
+		<td>131</td>
+		<td>2175</td>
+		<td>16</td>
+		<td>39</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/ecce89'>ecce89</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/t8APBD0C'>t8APBD0C</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 26, 2020 at 18:01 UTC'>Jul 26, 2020</span></td>
+		<td>209</td>
+		<td>2174</td>
+		<td>17</td>
+		<td>38</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/ilsalvatore'>ilsalvatore</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/7h8KdwIb'>7h8KdwIb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 15, 2021 at 18:01 UTC'>Apr 15, 2021</span></td>
+		<td>247</td>
+		<td>2174</td>
+		<td>16</td>
+		<td>38</td>
+		<td>36%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/damkqfwt'>damkqfwt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 06, 2021 at 18:01 UTC'>May 06, 2021</span></td>
+		<td>212</td>
+		<td>2174</td>
+		<td>19</td>
+		<td>40</td>
+		<td>45%</td>
+		<td><a href='https://lichess.org/@/bobance'>bobance</a></td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/6kZTPWuy'>6kZTPWuy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 06, 2021 at 18:01 UTC'>May 06, 2021</span></td>
+		<td>129</td>
+		<td>2174</td>
+		<td>15</td>
+		<td>39</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/atomrod'>atomrod</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/Th9XSkDO'>Th9XSkDO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 10, 2021 at 19:01 UTC'>Jan 10, 2021</span></td>
+		<td>445</td>
+		<td>2173</td>
+		<td>15</td>
+		<td>39</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/CaoaMkZ7'>CaoaMkZ7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 06, 2021 at 18:01 UTC'>May 06, 2021</span></td>
+		<td>149</td>
+		<td>2173</td>
+		<td>16</td>
+		<td>39</td>
+		<td>37%</td>
+		<td><a href='https://lichess.org/@/ragadingdong'>ragadingdong</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/0c2OAG0J'>0c2OAG0J</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 23, 2020 at 18:05 UTC'>Apr 23, 2020</span></td>
+		<td>143</td>
+		<td>2172</td>
+		<td>19</td>
+		<td>39</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/ismeralda'>ismeralda</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/TJfnKI2N'>TJfnKI2N</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 04, 2021 at 19:01 UTC'>Mar 04, 2021</span></td>
+		<td>458</td>
+		<td>2172</td>
+		<td>17</td>
+		<td>39</td>
+		<td>56%</td>
+		<td><a href='https://lichess.org/@/jasugi99'>jasugi99</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/R1Vl0CZT'>R1Vl0CZT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 05, 2020 at 18:01 UTC'>Apr 05, 2020</span></td>
+		<td>171</td>
+		<td>2171</td>
+		<td>23</td>
+		<td>38</td>
+		<td>34%</td>
+		<td><a href='https://lichess.org/@/verdenotte'>verdenotte</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/pD3tWmTA'>pD3tWmTA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 07, 2020 at 18:01 UTC'>Jun 07, 2020</span></td>
+		<td>126</td>
+		<td>2171</td>
+		<td>19</td>
+		<td>40</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/profchateau'>profchateau</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/MLJxc0zx'>MLJxc0zx</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 10, 2020 at 18:01 UTC'>Sep 10, 2020</span></td>
+		<td>174</td>
+		<td>2171</td>
+		<td>15</td>
+		<td>40</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/domtichess'>domtichess</a></td>
+		<td>96</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/cbMlnxLc'>cbMlnxLc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 19:01 UTC'>Mar 14, 2021</span></td>
+		<td>141</td>
+		<td>2171</td>
+		<td>17</td>
+		<td>41</td>
+		<td>31%</td>
+		<td><a href='https://lichess.org/@/mibenjaminmela'>mibenjaminmela</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/CsZbzNUq'>CsZbzNUq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 19:01 UTC'>Mar 21, 2021</span></td>
+		<td>208</td>
+		<td>2171</td>
+		<td>14</td>
+		<td>39</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ledinavelosipede'>ledinavelosipede</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/mTgnpfon'>mTgnpfon</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 05, 2020 at 18:01 UTC'>Jul 05, 2020</span></td>
+		<td>224</td>
+		<td>2170</td>
+		<td>17</td>
+		<td>38</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/asonchess'>asonchess</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/YkAVQzkT'>YkAVQzkT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Nov 22, 2020 at 19:01 UTC'>Nov 22, 2020</span></td>
+		<td>355</td>
+		<td>2170</td>
+		<td>16</td>
+		<td>39</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/funny_chess'>funny_chess</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/rLRe0LiF'>rLRe0LiF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 01, 2021 at 18:01 UTC'>Apr 01, 2021</span></td>
+		<td>141</td>
+		<td>2170</td>
+		<td>13</td>
+		<td>40</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/samisahi'>samisahi</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/vbdnqHSt'>vbdnqHSt</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 25, 2021 at 18:01 UTC'>Apr 25, 2021</span></td>
+		<td>392</td>
+		<td>2170</td>
+		<td>16</td>
+		<td>38</td>
+		<td>46%</td>
+		<td><a href='https://lichess.org/@/drmelekess'>drmelekess</a></td>
+		<td>77</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/HaldLhsI'>HaldLhsI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 02, 2021 at 18:01 UTC'>May 02, 2021</span></td>
+		<td>131</td>
+		<td>2170</td>
+		<td>16</td>
+		<td>38</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/gabix94'>gabix94</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/BvsRoRnP'>BvsRoRnP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 21, 2020 at 19:01 UTC'>May 21, 2020</span></td>
+		<td>102</td>
+		<td>2169</td>
+		<td>12</td>
+		<td>39</td>
+		<td>40%</td>
+		<td><a href='https://lichess.org/@/rd4ever'>rd4ever</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/zDDkjhWl'>zDDkjhWl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 24, 2020 at 18:01 UTC'>May 24, 2020</span></td>
+		<td>210</td>
+		<td>2169</td>
+		<td>19</td>
+		<td>37</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/abdisalimov'>abdisalimov</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/nkG331F6'>nkG331F6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 30, 2020 at 18:01 UTC'>Jul 30, 2020</span></td>
+		<td>159</td>
+		<td>2169</td>
+		<td>20</td>
+		<td>41</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/ragadingdong'>ragadingdong</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/wME9q8QK'>wME9q8QK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 01, 2020 at 18:01 UTC'>Oct 01, 2020</span></td>
+		<td>281</td>
+		<td>2169</td>
+		<td>18</td>
+		<td>40</td>
+		<td>45%</td>
+		<td><a href='https://lichess.org/@/apprendre-les-echecs'>apprendre-les-echecs</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/CEZFt6K3'>CEZFt6K3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 04, 2021 at 19:01 UTC'>Mar 04, 2021</span></td>
+		<td>299</td>
+		<td>2169</td>
+		<td>16</td>
+		<td>38</td>
+		<td>43%</td>
+		<td><a href='https://lichess.org/@/sgchess01'>sgchess01</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/0lhLSLjE'>0lhLSLjE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 12, 2020 at 18:01 UTC'>Apr 12, 2020</span></td>
+		<td>242</td>
+		<td>2168</td>
+		<td>21</td>
+		<td>39</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/habasila'>habasila</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/UunJkKsL'>UunJkKsL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 25, 2020 at 18:01 UTC'>Jun 25, 2020</span></td>
+		<td>189</td>
+		<td>2168</td>
+		<td>17</td>
+		<td>39</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/bentery'>bentery</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/qc5U3ubb'>qc5U3ubb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Nov 22, 2020 at 19:01 UTC'>Nov 22, 2020</span></td>
+		<td>184</td>
+		<td>2168</td>
+		<td>16</td>
+		<td>39</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/darkghoul'>darkghoul</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/RXSUcE5q'>RXSUcE5q</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 19:01 UTC'>Mar 21, 2021</span></td>
+		<td>148</td>
+		<td>2168</td>
+		<td>16</td>
+		<td>39</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/derbestewogibt'>derbestewogibt</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/4EIjHWaj'>4EIjHWaj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Aug 27, 2020 at 18:01 UTC'>Aug 27, 2020</span></td>
+		<td>228</td>
+		<td>2167</td>
+		<td>18</td>
+		<td>39</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/dr-bassemamin'>dr-bassemamin</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/WwNEZc9T'>WwNEZc9T</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Dec 13, 2020 at 19:01 UTC'>Dec 13, 2020</span></td>
+		<td>404</td>
+		<td>2167</td>
+		<td>17</td>
+		<td>38</td>
+		<td>47%</td>
+		<td><a href='https://lichess.org/@/benefactorr'>benefactorr</a></td>
+		<td>77</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/HuLIrnTe'>HuLIrnTe</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 03, 2020 at 18:04 UTC'>May 03, 2020</span></td>
+		<td>141</td>
+		<td>2166</td>
+		<td>20</td>
+		<td>38</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/el_precisione'>el_precisione</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/TCHxah4h'>TCHxah4h</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 24, 2020 at 18:01 UTC'>May 24, 2020</span></td>
+		<td>159</td>
+		<td>2166</td>
+		<td>19</td>
+		<td>37</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/chess_alex1234'>chess_alex1234</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/cwWyb5eg'>cwWyb5eg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 30, 2020 at 18:01 UTC'>Jul 30, 2020</span></td>
+		<td>371</td>
+		<td>2166</td>
+		<td>22</td>
+		<td>38</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/zaven_chessmood'>zaven_chessmood</a></td>
+		<td>77</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/FabPpA2F'>FabPpA2F</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Nov 29, 2020 at 19:01 UTC'>Nov 29, 2020</span></td>
+		<td>182</td>
+		<td>2166</td>
+		<td>16</td>
+		<td>39</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kelevra317'>kelevra317</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/hI9RJo1w'>hI9RJo1w</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 01, 2021 at 18:01 UTC'>Apr 01, 2021</span></td>
+		<td>188</td>
+		<td>2166</td>
+		<td>13</td>
+		<td>39</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>92</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/nUjIBH8M'>nUjIBH8M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 06, 2021 at 18:01 UTC'>May 06, 2021</span></td>
+		<td>232</td>
+		<td>2166</td>
+		<td>15</td>
+		<td>39</td>
+		<td>36%</td>
+		<td><a href='https://lichess.org/@/sailor1951'>sailor1951</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/rLN7p8L5'>rLN7p8L5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 22, 2020 at 19:00 UTC'>Mar 22, 2020</span></td>
+		<td>135</td>
+		<td>2165</td>
+		<td>19</td>
+		<td>39</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/kingofcheapos'>kingofcheapos</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/Epsmcf8s'>Epsmcf8s</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 07, 2020 at 18:01 UTC'>Jun 07, 2020</span></td>
+		<td>203</td>
+		<td>2165</td>
+		<td>22</td>
+		<td>39</td>
+		<td>37%</td>
+		<td><a href='https://lichess.org/@/to_pe'>to_pe</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/stVXbmiF'>stVXbmiF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 19:01 UTC'>Feb 28, 2021</span></td>
+		<td>298</td>
+		<td>2165</td>
+		<td>18</td>
+		<td>39</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/fEPIBmwI'>fEPIBmwI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 19:01 UTC'>Feb 18, 2021</span></td>
+		<td>171</td>
+		<td>2164</td>
+		<td>16</td>
+		<td>38</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/turkmentiger2020'>turkmentiger2020</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/LFDSAv8C'>LFDSAv8C</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 28, 2021 at 19:01 UTC'>Feb 28, 2021</span></td>
+		<td>198</td>
+		<td>2164</td>
+		<td>15</td>
+		<td>39</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/shcufnairolf'>shcufnairolf</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/8PpV0sjQ'>8PpV0sjQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 16, 2021 at 18:01 UTC'>May 16, 2021</span></td>
+		<td>157</td>
+		<td>2164</td>
+		<td>16</td>
+		<td>39</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/hoffentlichgewinn'>hoffentlichgewinn</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/JEMpd6qx'>JEMpd6qx</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 05, 2020 at 18:05 UTC'>Apr 05, 2020</span></td>
+		<td>123</td>
+		<td>2163</td>
+		<td>19</td>
+		<td>38</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/rybka89'>rybka89</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/vELNqp1L'>vELNqp1L</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jan 21, 2021 at 19:01 UTC'>Jan 21, 2021</span></td>
+		<td>252</td>
+		<td>2163</td>
+		<td>17</td>
+		<td>39</td>
+		<td>42%</td>
+		<td><a href='https://lichess.org/@/mrbochwalt'>mrbochwalt</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/GUYUUEEO'>GUYUUEEO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 19:01 UTC'>Feb 18, 2021</span></td>
+		<td>161</td>
+		<td>2163</td>
+		<td>15</td>
+		<td>39</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/june31'>june31</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/ujdkEyVq'>ujdkEyVq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 04, 2021 at 18:01 UTC'>Apr 04, 2021</span></td>
+		<td>144</td>
+		<td>2163</td>
+		<td>17</td>
+		<td>39</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/prettyfly'>prettyfly</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/35zmZhnC'>35zmZhnC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 27, 2021 at 18:01 UTC'>May 27, 2021</span></td>
+		<td>154</td>
+		<td>2163</td>
+		<td>15</td>
+		<td>39</td>
+		<td>41%</td>
+		<td><a href='https://lichess.org/@/el_precisione'>el_precisione</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/vXbSsL4p'>vXbSsL4p</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 08, 2020 at 18:01 UTC'>Oct 08, 2020</span></td>
+		<td>448</td>
+		<td>2162</td>
+		<td>15</td>
+		<td>39</td>
+		<td>35%</td>
+		<td><a href='https://lichess.org/@/rasulovvugar'>rasulovvugar</a></td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/YvQEfHk9'>YvQEfHk9</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 19:01 UTC'>Mar 11, 2021</span></td>
+		<td>134</td>
+		<td>2162</td>
+		<td>15</td>
+		<td>38</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/zakramnika'>zakramnika</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/eaLHJOFn'>eaLHJOFn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 14, 2021 at 19:01 UTC'>Mar 14, 2021</span></td>
+		<td>185</td>
+		<td>2162</td>
+		<td>16</td>
+		<td>38</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/joeassaad'>joeassaad</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/Ae9TBsEu'>Ae9TBsEu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 16, 2021 at 18:01 UTC'>May 16, 2021</span></td>
+		<td>198</td>
+		<td>2162</td>
+		<td>16</td>
+		<td>40</td>
+		<td>37%</td>
+		<td><a href='https://lichess.org/@/saiiiiii'>saiiiiii</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/VDtTKs7F'>VDtTKs7F</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 12, 2020 at 18:02 UTC'>Apr 12, 2020</span></td>
+		<td>144</td>
+		<td>2161</td>
+		<td>22</td>
+		<td>38</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/O8Pderyk'>O8Pderyk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Dec 27, 2020 at 19:01 UTC'>Dec 27, 2020</span></td>
+		<td>424</td>
+		<td>2161</td>
+		<td>17</td>
+		<td>38</td>
+		<td>50%</td>
+		<td><a href='https://lichess.org/@/kickshot'>kickshot</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/kXNq7qzZ'>kXNq7qzZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 25, 2021 at 19:01 UTC'>Mar 25, 2021</span></td>
+		<td>144</td>
+		<td>2161</td>
+		<td>18</td>
+		<td>38</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/donnerhall'>donnerhall</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/0IHuHX1e'>0IHuHX1e</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 11, 2021 at 18:01 UTC'>Apr 11, 2021</span></td>
+		<td>158</td>
+		<td>2161</td>
+		<td>15</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/sfa_gang'>sfa_gang</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/eH5Pmow1'>eH5Pmow1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 15, 2021 at 18:01 UTC'>Apr 15, 2021</span></td>
+		<td>137</td>
+		<td>2161</td>
+		<td>16</td>
+		<td>39</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/meysonn'>meysonn</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/I45hEXri'>I45hEXri</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 27, 2021 at 18:01 UTC'>May 27, 2021</span></td>
+		<td>224</td>
+		<td>2161</td>
+		<td>15</td>
+		<td>39</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/donnerhall'>donnerhall</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/VvBuOpm6'>VvBuOpm6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 30, 2020 at 18:04 UTC'>Apr 30, 2020</span></td>
+		<td>151</td>
+		<td>2160</td>
+		<td>20</td>
+		<td>38</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/carebesen'>carebesen</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/a2wQSXmN'>a2wQSXmN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 24, 2020 at 18:01 UTC'>May 24, 2020</span></td>
+		<td>119</td>
+		<td>2160</td>
+		<td>18</td>
+		<td>37</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/odessacoach'>odessacoach</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/IQshOVGF'>IQshOVGF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 18, 2020 at 18:01 UTC'>Jun 18, 2020</span></td>
+		<td>127</td>
+		<td>2160</td>
+		<td>17</td>
+		<td>39</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/sex_god'>sex_god</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/imHc0lfm'>imHc0lfm</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Dec 13, 2020 at 19:01 UTC'>Dec 13, 2020</span></td>
+		<td>182</td>
+		<td>2160</td>
+		<td>15</td>
+		<td>38</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/luckygraaf'>luckygraaf</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/DOTJPBFg'>DOTJPBFg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 25, 2021 at 19:01 UTC'>Mar 25, 2021</span></td>
+		<td>167</td>
+		<td>2160</td>
+		<td>14</td>
+		<td>40</td>
+		<td>34%</td>
+		<td><a href='https://lichess.org/@/turkmentiger2020'>turkmentiger2020</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/bcWM1bWO'>bcWM1bWO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jun 18, 2020 at 18:01 UTC'>Jun 18, 2020</span></td>
+		<td>151</td>
+		<td>2159</td>
+		<td>20</td>
+		<td>38</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/leon_livaic'>leon_livaic</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/AilKhXKu'>AilKhXKu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 09, 2020 at 18:01 UTC'>Jul 09, 2020</span></td>
+		<td>235</td>
+		<td>2159</td>
+		<td>20</td>
+		<td>38</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/funny_chess'>funny_chess</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/JpjTLhpI'>JpjTLhpI</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Dec 10, 2020 at 19:01 UTC'>Dec 10, 2020</span></td>
+		<td>137</td>
+		<td>2159</td>
+		<td>13</td>
+		<td>37</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/vladyslav_megur'>vladyslav_megur</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/bg53TWW7'>bg53TWW7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Dec 10, 2020 at 19:01 UTC'>Dec 10, 2020</span></td>
+		<td>94</td>
+		<td>2159</td>
+		<td>16</td>
+		<td>41</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ragetilt'>ragetilt</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/37rjLoop'>37rjLoop</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 01, 2021 at 18:01 UTC'>Apr 01, 2021</span></td>
+		<td>421</td>
+		<td>2159</td>
+		<td>15</td>
+		<td>39</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/opperwezen'>opperwezen</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/uNBh2WME'>uNBh2WME</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 14, 2020 at 18:01 UTC'>May 14, 2020</span></td>
+		<td>266</td>
+		<td>2158</td>
+		<td>21</td>
+		<td>38</td>
+		<td>41%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>76</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/DlZQnDzU'>DlZQnDzU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 27, 2020 at 18:01 UTC'>Sep 27, 2020</span></td>
+		<td>215</td>
+		<td>2158</td>
+		<td>17</td>
+		<td>39</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/jlgg50972'>jlgg50972</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/R6Qigtkr'>R6Qigtkr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 19:01 UTC'>Feb 07, 2021</span></td>
+		<td>213</td>
+		<td>2158</td>
+		<td>15</td>
+		<td>39</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/ledinavelosipede'>ledinavelosipede</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/COUAYRqq'>COUAYRqq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 19:01 UTC'>Feb 11, 2021</span></td>
+		<td>279</td>
+		<td>2158</td>
+		<td>16</td>
+		<td>39</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/msb2'>msb2</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/oNztrFbJ'>oNztrFbJ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 21, 2020 at 19:03 UTC'>May 21, 2020</span></td>
+		<td>166</td>
+		<td>2157</td>
+		<td>13</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/herbie2017'>herbie2017</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/X4ACbuco'>X4ACbuco</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Mar 11, 2021 at 19:01 UTC'>Mar 11, 2021</span></td>
+		<td>224</td>
+		<td>2157</td>
+		<td>14</td>
+		<td>39</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/funo09'>funo09</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/itUQF6ok'>itUQF6ok</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 02, 2021 at 18:01 UTC'>May 02, 2021</span></td>
+		<td>290</td>
+		<td>2157</td>
+		<td>17</td>
+		<td>39</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/saracinderim'>saracinderim</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/R8v7QiT5'>R8v7QiT5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 06, 2021 at 18:01 UTC'>May 06, 2021</span></td>
+		<td>133</td>
+		<td>2157</td>
+		<td>17</td>
+		<td>38</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/bert6209'>bert6209</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/2EX4uScP'>2EX4uScP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 23, 2021 at 18:01 UTC'>May 23, 2021</span></td>
+		<td>154</td>
+		<td>2157</td>
+		<td>14</td>
+		<td>38</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/zayats71'>zayats71</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/yTEHMeIb'>yTEHMeIb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 27, 2021 at 18:01 UTC'>May 27, 2021</span></td>
+		<td>134</td>
+		<td>2157</td>
+		<td>15</td>
+		<td>38</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/fightbro'>fightbro</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/421SxW8M'>421SxW8M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 30, 2020 at 18:02 UTC'>Apr 30, 2020</span></td>
+		<td>202</td>
+		<td>2156</td>
+		<td>20</td>
+		<td>37</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/matiss90'>matiss90</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/EJSb05YL'>EJSb05YL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 10, 2020 at 18:01 UTC'>Sep 10, 2020</span></td>
+		<td>207</td>
+		<td>2156</td>
+		<td>20</td>
+		<td>40</td>
+		<td>41%</td>
+		<td><a href='https://lichess.org/@/angelitort'>angelitort</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/gfcew70E'>gfcew70E</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 08, 2020 at 18:01 UTC'>Oct 08, 2020</span></td>
+		<td>176</td>
+		<td>2156</td>
+		<td>15</td>
+		<td>38</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/georgmeier'>georgmeier</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/iFfgl04b'>iFfgl04b</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Nov 01, 2020 at 19:01 UTC'>Nov 01, 2020</span></td>
+		<td>129</td>
+		<td>2156</td>
+		<td>17</td>
+		<td>38</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/chessfis'>chessfis</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/BPlw1viH'>BPlw1viH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Nov 29, 2020 at 19:01 UTC'>Nov 29, 2020</span></td>
+		<td>142</td>
+		<td>2156</td>
+		<td>15</td>
+		<td>39</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/iskusnyh_sv'>iskusnyh_sv</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/P8DjshfR'>P8DjshfR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Dec 03, 2020 at 19:01 UTC'>Dec 03, 2020</span></td>
+		<td>253</td>
+		<td>2156</td>
+		<td>15</td>
+		<td>39</td>
+		<td>38%</td>
+		<td><a href='https://lichess.org/@/lsgeneraal'>lsgeneraal</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/4SyagZtF'>4SyagZtF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 23, 2021 at 18:01 UTC'>May 23, 2021</span></td>
+		<td>162</td>
+		<td>2156</td>
+		<td>13</td>
+		<td>37</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/gabix94'>gabix94</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/qwSZPoBg'>qwSZPoBg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 30, 2020 at 18:01 UTC'>Apr 30, 2020</span></td>
+		<td>291</td>
+		<td>2155</td>
+		<td>18</td>
+		<td>38</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/catask'>catask</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/sglAL4kl'>sglAL4kl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 30, 2020 at 18:03 UTC'>Apr 30, 2020</span></td>
+		<td>169</td>
+		<td>2155</td>
+		<td>19</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/davideoli97'>davideoli97</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/kOQUsqFj'>kOQUsqFj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 09, 2020 at 18:01 UTC'>Jul 09, 2020</span></td>
+		<td>159</td>
+		<td>2155</td>
+		<td>18</td>
+		<td>38</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/bigellow'>bigellow</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/2J2iXSRk'>2J2iXSRk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 06, 2020 at 18:01 UTC'>Sep 06, 2020</span></td>
+		<td>311</td>
+		<td>2155</td>
+		<td>17</td>
+		<td>38</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/green_arrow1'>green_arrow1</a></td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/IIlxH6d5'>IIlxH6d5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 13, 2021 at 18:01 UTC'>May 13, 2021</span></td>
+		<td>191</td>
+		<td>2155</td>
+		<td>15</td>
+		<td>39</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/azazello7'>azazello7</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/k05eIard'>k05eIard</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 03, 2020 at 18:03 UTC'>May 03, 2020</span></td>
+		<td>168</td>
+		<td>2154</td>
+		<td>21</td>
+		<td>39</td>
+		<td>39%</td>
+		<td><a href='https://lichess.org/@/orakul135'>orakul135</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/9wuWQlt9'>9wuWQlt9</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Aug 09, 2020 at 18:01 UTC'>Aug 09, 2020</span></td>
+		<td>432</td>
+		<td>2154</td>
+		<td>18</td>
+		<td>39</td>
+		<td>49%</td>
+		<td><a href='https://lichess.org/@/artpetrosyan'>artpetrosyan</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/YzIaDawH'>YzIaDawH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Sep 20, 2020 at 18:01 UTC'>Sep 20, 2020</span></td>
+		<td>387</td>
+		<td>2154</td>
+		<td>21</td>
+		<td>39</td>
+		<td>60%</td>
+		<td><a href='https://lichess.org/@/chesswarrior04'>chesswarrior04</a></td>
+		<td>86</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/GQnhe3h3'>GQnhe3h3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 11, 2021 at 19:01 UTC'>Feb 11, 2021</span></td>
+		<td>213</td>
+		<td>2154</td>
+		<td>16</td>
+		<td>38</td>
+		<td>34%</td>
+		<td><a href='https://lichess.org/@/chesshobbits99'>chesshobbits99</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/9ecmcnHc'>9ecmcnHc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 18, 2021 at 19:01 UTC'>Feb 18, 2021</span></td>
+		<td>291</td>
+		<td>2154</td>
+		<td>16</td>
+		<td>38</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/dIknHreo'>dIknHreo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 13, 2021 at 18:01 UTC'>May 13, 2021</span></td>
+		<td>150</td>
+		<td>2154</td>
+		<td>15</td>
+		<td>37</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/dmitrij_im'>dmitrij_im</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/XWeF76gv'>XWeF76gv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 28, 2020 at 18:01 UTC'>May 28, 2020</span></td>
+		<td>173</td>
+		<td>2153</td>
+		<td>19</td>
+		<td>39</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/dj_haubi'>dj_haubi</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/FfyYl11n'>FfyYl11n</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 22, 2020 at 18:01 UTC'>Oct 22, 2020</span></td>
+		<td>437</td>
+		<td>2153</td>
+		<td>15</td>
+		<td>38</td>
+		<td>51%</td>
+		<td><a href='https://lichess.org/@/macrofago'>macrofago</a></td>
+		<td>76</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/B2J9l4xV'>B2J9l4xV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Aug 20, 2020 at 18:01 UTC'>Aug 20, 2020</span></td>
+		<td>384</td>
+		<td>2152</td>
+		<td>18</td>
+		<td>39</td>
+		<td>47%</td>
+		<td><a href='https://lichess.org/@/catask'>catask</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/4XFTeUFW'>4XFTeUFW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Nov 29, 2020 at 19:01 UTC'>Nov 29, 2020</span></td>
+		<td>292</td>
+		<td>2152</td>
+		<td>15</td>
+		<td>38</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/B8dHJGtZ'>B8dHJGtZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Feb 07, 2021 at 19:01 UTC'>Feb 07, 2021</span></td>
+		<td>256</td>
+		<td>2152</td>
+		<td>15</td>
+		<td>40</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/milica89'>milica89</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/uvAel4bz'>uvAel4bz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 11, 2021 at 18:01 UTC'>Apr 11, 2021</span></td>
+		<td>205</td>
+		<td>2152</td>
+		<td>14</td>
+		<td>38</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/meysonn'>meysonn</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/K2b7rJlE'>K2b7rJlE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Apr 12, 2020 at 18:05 UTC'>Apr 12, 2020</span></td>
+		<td>116</td>
+		<td>2151</td>
+		<td>20</td>
+		<td>38</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/profchateau'>profchateau</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/XJlxtquO'>XJlxtquO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='May 14, 2020 at 18:03 UTC'>May 14, 2020</span></td>
+		<td>225</td>
+		<td>2151</td>
+		<td>20</td>
+		<td>39</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/gabi_g'>gabi_g</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/asTzzKF8'>asTzzKF8</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 05, 2020 at 18:01 UTC'>Jul 05, 2020</span></td>
+		<td>352</td>
+		<td>2151</td>
+		<td>16</td>
+		<td>38</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sumsar42'>sumsar42</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/JDBxk3ZB'>JDBxk3ZB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Jul 19, 2020 at 18:01 UTC'>Jul 19, 2020</span></td>
+		<td>108</td>
+		<td>2151</td>
+		<td>19</td>
+		<td>39</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/wilderbaer90'>wilderbaer90</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/GV6d0cuH'>GV6d0cuH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 01, 2020 at 18:01 UTC'>Oct 01, 2020</span></td>
+		<td>165</td>
+		<td>2151</td>
+		<td>18</td>
+		<td>39</td>
+		<td>34%</td>
+		<td><a href='https://lichess.org/@/roggefeller'>roggefeller</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/nXoeFsB2'>nXoeFsB2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Eliga' title='Liga'>li</span></td>
+		<td><span class='info' title='Oct 29, 2020 at 19:01 UTC'>Oct 29, 2020</span></td>
+		<td>210</td>
+		<td>2151</td>
+		<td>16</td>
+		<td>39</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/ledinavelosipede'>ledinavelosipede</a></td>
+		<td>52</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

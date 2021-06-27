@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Daily Crazyhouse Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+<meta property='og:type' content='website'>
+<meta property='og:title' content='Lichess Arena Rankings &middot; Daily Crazyhouse Arenas' />
+<meta property='og:description' content='Statistics and rankings built from official Lichess arenas, ranging from hourly bullet arenas to titled arenas to bundesliga events. See who scored the most tournament victories, who played in the most events, who holds the all-time record for the highest score in each type of arena, and more!' />
+<meta property='og:url' content='https://tmmlaarhoven.github.io/lichess/rankings/crazyhouse/daily/list_arenas_rating.html' />
+<meta property='og:image' content='https://tmmlaarhoven.github.io/lichess/rankings/crazyhouse/daily/figures/crazyhouse_daily_players_points.png' />
+</head>
+
+<body>
+<div class="title">Lichess Arena Rankings &middot; Daily Crazyhouse Arenas</div>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse' checked><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily' checked><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+		<input type='radio' name='Event' value='liga' id='events-liga'><label class='Eliga' for='events-liga'>Bundesliga</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating' checked><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>
+		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>
+	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+This ranking is based on <span class='info' title='1,588 events'>1.6K</span> events held between <a title='First event' href='https://lichess.org/tournament/yArKIwvp'>Jan 20, 2016</a> and <a title='Last event' href='https://lichess.org/tournament/izrjI5iN'>Jun 26, 2021</a>.
+
+In total, these arenas featured <span class='info' title='389,733 games'>390K</span> games (with <span class='info' title='20,084,332 moves'>20M</span> moves), and the <span class='info' title='155,353 participants'>155K</span> participants (<span class='info' title='28,556 players'>29K</span> unique players) scored a total of <span class='info' title='1,062,103 points'>1.1M</span> arena points.
+
+In these games, white scored <span class='info' title='204825 out of 389733 games'>53%</span> wins, <span class='info' title='1055 out of 389733 games'>0%</span> draws, and <span class='info' title='183853 out of 389733 games'>47%</span> losses.
+
+The average berserk rate is <span class='info' title='155601 berserks in 389733 games'>20.0%</span>, and the average rating is <span class='info' title='277710924 over 155353 participants'>1788</span>.
+
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'><b>#</b></span></td>
+		<td>ID</td>
+		<td><b>Type</b></td>
+		<td><b>Date</b></td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'><b>Rtng</b></span></td>
+		<td><span class='info' title='Average points per player'><b>Pts</b></span></td>
+		<td><span class='info' title='Average moves per player per game'><b>Mvs</b></span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td><b>Winner</b></td>
+		<td><span class='info' title='Score of winner'><b>Max</b></span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/lXO2LYuq'>lXO2LYuq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 13, 2017 at 20:00 UTC'>Sep 13, 2017</span></td>
+		<td>79</td>
+		<td>1937</td>
+		<td>7</td>
+		<td>28</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/tellofant'>tellofant</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/EoGkEn75'>EoGkEn75</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 14, 2017 at 20:00 UTC'>Apr 14, 2017</span></td>
+		<td>77</td>
+		<td>1919</td>
+		<td>7</td>
+		<td>26</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/UXFPnZyf'>UXFPnZyf</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 01, 2017 at 20:00 UTC'>Mar 01, 2017</span></td>
+		<td>85</td>
+		<td>1917</td>
+		<td>6</td>
+		<td>27</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/kielileike'>kielileike</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/Lk60yXJJ'>Lk60yXJJ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 03, 2017 at 20:00 UTC'>Jun 03, 2017</span></td>
+		<td>77</td>
+		<td>1916</td>
+		<td>6</td>
+		<td>28</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/greenwash'>greenwash</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/6sIWVT8u'>6sIWVT8u</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 29, 2017 at 20:00 UTC'>Sep 29, 2017</span></td>
+		<td>67</td>
+		<td>1916</td>
+		<td>7</td>
+		<td>27</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/dampooo'>dampooo</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/PChd1g4H'>PChd1g4H</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 17, 2018 at 20:00 UTC'>Feb 17, 2018</span></td>
+		<td>71</td>
+		<td>1914</td>
+		<td>6</td>
+		<td>25</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/ishak37'>ishak37</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/R8c7QciG'>R8c7QciG</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 06, 2017 at 20:00 UTC'>Sep 06, 2017</span></td>
+		<td>82</td>
+		<td>1913</td>
+		<td>7</td>
+		<td>28</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/zhbugnoimt'>zhbugnoimt</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/LUfzDB5a'>LUfzDB5a</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 02, 2017 at 20:00 UTC'>Apr 02, 2017</span></td>
+		<td>70</td>
+		<td>1912</td>
+		<td>7</td>
+		<td>28</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/aowh0Ga5'>aowh0Ga5</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 18, 2017 at 20:00 UTC'>May 18, 2017</span></td>
+		<td>76</td>
+		<td>1912</td>
+		<td>7</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/UT6eoput'>UT6eoput</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 08, 2017 at 20:00 UTC'>Jun 08, 2017</span></td>
+		<td>59</td>
+		<td>1911</td>
+		<td>6</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/skeftomilos'>skeftomilos</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/kBAjZVim'>kBAjZVim</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 08, 2017 at 20:00 UTC'>Nov 08, 2017</span></td>
+		<td>67</td>
+		<td>1909</td>
+		<td>6</td>
+		<td>26</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/vempele'>vempele</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/SHTYDNMA'>SHTYDNMA</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 03, 2017 at 20:00 UTC'>Sep 03, 2017</span></td>
+		<td>73</td>
+		<td>1908</td>
+		<td>7</td>
+		<td>25</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/NJIG3HL1'>NJIG3HL1</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 16, 2020 at 20:00 UTC'>Sep 16, 2020</span></td>
+		<td>76</td>
+		<td>1907</td>
+		<td>10</td>
+		<td>28</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/bivanise'>bivanise</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/UI802mV2'>UI802mV2</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 28, 2017 at 20:00 UTC'>Apr 28, 2017</span></td>
+		<td>82</td>
+		<td>1905</td>
+		<td>8</td>
+		<td>26</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/lucifer-7'>lucifer-7</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/yzVOJ98v'>yzVOJ98v</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 14, 2019 at 20:00 UTC'>Jun 14, 2019</span></td>
+		<td>76</td>
+		<td>1905</td>
+		<td>7</td>
+		<td>26</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/kleerkast'>kleerkast</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/IDfap8Wv'>IDfap8Wv</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 20, 2017 at 20:00 UTC'>Sep 20, 2017</span></td>
+		<td>72</td>
+		<td>1904</td>
+		<td>6</td>
+		<td>26</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/matser'>matser</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/cIZd6Ihy'>cIZd6Ihy</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 30, 2017 at 20:00 UTC'>Sep 30, 2017</span></td>
+		<td>66</td>
+		<td>1904</td>
+		<td>8</td>
+		<td>27</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/5Lly30Vz'>5Lly30Vz</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 19, 2017 at 20:00 UTC'>May 19, 2017</span></td>
+		<td>71</td>
+		<td>1903</td>
+		<td>7</td>
+		<td>27</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/Eky6MWdn'>Eky6MWdn</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 14, 2017 at 20:00 UTC'>Sep 14, 2017</span></td>
+		<td>86</td>
+		<td>1902</td>
+		<td>7</td>
+		<td>27</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/vempele'>vempele</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/veTnDpgJ'>veTnDpgJ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 06, 2019 at 20:00 UTC'>Feb 06, 2019</span></td>
+		<td>57</td>
+		<td>1901</td>
+		<td>5</td>
+		<td>28</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/curiexr'>curiexr</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/MPEoVmkR'>MPEoVmkR</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 27, 2017 at 20:00 UTC'>Sep 27, 2017</span></td>
+		<td>73</td>
+		<td>1899</td>
+		<td>6</td>
+		<td>26</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/vempele'>vempele</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/QTRuKCBc'>QTRuKCBc</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 21, 2018 at 20:00 UTC'>Dec 21, 2018</span></td>
+		<td>75</td>
+		<td>1898</td>
+		<td>6</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/zyxon'>zyxon</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/2lEx3HNs'>2lEx3HNs</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 26, 2017 at 20:00 UTC'>Aug 26, 2017</span></td>
+		<td>77</td>
+		<td>1897</td>
+		<td>7</td>
+		<td>26</td>
+		<td>32%</td>
+		<td><a href='https://lichess.org/@/pknm'>pknm</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/7KnXB0Vf'>7KnXB0Vf</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 20, 2019 at 20:00 UTC'>Jun 20, 2019</span></td>
+		<td>71</td>
+		<td>1896</td>
+		<td>7</td>
+		<td>28</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/blitzeur88'>blitzeur88</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/K45xyEdp'>K45xyEdp</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 04, 2017 at 20:00 UTC'>Mar 04, 2017</span></td>
+		<td>95</td>
+		<td>1895</td>
+		<td>7</td>
+		<td>26</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/bugzilla'>bugzilla</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/ck0AAhBh'>ck0AAhBh</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 16, 2017 at 20:00 UTC'>Apr 16, 2017</span></td>
+		<td>60</td>
+		<td>1895</td>
+		<td>8</td>
+		<td>26</td>
+		<td>31%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/wvsEGuvo'>wvsEGuvo</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 21, 2017 at 20:00 UTC'>Jul 21, 2017</span></td>
+		<td>82</td>
+		<td>1894</td>
+		<td>9</td>
+		<td>28</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/pknm'>pknm</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/PZ9DeQRj'>PZ9DeQRj</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 25, 2017 at 20:00 UTC'>Aug 25, 2017</span></td>
+		<td>73</td>
+		<td>1894</td>
+		<td>7</td>
+		<td>25</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/pknm'>pknm</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/vhxf82WM'>vhxf82WM</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 28, 2017 at 20:00 UTC'>Jun 28, 2017</span></td>
+		<td>66</td>
+		<td>1893</td>
+		<td>6</td>
+		<td>28</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/pepperdeath'>pepperdeath</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/atZbXJLN'>atZbXJLN</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 21, 2017 at 20:00 UTC'>Sep 21, 2017</span></td>
+		<td>75</td>
+		<td>1893</td>
+		<td>6</td>
+		<td>26</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/kielileike'>kielileike</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/8KNQK0LY'>8KNQK0LY</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 22, 2017 at 20:00 UTC'>Nov 22, 2017</span></td>
+		<td>75</td>
+		<td>1892</td>
+		<td>6</td>
+		<td>27</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/vempele'>vempele</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/QRdYNjWI'>QRdYNjWI</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 25, 2021 at 20:00 UTC'>Jun 25, 2021</span></td>
+		<td>102</td>
+		<td>1892</td>
+		<td>8</td>
+		<td>28</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/HqcbiiHO'>HqcbiiHO</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 10, 2017 at 20:00 UTC'>Feb 10, 2017</span></td>
+		<td>91</td>
+		<td>1890</td>
+		<td>6</td>
+		<td>27</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/mousticos'>mousticos</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/OoWbZBDK'>OoWbZBDK</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 29, 2017 at 20:00 UTC'>May 29, 2017</span></td>
+		<td>86</td>
+		<td>1888</td>
+		<td>8</td>
+		<td>26</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>74</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/oLkzTwXS'>oLkzTwXS</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 17, 2017 at 20:00 UTC'>Sep 17, 2017</span></td>
+		<td>76</td>
+		<td>1888</td>
+		<td>8</td>
+		<td>25</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/vempele'>vempele</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/teVxFGlJ'>teVxFGlJ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 01, 2017 at 20:00 UTC'>Oct 01, 2017</span></td>
+		<td>72</td>
+		<td>1888</td>
+		<td>8</td>
+		<td>27</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/GQ2YkWST'>GQ2YkWST</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 14, 2017 at 20:00 UTC'>Aug 14, 2017</span></td>
+		<td>81</td>
+		<td>1886</td>
+		<td>9</td>
+		<td>26</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/uLHeKoem'>uLHeKoem</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 25, 2017 at 20:00 UTC'>May 25, 2017</span></td>
+		<td>72</td>
+		<td>1885</td>
+		<td>8</td>
+		<td>27</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/bdOBv6hV'>bdOBv6hV</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 30, 2017 at 20:00 UTC'>Aug 30, 2017</span></td>
+		<td>61</td>
+		<td>1885</td>
+		<td>8</td>
+		<td>25</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/vpRymUBN'>vpRymUBN</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 14, 2017 at 20:00 UTC'>Oct 14, 2017</span></td>
+		<td>64</td>
+		<td>1885</td>
+		<td>7</td>
+		<td>27</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/kielileike'>kielileike</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/rBcEctDh'>rBcEctDh</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 15, 2019 at 20:00 UTC'>Jul 15, 2019</span></td>
+		<td>91</td>
+		<td>1885</td>
+		<td>7</td>
+		<td>28</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/bgc2VrOs'>bgc2VrOs</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 03, 2017 at 20:00 UTC'>Mar 03, 2017</span></td>
+		<td>110</td>
+		<td>1884</td>
+		<td>7</td>
+		<td>26</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/YdKGfChn'>YdKGfChn</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 26, 2017 at 20:00 UTC'>Mar 26, 2017</span></td>
+		<td>76</td>
+		<td>1884</td>
+		<td>8</td>
+		<td>27</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/masalanka'>masalanka</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/LHPb0FD0'>LHPb0FD0</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 11, 2019 at 20:00 UTC'>Apr 11, 2019</span></td>
+		<td>85</td>
+		<td>1884</td>
+		<td>7</td>
+		<td>25</td>
+		<td>28%</td>
+		<td><a href='https://lichess.org/@/jannlee'>jannlee</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/Mfjm68aG'>Mfjm68aG</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 15, 2017 at 20:00 UTC'>Feb 15, 2017</span></td>
+		<td>95</td>
+		<td>1883</td>
+		<td>6</td>
+		<td>26</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/bDrj9zfT'>bDrj9zfT</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 06, 2017 at 20:00 UTC'>Aug 06, 2017</span></td>
+		<td>76</td>
+		<td>1883</td>
+		<td>8</td>
+		<td>27</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/zqTIw7u4'>zqTIw7u4</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 23, 2017 at 20:00 UTC'>Oct 23, 2017</span></td>
+		<td>74</td>
+		<td>1883</td>
+		<td>7</td>
+		<td>26</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/kleerkast'>kleerkast</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/1x4hnX70'>1x4hnX70</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 14, 2021 at 20:00 UTC'>Jun 14, 2021</span></td>
+		<td>118</td>
+		<td>1883</td>
+		<td>7</td>
+		<td>24</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/morlockk'>morlockk</a></td>
+		<td>104</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/M2Qg6AbH'>M2Qg6AbH</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 10, 2017 at 20:00 UTC'>Jun 10, 2017</span></td>
+		<td>61</td>
+		<td>1882</td>
+		<td>8</td>
+		<td>26</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/johnstuckey'>johnstuckey</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/xRdqTTDS'>xRdqTTDS</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 10, 2017 at 20:00 UTC'>Aug 10, 2017</span></td>
+		<td>77</td>
+		<td>1882</td>
+		<td>10</td>
+		<td>28</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/lm9BtoeJ'>lm9BtoeJ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 09, 2017 at 20:00 UTC'>Jun 09, 2017</span></td>
+		<td>78</td>
+		<td>1881</td>
+		<td>6</td>
+		<td>25</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/meanieyu'>meanieyu</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/G3ohfMC4'>G3ohfMC4</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 04, 2017 at 20:00 UTC'>Oct 04, 2017</span></td>
+		<td>74</td>
+		<td>1881</td>
+		<td>6</td>
+		<td>26</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/C2RmTQXt'>C2RmTQXt</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 08, 2017 at 20:00 UTC'>Oct 08, 2017</span></td>
+		<td>76</td>
+		<td>1881</td>
+		<td>7</td>
+		<td>26</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/masalanka'>masalanka</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/1kl0W2rK'>1kl0W2rK</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 30, 2018 at 20:00 UTC'>Mar 30, 2018</span></td>
+		<td>64</td>
+		<td>1881</td>
+		<td>8</td>
+		<td>28</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/r8EKCMpr'>r8EKCMpr</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 03, 2017 at 20:00 UTC'>Apr 03, 2017</span></td>
+		<td>75</td>
+		<td>1880</td>
+		<td>7</td>
+		<td>27</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/jackmani'>jackmani</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/KEgsydax'>KEgsydax</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 19, 2017 at 20:00 UTC'>Jul 19, 2017</span></td>
+		<td>79</td>
+		<td>1880</td>
+		<td>7</td>
+		<td>26</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/jvHS1WT4'>jvHS1WT4</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 23, 2021 at 20:00 UTC'>May 23, 2021</span></td>
+		<td>99</td>
+		<td>1880</td>
+		<td>7</td>
+		<td>26</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/mr_samurai'>mr_samurai</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/rwElXvaj'>rwElXvaj</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 17, 2017 at 20:00 UTC'>May 17, 2017</span></td>
+		<td>67</td>
+		<td>1879</td>
+		<td>6</td>
+		<td>26</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/jakef'>jakef</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/yqRqv1Iy'>yqRqv1Iy</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 22, 2019 at 20:00 UTC'>Nov 22, 2019</span></td>
+		<td>54</td>
+		<td>1879</td>
+		<td>6</td>
+		<td>26</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/suertudo'>suertudo</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/HAJBH5gm'>HAJBH5gm</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 27, 2019 at 20:00 UTC'>Dec 27, 2019</span></td>
+		<td>87</td>
+		<td>1879</td>
+		<td>8</td>
+		<td>25</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/bugzilla'>bugzilla</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/g4Wdsvfo'>g4Wdsvfo</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 27, 2017 at 20:00 UTC'>Mar 27, 2017</span></td>
+		<td>90</td>
+		<td>1878</td>
+		<td>7</td>
+		<td>25</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/VlvzgrDx'>VlvzgrDx</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 01, 2017 at 20:00 UTC'>Apr 01, 2017</span></td>
+		<td>86</td>
+		<td>1878</td>
+		<td>7</td>
+		<td>26</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/bugzilla'>bugzilla</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/JRYhExiM'>JRYhExiM</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 24, 2017 at 20:00 UTC'>May 24, 2017</span></td>
+		<td>77</td>
+		<td>1878</td>
+		<td>8</td>
+		<td>25</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/masalanka'>masalanka</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/0Umwc8p7'>0Umwc8p7</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 25, 2019 at 20:00 UTC'>Jan 25, 2019</span></td>
+		<td>73</td>
+		<td>1878</td>
+		<td>7</td>
+		<td>25</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/jkthebullfrog'>jkthebullfrog</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/b4RtyFXN'>b4RtyFXN</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 12, 2017 at 20:00 UTC'>Oct 12, 2017</span></td>
+		<td>50</td>
+		<td>1877</td>
+		<td>7</td>
+		<td>27</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/jeffersondionizio30'>jeffersondionizio30</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/qhfFyE6U'>qhfFyE6U</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 18, 2021 at 20:00 UTC'>Jun 18, 2021</span></td>
+		<td>81</td>
+		<td>1877</td>
+		<td>6</td>
+		<td>26</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/youdonthaveajob'>youdonthaveajob</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/YXKBnuVh'>YXKBnuVh</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 29, 2017 at 20:00 UTC'>Apr 29, 2017</span></td>
+		<td>66</td>
+		<td>1876</td>
+		<td>7</td>
+		<td>26</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/OeY1WZhU'>OeY1WZhU</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 03, 2018 at 20:00 UTC'>May 03, 2018</span></td>
+		<td>67</td>
+		<td>1876</td>
+		<td>8</td>
+		<td>25</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/clanelle'>clanelle</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/TgNvhq44'>TgNvhq44</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 15, 2018 at 20:00 UTC'>Nov 15, 2018</span></td>
+		<td>88</td>
+		<td>1876</td>
+		<td>5</td>
+		<td>27</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/recastrov'>recastrov</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/4GfPviOC'>4GfPviOC</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 09, 2019 at 20:00 UTC'>Sep 09, 2019</span></td>
+		<td>74</td>
+		<td>1876</td>
+		<td>6</td>
+		<td>28</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/curiexr'>curiexr</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/nRsCiuIR'>nRsCiuIR</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 15, 2017 at 20:00 UTC'>Jun 15, 2017</span></td>
+		<td>80</td>
+		<td>1875</td>
+		<td>6</td>
+		<td>27</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/arjelol'>arjelol</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/TSMzwEVJ'>TSMzwEVJ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 16, 2017 at 20:00 UTC'>Jun 16, 2017</span></td>
+		<td>80</td>
+		<td>1875</td>
+		<td>8</td>
+		<td>25</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/kielileike'>kielileike</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/VxdDHPZZ'>VxdDHPZZ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 24, 2017 at 20:00 UTC'>Aug 24, 2017</span></td>
+		<td>73</td>
+		<td>1875</td>
+		<td>7</td>
+		<td>26</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/pknm'>pknm</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/bVDERlDC'>bVDERlDC</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 05, 2017 at 20:00 UTC'>Jul 05, 2017</span></td>
+		<td>66</td>
+		<td>1874</td>
+		<td>6</td>
+		<td>27</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/lucifer-7'>lucifer-7</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/DcwXDg4L'>DcwXDg4L</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 11, 2017 at 20:00 UTC'>Oct 11, 2017</span></td>
+		<td>75</td>
+		<td>1874</td>
+		<td>6</td>
+		<td>26</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/pknm'>pknm</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/qhmavdIS'>qhmavdIS</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 29, 2019 at 20:00 UTC'>Apr 29, 2019</span></td>
+		<td>78</td>
+		<td>1874</td>
+		<td>6</td>
+		<td>29</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/EbOUag8F'>EbOUag8F</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 02, 2019 at 20:00 UTC'>Aug 02, 2019</span></td>
+		<td>76</td>
+		<td>1874</td>
+		<td>8</td>
+		<td>26</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/firehawkv'>firehawkv</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/ZKquMQ41'>ZKquMQ41</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 20, 2019 at 20:00 UTC'>Sep 20, 2019</span></td>
+		<td>81</td>
+		<td>1874</td>
+		<td>6</td>
+		<td>27</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/BfPd8jmO'>BfPd8jmO</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 03, 2017 at 20:00 UTC'>Nov 03, 2017</span></td>
+		<td>64</td>
+		<td>1873</td>
+		<td>7</td>
+		<td>24</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/bugzilla'>bugzilla</a></td>
+		<td>74</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/8TpsVXhL'>8TpsVXhL</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 15, 2017 at 20:00 UTC'>Dec 15, 2017</span></td>
+		<td>77</td>
+		<td>1873</td>
+		<td>6</td>
+		<td>26</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/bananajo'>bananajo</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/3wcfftGB'>3wcfftGB</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 29, 2017 at 20:00 UTC'>Dec 29, 2017</span></td>
+		<td>70</td>
+		<td>1873</td>
+		<td>6</td>
+		<td>26</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/bqXR1rpF'>bqXR1rpF</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 01, 2019 at 20:00 UTC'>Nov 01, 2019</span></td>
+		<td>64</td>
+		<td>1873</td>
+		<td>7</td>
+		<td>29</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/jDaO6NK5'>jDaO6NK5</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 02, 2017 at 20:00 UTC'>Jun 02, 2017</span></td>
+		<td>91</td>
+		<td>1872</td>
+		<td>8</td>
+		<td>25</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/0lFNa5Tu'>0lFNa5Tu</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 28, 2017 at 20:00 UTC'>Dec 28, 2017</span></td>
+		<td>57</td>
+		<td>1872</td>
+		<td>7</td>
+		<td>26</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/emphasis'>emphasis</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/yTsvDEaf'>yTsvDEaf</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 28, 2018 at 18:00 UTC'>Sep 28, 2018</span></td>
+		<td>75</td>
+		<td>1872</td>
+		<td>5</td>
+		<td>25</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/eflc'>eflc</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/lvK6DSIl'>lvK6DSIl</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 05, 2017 at 20:00 UTC'>Apr 05, 2017</span></td>
+		<td>76</td>
+		<td>1871</td>
+		<td>6</td>
+		<td>23</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/he4obek'>he4obek</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/IUmJHa85'>IUmJHa85</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 21, 2017 at 20:00 UTC'>Apr 21, 2017</span></td>
+		<td>89</td>
+		<td>1871</td>
+		<td>6</td>
+		<td>25</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/NU0D15AA'>NU0D15AA</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 21, 2017 at 20:00 UTC'>Aug 21, 2017</span></td>
+		<td>83</td>
+		<td>1871</td>
+		<td>8</td>
+		<td>25</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/oscarortega'>oscarortega</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/bD1buJWQ'>bD1buJWQ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 26, 2019 at 20:00 UTC'>Jun 26, 2019</span></td>
+		<td>85</td>
+		<td>1871</td>
+		<td>6</td>
+		<td>26</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/firehawkv'>firehawkv</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/KLRubLF6'>KLRubLF6</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 14, 2019 at 20:00 UTC'>Oct 14, 2019</span></td>
+		<td>65</td>
+		<td>1871</td>
+		<td>5</td>
+		<td>28</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/vectorveld'>vectorveld</a></td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/rQMJKWu5'>rQMJKWu5</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 17, 2017 at 20:00 UTC'>Mar 17, 2017</span></td>
+		<td>87</td>
+		<td>1870</td>
+		<td>8</td>
+		<td>25</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/reAYpbP8'>reAYpbP8</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 29, 2017 at 20:00 UTC'>Jun 29, 2017</span></td>
+		<td>75</td>
+		<td>1870</td>
+		<td>7</td>
+		<td>24</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/iiie'>iiie</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/o14qqdo2'>o14qqdo2</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 22, 2018 at 20:00 UTC'>Nov 22, 2018</span></td>
+		<td>79</td>
+		<td>1870</td>
+		<td>5</td>
+		<td>28</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/HtELRnKv'>HtELRnKv</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 10, 2019 at 20:00 UTC'>Apr 10, 2019</span></td>
+		<td>86</td>
+		<td>1870</td>
+		<td>7</td>
+		<td>27</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/yasser-seirawan'>yasser-seirawan</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/IfegLGqd'>IfegLGqd</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 08, 2019 at 20:00 UTC'>May 08, 2019</span></td>
+		<td>76</td>
+		<td>1870</td>
+		<td>5</td>
+		<td>26</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/ominous'>ominous</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/RgkSYlnh'>RgkSYlnh</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 16, 2019 at 20:00 UTC'>May 16, 2019</span></td>
+		<td>69</td>
+		<td>1870</td>
+		<td>5</td>
+		<td>26</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/pawnintraining'>pawnintraining</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/uQacMumE'>uQacMumE</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 24, 2019 at 20:00 UTC'>Jun 24, 2019</span></td>
+		<td>91</td>
+		<td>1870</td>
+		<td>7</td>
+		<td>27</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/rapidvariants'>rapidvariants</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/ey1xLfom'>ey1xLfom</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 25, 2019 at 20:00 UTC'>Jul 25, 2019</span></td>
+		<td>95</td>
+		<td>1870</td>
+		<td>7</td>
+		<td>27</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/tea-in-summer'>tea-in-summer</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/DoPjvD4Z'>DoPjvD4Z</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 19, 2017 at 20:00 UTC'>Mar 19, 2017</span></td>
+		<td>87</td>
+		<td>1869</td>
+		<td>7</td>
+		<td>26</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/masalanka'>masalanka</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/mVpZQyq4'>mVpZQyq4</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 07, 2017 at 20:00 UTC'>Jun 07, 2017</span></td>
+		<td>82</td>
+		<td>1869</td>
+		<td>7</td>
+		<td>26</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/lucifer-7'>lucifer-7</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/V2R4Gvts'>V2R4Gvts</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 09, 2017 at 20:00 UTC'>Aug 09, 2017</span></td>
+		<td>85</td>
+		<td>1869</td>
+		<td>7</td>
+		<td>26</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/R0Q5OBr9'>R0Q5OBr9</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 08, 2017 at 20:00 UTC'>Sep 08, 2017</span></td>
+		<td>72</td>
+		<td>1869</td>
+		<td>8</td>
+		<td>28</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/amaidel'>amaidel</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/BOUmaY4G'>BOUmaY4G</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 15, 2017 at 20:00 UTC'>Sep 15, 2017</span></td>
+		<td>83</td>
+		<td>1869</td>
+		<td>8</td>
+		<td>26</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/matser'>matser</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/s8wVVoVH'>s8wVVoVH</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 06, 2017 at 20:00 UTC'>Oct 06, 2017</span></td>
+		<td>64</td>
+		<td>1869</td>
+		<td>6</td>
+		<td>26</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/chuck1992'>chuck1992</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/rcGKNTew'>rcGKNTew</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 08, 2018 at 20:00 UTC'>Nov 08, 2018</span></td>
+		<td>103</td>
+		<td>1869</td>
+		<td>6</td>
+		<td>27</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/lbra'>lbra</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/YDdcMdg4'>YDdcMdg4</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 12, 2019 at 20:00 UTC'>Apr 12, 2019</span></td>
+		<td>85</td>
+		<td>1869</td>
+		<td>7</td>
+		<td>28</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/jkthebullfrog'>jkthebullfrog</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/JFqPwM9a'>JFqPwM9a</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 06, 2020 at 20:00 UTC'>Nov 06, 2020</span></td>
+		<td>113</td>
+		<td>1869</td>
+		<td>7</td>
+		<td>28</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/jLS43XhU'>jLS43XhU</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 29, 2017 at 20:00 UTC'>Mar 29, 2017</span></td>
+		<td>66</td>
+		<td>1868</td>
+		<td>6</td>
+		<td>27</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/rewz'>rewz</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/tM8jHEyT'>tM8jHEyT</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 30, 2017 at 20:00 UTC'>Mar 30, 2017</span></td>
+		<td>86</td>
+		<td>1868</td>
+		<td>7</td>
+		<td>25</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/w126r2XS'>w126r2XS</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 13, 2017 at 20:00 UTC'>Oct 13, 2017</span></td>
+		<td>76</td>
+		<td>1868</td>
+		<td>7</td>
+		<td>27</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/amaidel'>amaidel</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/dnVS1NF1'>dnVS1NF1</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 26, 2018 at 20:00 UTC'>Jan 26, 2018</span></td>
+		<td>84</td>
+		<td>1868</td>
+		<td>7</td>
+		<td>28</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/dushezzz'>dushezzz</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/LXhgLjei'>LXhgLjei</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 23, 2018 at 20:00 UTC'>Mar 23, 2018</span></td>
+		<td>56</td>
+		<td>1868</td>
+		<td>8</td>
+		<td>27</td>
+		<td>31%</td>
+		<td><a href='https://lichess.org/@/mugwort'>mugwort</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/SMxVzsme'>SMxVzsme</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 15, 2019 at 20:00 UTC'>Mar 15, 2019</span></td>
+		<td>81</td>
+		<td>1868</td>
+		<td>6</td>
+		<td>27</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/mantaro'>mantaro</a></td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/2QUdM5wD'>2QUdM5wD</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 01, 2017 at 20:00 UTC'>May 01, 2017</span></td>
+		<td>94</td>
+		<td>1867</td>
+		<td>8</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/HxhPFBEq'>HxhPFBEq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 31, 2017 at 20:00 UTC'>May 31, 2017</span></td>
+		<td>82</td>
+		<td>1867</td>
+		<td>8</td>
+		<td>25</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/meanieyu'>meanieyu</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/7k9beKA2'>7k9beKA2</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 11, 2017 at 20:00 UTC'>Aug 11, 2017</span></td>
+		<td>90</td>
+		<td>1867</td>
+		<td>7</td>
+		<td>26</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/JXcNoJTD'>JXcNoJTD</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 19, 2018 at 20:00 UTC'>Jan 19, 2018</span></td>
+		<td>63</td>
+		<td>1867</td>
+		<td>7</td>
+		<td>28</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/sexy_and_i_know_it'>sexy_and_i_know_it</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/qG5gFXlZ'>qG5gFXlZ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 26, 2019 at 20:00 UTC'>Apr 26, 2019</span></td>
+		<td>76</td>
+		<td>1867</td>
+		<td>6</td>
+		<td>28</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/beyondcritics'>beyondcritics</a></td>
+		<td>32</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/4HYg8M2X'>4HYg8M2X</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 18, 2017 at 20:00 UTC'>Mar 18, 2017</span></td>
+		<td>79</td>
+		<td>1866</td>
+		<td>7</td>
+		<td>25</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/8PotQAQl'>8PotQAQl</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 28, 2017 at 20:00 UTC'>May 28, 2017</span></td>
+		<td>77</td>
+		<td>1866</td>
+		<td>8</td>
+		<td>25</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/6jsvq6Dw'>6jsvq6Dw</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 26, 2017 at 20:00 UTC'>Jul 26, 2017</span></td>
+		<td>74</td>
+		<td>1866</td>
+		<td>7</td>
+		<td>24</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/kleerkast'>kleerkast</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/LF8CTzVn'>LF8CTzVn</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 23, 2017 at 20:00 UTC'>Sep 23, 2017</span></td>
+		<td>63</td>
+		<td>1866</td>
+		<td>7</td>
+		<td>25</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/amaidel'>amaidel</a></td>
+		<td>38</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/swm81NR8'>swm81NR8</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 28, 2017 at 20:00 UTC'>Sep 28, 2017</span></td>
+		<td>73</td>
+		<td>1866</td>
+		<td>7</td>
+		<td>27</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/vempele'>vempele</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/BMu2UCa3'>BMu2UCa3</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 26, 2019 at 20:00 UTC'>Sep 26, 2019</span></td>
+		<td>76</td>
+		<td>1866</td>
+		<td>7</td>
+		<td>27</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/jakef'>jakef</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/emxWvNGY'>emxWvNGY</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 08, 2017 at 20:00 UTC'>Feb 08, 2017</span></td>
+		<td>95</td>
+		<td>1865</td>
+		<td>7</td>
+		<td>26</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/M7J8dD0Q'>M7J8dD0Q</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 27, 2017 at 20:00 UTC'>May 27, 2017</span></td>
+		<td>59</td>
+		<td>1865</td>
+		<td>7</td>
+		<td>27</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/chriswsh'>chriswsh</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/NeY7TwTt'>NeY7TwTt</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 23, 2017 at 20:00 UTC'>Aug 23, 2017</span></td>
+		<td>74</td>
+		<td>1865</td>
+		<td>8</td>
+		<td>26</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/i2EkgE4j'>i2EkgE4j</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 02, 2017 at 20:00 UTC'>Oct 02, 2017</span></td>
+		<td>70</td>
+		<td>1865</td>
+		<td>6</td>
+		<td>28</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/iEaoioTj'>iEaoioTj</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 06, 2019 at 20:00 UTC'>May 06, 2019</span></td>
+		<td>99</td>
+		<td>1865</td>
+		<td>6</td>
+		<td>26</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/mturov'>mturov</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/vnmtFRRr'>vnmtFRRr</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 15, 2020 at 20:00 UTC'>Jan 15, 2020</span></td>
+		<td>54</td>
+		<td>1865</td>
+		<td>5</td>
+		<td>26</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/belowme'>belowme</a></td>
+		<td>21</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/jnBD3piI'>jnBD3piI</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 22, 2017 at 20:00 UTC'>Apr 22, 2017</span></td>
+		<td>86</td>
+		<td>1864</td>
+		<td>7</td>
+		<td>27</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/masalanka'>masalanka</a></td>
+		<td>79</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/1mtlPRtH'>1mtlPRtH</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 11, 2017 at 20:00 UTC'>Jun 11, 2017</span></td>
+		<td>80</td>
+		<td>1864</td>
+		<td>7</td>
+		<td>26</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/lucifer-7'>lucifer-7</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/KzeTVVhl'>KzeTVVhl</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 16, 2017 at 20:00 UTC'>Aug 16, 2017</span></td>
+		<td>64</td>
+		<td>1864</td>
+		<td>7</td>
+		<td>26</td>
+		<td>29%</td>
+		<td><a href='https://lichess.org/@/requiemxd2'>requiemxd2</a></td>
+		<td>34</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/ZFIZpLVh'>ZFIZpLVh</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 16, 2018 at 20:00 UTC'>Nov 16, 2018</span></td>
+		<td>71</td>
+		<td>1864</td>
+		<td>8</td>
+		<td>24</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/meanieyu'>meanieyu</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/igZQgvQH'>igZQgvQH</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 05, 2019 at 20:00 UTC'>Aug 05, 2019</span></td>
+		<td>83</td>
+		<td>1864</td>
+		<td>8</td>
+		<td>27</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/firehawkv'>firehawkv</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/jF7CwgYb'>jF7CwgYb</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 20, 2019 at 20:00 UTC'>Dec 20, 2019</span></td>
+		<td>48</td>
+		<td>1864</td>
+		<td>7</td>
+		<td>27</td>
+		<td>33%</td>
+		<td><a href='https://lichess.org/@/portentous'>portentous</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/lRSikYQH'>lRSikYQH</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 04, 2017 at 20:00 UTC'>Nov 04, 2017</span></td>
+		<td>68</td>
+		<td>1863</td>
+		<td>6</td>
+		<td>25</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/MZ5ZXUHq'>MZ5ZXUHq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 27, 2017 at 20:00 UTC'>Apr 27, 2017</span></td>
+		<td>85</td>
+		<td>1862</td>
+		<td>8</td>
+		<td>24</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/sexy_and_i_know_it'>sexy_and_i_know_it</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/gEg698hq'>gEg698hq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 03, 2017 at 20:00 UTC'>May 03, 2017</span></td>
+		<td>75</td>
+		<td>1862</td>
+		<td>8</td>
+		<td>26</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/profz'>profz</a></td>
+		<td>84</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/BT3SmS05'>BT3SmS05</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 23, 2017 at 20:00 UTC'>Jun 23, 2017</span></td>
+		<td>72</td>
+		<td>1862</td>
+		<td>7</td>
+		<td>26</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/klbennett'>klbennett</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/F15RWEhY'>F15RWEhY</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 13, 2017 at 20:00 UTC'>Aug 13, 2017</span></td>
+		<td>60</td>
+		<td>1862</td>
+		<td>7</td>
+		<td>26</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/1iM5OdeT'>1iM5OdeT</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 15, 2017 at 20:00 UTC'>Nov 15, 2017</span></td>
+		<td>80</td>
+		<td>1862</td>
+		<td>6</td>
+		<td>25</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/lucifer-7'>lucifer-7</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/MVbQqBiL'>MVbQqBiL</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 10, 2019 at 20:00 UTC'>May 10, 2019</span></td>
+		<td>58</td>
+		<td>1862</td>
+		<td>6</td>
+		<td>27</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/FkaFywil'>FkaFywil</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 19, 2019 at 20:00 UTC'>Jul 19, 2019</span></td>
+		<td>90</td>
+		<td>1862</td>
+		<td>7</td>
+		<td>27</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/kleerkast'>kleerkast</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/DF31rhoe'>DF31rhoe</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 01, 2017 at 20:00 UTC'>Jun 01, 2017</span></td>
+		<td>86</td>
+		<td>1861</td>
+		<td>10</td>
+		<td>25</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/allyouneedisluft'>allyouneedisluft</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/Hgi1fGp0'>Hgi1fGp0</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 20, 2017 at 20:00 UTC'>Aug 20, 2017</span></td>
+		<td>77</td>
+		<td>1861</td>
+		<td>6</td>
+		<td>28</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/thelazymd'>thelazymd</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/wMQ28UT1'>wMQ28UT1</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 21, 2018 at 20:00 UTC'>Feb 21, 2018</span></td>
+		<td>88</td>
+		<td>1861</td>
+		<td>8</td>
+		<td>26</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/50pAtz9y'>50pAtz9y</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 16, 2019 at 20:00 UTC'>Aug 16, 2019</span></td>
+		<td>59</td>
+		<td>1861</td>
+		<td>5</td>
+		<td>30</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/cat_poacher'>cat_poacher</a></td>
+		<td>33</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/Hh5GPTJ1'>Hh5GPTJ1</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 04, 2017 at 20:00 UTC'>Jun 04, 2017</span></td>
+		<td>91</td>
+		<td>1860</td>
+		<td>8</td>
+		<td>27</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/lilweezy'>lilweezy</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/0EqaEiTc'>0EqaEiTc</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 25, 2017 at 20:00 UTC'>Oct 25, 2017</span></td>
+		<td>66</td>
+		<td>1860</td>
+		<td>7</td>
+		<td>26</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/UlkkVpoc'>UlkkVpoc</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 05, 2019 at 20:00 UTC'>May 05, 2019</span></td>
+		<td>84</td>
+		<td>1860</td>
+		<td>5</td>
+		<td>29</td>
+		<td>24%</td>
+		<td><a href='https://lichess.org/@/kleerkast'>kleerkast</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/TV7L3xMq'>TV7L3xMq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 12, 2019 at 20:00 UTC'>Jul 12, 2019</span></td>
+		<td>73</td>
+		<td>1860</td>
+		<td>5</td>
+		<td>29</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/sausboss'>sausboss</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/hHhjm4kL'>hHhjm4kL</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 05, 2019 at 20:00 UTC'>Sep 05, 2019</span></td>
+		<td>54</td>
+		<td>1860</td>
+		<td>8</td>
+		<td>27</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/blitzeur88'>blitzeur88</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/745GzGD5'>745GzGD5</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 02, 2017 at 20:00 UTC'>Feb 02, 2017</span></td>
+		<td>98</td>
+		<td>1859</td>
+		<td>8</td>
+		<td>25</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/dneeth'>dneeth</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/lODU4lSc'>lODU4lSc</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 29, 2017 at 20:00 UTC'>Jul 29, 2017</span></td>
+		<td>55</td>
+		<td>1859</td>
+		<td>6</td>
+		<td>27</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/9SNyYyTd'>9SNyYyTd</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 31, 2017 at 20:00 UTC'>Aug 31, 2017</span></td>
+		<td>76</td>
+		<td>1859</td>
+		<td>7</td>
+		<td>27</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/OU1fyLZX'>OU1fyLZX</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 27, 2017 at 20:00 UTC'>Jul 27, 2017</span></td>
+		<td>55</td>
+		<td>1858</td>
+		<td>5</td>
+		<td>24</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/diffractedpawn'>diffractedpawn</a></td>
+		<td>37</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/yQP7QYv3'>yQP7QYv3</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 03, 2017 at 20:00 UTC'>Aug 03, 2017</span></td>
+		<td>67</td>
+		<td>1858</td>
+		<td>8</td>
+		<td>27</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/a1b0gacG'>a1b0gacG</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 25, 2019 at 20:00 UTC'>Apr 25, 2019</span></td>
+		<td>82</td>
+		<td>1858</td>
+		<td>7</td>
+		<td>29</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>76</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/XPcqxDtu'>XPcqxDtu</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 23, 2019 at 20:00 UTC'>Dec 23, 2019</span></td>
+		<td>87</td>
+		<td>1858</td>
+		<td>7</td>
+		<td>28</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/cat_poacher'>cat_poacher</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/q0EdPhMU'>q0EdPhMU</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 23, 2017 at 20:00 UTC'>Apr 23, 2017</span></td>
+		<td>81</td>
+		<td>1857</td>
+		<td>8</td>
+		<td>26</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/chriswsh'>chriswsh</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/wylgMvkA'>wylgMvkA</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 12, 2017 at 20:00 UTC'>May 12, 2017</span></td>
+		<td>67</td>
+		<td>1857</td>
+		<td>8</td>
+		<td>28</td>
+		<td>30%</td>
+		<td><a href='https://lichess.org/@/katakamata'>katakamata</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/35kK8dXM'>35kK8dXM</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 01, 2017 at 20:00 UTC'>Sep 01, 2017</span></td>
+		<td>83</td>
+		<td>1857</td>
+		<td>7</td>
+		<td>26</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/meanieyu'>meanieyu</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/1amgAL7n'>1amgAL7n</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 14, 2019 at 20:00 UTC'>Aug 14, 2019</span></td>
+		<td>65</td>
+		<td>1857</td>
+		<td>5</td>
+		<td>26</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/firehawkv'>firehawkv</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/VD5Glz8Y'>VD5Glz8Y</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 16, 2019 at 20:00 UTC'>Oct 16, 2019</span></td>
+		<td>66</td>
+		<td>1857</td>
+		<td>6</td>
+		<td>28</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/doooovid'>doooovid</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/MXRsPtO2'>MXRsPtO2</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 28, 2016 at 20:00 UTC'>Nov 28, 2016</span></td>
+		<td>95</td>
+		<td>1856</td>
+		<td>7</td>
+		<td>25</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/k97kPkdY'>k97kPkdY</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 25, 2017 at 20:00 UTC'>Feb 25, 2017</span></td>
+		<td>73</td>
+		<td>1856</td>
+		<td>8</td>
+		<td>27</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/masalanka'>masalanka</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/doQYU88p'>doQYU88p</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 10, 2017 at 20:00 UTC'>Mar 10, 2017</span></td>
+		<td>95</td>
+		<td>1856</td>
+		<td>7</td>
+		<td>25</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/salsablanca'>salsablanca</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/bbrRGg1B'>bbrRGg1B</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 26, 2017 at 20:00 UTC'>Apr 26, 2017</span></td>
+		<td>72</td>
+		<td>1856</td>
+		<td>9</td>
+		<td>26</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sexy_and_i_know_it'>sexy_and_i_know_it</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/YGOnrpQJ'>YGOnrpQJ</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 09, 2018 at 20:00 UTC'>Feb 09, 2018</span></td>
+		<td>74</td>
+		<td>1856</td>
+		<td>6</td>
+		<td>27</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/cat_poacher'>cat_poacher</a></td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/zOrLYaht'>zOrLYaht</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 31, 2018 at 20:00 UTC'>Oct 31, 2018</span></td>
+		<td>67</td>
+		<td>1856</td>
+		<td>5</td>
+		<td>26</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/sharkmeister'>sharkmeister</a></td>
+		<td>26</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/VrqvTZsg'>VrqvTZsg</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 23, 2018 at 20:00 UTC'>Dec 23, 2018</span></td>
+		<td>79</td>
+		<td>1856</td>
+		<td>8</td>
+		<td>27</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/ledzema'>ledzema</a></td>
+		<td>35</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/5bQvQvNa'>5bQvQvNa</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 16, 2019 at 20:00 UTC'>Jun 16, 2019</span></td>
+		<td>76</td>
+		<td>1856</td>
+		<td>7</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/exmohax'>exmohax</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/etGnfkAv'>etGnfkAv</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 20, 2017 at 20:00 UTC'>Feb 20, 2017</span></td>
+		<td>95</td>
+		<td>1855</td>
+		<td>6</td>
+		<td>27</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/rpNJY6oF'>rpNJY6oF</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 12, 2017 at 20:00 UTC'>Jul 12, 2017</span></td>
+		<td>75</td>
+		<td>1855</td>
+		<td>5</td>
+		<td>25</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/s88KcvzV'>s88KcvzV</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 02, 2017 at 20:00 UTC'>Aug 02, 2017</span></td>
+		<td>66</td>
+		<td>1855</td>
+		<td>6</td>
+		<td>26</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/pknm'>pknm</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/Pj3pyZN8'>Pj3pyZN8</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 07, 2017 at 20:00 UTC'>Aug 07, 2017</span></td>
+		<td>79</td>
+		<td>1855</td>
+		<td>7</td>
+		<td>27</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/NkSU9zgG'>NkSU9zgG</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 02, 2018 at 20:00 UTC'>May 02, 2018</span></td>
+		<td>73</td>
+		<td>1855</td>
+		<td>8</td>
+		<td>26</td>
+		<td>26%</td>
+		<td><a href='https://lichess.org/@/lucifer-7'>lucifer-7</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/lVatC8Eq'>lVatC8Eq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 01, 2019 at 20:00 UTC'>May 01, 2019</span></td>
+		<td>78</td>
+		<td>1855</td>
+		<td>6</td>
+		<td>27</td>
+		<td>9%</td>
+		<td><a href='https://lichess.org/@/skeftomilos'>skeftomilos</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/grn07rEV'>grn07rEV</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 04, 2019 at 20:00 UTC'>Jul 04, 2019</span></td>
+		<td>99</td>
+		<td>1855</td>
+		<td>7</td>
+		<td>25</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/firehawkv'>firehawkv</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/gZiolgOa'>gZiolgOa</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 22, 2021 at 20:00 UTC'>May 22, 2021</span></td>
+		<td>109</td>
+		<td>1855</td>
+		<td>7</td>
+		<td>26</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/mr_samurai'>mr_samurai</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/aQHOgOQG'>aQHOgOQG</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 21, 2017 at 20:00 UTC'>May 21, 2017</span></td>
+		<td>77</td>
+		<td>1854</td>
+		<td>8</td>
+		<td>26</td>
+		<td>25%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>88</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/Kptdzjf3'>Kptdzjf3</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 29, 2017 at 20:00 UTC'>Oct 29, 2017</span></td>
+		<td>82</td>
+		<td>1854</td>
+		<td>8</td>
+		<td>25</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/ploikin'>ploikin</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/8vA8RNOb'>8vA8RNOb</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 30, 2019 at 20:00 UTC'>Dec 30, 2019</span></td>
+		<td>78</td>
+		<td>1854</td>
+		<td>8</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/thefinnisher'>thefinnisher</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/UNVy2NPq'>UNVy2NPq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 12, 2017 at 20:00 UTC'>Mar 12, 2017</span></td>
+		<td>91</td>
+		<td>1853</td>
+		<td>7</td>
+		<td>25</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/masalanka'>masalanka</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/THvHeimj'>THvHeimj</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 17, 2017 at 20:00 UTC'>Aug 17, 2017</span></td>
+		<td>88</td>
+		<td>1853</td>
+		<td>8</td>
+		<td>28</td>
+		<td>27%</td>
+		<td><a href='https://lichess.org/@/requiemxd2'>requiemxd2</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/7gsLdI9h'>7gsLdI9h</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 22, 2017 at 20:00 UTC'>Sep 22, 2017</span></td>
+		<td>79</td>
+		<td>1853</td>
+		<td>5</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/victortorao'>victortorao</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/fAyKkTIj'>fAyKkTIj</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 30, 2017 at 20:00 UTC'>Nov 30, 2017</span></td>
+		<td>80</td>
+		<td>1853</td>
+		<td>7</td>
+		<td>26</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/ciw'>ciw</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/7Rx6NzKB'>7Rx6NzKB</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 08, 2017 at 20:00 UTC'>Dec 08, 2017</span></td>
+		<td>82</td>
+		<td>1853</td>
+		<td>7</td>
+		<td>26</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/gsvc'>gsvc</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/xi7croF1'>xi7croF1</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 02, 2018 at 20:00 UTC'>Feb 02, 2018</span></td>
+		<td>82</td>
+		<td>1853</td>
+		<td>6</td>
+		<td>28</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/8rYbjJwY'>8rYbjJwY</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 13, 2018 at 20:00 UTC'>Dec 13, 2018</span></td>
+		<td>78</td>
+		<td>1853</td>
+		<td>7</td>
+		<td>27</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/chicken_attack'>chicken_attack</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/BZp29Z8E'>BZp29Z8E</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 19, 2019 at 20:00 UTC'>May 19, 2019</span></td>
+		<td>82</td>
+		<td>1853</td>
+		<td>6</td>
+		<td>26</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/clanelle'>clanelle</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/pGaFqJuh'>pGaFqJuh</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 17, 2019 at 20:00 UTC'>Jul 17, 2019</span></td>
+		<td>103</td>
+		<td>1853</td>
+		<td>6</td>
+		<td>28</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/v9Y8v2VN'>v9Y8v2VN</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 06, 2021 at 20:00 UTC'>Jun 06, 2021</span></td>
+		<td>123</td>
+		<td>1853</td>
+		<td>7</td>
+		<td>27</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/trataredeganart'>trataredeganart</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/nUXWKviu'>nUXWKviu</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 26, 2017 at 20:00 UTC'>May 26, 2017</span></td>
+		<td>77</td>
+		<td>1852</td>
+		<td>6</td>
+		<td>28</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/beyondcritics'>beyondcritics</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/DIvsU1f2'>DIvsU1f2</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 16, 2017 at 20:00 UTC'>Sep 16, 2017</span></td>
+		<td>69</td>
+		<td>1852</td>
+		<td>8</td>
+		<td>27</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/brazilwinner'>brazilwinner</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/msr73fCv'>msr73fCv</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 02, 2017 at 20:00 UTC'>Nov 02, 2017</span></td>
+		<td>73</td>
+		<td>1852</td>
+		<td>6</td>
+		<td>26</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/mollus'>mollus</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/g2LSloDq'>g2LSloDq</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 03, 2018 at 18:00 UTC'>Aug 03, 2018</span></td>
+		<td>50</td>
+		<td>1852</td>
+		<td>5</td>
+		<td>26</td>
+		<td>8%</td>
+		<td><a href='https://lichess.org/@/starpermaks'>starpermaks</a></td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/gJWJHQyp'>gJWJHQyp</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 01, 2019 at 20:00 UTC'>Mar 01, 2019</span></td>
+		<td>83</td>
+		<td>1852</td>
+		<td>6</td>
+		<td>27</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/din_skugga'>din_skugga</a></td>
+		<td>31</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/R3i6gN8p'>R3i6gN8p</a></td>
+		<td><span class='info Vcrazyhouse' title='Crazyhouse'>ch</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 03, 2019 at 20:00 UTC'>May 03, 2019</span></td>
+		<td>64</td>
+		<td>1852</td>
+		<td>7</td>
+		<td>28</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/emrty'>emrty</a></td>
+		<td>34</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

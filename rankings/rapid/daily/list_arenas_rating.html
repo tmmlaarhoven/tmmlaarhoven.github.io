@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Daily Rapid Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+<meta property='og:type' content='website'>
+<meta property='og:title' content='Lichess Arena Rankings &middot; Daily Rapid Arenas' />
+<meta property='og:description' content='Statistics and rankings built from official Lichess arenas, ranging from hourly bullet arenas to titled arenas to bundesliga events. See who scored the most tournament victories, who played in the most events, who holds the all-time record for the highest score in each type of arena, and more!' />
+<meta property='og:url' content='https://tmmlaarhoven.github.io/lichess/rankings/rapid/daily/list_arenas_rating.html' />
+<meta property='og:image' content='https://tmmlaarhoven.github.io/lichess/rankings/rapid/daily/figures/rapid_daily_players_points.png' />
+</head>
+
+<body>
+<div class="title">Lichess Arena Rankings &middot; Daily Rapid Arenas</div>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz'><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid' checked><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily' checked><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+		<input type='radio' name='Event' value='liga' id='events-liga'><label class='Eliga' for='events-liga'>Bundesliga</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating' checked><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>
+		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>
+	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+This ranking is based on <span class='info' title='1,114 events'>1.1K</span> events held between <a title='First event' href='https://lichess.org/tournament/38CdPPwg'>Dec 02, 2017</a> and <a title='Last event' href='https://lichess.org/tournament/xhTsmYY8'>Jun 26, 2021</a>.
+
+In total, these arenas featured <span class='info' title='2,505,583 games'>2.5M</span> games (with <span class='info' title='166,879,619 moves'>167M</span> moves), and the <span class='info' title='1,220,571 participants'>1.2M</span> participants (<span class='info' title='228,780 players'>229K</span> unique players) scored a total of <span class='info' title='6,477,764 points'>6.5M</span> arena points.
+
+In these games, white scored <span class='info' title='1228383 out of 2505583 games'>49%</span> wins, <span class='info' title='116486 out of 2505583 games'>5%</span> draws, and <span class='info' title='1160714 out of 2505583 games'>46%</span> losses.
+
+The average berserk rate is <span class='info' title='1002041 berserks in 2505583 games'>20.0%</span>, and the average rating is <span class='info' title='2054020932 over 1220571 participants'>1683</span>.
+
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'><b>#</b></span></td>
+		<td>ID</td>
+		<td><b>Type</b></td>
+		<td><b>Date</b></td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'><b>Rtng</b></span></td>
+		<td><span class='info' title='Average points per player'><b>Pts</b></span></td>
+		<td><span class='info' title='Average moves per player per game'><b>Mvs</b></span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td><b>Winner</b></td>
+		<td><span class='info' title='Score of winner'><b>Max</b></span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/gJWPSeNZ'>gJWPSeNZ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 04, 2021 at 19:00 UTC'>Jun 04, 2021</span></td>
+		<td>1210</td>
+		<td>1778</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/wisibada'>wisibada</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/xhTsmYY8'>xhTsmYY8</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 26, 2021 at 19:00 UTC'>Jun 26, 2021</span></td>
+		<td>1515</td>
+		<td>1767</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/aaael'>aaael</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/FKJHKaAQ'>FKJHKaAQ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 22, 2021 at 19:00 UTC'>May 22, 2021</span></td>
+		<td>1430</td>
+		<td>1763</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/taurenchief'>taurenchief</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/KqjD8rsN'>KqjD8rsN</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 12, 2021 at 19:00 UTC'>Jun 12, 2021</span></td>
+		<td>1724</td>
+		<td>1763</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/kush_kush421d'>kush_kush421d</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/O0Xb429f'>O0Xb429f</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 19, 2021 at 19:00 UTC'>Jun 19, 2021</span></td>
+		<td>1318</td>
+		<td>1762</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/mehdi2389'>mehdi2389</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/t2440sro'>t2440sro</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 23, 2021 at 19:00 UTC'>May 23, 2021</span></td>
+		<td>1550</td>
+		<td>1757</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/janabay2'>janabay2</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/0soE2p2g'>0soE2p2g</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 07, 2021 at 19:00 UTC'>Jun 07, 2021</span></td>
+		<td>1929</td>
+		<td>1755</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/finally_i_won'>finally_i_won</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/jAUsAKiG'>jAUsAKiG</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 14, 2021 at 19:00 UTC'>Jun 14, 2021</span></td>
+		<td>1852</td>
+		<td>1755</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/pinokioo00oo'>pinokioo00oo</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/RWAvhNTw'>RWAvhNTw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 18, 2021 at 19:00 UTC'>Jun 18, 2021</span></td>
+		<td>1144</td>
+		<td>1755</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/pranchess924'>pranchess924</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/SwJ7CAcL'>SwJ7CAcL</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 29, 2021 at 19:00 UTC'>May 29, 2021</span></td>
+		<td>1840</td>
+		<td>1754</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/krazyfarrier'>krazyfarrier</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/fmCCNLTB'>fmCCNLTB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 22, 2021 at 19:00 UTC'>Jun 22, 2021</span></td>
+		<td>1658</td>
+		<td>1754</td>
+		<td>5</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/retruco'>retruco</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/MfzCA1YP'>MfzCA1YP</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 23, 2021 at 19:00 UTC'>Jun 23, 2021</span></td>
+		<td>1558</td>
+		<td>1753</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/pranchess924'>pranchess924</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/j0PHek70'>j0PHek70</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 15, 2021 at 19:00 UTC'>May 15, 2021</span></td>
+		<td>2175</td>
+		<td>1751</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/guzman70'>guzman70</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/t6HoBfpU'>t6HoBfpU</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 01, 2021 at 19:00 UTC'>Jun 01, 2021</span></td>
+		<td>1537</td>
+		<td>1751</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/babaanita'>babaanita</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/m1uuyTmI'>m1uuyTmI</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 31, 2021 at 19:00 UTC'>May 31, 2021</span></td>
+		<td>1775</td>
+		<td>1749</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sultansehati'>sultansehati</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/BL2UvQJ7'>BL2UvQJ7</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 02, 2021 at 19:00 UTC'>Jun 02, 2021</span></td>
+		<td>1433</td>
+		<td>1749</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sohaile-jr'>sohaile-jr</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/BT6pK80c'>BT6pK80c</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 15, 2021 at 19:00 UTC'>Jun 15, 2021</span></td>
+		<td>1486</td>
+		<td>1749</td>
+		<td>5</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/teddyhh'>teddyhh</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/UHalpizO'>UHalpizO</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 25, 2021 at 19:00 UTC'>Jun 25, 2021</span></td>
+		<td>1361</td>
+		<td>1748</td>
+		<td>5</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/kingstar70'>kingstar70</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/QV8zdCZj'>QV8zdCZj</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 23, 2020 at 19:00 UTC'>Oct 23, 2020</span></td>
+		<td>884</td>
+		<td>1747</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/timetoplaychess'>timetoplaychess</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/okWsyCdr'>okWsyCdr</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 24, 2021 at 19:00 UTC'>Apr 24, 2021</span></td>
+		<td>2044</td>
+		<td>1747</td>
+		<td>6</td>
+		<td>32</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/toog'>toog</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/bhCrtbhP'>bhCrtbhP</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 30, 2021 at 19:00 UTC'>May 30, 2021</span></td>
+		<td>1864</td>
+		<td>1747</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/max_ko1983'>max_ko1983</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/XLcpeWvt'>XLcpeWvt</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 21, 2021 at 19:00 UTC'>Jun 21, 2021</span></td>
+		<td>1764</td>
+		<td>1747</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/robin_hood08'>robin_hood08</a></td>
+		<td>74</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/ws8sjsaU'>ws8sjsaU</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 08, 2021 at 19:00 UTC'>May 08, 2021</span></td>
+		<td>2273</td>
+		<td>1746</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/s_patzer'>s_patzer</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/vgqvG5g5'>vgqvG5g5</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 16, 2021 at 19:00 UTC'>Jun 16, 2021</span></td>
+		<td>1732</td>
+		<td>1746</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/anvar585'>anvar585</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/ne3RcX22'>ne3RcX22</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 09, 2021 at 19:00 UTC'>May 09, 2021</span></td>
+		<td>2046</td>
+		<td>1745</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/saschawinterkamp'>saschawinterkamp</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/nBPBkjse'>nBPBkjse</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 08, 2021 at 19:00 UTC'>Jun 08, 2021</span></td>
+		<td>1678</td>
+		<td>1745</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/boringchessgame'>boringchessgame</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/3WFaVYSn'>3WFaVYSn</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 02, 2020 at 19:00 UTC'>Oct 02, 2020</span></td>
+		<td>1006</td>
+		<td>1744</td>
+		<td>5</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/miqayelhovhannisyan5'>miqayelhovhannisyan5</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/7l5MHjsy'>7l5MHjsy</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 24, 2020 at 19:00 UTC'>Oct 24, 2020</span></td>
+		<td>999</td>
+		<td>1744</td>
+		<td>6</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/timetoplaychess'>timetoplaychess</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/vnX96q5E'>vnX96q5E</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 17, 2021 at 19:00 UTC'>Apr 17, 2021</span></td>
+		<td>1573</td>
+		<td>1744</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sevki_38'>sevki_38</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/qxqh6vsv'>qxqh6vsv</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 01, 2021 at 19:00 UTC'>May 01, 2021</span></td>
+		<td>1934</td>
+		<td>1744</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/tomcio1986'>tomcio1986</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/fR9GeWIC'>fR9GeWIC</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 24, 2021 at 19:00 UTC'>May 24, 2021</span></td>
+		<td>1989</td>
+		<td>1744</td>
+		<td>6</td>
+		<td>32</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/anenaking'>anenaking</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/cBZ5BuxV'>cBZ5BuxV</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 11, 2021 at 19:00 UTC'>Jun 11, 2021</span></td>
+		<td>1335</td>
+		<td>1744</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/joachim75'>joachim75</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/ZdIt6aIW'>ZdIt6aIW</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 13, 2021 at 19:00 UTC'>Jun 13, 2021</span></td>
+		<td>1751</td>
+		<td>1744</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/shamsutdin'>shamsutdin</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/0Apcm4Gz'>0Apcm4Gz</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 21, 2021 at 19:00 UTC'>May 21, 2021</span></td>
+		<td>1477</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/adria2003'>adria2003</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/EOUFe1np'>EOUFe1np</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 06, 2021 at 19:00 UTC'>Jun 06, 2021</span></td>
+		<td>1712</td>
+		<td>1743</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/alex--omsk'>alex--omsk</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/FnA0ykFw'>FnA0ykFw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 03, 2020 at 19:00 UTC'>Oct 03, 2020</span></td>
+		<td>1395</td>
+		<td>1742</td>
+		<td>6</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/joachimda'>joachimda</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/Mt3YHRE2'>Mt3YHRE2</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 03, 2021 at 19:00 UTC'>Apr 03, 2021</span></td>
+		<td>1641</td>
+		<td>1742</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/geneh59'>geneh59</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/urqgWiSV'>urqgWiSV</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 05, 2021 at 19:00 UTC'>Jun 05, 2021</span></td>
+		<td>1762</td>
+		<td>1742</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sohaile-jr'>sohaile-jr</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/6DprXNuO'>6DprXNuO</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 04, 2020 at 19:00 UTC'>Sep 04, 2020</span></td>
+		<td>831</td>
+		<td>1740</td>
+		<td>6</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/yk0105'>yk0105</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/ZDB7RDH2'>ZDB7RDH2</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 16, 2021 at 19:00 UTC'>May 16, 2021</span></td>
+		<td>1939</td>
+		<td>1740</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/luisfsiles'>luisfsiles</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/fZMezVn3'>fZMezVn3</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 30, 2021 at 19:00 UTC'>Apr 30, 2021</span></td>
+		<td>1191</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/nkiss'>nkiss</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/frF7c5lz'>frF7c5lz</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 25, 2021 at 19:00 UTC'>May 25, 2021</span></td>
+		<td>1834</td>
+		<td>1739</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/anenaking'>anenaking</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/u2x4BqEC'>u2x4BqEC</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 11, 2020 at 19:00 UTC'>Jul 11, 2020</span></td>
+		<td>1159</td>
+		<td>1737</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/sankalp_gm'>sankalp_gm</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/WOSi3stJ'>WOSi3stJ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 05, 2020 at 19:00 UTC'>Oct 05, 2020</span></td>
+		<td>1408</td>
+		<td>1736</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/lev7go'>lev7go</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/XgZjweBo'>XgZjweBo</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 16, 2020 at 19:00 UTC'>Oct 16, 2020</span></td>
+		<td>1268</td>
+		<td>1736</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/cambando'>cambando</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/F8UjBk73'>F8UjBk73</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 26, 2021 at 19:00 UTC'>May 26, 2021</span></td>
+		<td>2003</td>
+		<td>1736</td>
+		<td>5</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/eddyteacheschess'>eddyteacheschess</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/xGGlMRde'>xGGlMRde</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 28, 2021 at 19:00 UTC'>May 28, 2021</span></td>
+		<td>1654</td>
+		<td>1736</td>
+		<td>6</td>
+		<td>32</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/masenik'>masenik</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/OtV6otoW'>OtV6otoW</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 12, 2021 at 19:00 UTC'>Apr 12, 2021</span></td>
+		<td>2385</td>
+		<td>1735</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/mark_kingsman13'>mark_kingsman13</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/IQFZxywt'>IQFZxywt</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 09, 2021 at 19:00 UTC'>Jun 09, 2021</span></td>
+		<td>1823</td>
+		<td>1735</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/steelboy'>steelboy</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/i4EU8qTw'>i4EU8qTw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 14, 2020 at 19:00 UTC'>Sep 14, 2020</span></td>
+		<td>1518</td>
+		<td>1734</td>
+		<td>6</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/drunkviper'>drunkviper</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/CM48bWXx'>CM48bWXx</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 19, 2020 at 19:00 UTC'>Oct 19, 2020</span></td>
+		<td>1516</td>
+		<td>1734</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/al7shd_alsh3by'>al7shd_alsh3by</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/dNHwyxvF'>dNHwyxvF</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 03, 2021 at 19:00 UTC'>May 03, 2021</span></td>
+		<td>2168</td>
+		<td>1734</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/heretomakeit'>heretomakeit</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/sbwVwVrm'>sbwVwVrm</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 06, 2020 at 19:00 UTC'>Oct 06, 2020</span></td>
+		<td>1200</td>
+		<td>1733</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/taurenchief'>taurenchief</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/1iQXwenI'>1iQXwenI</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 10, 2021 at 19:00 UTC'>May 10, 2021</span></td>
+		<td>2064</td>
+		<td>1733</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/tsedawa'>tsedawa</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/ENU5jSSJ'>ENU5jSSJ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 10, 2020 at 19:00 UTC'>Jul 10, 2020</span></td>
+		<td>768</td>
+		<td>1732</td>
+		<td>6</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/pp0852'>pp0852</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/3MjrrBVg'>3MjrrBVg</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 26, 2020 at 19:00 UTC'>Sep 26, 2020</span></td>
+		<td>1098</td>
+		<td>1732</td>
+		<td>6</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/drtruth123'>drtruth123</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/AR8VFTOI'>AR8VFTOI</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 12, 2020 at 19:00 UTC'>Oct 12, 2020</span></td>
+		<td>1557</td>
+		<td>1732</td>
+		<td>6</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/aeapmestre'>aeapmestre</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/pV07FWRu'>pV07FWRu</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 27, 2021 at 19:00 UTC'>Feb 27, 2021</span></td>
+		<td>1879</td>
+		<td>1732</td>
+		<td>6</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/hopechesscl'>hopechesscl</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/FEs4HgGY'>FEs4HgGY</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 02, 2021 at 19:00 UTC'>Apr 02, 2021</span></td>
+		<td>1363</td>
+		<td>1732</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/groova'>groova</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/ySyrmP9N'>ySyrmP9N</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 18, 2021 at 19:00 UTC'>May 18, 2021</span></td>
+		<td>1805</td>
+		<td>1732</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/chess_basic'>chess_basic</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/UnX0GdqQ'>UnX0GdqQ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 14, 2020 at 19:00 UTC'>Jan 14, 2020</span></td>
+		<td>361</td>
+		<td>1731</td>
+		<td>1</td>
+		<td>26</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/mizochessprince'>mizochessprince</a></td>
+		<td>6</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/sKyZVh9L'>sKyZVh9L</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 09, 2020 at 19:00 UTC'>Oct 09, 2020</span></td>
+		<td>1173</td>
+		<td>1731</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/nikol1902'>nikol1902</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/QbR0GFfX'>QbR0GFfX</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 17, 2021 at 19:00 UTC'>May 17, 2021</span></td>
+		<td>1991</td>
+		<td>1731</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/zenenmaria'>zenenmaria</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/E2xtkZOY'>E2xtkZOY</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 17, 2020 at 19:00 UTC'>Oct 17, 2020</span></td>
+		<td>1588</td>
+		<td>1730</td>
+		<td>6</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/timetoplaychess'>timetoplaychess</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/UPyHYPQH'>UPyHYPQH</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 25, 2021 at 19:00 UTC'>Apr 25, 2021</span></td>
+		<td>1870</td>
+		<td>1730</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sotirakis'>sotirakis</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/OQZaLNVm'>OQZaLNVm</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 26, 2021 at 19:00 UTC'>Apr 26, 2021</span></td>
+		<td>1783</td>
+		<td>1730</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/jorida'>jorida</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/M23nImLk'>M23nImLk</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 27, 2021 at 19:00 UTC'>Apr 27, 2021</span></td>
+		<td>1486</td>
+		<td>1730</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/heretomakeit'>heretomakeit</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/ZH9nMMOD'>ZH9nMMOD</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 11, 2021 at 19:00 UTC'>May 11, 2021</span></td>
+		<td>2161</td>
+		<td>1730</td>
+		<td>5</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/gabriel_champion'>gabriel_champion</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/rb4wthDp'>rb4wthDp</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 24, 2020 at 19:00 UTC'>Jun 24, 2020</span></td>
+		<td>1035</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/shved-007'>shved-007</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/w91P0hRw'>w91P0hRw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 31, 2020 at 19:00 UTC'>Jul 31, 2020</span></td>
+		<td>773</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/habibus'>habibus</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/SdX7fqZq'>SdX7fqZq</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 05, 2020 at 19:00 UTC'>Sep 05, 2020</span></td>
+		<td>1111</td>
+		<td>1729</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/panda666'>panda666</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/QNSV3qc3'>QNSV3qc3</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 15, 2020 at 19:00 UTC'>Sep 15, 2020</span></td>
+		<td>1142</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/nartay1'>nartay1</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/p3qqKBfB'>p3qqKBfB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 16, 2020 at 19:00 UTC'>Sep 16, 2020</span></td>
+		<td>839</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/janabay2'>janabay2</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/d5DkAIMV'>d5DkAIMV</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 29, 2020 at 19:00 UTC'>Sep 29, 2020</span></td>
+		<td>1277</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/inhilikan'>inhilikan</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/oCMVEy8K'>oCMVEy8K</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 14, 2021 at 19:00 UTC'>May 14, 2021</span></td>
+		<td>1742</td>
+		<td>1729</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/orion73'>orion73</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/Y40Uo4uP'>Y40Uo4uP</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 04, 2020 at 19:00 UTC'>Oct 04, 2020</span></td>
+		<td>1281</td>
+		<td>1728</td>
+		<td>5</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/alex--omsk'>alex--omsk</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/HveU5Uql'>HveU5Uql</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 20, 2020 at 19:00 UTC'>Oct 20, 2020</span></td>
+		<td>1439</td>
+		<td>1728</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/timetoplaychess'>timetoplaychess</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/9i4gpssN'>9i4gpssN</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 28, 2020 at 19:00 UTC'>Mar 28, 2020</span></td>
+		<td>1855</td>
+		<td>1727</td>
+		<td>6</td>
+		<td>34</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/killer74'>killer74</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/QbYuWfLu'>QbYuWfLu</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 28, 2020 at 19:00 UTC'>Sep 28, 2020</span></td>
+		<td>1385</td>
+		<td>1727</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/dmitri1993'>dmitri1993</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/mpHf7w4I'>mpHf7w4I</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 14, 2021 at 19:00 UTC'>Apr 14, 2021</span></td>
+		<td>1986</td>
+		<td>1727</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/stunningchoice_da'>stunningchoice_da</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/TxZ2XyLj'>TxZ2XyLj</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 21, 2021 at 19:00 UTC'>Apr 21, 2021</span></td>
+		<td>1950</td>
+		<td>1727</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/stunningchoice_da'>stunningchoice_da</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/8Sjjl6SV'>8Sjjl6SV</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 15, 2020 at 19:00 UTC'>Aug 15, 2020</span></td>
+		<td>1555</td>
+		<td>1726</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/ktototo'>ktototo</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/cM8DExNI'>cM8DExNI</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 13, 2020 at 19:00 UTC'>Sep 13, 2020</span></td>
+		<td>1030</td>
+		<td>1726</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/geneh59'>geneh59</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/ZFWoEb0o'>ZFWoEb0o</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 25, 2020 at 19:00 UTC'>Sep 25, 2020</span></td>
+		<td>1055</td>
+		<td>1726</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/egefb'>egefb</a></td>
+		<td>43</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/JDTDK6pN'>JDTDK6pN</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 21, 2020 at 19:00 UTC'>Oct 21, 2020</span></td>
+		<td>1341</td>
+		<td>1726</td>
+		<td>6</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/epicchess93'>epicchess93</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/HG3Ct6pC'>HG3Ct6pC</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 23, 2021 at 19:00 UTC'>Jan 23, 2021</span></td>
+		<td>2107</td>
+		<td>1726</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/aruran'>aruran</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/uWIC75GB'>uWIC75GB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 28, 2021 at 19:00 UTC'>Mar 28, 2021</span></td>
+		<td>2050</td>
+		<td>1726</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/remit_01'>remit_01</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/Pk0t7txg'>Pk0t7txg</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 13, 2021 at 19:00 UTC'>Apr 13, 2021</span></td>
+		<td>2070</td>
+		<td>1726</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/heretomakeit'>heretomakeit</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/i2dd6zXG'>i2dd6zXG</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 28, 2021 at 19:00 UTC'>Apr 28, 2021</span></td>
+		<td>1444</td>
+		<td>1726</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/heretomakeit'>heretomakeit</a></td>
+		<td>76</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/WkbALxpf'>WkbALxpf</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 23, 2020 at 19:00 UTC'>Feb 23, 2020</span></td>
+		<td>1013</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/wolfchess1'>wolfchess1</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/T1wpgTfK'>T1wpgTfK</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 20, 2020 at 19:00 UTC'>Mar 20, 2020</span></td>
+		<td>787</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>34</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/drvladimir64'>drvladimir64</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/rdH2WNQJ'>rdH2WNQJ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 19, 2020 at 19:00 UTC'>Sep 19, 2020</span></td>
+		<td>1415</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>34</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/pp0852'>pp0852</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/akRJWxbw'>akRJWxbw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 14, 2020 at 19:00 UTC'>Nov 14, 2020</span></td>
+		<td>2012</td>
+		<td>1725</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/alza_taktik'>alza_taktik</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/j3BNFGm3'>j3BNFGm3</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 21, 2021 at 19:00 UTC'>Mar 21, 2021</span></td>
+		<td>1817</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/polak5'>polak5</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/ewfLpCvW'>ewfLpCvW</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 12, 2021 at 19:00 UTC'>May 12, 2021</span></td>
+		<td>2262</td>
+		<td>1725</td>
+		<td>5</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/mistermeises'>mistermeises</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/a3aFqlYD'>a3aFqlYD</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 02, 2021 at 19:00 UTC'>May 02, 2021</span></td>
+		<td>1845</td>
+		<td>1724</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/noobunu'>noobunu</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/dAq5avRP'>dAq5avRP</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 14, 2020 at 19:00 UTC'>Mar 14, 2020</span></td>
+		<td>1187</td>
+		<td>1723</td>
+		<td>6</td>
+		<td>34</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/starypijanyv2'>starypijanyv2</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/9YFtHz1l'>9YFtHz1l</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 06, 2020 at 19:00 UTC'>Sep 06, 2020</span></td>
+		<td>1406</td>
+		<td>1723</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/nartay1'>nartay1</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/Wydqm4Ao'>Wydqm4Ao</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 04, 2020 at 19:00 UTC'>Dec 04, 2020</span></td>
+		<td>1201</td>
+		<td>1723</td>
+		<td>6</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/moskvin_tolik'>moskvin_tolik</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/5BFJhYtR'>5BFJhYtR</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 23, 2021 at 19:00 UTC'>Apr 23, 2021</span></td>
+		<td>1775</td>
+		<td>1723</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/sotirakis'>sotirakis</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/T3frs5Ax'>T3frs5Ax</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 01, 2020 at 19:00 UTC'>Mar 01, 2020</span></td>
+		<td>983</td>
+		<td>1722</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/alphazeron'>alphazeron</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/qb4DKqK8'>qb4DKqK8</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 25, 2020 at 19:00 UTC'>Mar 25, 2020</span></td>
+		<td>1520</td>
+		<td>1722</td>
+		<td>6</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/badatthegame'>badatthegame</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/4XyfFJDP'>4XyfFJDP</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 21, 2020 at 19:00 UTC'>Sep 21, 2020</span></td>
+		<td>1426</td>
+		<td>1722</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/meki1'>meki1</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/4ZHR9Rox'>4ZHR9Rox</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 18, 2020 at 19:00 UTC'>Oct 18, 2020</span></td>
+		<td>1504</td>
+		<td>1722</td>
+		<td>5</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/timetoplaychess'>timetoplaychess</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/yQrC6g38'>yQrC6g38</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 31, 2020 at 19:00 UTC'>Oct 31, 2020</span></td>
+		<td>1691</td>
+		<td>1722</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/ghani13'>ghani13</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/aiTQGoD0'>aiTQGoD0</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 27, 2021 at 19:00 UTC'>Mar 27, 2021</span></td>
+		<td>2234</td>
+		<td>1722</td>
+		<td>6</td>
+		<td>32</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/b7b7b7'>b7b7b7</a></td>
+		<td>86</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/Aybul4XN'>Aybul4XN</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 19, 2021 at 19:00 UTC'>May 19, 2021</span></td>
+		<td>1764</td>
+		<td>1722</td>
+		<td>5</td>
+		<td>31</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/shipitsynpa'>shipitsynpa</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/HwCRilnn'>HwCRilnn</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 10, 2020 at 19:00 UTC'>Oct 10, 2020</span></td>
+		<td>1290</td>
+		<td>1721</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/teddyhh'>teddyhh</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/qvJr07yS'>qvJr07yS</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 11, 2020 at 19:00 UTC'>Oct 11, 2020</span></td>
+		<td>1346</td>
+		<td>1721</td>
+		<td>5</td>
+		<td>34</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/nartay1'>nartay1</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/KcbmPCus'>KcbmPCus</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 26, 2021 at 19:00 UTC'>Feb 26, 2021</span></td>
+		<td>1376</td>
+		<td>1721</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/zenenmaria'>zenenmaria</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/IjNPrLPw'>IjNPrLPw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 04, 2021 at 19:00 UTC'>May 04, 2021</span></td>
+		<td>1940</td>
+		<td>1721</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/ahmetyasir'>ahmetyasir</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/ZiaWGK7z'>ZiaWGK7z</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 08, 2020 at 19:00 UTC'>Mar 08, 2020</span></td>
+		<td>1008</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>34</td>
+		<td>23%</td>
+		<td><a href='https://lichess.org/@/coronovirus2020'>coronovirus2020</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/gt5IOkUx'>gt5IOkUx</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 22, 2020 at 19:00 UTC'>Sep 22, 2020</span></td>
+		<td>1442</td>
+		<td>1720</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/alex--omsk'>alex--omsk</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/0P7yeVVU'>0P7yeVVU</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 30, 2020 at 19:00 UTC'>Jun 30, 2020</span></td>
+		<td>1265</td>
+		<td>1719</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/carlosvarela7'>carlosvarela7</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/dw68p2oe'>dw68p2oe</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 18, 2020 at 19:00 UTC'>Sep 18, 2020</span></td>
+		<td>1131</td>
+		<td>1719</td>
+		<td>5</td>
+		<td>35</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/nartay1'>nartay1</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/JajMXbFy'>JajMXbFy</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 14, 2020 at 19:00 UTC'>Oct 14, 2020</span></td>
+		<td>1383</td>
+		<td>1719</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/drunkviper'>drunkviper</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/scw9fJWL'>scw9fJWL</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 27, 2020 at 19:00 UTC'>Oct 27, 2020</span></td>
+		<td>1360</td>
+		<td>1719</td>
+		<td>5</td>
+		<td>32</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/pskov_rulit'>pskov_rulit</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/i2Yqvwhw'>i2Yqvwhw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 30, 2020 at 19:00 UTC'>Oct 30, 2020</span></td>
+		<td>1269</td>
+		<td>1719</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/faceless_trickster'>faceless_trickster</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/Vlk6wepO'>Vlk6wepO</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 07, 2020 at 19:00 UTC'>Nov 07, 2020</span></td>
+		<td>1797</td>
+		<td>1719</td>
+		<td>6</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/taurenchief'>taurenchief</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/uN0TQkwq'>uN0TQkwq</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 18, 2021 at 19:00 UTC'>Jan 18, 2021</span></td>
+		<td>2134</td>
+		<td>1719</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/superfm1'>superfm1</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/rR5VSaZ1'>rR5VSaZ1</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 11, 2021 at 19:00 UTC'>Apr 11, 2021</span></td>
+		<td>2106</td>
+		<td>1719</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/dj73'>dj73</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/BCH5d2Ua'>BCH5d2Ua</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 18, 2020 at 19:00 UTC'>Jan 18, 2020</span></td>
+		<td>987</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/berserk_91'>berserk_91</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/XI1e053U'>XI1e053U</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 22, 2020 at 19:00 UTC'>Jan 22, 2020</span></td>
+		<td>967</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/winorlearn9891'>winorlearn9891</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/AdGSL6Pq'>AdGSL6Pq</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 18, 2020 at 19:00 UTC'>Jul 18, 2020</span></td>
+		<td>1554</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/kung_fu_panda3'>kung_fu_panda3</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/ud0R442c'>ud0R442c</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 25, 2020 at 19:00 UTC'>Jul 25, 2020</span></td>
+		<td>1112</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/yuadewhirst'>yuadewhirst</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/LfKVJfMr'>LfKVJfMr</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 01, 2020 at 19:00 UTC'>Aug 01, 2020</span></td>
+		<td>1179</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/schemato'>schemato</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/kI5TdyiB'>kI5TdyiB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 04, 2020 at 19:00 UTC'>Nov 04, 2020</span></td>
+		<td>1212</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/superior2017'>superior2017</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/fa7jtJG2'>fa7jtJG2</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 28, 2020 at 19:00 UTC'>Dec 28, 2020</span></td>
+		<td>1400</td>
+		<td>1718</td>
+		<td>6</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/gti2000'>gti2000</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/Kd6mzuiF'>Kd6mzuiF</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 19, 2021 at 19:00 UTC'>Mar 19, 2021</span></td>
+		<td>1411</td>
+		<td>1718</td>
+		<td>5</td>
+		<td>32</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/shipitsynpa'>shipitsynpa</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/D0nsmBdA'>D0nsmBdA</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 18, 2020 at 19:00 UTC'>Feb 18, 2020</span></td>
+		<td>869</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/lebedevaechess'>lebedevaechess</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/CgSJcPsH'>CgSJcPsH</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 10, 2020 at 19:00 UTC'>Mar 10, 2020</span></td>
+		<td>962</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/dramallama'>dramallama</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/MgsJHE7s'>MgsJHE7s</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 04, 2020 at 19:00 UTC'>Jul 04, 2020</span></td>
+		<td>1240</td>
+		<td>1717</td>
+		<td>6</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/yuadewhirst'>yuadewhirst</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/mcfW01Za'>mcfW01Za</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 30, 2020 at 19:00 UTC'>Sep 30, 2020</span></td>
+		<td>1168</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/barmaley80'>barmaley80</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/dkwC692y'>dkwC692y</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 13, 2020 at 19:00 UTC'>Oct 13, 2020</span></td>
+		<td>1313</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/mlakbar11'>mlakbar11</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/u78LKoYB'>u78LKoYB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 22, 2021 at 19:00 UTC'>Feb 22, 2021</span></td>
+		<td>1743</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/tomcio1986'>tomcio1986</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/0RUtfgHy'>0RUtfgHy</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 18, 2021 at 19:00 UTC'>Apr 18, 2021</span></td>
+		<td>2068</td>
+		<td>1717</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/runtilmorrow'>runtilmorrow</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/Vl1DqXVb'>Vl1DqXVb</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 12, 2020 at 19:00 UTC'>Aug 12, 2020</span></td>
+		<td>1569</td>
+		<td>1716</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/hossein_babaee'>hossein_babaee</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/cBRTXW34'>cBRTXW34</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 20, 2020 at 19:00 UTC'>Sep 20, 2020</span></td>
+		<td>1378</td>
+		<td>1716</td>
+		<td>6</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/crazytoxic'>crazytoxic</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/kfZ0m7VB'>kfZ0m7VB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 28, 2020 at 19:00 UTC'>Oct 28, 2020</span></td>
+		<td>1235</td>
+		<td>1716</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/artem_0degov'>artem_0degov</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/rw82gVn8'>rw82gVn8</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 08, 2020 at 19:00 UTC'>Aug 08, 2020</span></td>
+		<td>1258</td>
+		<td>1715</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/wippy5647'>wippy5647</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/XQjOjGCf'>XQjOjGCf</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 11, 2020 at 19:00 UTC'>Aug 11, 2020</span></td>
+		<td>1323</td>
+		<td>1715</td>
+		<td>6</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/alomair95'>alomair95</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/b7yLEW4e'>b7yLEW4e</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 29, 2020 at 19:00 UTC'>Aug 29, 2020</span></td>
+		<td>1690</td>
+		<td>1715</td>
+		<td>6</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/barmaley80'>barmaley80</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/7MMsU0Fh'>7MMsU0Fh</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 31, 2020 at 19:00 UTC'>Aug 31, 2020</span></td>
+		<td>1410</td>
+		<td>1715</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/dontcallmedodu'>dontcallmedodu</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/bUNsnHCz'>bUNsnHCz</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 26, 2020 at 19:00 UTC'>Oct 26, 2020</span></td>
+		<td>1496</td>
+		<td>1715</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/bertrandrussell55'>bertrandrussell55</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/uhJf4e8W'>uhJf4e8W</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 19, 2020 at 19:00 UTC'>Dec 19, 2020</span></td>
+		<td>1570</td>
+		<td>1715</td>
+		<td>5</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/jesperknudsen'>jesperknudsen</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/De3Kmj3v'>De3Kmj3v</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 09, 2021 at 19:00 UTC'>Jan 09, 2021</span></td>
+		<td>2473</td>
+		<td>1715</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/rezeechecs'>rezeechecs</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/eJRRU7u8'>eJRRU7u8</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 20, 2021 at 19:00 UTC'>Mar 20, 2021</span></td>
+		<td>2016</td>
+		<td>1715</td>
+		<td>6</td>
+		<td>31</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/alex--omsk'>alex--omsk</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/7YYLOrzY'>7YYLOrzY</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 26, 2021 at 19:00 UTC'>Mar 26, 2021</span></td>
+		<td>1880</td>
+		<td>1715</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/krazyfarrier'>krazyfarrier</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/iGoOuEWU'>iGoOuEWU</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 25, 2020 at 19:00 UTC'>Feb 25, 2020</span></td>
+		<td>891</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/ig0runchik'>ig0runchik</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/ibts8HeZ'>ibts8HeZ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 02, 2020 at 19:00 UTC'>Nov 02, 2020</span></td>
+		<td>1690</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/karabag_warrior'>karabag_warrior</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/S1vw3JQN'>S1vw3JQN</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 09, 2020 at 19:00 UTC'>Nov 09, 2020</span></td>
+		<td>1879</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/sannikovgrigoriy'>sannikovgrigoriy</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/bnMItqA5'>bnMItqA5</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 21, 2020 at 19:00 UTC'>Nov 21, 2020</span></td>
+		<td>1698</td>
+		<td>1714</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/crushingblow'>crushingblow</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/pOvkbVUV'>pOvkbVUV</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 01, 2021 at 19:00 UTC'>Jan 01, 2021</span></td>
+		<td>1295</td>
+		<td>1714</td>
+		<td>6</td>
+		<td>33</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/hmens'>hmens</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/BN061uQT'>BN061uQT</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 08, 2021 at 19:00 UTC'>Mar 08, 2021</span></td>
+		<td>2319</td>
+		<td>1714</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/superfm1'>superfm1</a></td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/oMp5e7GQ'>oMp5e7GQ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 04, 2021 at 19:00 UTC'>Apr 04, 2021</span></td>
+		<td>2183</td>
+		<td>1714</td>
+		<td>6</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/fairplayforeveryone'>fairplayforeveryone</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/Day7L3wo'>Day7L3wo</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 27, 2020 at 19:00 UTC'>Mar 27, 2020</span></td>
+		<td>1482</td>
+		<td>1713</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/infiniteadaption'>infiniteadaption</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/A1enb720'>A1enb720</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 30, 2020 at 18:00 UTC'>Mar 30, 2020</span></td>
+		<td>1631</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/teddyhh'>teddyhh</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/MxjIJsjx'>MxjIJsjx</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 26, 2020 at 19:00 UTC'>Jul 26, 2020</span></td>
+		<td>1333</td>
+		<td>1713</td>
+		<td>6</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/t6274'>t6274</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/1LpF60Uq'>1LpF60Uq</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 18, 2020 at 19:00 UTC'>Aug 18, 2020</span></td>
+		<td>1375</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/babich_roman'>babich_roman</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/8lTYukGB'>8lTYukGB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 25, 2020 at 19:00 UTC'>Aug 25, 2020</span></td>
+		<td>1563</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/battle_tour'>battle_tour</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/TUCcFHFw'>TUCcFHFw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 27, 2020 at 19:00 UTC'>Sep 27, 2020</span></td>
+		<td>1300</td>
+		<td>1713</td>
+		<td>6</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/squatter_king'>squatter_king</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/BG4eYKYZ'>BG4eYKYZ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 21, 2020 at 19:00 UTC'>Dec 21, 2020</span></td>
+		<td>2094</td>
+		<td>1713</td>
+		<td>6</td>
+		<td>32</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/nartay1'>nartay1</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/NIo8DUSx'>NIo8DUSx</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 05, 2021 at 19:00 UTC'>Apr 05, 2021</span></td>
+		<td>2184</td>
+		<td>1713</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/fairplayforeveryone'>fairplayforeveryone</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/ABiLVdnC'>ABiLVdnC</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 09, 2021 at 19:00 UTC'>Apr 09, 2021</span></td>
+		<td>1744</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/hard_utilizator'>hard_utilizator</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/8zGbTkxB'>8zGbTkxB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 19, 2021 at 19:00 UTC'>Apr 19, 2021</span></td>
+		<td>2119</td>
+		<td>1713</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/shafar16'>shafar16</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/4L2z3lDt'>4L2z3lDt</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 22, 2020 at 19:00 UTC'>Mar 22, 2020</span></td>
+		<td>1343</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>34</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/aliyev-ali'>aliyev-ali</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/hLSsUCUk'>hLSsUCUk</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 24, 2020 at 19:00 UTC'>Mar 24, 2020</span></td>
+		<td>1267</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>33</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/hmeluckpasha'>hmeluckpasha</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/YswkdLxS'>YswkdLxS</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 24, 2020 at 19:00 UTC'>Jul 24, 2020</span></td>
+		<td>980</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/drunkviper'>drunkviper</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/8BERxjkv'>8BERxjkv</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 07, 2020 at 19:00 UTC'>Aug 07, 2020</span></td>
+		<td>1049</td>
+		<td>1712</td>
+		<td>6</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/heartless_mf'>heartless_mf</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/7v7YSc4p'>7v7YSc4p</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 19, 2020 at 19:00 UTC'>Aug 19, 2020</span></td>
+		<td>1390</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/lord-universe31'>lord-universe31</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/BSGvbqVx'>BSGvbqVx</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 22, 2020 at 19:00 UTC'>Aug 22, 2020</span></td>
+		<td>1060</td>
+		<td>1712</td>
+		<td>6</td>
+		<td>34</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ngr2222'>ngr2222</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/epXHNDcQ'>epXHNDcQ</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 11, 2020 at 19:00 UTC'>Sep 11, 2020</span></td>
+		<td>1057</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/gloomy_wanderer'>gloomy_wanderer</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/9hbPpyuy'>9hbPpyuy</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 08, 2020 at 19:00 UTC'>Nov 08, 2020</span></td>
+		<td>1750</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/sannikovgrigoriy'>sannikovgrigoriy</a></td>
+		<td>73</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/Lqhlz96T'>Lqhlz96T</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 13, 2021 at 19:00 UTC'>Mar 13, 2021</span></td>
+		<td>2130</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/zenenmaria'>zenenmaria</a></td>
+		<td>71</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/oJGtLdKU'>oJGtLdKU</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 06, 2021 at 19:00 UTC'>Apr 06, 2021</span></td>
+		<td>1928</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/tormentanegra'>tormentanegra</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/a39tYlWo'>a39tYlWo</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 07, 2021 at 19:00 UTC'>May 07, 2021</span></td>
+		<td>1732</td>
+		<td>1712</td>
+		<td>5</td>
+		<td>32</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/arbereshi'>arbereshi</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/q2CNTI0P'>q2CNTI0P</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 12, 2020 at 19:00 UTC'>Feb 12, 2020</span></td>
+		<td>902</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>35</td>
+		<td>22%</td>
+		<td><a href='https://lichess.org/@/pliukha_mikhail'>pliukha_mikhail</a></td>
+		<td>84</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/5aCCCqM1'>5aCCCqM1</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 11, 2020 at 19:00 UTC'>Mar 11, 2020</span></td>
+		<td>743</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/vldfm'>vldfm</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/r24ThP9N'>r24ThP9N</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 15, 2020 at 19:00 UTC'>Mar 15, 2020</span></td>
+		<td>1199</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/luukdegrote'>luukdegrote</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/isbxIXBA'>isbxIXBA</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 18, 2020 at 19:00 UTC'>Mar 18, 2020</span></td>
+		<td>1164</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>33</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/A5VpnAUy'>A5VpnAUy</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 23, 2020 at 19:00 UTC'>Mar 23, 2020</span></td>
+		<td>1377</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/garry_reason'>garry_reason</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/zbWAgf2L'>zbWAgf2L</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 17, 2020 at 19:00 UTC'>Jun 17, 2020</span></td>
+		<td>1511</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>33</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/bohnenbauer'>bohnenbauer</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/HMhY3VSS'>HMhY3VSS</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 06, 2020 at 19:00 UTC'>Jul 06, 2020</span></td>
+		<td>1433</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/terminator2018'>terminator2018</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/rd5syp5m'>rd5syp5m</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 30, 2020 at 19:00 UTC'>Aug 30, 2020</span></td>
+		<td>1565</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/alex--omsk'>alex--omsk</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/xmEco4lu'>xmEco4lu</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 03, 2020 at 19:00 UTC'>Nov 03, 2020</span></td>
+		<td>1612</td>
+		<td>1711</td>
+		<td>5</td>
+		<td>32</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/knights4base'>knights4base</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/ijfwdgpw'>ijfwdgpw</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 19, 2020 at 19:00 UTC'>Feb 19, 2020</span></td>
+		<td>775</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>34</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/grandmaster_rikin'>grandmaster_rikin</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/XWJ7HR6F'>XWJ7HR6F</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 17, 2020 at 19:00 UTC'>Mar 17, 2020</span></td>
+		<td>1101</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/loader4'>loader4</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/OTh8hIdm'>OTh8hIdm</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 12, 2020 at 19:00 UTC'>Jun 12, 2020</span></td>
+		<td>869</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>34</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/szachus'>szachus</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/DbU1M1tY'>DbU1M1tY</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 19, 2020 at 19:00 UTC'>Jul 19, 2020</span></td>
+		<td>1377</td>
+		<td>1710</td>
+		<td>6</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/speedmonkey'>speedmonkey</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/oWuQURdn'>oWuQURdn</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 21, 2020 at 19:00 UTC'>Jul 21, 2020</span></td>
+		<td>1305</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/speedmonkey'>speedmonkey</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/zAFELdsg'>zAFELdsg</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 01, 2020 at 19:00 UTC'>Sep 01, 2020</span></td>
+		<td>1309</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/the-kiler'>the-kiler</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/X2OAdVDh'>X2OAdVDh</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 07, 2020 at 19:00 UTC'>Sep 07, 2020</span></td>
+		<td>1441</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>33</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/adamo_pl'>adamo_pl</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/OtmBMUfc'>OtmBMUfc</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 12, 2020 at 19:00 UTC'>Sep 12, 2020</span></td>
+		<td>1487</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>34</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/gloomy_wanderer'>gloomy_wanderer</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/aaiHaJK4'>aaiHaJK4</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 23, 2020 at 19:00 UTC'>Sep 23, 2020</span></td>
+		<td>1474</td>
+		<td>1710</td>
+		<td>6</td>
+		<td>33</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/oni-benyamin'>oni-benyamin</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/QDlPG4wK'>QDlPG4wK</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 25, 2020 at 19:00 UTC'>Oct 25, 2020</span></td>
+		<td>1451</td>
+		<td>1710</td>
+		<td>6</td>
+		<td>33</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/alex--omsk'>alex--omsk</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/13uBpwhB'>13uBpwhB</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 05, 2020 at 19:00 UTC'>Dec 05, 2020</span></td>
+		<td>1941</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>33</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/kandelaberr'>kandelaberr</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/WUHz7P72'>WUHz7P72</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 22, 2021 at 19:00 UTC'>Mar 22, 2021</span></td>
+		<td>2314</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>32</td>
+		<td>20%</td>
+		<td><a href='https://lichess.org/@/alex--omsk'>alex--omsk</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/obmWElz3'>obmWElz3</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 16, 2021 at 19:00 UTC'>Apr 16, 2021</span></td>
+		<td>1891</td>
+		<td>1710</td>
+		<td>5</td>
+		<td>32</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/kirillliches'>kirillliches</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/hCfRCLx7'>hCfRCLx7</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 03, 2020 at 19:00 UTC'>Feb 03, 2020</span></td>
+		<td>932</td>
+		<td>1709</td>
+		<td>5</td>
+		<td>34</td>
+		<td>21%</td>
+		<td><a href='https://lichess.org/@/killer74'>killer74</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/NWlTzUnv'>NWlTzUnv</a></td>
+		<td><span class='info Vrapid' title='Rapid'>ra</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 04, 2020 at 19:00 UTC'>Feb 04, 2020</span></td>
+		<td>851</td>
+		<td>1709</td>
+		<td>5</td>
+		<td>34</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/kirsla'>kirsla</a></td>
+		<td>44</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

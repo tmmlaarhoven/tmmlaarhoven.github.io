@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Daily Blitz Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+<meta property='og:type' content='website'>
+<meta property='og:title' content='Lichess Arena Rankings &middot; Daily Blitz Arenas' />
+<meta property='og:description' content='Statistics and rankings built from official Lichess arenas, ranging from hourly bullet arenas to titled arenas to bundesliga events. See who scored the most tournament victories, who played in the most events, who holds the all-time record for the highest score in each type of arena, and more!' />
+<meta property='og:url' content='https://tmmlaarhoven.github.io/lichess/rankings/blitz/daily/list_players_events.html' />
+<meta property='og:image' content='https://tmmlaarhoven.github.io/lichess/rankings/blitz/daily/figures/blitz_daily_players_points.png' />
+</head>
+
+<body>
+<div class="title">Lichess Arena Rankings &middot; Daily Blitz Arenas</div>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz' checked><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily' checked><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+		<input type='radio' name='Event' value='liga' id='events-liga'><label class='Eliga' for='events-liga'>Bundesliga</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events' checked><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves'><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>
+		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>
+	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+This ranking is based on <span class='info' title='2,174 events'>2.2K</span> events held between <a title='First event' href='https://lichess.org/tournament/40zRkHoX'>Apr 11, 2014</a> and <a title='Last event' href='https://lichess.org/tournament/N6kY79CV'>Jun 26, 2021</a>.
+
+In total, these arenas featured <span class='info' title='5,463,448 games'>5.5M</span> games (with <span class='info' title='375,920,919 moves'>376M</span> moves), and the <span class='info' title='2,050,787 participants'>2.1M</span> participants (<span class='info' title='346,681 players'>347K</span> unique players) scored a total of <span class='info' title='13,939,973 points'>14M</span> arena points.
+
+In these games, white scored <span class='info' title='2681546 out of 5463448 games'>49%</span> wins, <span class='info' title='234087 out of 5463448 games'>4%</span> draws, and <span class='info' title='2547815 out of 5463448 games'>47%</span> losses.
+
+The average berserk rate is <span class='info' title='1548355 berserks in 5463448 games'>14.2%</span>, and the average rating is <span class='info' title='3448525090 over 2050787 participants'>1682</span>.
+
+<table class='PlayersList'>
+	<thead>
+	<tr height='30px'>
+		<td><span class='info' title='Ranking'><b>#</b></span></td>
+		<td></td>
+		<td><b>Username</b></td>
+		<td><span class='info' style='font-family: lichess;' title='1st place finishes'>g</span></td>
+		<td><span class='info' style='font-family: lichess;' title='2nd place finishes'>g</span></td>
+		<td><span class='info' style='font-family: lichess;' title='3rd place finishes'>g</span></td>
+		<td><span class='info' title='Total accumulated points'><b>Points</b></span></td>
+		<td>/ <span class='info' title='Events with at least 1 point'><b>Events</b></span></td>
+		<td><span class='info' title='Dates of first/last events'><b>First - Last</b></span></td>
+		<td><span class='info' title='Average points per event'><b>Avg</b></span></td>
+		<td><span class='info' title='Maximum score in one event'><b>Max</b></span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/bec'>bec</a></td>
+		<td>20</td>
+		<td>23</td>
+		<td>34</td>
+		<td>38217</td>
+		<td>/ 1374</td>
+		<td><!--<a href='https://lichess.org/tournament/GXuDiw6O'>--><span class='info' title='Aug 17, 2014 at 16:00 UTC'>Aug'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>28</td>
+		<td><a href='https://lichess.org/tournament/FTi8Pdhi'>54</a></td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/philippe941'>philippe941</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>16576</td>
+		<td>/ 1018</td>
+		<td><!--<a href='https://lichess.org/tournament/1htLlZLV'>--><span class='info' title='Jan 18, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/iYtOb0eb'>--><span class='info' title='May 08, 2020 at 16:00 UTC'>May'20</span><!--</a>--></td>
+		<td>16</td>
+		<td><a href='https://lichess.org/tournament/qrZB8GZL'>35</a></td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/stevankacicka123'>stevankacicka123</a></td>
+		<td></td>
+		<td>1</td>
+		<td></td>
+		<td>20772</td>
+		<td>/ 1012</td>
+		<td><!--<a href='https://lichess.org/tournament/3EU0fn2B'>--><span class='info' title='Apr 17, 2017 at 18:00 UTC'>Apr'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>21</td>
+		<td><a href='https://lichess.org/tournament/cAuZ4buP'>40</a></td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/jacent'>jacent</a></td>
+		<td></td>
+		<td></td>
+		<td>1</td>
+		<td>7524</td>
+		<td>/ 873</td>
+		<td><!--<a href='https://lichess.org/tournament/65gmqwAY'>--><span class='info' title='Mar 04, 2016 at 19:00 UTC'>Mar'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/G8P81lKH'>36</a></td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/cullarvega'>cullarvega</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>8657</td>
+		<td>/ 832</td>
+		<td><!--<a href='https://lichess.org/tournament/WeM0CDBz'>--><span class='info' title='Mar 30, 2015 at 16:00 UTC'>Mar'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/X9Okx1L6'>--><span class='info' title='Oct 22, 2020 at 18:00 UTC'>Oct'20</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/Nib7CS1v'>30</a></td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/aqay'>aqay</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>11974</td>
+		<td>/ 826</td>
+		<td><!--<a href='https://lichess.org/tournament/IdBMgSCW'>--><span class='info' title='Aug 04, 2017 at 18:00 UTC'>Aug'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/Sd6q2Ilz'>44</a></td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rokada2'>rokada2</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6098</td>
+		<td>/ 821</td>
+		<td><!--<a href='https://lichess.org/tournament/sXxdC6to'>--><span class='info' title='Oct 27, 2016 at 18:00 UTC'>Oct'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Dl0Oix3b'>--><span class='info' title='Jun 20, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/EKVzvuRa'>26</a></td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sicilianmaster'>sicilianmaster</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>7211</td>
+		<td>/ 804</td>
+		<td><!--<a href='https://lichess.org/tournament/yFdPgx7O'>--><span class='info' title='Jan 05, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/H7rC6DSG'>--><span class='info' title='May 23, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/J1EVktul'>32</a></td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/geller777'>geller777</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>7973</td>
+		<td>/ 784</td>
+		<td><!--<a href='https://lichess.org/tournament/hO2TygSD'>--><span class='info' title='Dec 20, 2016 at 18:00 UTC'>Dec'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/oVCRrKKa'>--><span class='info' title='May 21, 2020 at 16:00 UTC'>May'20</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/kKu9OmZM'>26</a></td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vopaev'>vopaev</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5874</td>
+		<td>/ 776</td>
+		<td><!--<a href='https://lichess.org/tournament/DXghGtak'>--><span class='info' title='Apr 04, 2016 at 18:00 UTC'>Apr'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/ckVVUADI'>--><span class='info' title='Jun 07, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/VovPUvkj'>22</a></td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/lerto'>lerto</a></td>
+		<td></td>
+		<td>1</td>
+		<td></td>
+		<td>10525</td>
+		<td>/ 769</td>
+		<td><!--<a href='https://lichess.org/tournament/OeV1QQAP'>--><span class='info' title='Jun 17, 2016 at 18:00 UTC'>Jun'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/AScY8bLF'>47</a></td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/terrys'>terrys</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6639</td>
+		<td>/ 746</td>
+		<td><!--<a href='https://lichess.org/tournament/KabJI4xQ'>--><span class='info' title='Jan 21, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/zSO5AkhJ'>26</a></td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/presiden'>presiden</a></td>
+		<td></td>
+		<td>3</td>
+		<td>2</td>
+		<td>14357</td>
+		<td>/ 733</td>
+		<td><!--<a href='https://lichess.org/tournament/70cZxexc'>--><span class='info' title='Dec 18, 2016 at 18:00 UTC'>Dec'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/CtZMhoVx'>--><span class='info' title='Mar 01, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>20</td>
+		<td><a href='https://lichess.org/tournament/uLls7Hsq'>49</a></td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/indoiwong'>indoiwong</a></td>
+		<td>3</td>
+		<td>4</td>
+		<td>9</td>
+		<td>15200</td>
+		<td>/ 661</td>
+		<td><!--<a href='https://lichess.org/tournament/1MZ8vy3G'>--><span class='info' title='Jan 03, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/3PuG64pg'>--><span class='info' title='Feb 23, 2021 at 18:00 UTC'>Feb'21</span><!--</a>--></td>
+		<td>23</td>
+		<td><a href='https://lichess.org/tournament/Hb7kbpNV'>57</a></td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ancora'>ancora</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6021</td>
+		<td>/ 661</td>
+		<td><!--<a href='https://lichess.org/tournament/Vrz80VY1'>--><span class='info' title='Jun 01, 2015 at 18:00 UTC'>Jun'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/pXA02aP4'>34</a></td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sofi410'>sofi410</a></td>
+		<td>3</td>
+		<td>2</td>
+		<td></td>
+		<td>9615</td>
+		<td>/ 642</td>
+		<td><!--<a href='https://lichess.org/tournament/eCGEtZ9g'>--><span class='info' title='Apr 29, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>15</td>
+		<td><a href='https://lichess.org/tournament/0xX7bRiq'>48</a></td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/caspardar'>caspardar</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3122</td>
+		<td>/ 639</td>
+		<td><!--<a href='https://lichess.org/tournament/IXSw352C'>--><span class='info' title='Aug 25, 2014 at 16:00 UTC'>Aug'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/NzV65bIZ'>--><span class='info' title='May 30, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/BovyTYVR'>32</a></td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/florish'>florish</a></td>
+		<td></td>
+		<td>1</td>
+		<td></td>
+		<td>6515</td>
+		<td>/ 634</td>
+		<td><!--<a href='https://lichess.org/tournament/oo9nEoag'>--><span class='info' title='May 26, 2016 at 18:00 UTC'>May'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/5QCcIyDe'>56</a></td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/jozeft24'>jozeft24</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6714</td>
+		<td>/ 626</td>
+		<td><!--<a href='https://lichess.org/tournament/J3xcp45N'>--><span class='info' title='Apr 23, 2017 at 18:00 UTC'>Apr'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/Jp3nAA02'>36</a></td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/tolia'>tolia</a></td>
+		<td>4</td>
+		<td>4</td>
+		<td>3</td>
+		<td>11080</td>
+		<td>/ 613</td>
+		<td><!--<a href='https://lichess.org/tournament/8oq0OFSF'>--><span class='info' title='Apr 25, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/y8ducn4G'>--><span class='info' title='Jul 30, 2020 at 18:00 UTC'>Jul'20</span><!--</a>--></td>
+		<td>18</td>
+		<td><a href='https://lichess.org/tournament/4aKi8Jre'>49</a></td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/zhereh'>zhereh</a></td>
+		<td>1</td>
+		<td>3</td>
+		<td>1</td>
+		<td>7937</td>
+		<td>/ 607</td>
+		<td><!--<a href='https://lichess.org/tournament/ZshJVwDk'>--><span class='info' title='Jun 27, 2014 at 16:00 UTC'>Jun'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Mvm5xODL'>--><span class='info' title='Dec 31, 2018 at 18:00 UTC'>Dec'18</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/u6JslBoU'>34</a></td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/thecorrs1'>thecorrs1</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>9256</td>
+		<td>/ 606</td>
+		<td><!--<a href='https://lichess.org/tournament/DGA09XC3'>--><span class='info' title='Sep 02, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Dl0Oix3b'>--><span class='info' title='Jun 20, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>15</td>
+		<td><a href='https://lichess.org/tournament/4fxI6XyY'>39</a></td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/benuard'>benuard</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>7253</td>
+		<td>/ 605</td>
+		<td><!--<a href='https://lichess.org/tournament/R0ISHoaC'>--><span class='info' title='Dec 16, 2016 at 18:00 UTC'>Dec'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/rYL533pC'>29</a></td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rafapol1'>rafapol1</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>7226</td>
+		<td>/ 599</td>
+		<td><!--<a href='https://lichess.org/tournament/ApEFmcPD'>--><span class='info' title='May 08, 2018 at 18:00 UTC'>May'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/XktResKX'>32</a></td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/dinasor'>dinasor</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3702</td>
+		<td>/ 597</td>
+		<td><!--<a href='https://lichess.org/tournament/FA1XmTT4'>--><span class='info' title='Oct 14, 2014 at 16:00 UTC'>Oct'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Dl0Oix3b'>--><span class='info' title='Jun 20, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/83EqtASW'>32</a></td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/slowpawn'>slowpawn</a></td>
+		<td></td>
+		<td>1</td>
+		<td></td>
+		<td>5581</td>
+		<td>/ 596</td>
+		<td><!--<a href='https://lichess.org/tournament/bdITJLXT'>--><span class='info' title='May 25, 2014 at 16:00 UTC'>May'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/pJKnPiA9'>32</a></td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/lacobriga_2'>lacobriga_2</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3593</td>
+		<td>/ 595</td>
+		<td><!--<a href='https://lichess.org/tournament/hUHO15ps'>--><span class='info' title='Jan 29, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/Rl3d7Tls'>22</a></td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vw3'>vw3</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2341</td>
+		<td>/ 585</td>
+		<td><!--<a href='https://lichess.org/tournament/J3d55iK3'>--><span class='info' title='Jul 12, 2016 at 18:00 UTC'>Jul'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/EfqjOmTe'>--><span class='info' title='Jun 13, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/t3R11Qfc'>14</a></td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ntop'>ntop</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3154</td>
+		<td>/ 578</td>
+		<td><!--<a href='https://lichess.org/tournament/8PigBLIt'>--><span class='info' title='May 04, 2014 at 16:00 UTC'>May'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/QVeTIAe1'>--><span class='info' title='Jun 19, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/HL3Vxfe0'>28</a></td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/fkalman'>fkalman</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3648</td>
+		<td>/ 573</td>
+		<td><!--<a href='https://lichess.org/tournament/LL5ziDKn'>--><span class='info' title='Mar 21, 2016 at 19:00 UTC'>Mar'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/Qp7yNFIN'>25</a></td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mirko1956'>mirko1956</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>7033</td>
+		<td>/ 564</td>
+		<td><!--<a href='https://lichess.org/tournament/wFApjksN'>--><span class='info' title='May 30, 2016 at 18:00 UTC'>May'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/a5mL9VDl'>37</a></td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vasvi'>vasvi</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>11974</td>
+		<td>/ 563</td>
+		<td><!--<a href='https://lichess.org/tournament/NdFvLPm8'>--><span class='info' title='Feb 03, 2019 at 18:00 UTC'>Feb'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>21</td>
+		<td><a href='https://lichess.org/tournament/Ah4FTdAQ'>43</a></td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/velryba'>velryba</a></td>
+		<td></td>
+		<td>5</td>
+		<td>3</td>
+		<td>11745</td>
+		<td>/ 562</td>
+		<td><!--<a href='https://lichess.org/tournament/BfPMHG5k'>--><span class='info' title='Aug 14, 2016 at 18:00 UTC'>Aug'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/KkIsyalZ'>--><span class='info' title='Feb 21, 2021 at 18:00 UTC'>Feb'21</span><!--</a>--></td>
+		<td>21</td>
+		<td><a href='https://lichess.org/tournament/08IXCZfa'>52</a></td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/achja'>achja</a></td>
+		<td>4</td>
+		<td>1</td>
+		<td>4</td>
+		<td>10376</td>
+		<td>/ 551</td>
+		<td><!--<a href='https://lichess.org/tournament/wI6zuAHO'>--><span class='info' title='Jul 28, 2015 at 18:00 UTC'>Jul'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/rPYSxQ75'>--><span class='info' title='Oct 20, 2019 at 18:00 UTC'>Oct'19</span><!--</a>--></td>
+		<td>19</td>
+		<td><a href='https://lichess.org/tournament/E5Beb7jb'>57</a></td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ansa55'>ansa55</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3554</td>
+		<td>/ 542</td>
+		<td><!--<a href='https://lichess.org/tournament/nYNxoKT1'>--><span class='info' title='Jul 27, 2015 at 18:00 UTC'>Jul'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/EBXzlAlF'>26</a></td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ilil71'>ilil71</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2700</td>
+		<td>/ 542</td>
+		<td><!--<a href='https://lichess.org/tournament/tQ1rghWC'>--><span class='info' title='Jan 05, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/SZQiMStj'>--><span class='info' title='Sep 22, 2020 at 18:00 UTC'>Sep'20</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/mUa4FNui'>20</a></td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rivazoe'>rivazoe</a></td>
+		<td>1</td>
+		<td></td>
+		<td></td>
+		<td>6739</td>
+		<td>/ 539</td>
+		<td><!--<a href='https://lichess.org/tournament/CVpW5ej6'>--><span class='info' title='Feb 06, 2015 at 17:00 UTC'>Feb'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/tIoQ5VTy'>--><span class='info' title='Jun 08, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/bHTdzRu5'>56</a></td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/iorsh'>iorsh</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6065</td>
+		<td>/ 539</td>
+		<td><!--<a href='https://lichess.org/tournament/lECHLpNI'>--><span class='info' title='Dec 05, 2017 at 18:00 UTC'>Dec'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/3OPW7AtS'>30</a></td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/jrgoetz111'>jrgoetz111</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4987</td>
+		<td>/ 537</td>
+		<td><!--<a href='https://lichess.org/tournament/8v02libK'>--><span class='info' title='Jul 07, 2016 at 18:00 UTC'>Jul'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/4IAYSn9Q'>28</a></td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ivan62'>ivan62</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4578</td>
+		<td>/ 528</td>
+		<td><!--<a href='https://lichess.org/tournament/0LV7BnBI'>--><span class='info' title='Aug 10, 2014 at 16:00 UTC'>Aug'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/QqJI2cZe'>--><span class='info' title='Oct 15, 2020 at 18:00 UTC'>Oct'20</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/HTEv4KNZ'>28</a></td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/andriy1953'>andriy1953</a></td>
+		<td>1</td>
+		<td></td>
+		<td></td>
+		<td>4270</td>
+		<td>/ 528</td>
+		<td><!--<a href='https://lichess.org/tournament/g93sL9Xi'>--><span class='info' title='Sep 28, 2018 at 16:00 UTC'>Sep'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/mUa4FNui'>53</a></td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/senovilla'>senovilla</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1649</td>
+		<td>/ 527</td>
+		<td><!--<a href='https://lichess.org/tournament/3aLHo6xN'>--><span class='info' title='Dec 15, 2014 at 17:00 UTC'>Dec'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RMKB1SQK'>--><span class='info' title='Jun 22, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>3</td>
+		<td><a href='https://lichess.org/tournament/xmneHrNH'>16</a></td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mohamad141414'>mohamad141414</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5603</td>
+		<td>/ 524</td>
+		<td><!--<a href='https://lichess.org/tournament/iPdsFsXO'>--><span class='info' title='Feb 17, 2017 at 18:00 UTC'>Feb'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/wWRCckYZ'>--><span class='info' title='May 18, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/60ZlOiPS'>30</a></td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/minera'>minera</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4238</td>
+		<td>/ 524</td>
+		<td><!--<a href='https://lichess.org/tournament/P8uFKzvh'>--><span class='info' title='Oct 28, 2016 at 18:00 UTC'>Oct'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/2cjTNIyi'>38</a></td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/genibo77'>genibo77</a></td>
+		<td></td>
+		<td>1</td>
+		<td>1</td>
+		<td>8213</td>
+		<td>/ 521</td>
+		<td><!--<a href='https://lichess.org/tournament/AK92ZgnE'>--><span class='info' title='Sep 06, 2015 at 18:00 UTC'>Sep'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>16</td>
+		<td><a href='https://lichess.org/tournament/h9pNQvZA'>46</a></td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sella'>sella</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4169</td>
+		<td>/ 515</td>
+		<td><!--<a href='https://lichess.org/tournament/rqOEqBB9'>--><span class='info' title='Aug 26, 2014 at 16:00 UTC'>Aug'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RMKB1SQK'>--><span class='info' title='Jun 22, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/Kb0lKbm2'>28</a></td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td>NM</td>
+		<td><a href='https://lichess.org/@/oberschlumpf'>oberschlumpf</a></td>
+		<td>1</td>
+		<td>4</td>
+		<td>1</td>
+		<td>7088</td>
+		<td>/ 512</td>
+		<td><!--<a href='https://lichess.org/tournament/VG4PTJEP'>--><span class='info' title='Oct 11, 2015 at 18:00 UTC'>Oct'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/UFhAfu3j'>47</a></td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/bayernchess'>bayernchess</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5378</td>
+		<td>/ 507</td>
+		<td><!--<a href='https://lichess.org/tournament/ljndUiwH'>--><span class='info' title='Jul 16, 2018 at 16:00 UTC'>Jul'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/NzV65bIZ'>--><span class='info' title='May 30, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/JctC0HYX'>28</a></td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/tomi55'>tomi55</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2897</td>
+		<td>/ 507</td>
+		<td><!--<a href='https://lichess.org/tournament/pQ2XOGze'>--><span class='info' title='May 12, 2016 at 18:00 UTC'>May'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/emHSBmCj'>--><span class='info' title='Jun 15, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/sRd0aZ9U'>24</a></td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mikegambit'>mikegambit</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1913</td>
+		<td>/ 506</td>
+		<td><!--<a href='https://lichess.org/tournament/SYU8aNG6'>--><span class='info' title='Sep 19, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/kzPg00F2'>17</a></td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/tokh'>tokh</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3808</td>
+		<td>/ 504</td>
+		<td><!--<a href='https://lichess.org/tournament/PzXIjIsf'>--><span class='info' title='Apr 18, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Q4pLobCO'>--><span class='info' title='Mar 10, 2018 at 18:00 UTC'>Mar'18</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/gQJx6WGE'>28</a></td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mariocrippa'>mariocrippa</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3851</td>
+		<td>/ 501</td>
+		<td><!--<a href='https://lichess.org/tournament/EnwE4Zni'>--><span class='info' title='Oct 23, 2016 at 18:00 UTC'>Oct'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/AfPccVyk'>30</a></td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/haumer4hans'>haumer4hans</a></td>
+		<td></td>
+		<td>2</td>
+		<td>1</td>
+		<td>7284</td>
+		<td>/ 493</td>
+		<td><!--<a href='https://lichess.org/tournament/3kGR3uzk'>--><span class='info' title='Sep 01, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/eYyjNGqS'>--><span class='info' title='Sep 20, 2020 at 18:00 UTC'>Sep'20</span><!--</a>--></td>
+		<td>15</td>
+		<td><a href='https://lichess.org/tournament/PyXOfOUW'>53</a></td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/bagh'>bagh</a></td>
+		<td></td>
+		<td></td>
+		<td>2</td>
+		<td>5313</td>
+		<td>/ 490</td>
+		<td><!--<a href='https://lichess.org/tournament/2RCNWNj6'>--><span class='info' title='Feb 02, 2015 at 17:00 UTC'>Feb'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/ckVVUADI'>--><span class='info' title='Jun 07, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/qi5XBown'>40</a></td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/kn1ghtf3'>kn1ghtf3</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4101</td>
+		<td>/ 485</td>
+		<td><!--<a href='https://lichess.org/tournament/lrgLbxKo'>--><span class='info' title='Feb 01, 2015 at 17:00 UTC'>Feb'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/OPZ9m3eU'>--><span class='info' title='Dec 07, 2020 at 18:00 UTC'>Dec'20</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/pQ2XOGze'>36</a></td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/enunfuturo'>enunfuturo</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1611</td>
+		<td>/ 485</td>
+		<td><!--<a href='https://lichess.org/tournament/qhw7QF9f'>--><span class='info' title='Aug 18, 2015 at 18:00 UTC'>Aug'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>3</td>
+		<td><a href='https://lichess.org/tournament/2mprGi7U'>16</a></td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/trump12'>trump12</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3303</td>
+		<td>/ 482</td>
+		<td><!--<a href='https://lichess.org/tournament/9INfSxHA'>--><span class='info' title='Feb 11, 2017 at 18:00 UTC'>Feb'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/JSgo5uDw'>--><span class='info' title='Nov 05, 2020 at 18:00 UTC'>Nov'20</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/BY2bkdbZ'>26</a></td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/andique'>andique</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2298</td>
+		<td>/ 482</td>
+		<td><!--<a href='https://lichess.org/tournament/mf1dLdK2'>--><span class='info' title='Jul 30, 2015 at 18:00 UTC'>Jul'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/pg2FyQ4w'>--><span class='info' title='Apr 20, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/cCwvk1TS'>22</a></td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/yeumate'>yeumate</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5278</td>
+		<td>/ 478</td>
+		<td><!--<a href='https://lichess.org/tournament/NUd0tGiZ'>--><span class='info' title='Jul 21, 2015 at 18:00 UTC'>Jul'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/BVQgmNbe'>36</a></td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/kama1936'>kama1936</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5135</td>
+		<td>/ 477</td>
+		<td><!--<a href='https://lichess.org/tournament/l4Rp7EBy'>--><span class='info' title='Nov 18, 2016 at 18:00 UTC'>Nov'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/wlGVkyJL'>--><span class='info' title='Dec 22, 2020 at 18:00 UTC'>Dec'20</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/6aBdxzty'>28</a></td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/aila'>aila</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6209</td>
+		<td>/ 474</td>
+		<td><!--<a href='https://lichess.org/tournament/Nu5w2Wg0'>--><span class='info' title='Aug 30, 2016 at 18:00 UTC'>Aug'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Wimq2thG'>--><span class='info' title='Jun 11, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/km65tv2v'>37</a></td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/falco1974'>falco1974</a></td>
+		<td></td>
+		<td>4</td>
+		<td></td>
+		<td>8459</td>
+		<td>/ 472</td>
+		<td><!--<a href='https://lichess.org/tournament/PSflEbjD'>--><span class='info' title='Feb 02, 2016 at 19:00 UTC'>Feb'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>18</td>
+		<td><a href='https://lichess.org/tournament/bHTdzRu5'>56</a></td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ski200k'>ski200k</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1966</td>
+		<td>/ 472</td>
+		<td><!--<a href='https://lichess.org/tournament/tIiAbwHd'>--><span class='info' title='Nov 26, 2016 at 18:00 UTC'>Nov'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/NV8Zmfun'>20</a></td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/bart2008'>bart2008</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3670</td>
+		<td>/ 470</td>
+		<td><!--<a href='https://lichess.org/tournament/qPcxp4uz'>--><span class='info' title='Apr 16, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/wJoWZeED'>42</a></td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/diodotos'>diodotos</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4010</td>
+		<td>/ 465</td>
+		<td><!--<a href='https://lichess.org/tournament/ASo6Abn9'>--><span class='info' title='Oct 09, 2015 at 18:00 UTC'>Oct'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/cQ82VjVF'>24</a></td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/trend19'>trend19</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>7335</td>
+		<td>/ 462</td>
+		<td><!--<a href='https://lichess.org/tournament/pQ2XOGze'>--><span class='info' title='May 12, 2016 at 18:00 UTC'>May'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/wCFWdo9d'>--><span class='info' title='Feb 28, 2021 at 18:00 UTC'>Feb'21</span><!--</a>--></td>
+		<td>16</td>
+		<td><a href='https://lichess.org/tournament/M5zJtLil'>34</a></td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/emilru'>emilru</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2904</td>
+		<td>/ 462</td>
+		<td><!--<a href='https://lichess.org/tournament/CDV7dHGh'>--><span class='info' title='Nov 03, 2016 at 18:00 UTC'>Nov'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/koMQ9560'>21</a></td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/serefekici'>serefekici</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2672</td>
+		<td>/ 460</td>
+		<td><!--<a href='https://lichess.org/tournament/LT7eZ8a9'>--><span class='info' title='Jul 13, 2015 at 18:00 UTC'>Jul'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/5PWQJnPr'>24</a></td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/leroquentin'>leroquentin</a></td>
+		<td></td>
+		<td>1</td>
+		<td>1</td>
+		<td>4645</td>
+		<td>/ 459</td>
+		<td><!--<a href='https://lichess.org/tournament/obQSVvEj'>--><span class='info' title='Nov 24, 2014 at 17:00 UTC'>Nov'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/DlJxoHZ4'>--><span class='info' title='Aug 20, 2019 at 18:00 UTC'>Aug'19</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/gedHOsWH'>38</a></td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/grongle'>grongle</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4587</td>
+		<td>/ 451</td>
+		<td><!--<a href='https://lichess.org/tournament/vYLWIuxp'>--><span class='info' title='Jul 01, 2016 at 18:00 UTC'>Jul'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/TQUAa0jM'>32</a></td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/h_guderian'>h_guderian</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6396</td>
+		<td>/ 447</td>
+		<td><!--<a href='https://lichess.org/tournament/VG4PTJEP'>--><span class='info' title='Oct 11, 2015 at 18:00 UTC'>Oct'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/ttRySovq'>--><span class='info' title='May 17, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/JOMP4CCE'>37</a></td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/petrokamin'>petrokamin</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2384</td>
+		<td>/ 446</td>
+		<td><!--<a href='https://lichess.org/tournament/BFr83MpW'>--><span class='info' title='Apr 01, 2018 at 18:00 UTC'>Apr'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/eSY1tXUj'>18</a></td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/friday71'>friday71</a></td>
+		<td></td>
+		<td></td>
+		<td>1</td>
+		<td>7007</td>
+		<td>/ 443</td>
+		<td><!--<a href='https://lichess.org/tournament/XnWfe6Ly'>--><span class='info' title='Feb 24, 2017 at 18:00 UTC'>Feb'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>16</td>
+		<td><a href='https://lichess.org/tournament/Eq0saqo8'>46</a></td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mouseslept'>mouseslept</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4416</td>
+		<td>/ 441</td>
+		<td><!--<a href='https://lichess.org/tournament/W8qa0fsV'>--><span class='info' title='Jul 15, 2017 at 18:00 UTC'>Jul'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/a8tRvvxn'>36</a></td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/arannik'>arannik</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>7278</td>
+		<td>/ 438</td>
+		<td><!--<a href='https://lichess.org/tournament/zbaCP8uC'>--><span class='info' title='Feb 04, 2018 at 18:00 UTC'>Feb'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>17</td>
+		<td><a href='https://lichess.org/tournament/dqJ1jF7S'>37</a></td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vn_vnru'>vn_vnru</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5702</td>
+		<td>/ 438</td>
+		<td><!--<a href='https://lichess.org/tournament/vYLWIuxp'>--><span class='info' title='Jul 01, 2016 at 18:00 UTC'>Jul'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/QVeTIAe1'>--><span class='info' title='Jun 19, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/9Lp3pvQe'>32</a></td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/atacante'>atacante</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4552</td>
+		<td>/ 438</td>
+		<td><!--<a href='https://lichess.org/tournament/EjEfikTu'>--><span class='info' title='Oct 28, 2014 at 17:00 UTC'>Oct'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/X15ZQPCG'>--><span class='info' title='May 22, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/GFdEjWsh'>30</a></td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sentischev'>sentischev</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2333</td>
+		<td>/ 438</td>
+		<td><!--<a href='https://lichess.org/tournament/dtaV2bjd'>--><span class='info' title='Jan 01, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/WWQDsvoL'>18</a></td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/titopullo2'>titopullo2</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2452</td>
+		<td>/ 434</td>
+		<td><!--<a href='https://lichess.org/tournament/2AtxHTrS'>--><span class='info' title='Nov 15, 2015 at 19:00 UTC'>Nov'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/ke4J4VKP'>--><span class='info' title='Jan 04, 2020 at 18:00 UTC'>Jan'20</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/W8o1D29x'>28</a></td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/wam123'>wam123</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3786</td>
+		<td>/ 433</td>
+		<td><!--<a href='https://lichess.org/tournament/J2WDTQDK'>--><span class='info' title='Jan 22, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/Ah4FTdAQ'>20</a></td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/bugor1'>bugor1</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3958</td>
+		<td>/ 432</td>
+		<td><!--<a href='https://lichess.org/tournament/jxTIFxrP'>--><span class='info' title='Sep 26, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/kH8KDC7L'>38</a></td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ivs-pompei'>ivs-pompei</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5459</td>
+		<td>/ 431</td>
+		<td><!--<a href='https://lichess.org/tournament/PuV5uOs5'>--><span class='info' title='Oct 03, 2017 at 18:00 UTC'>Oct'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Y9KAN9Qh'>--><span class='info' title='Jun 24, 2019 at 18:00 UTC'>Jun'19</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/AmluEXMa'>35</a></td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/liutikoff'>liutikoff</a></td>
+		<td></td>
+		<td>2</td>
+		<td></td>
+		<td>4791</td>
+		<td>/ 431</td>
+		<td><!--<a href='https://lichess.org/tournament/WeM0CDBz'>--><span class='info' title='Mar 30, 2015 at 16:00 UTC'>Mar'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/8pTqnWuT'>--><span class='info' title='May 14, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/mf5a9PKC'>48</a></td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/gvad202020'>gvad202020</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5142</td>
+		<td>/ 430</td>
+		<td><!--<a href='https://lichess.org/tournament/C04b1UFr'>--><span class='info' title='Apr 23, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Tt5xQw3q'>--><span class='info' title='Mar 23, 2020 at 18:00 UTC'>Mar'20</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/F1pHe6AA'>30</a></td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/golfino'>golfino</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4000</td>
+		<td>/ 430</td>
+		<td><!--<a href='https://lichess.org/tournament/TP46DgPH'>--><span class='info' title='Sep 29, 2015 at 18:00 UTC'>Sep'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/qWRIqXnn'>--><span class='info' title='Jun 17, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/VG1mBY75'>32</a></td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/finogen62'>finogen62</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1196</td>
+		<td>/ 427</td>
+		<td><!--<a href='https://lichess.org/tournament/mm3eJFrk'>--><span class='info' title='Jun 08, 2015 at 18:00 UTC'>Jun'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>3</td>
+		<td><a href='https://lichess.org/tournament/lLafWbAi'>14</a></td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/eiregodeo'>eiregodeo</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2002</td>
+		<td>/ 425</td>
+		<td><!--<a href='https://lichess.org/tournament/1MPK3xZX'>--><span class='info' title='Sep 02, 2015 at 18:00 UTC'>Sep'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/N3y6Qu95'>20</a></td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vanely'>vanely</a></td>
+		<td>1</td>
+		<td></td>
+		<td></td>
+		<td>3669</td>
+		<td>/ 424</td>
+		<td><!--<a href='https://lichess.org/tournament/3TpNCebN'>--><span class='info' title='Apr 30, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/QVeTIAe1'>--><span class='info' title='Jun 19, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/FoovxsAh'>30</a></td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/brida7'>brida7</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1596</td>
+		<td>/ 420</td>
+		<td><!--<a href='https://lichess.org/tournament/3Tc8ATIK'>--><span class='info' title='Nov 13, 2016 at 18:00 UTC'>Nov'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/VMQoaHy3'>18</a></td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/stefizzagorja'>stefizzagorja</a></td>
+		<td>2</td>
+		<td></td>
+		<td>2</td>
+		<td>5394</td>
+		<td>/ 419</td>
+		<td><!--<a href='https://lichess.org/tournament/OwjLr4EN'>--><span class='info' title='Dec 14, 2015 at 19:00 UTC'>Dec'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4wFz0kne'>--><span class='info' title='Jun 14, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/Bs38po0A'>45</a></td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/bus59'>bus59</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4931</td>
+		<td>/ 419</td>
+		<td><!--<a href='https://lichess.org/tournament/w3nbH22C'>--><span class='info' title='Aug 21, 2017 at 18:00 UTC'>Aug'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/aRUefsew'>--><span class='info' title='Jan 19, 2021 at 18:00 UTC'>Jan'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/Me4stQHp'>32</a></td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/fidel99'>fidel99</a></td>
+		<td></td>
+		<td></td>
+		<td>2</td>
+		<td>5789</td>
+		<td>/ 418</td>
+		<td><!--<a href='https://lichess.org/tournament/1WTq6K26'>--><span class='info' title='Mar 16, 2017 at 18:00 UTC'>Mar'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/Iyr7dqNe'>47</a></td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/deli74'>deli74</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1693</td>
+		<td>/ 417</td>
+		<td><!--<a href='https://lichess.org/tournament/Pa3eyYfZ'>--><span class='info' title='Sep 16, 2015 at 18:00 UTC'>Sep'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/afxSz5g0'>--><span class='info' title='Mar 08, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/uICDTG22'>19</a></td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rim'>rim</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3763</td>
+		<td>/ 416</td>
+		<td><!--<a href='https://lichess.org/tournament/WZbkR1ns'>--><span class='info' title='Sep 04, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/mbPu6TMs'>--><span class='info' title='Apr 28, 2019 at 18:00 UTC'>Apr'19</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/z228fpgf'>32</a></td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vieulschesulken'>vieulschesulken</a></td>
+		<td></td>
+		<td></td>
+		<td>1</td>
+		<td>5667</td>
+		<td>/ 408</td>
+		<td><!--<a href='https://lichess.org/tournament/CDHponsy'>--><span class='info' title='Nov 16, 2015 at 19:00 UTC'>Nov'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VuZAmHzW'>--><span class='info' title='Mar 29, 2019 at 18:00 UTC'>Mar'19</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/tbsM4Oq2'>45</a></td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/voljan19'>voljan19</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2518</td>
+		<td>/ 407</td>
+		<td><!--<a href='https://lichess.org/tournament/pgkqzr0j'>--><span class='info' title='Jun 07, 2015 at 18:00 UTC'>Jun'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/E5mkzatQ'>21</a></td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/fomich19941994'>fomich19941994</a></td>
+		<td></td>
+		<td>2</td>
+		<td>1</td>
+		<td>6925</td>
+		<td>/ 406</td>
+		<td><!--<a href='https://lichess.org/tournament/dtaV2bjd'>--><span class='info' title='Jan 01, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>17</td>
+		<td><a href='https://lichess.org/tournament/J3d55iK3'>48</a></td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/adagor'>adagor</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3479</td>
+		<td>/ 406</td>
+		<td><!--<a href='https://lichess.org/tournament/IR0xLmXx'>--><span class='info' title='Dec 03, 2016 at 18:00 UTC'>Dec'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/U81c1TT0'>26</a></td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/terrano'>terrano</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3703</td>
+		<td>/ 404</td>
+		<td><!--<a href='https://lichess.org/tournament/aPddSS1w'>--><span class='info' title='Jun 05, 2016 at 18:00 UTC'>Jun'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RVxAkYfF'>--><span class='info' title='Apr 30, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/jjuibWl0'>28</a></td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/igumnov'>igumnov</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5121</td>
+		<td>/ 402</td>
+		<td><!--<a href='https://lichess.org/tournament/dG8zRntU'>--><span class='info' title='Oct 01, 2018 at 18:00 UTC'>Oct'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/DncKzXjj'>--><span class='info' title='May 27, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/IgAO66kj'>32</a></td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/alwast'>alwast</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3107</td>
+		<td>/ 402</td>
+		<td><!--<a href='https://lichess.org/tournament/M8THkFgL'>--><span class='info' title='Jun 15, 2016 at 18:00 UTC'>Jun'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/uoVV4BPH'>24</a></td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/voselok'>voselok</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2981</td>
+		<td>/ 401</td>
+		<td><!--<a href='https://lichess.org/tournament/oIicwPHv'>--><span class='info' title='Jan 16, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Vyb0vQ4U'>--><span class='info' title='Apr 05, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/Dv936USE'>40</a></td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/slava1974'>slava1974</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4635</td>
+		<td>/ 400</td>
+		<td><!--<a href='https://lichess.org/tournament/jD4w3iOO'>--><span class='info' title='Jan 06, 2015 at 17:00 UTC'>Jan'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/afxSz5g0'>--><span class='info' title='Mar 08, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/0QplKJfe'>36</a></td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/doowild'>doowild</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6160</td>
+		<td>/ 399</td>
+		<td><!--<a href='https://lichess.org/tournament/hhuhhfol'>--><span class='info' title='Aug 31, 2019 at 18:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>15</td>
+		<td><a href='https://lichess.org/tournament/wSWDGfaa'>36</a></td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ilijaz'>ilijaz</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3486</td>
+		<td>/ 399</td>
+		<td><!--<a href='https://lichess.org/tournament/3kGR3uzk'>--><span class='info' title='Sep 01, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/jOyBkkU6'>--><span class='info' title='Jun 12, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/gLFKzi4u'>31</a></td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mocci'>mocci</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2800</td>
+		<td>/ 390</td>
+		<td><!--<a href='https://lichess.org/tournament/C8oAnGun'>--><span class='info' title='Aug 19, 2015 at 18:00 UTC'>Aug'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/bIA5vxaK'>28</a></td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/michele70'>michele70</a></td>
+		<td>3</td>
+		<td>1</td>
+		<td>4</td>
+		<td>6931</td>
+		<td>/ 389</td>
+		<td><!--<a href='https://lichess.org/tournament/9u8oqN9P'>--><span class='info' title='Feb 12, 2017 at 18:00 UTC'>Feb'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>18</td>
+		<td><a href='https://lichess.org/tournament/Sd6q2Ilz'>59</a></td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/bogdan545'>bogdan545</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2213</td>
+		<td>/ 388</td>
+		<td><!--<a href='https://lichess.org/tournament/qt23R7ov'>--><span class='info' title='Aug 09, 2016 at 18:00 UTC'>Aug'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/U9ENTRAm'>--><span class='info' title='Dec 14, 2020 at 18:00 UTC'>Dec'20</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/tAamuV4N'>28</a></td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/lieven'>lieven</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2033</td>
+		<td>/ 386</td>
+		<td><!--<a href='https://lichess.org/tournament/1NJXXQQC'>--><span class='info' title='Feb 10, 2015 at 17:00 UTC'>Feb'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/onltiiZ2'>22</a></td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/schachist1234'>schachist1234</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3027</td>
+		<td>/ 385</td>
+		<td><!--<a href='https://lichess.org/tournament/sXxdC6to'>--><span class='info' title='Oct 27, 2016 at 18:00 UTC'>Oct'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/2ovjgEVt'>--><span class='info' title='May 31, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/s3hRm2q4'>32</a></td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/duni'>duni</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4547</td>
+		<td>/ 382</td>
+		<td><!--<a href='https://lichess.org/tournament/bU4LMvv3'>--><span class='info' title='Dec 07, 2014 at 17:00 UTC'>Dec'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/XktResKX'>--><span class='info' title='Mar 13, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/igDQz5tK'>30</a></td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ayesuka'>ayesuka</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4316</td>
+		<td>/ 382</td>
+		<td><!--<a href='https://lichess.org/tournament/EQadXVMc'>--><span class='info' title='Dec 15, 2017 at 18:00 UTC'>Dec'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/RcZOdBZh'>32</a></td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sakkmester1948'>sakkmester1948</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3296</td>
+		<td>/ 379</td>
+		<td><!--<a href='https://lichess.org/tournament/DDBw99e7'>--><span class='info' title='Sep 23, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/cAhv5evF'>--><span class='info' title='Jun 06, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/DDBw99e7'>31</a></td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/aatulya_shiva'>aatulya_shiva</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2468</td>
+		<td>/ 379</td>
+		<td><!--<a href='https://lichess.org/tournament/Z7ZRLJ83'>--><span class='info' title='Sep 27, 2018 at 16:00 UTC'>Sep'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/yHgVL7ly'>21</a></td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/kayvan1961'>kayvan1961</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3290</td>
+		<td>/ 376</td>
+		<td><!--<a href='https://lichess.org/tournament/GanfJiX7'>--><span class='info' title='Jan 05, 2018 at 18:00 UTC'>Jan'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/CjHCO2CU'>--><span class='info' title='Jun 18, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/4jX5upd9'>24</a></td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/eop'>eop</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2210</td>
+		<td>/ 376</td>
+		<td><!--<a href='https://lichess.org/tournament/2v16DVCV'>--><span class='info' title='Jul 06, 2014 at 16:00 UTC'>Jul'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/mXETidUX'>--><span class='info' title='Jul 06, 2020 at 18:00 UTC'>Jul'20</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/X4nnuFOl'>22</a></td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/blaz58'>blaz58</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4339</td>
+		<td>/ 374</td>
+		<td><!--<a href='https://lichess.org/tournament/E5mkzatQ'>--><span class='info' title='Aug 17, 2016 at 18:00 UTC'>Aug'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/kUAPzj2B'>--><span class='info' title='Apr 24, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/544Mizqc'>30</a></td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sayednaser'>sayednaser</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>6229</td>
+		<td>/ 370</td>
+		<td><!--<a href='https://lichess.org/tournament/IYaB8QF2'>--><span class='info' title='Jan 26, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4wFz0kne'>--><span class='info' title='Jun 14, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>17</td>
+		<td><a href='https://lichess.org/tournament/jqLW1kzU'>42</a></td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/boxplayer'>boxplayer</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1688</td>
+		<td>/ 369</td>
+		<td><!--<a href='https://lichess.org/tournament/m2qjqlnB'>--><span class='info' title='May 25, 2015 at 18:00 UTC'>May'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/bpPRHpoC'>16</a></td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rasa'>rasa</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3420</td>
+		<td>/ 368</td>
+		<td><!--<a href='https://lichess.org/tournament/dtaV2bjd'>--><span class='info' title='Jan 01, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/GhSjfw0e'>--><span class='info' title='Mar 29, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/Bs38po0A'>34</a></td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rua'>rua</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2597</td>
+		<td>/ 368</td>
+		<td><!--<a href='https://lichess.org/tournament/5ChiKjcW'>--><span class='info' title='Mar 08, 2015 at 17:00 UTC'>Mar'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/6nwhVF1k'>24</a></td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/saninot'>saninot</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2618</td>
+		<td>/ 363</td>
+		<td><!--<a href='https://lichess.org/tournament/NfC920EQ'>--><span class='info' title='Nov 20, 2016 at 18:00 UTC'>Nov'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/2ovjgEVt'>--><span class='info' title='May 31, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/LY66bgkN'>24</a></td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>19</td>
+		<td>24</td>
+		<td>11</td>
+		<td>10378</td>
+		<td>/ 362</td>
+		<td><!--<a href='https://lichess.org/tournament/VcNI0f9s'>--><span class='info' title='Dec 16, 2015 at 19:00 UTC'>Dec'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/jOyBkkU6'>--><span class='info' title='Jun 12, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>29</td>
+		<td><a href='https://lichess.org/tournament/MII2DDly'>80</a></td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ramazan66'>ramazan66</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3415</td>
+		<td>/ 362</td>
+		<td><!--<a href='https://lichess.org/tournament/IUc6xCoQ'>--><span class='info' title='Jan 06, 2018 at 18:00 UTC'>Jan'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/TMRVOw3T'>28</a></td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/gustgold'>gustgold</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2301</td>
+		<td>/ 362</td>
+		<td><!--<a href='https://lichess.org/tournament/Rx4lymJg'>--><span class='info' title='Oct 21, 2018 at 18:00 UTC'>Oct'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/U9ENTRAm'>--><span class='info' title='Dec 14, 2020 at 18:00 UTC'>Dec'20</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/phqQDUR9'>20</a></td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/shakerza'>shakerza</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3709</td>
+		<td>/ 358</td>
+		<td><!--<a href='https://lichess.org/tournament/2L0KQjtF'>--><span class='info' title='Apr 05, 2019 at 18:00 UTC'>Apr'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/5hGniISe'>30</a></td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/i-v-s-1965'>i-v-s-1965</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4545</td>
+		<td>/ 357</td>
+		<td><!--<a href='https://lichess.org/tournament/PH8GeOO2'>--><span class='info' title='Jun 28, 2019 at 18:00 UTC'>Jun'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/XuGT2XPE'>34</a></td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/albuks'>albuks</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2168</td>
+		<td>/ 357</td>
+		<td><!--<a href='https://lichess.org/tournament/WSLGTpFV'>--><span class='info' title='Mar 23, 2016 at 19:00 UTC'>Mar'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/cBy9bw3U'>21</a></td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sdanot'>sdanot</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1461</td>
+		<td>/ 357</td>
+		<td><!--<a href='https://lichess.org/tournament/m0R2I3mw'>--><span class='info' title='Feb 19, 2017 at 18:00 UTC'>Feb'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/VvROdhOL'>20</a></td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/boco'>boco</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3717</td>
+		<td>/ 353</td>
+		<td><!--<a href='https://lichess.org/tournament/EQtKwtvL'>--><span class='info' title='Dec 02, 2014 at 17:00 UTC'>Dec'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/CjHCO2CU'>--><span class='info' title='Jun 18, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/IpjmI8NY'>28</a></td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sine'>sine</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1826</td>
+		<td>/ 353</td>
+		<td><!--<a href='https://lichess.org/tournament/N3y6Qu95'>--><span class='info' title='Aug 02, 2016 at 18:00 UTC'>Aug'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Dl0Oix3b'>--><span class='info' title='Jun 20, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/o5qP1f2v'>17</a></td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/latias'>latias</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2027</td>
+		<td>/ 352</td>
+		<td><!--<a href='https://lichess.org/tournament/XJn6W45j'>--><span class='info' title='May 23, 2016 at 18:00 UTC'>May'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/kzPg00F2'>--><span class='info' title='May 09, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/LLUCMLla'>24</a></td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td>NM</td>
+		<td><a href='https://lichess.org/@/hangemhigh'>hangemhigh</a></td>
+		<td>14</td>
+		<td>7</td>
+		<td>6</td>
+		<td>7664</td>
+		<td>/ 351</td>
+		<td><!--<a href='https://lichess.org/tournament/DXghGtak'>--><span class='info' title='Apr 04, 2016 at 18:00 UTC'>Apr'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>22</td>
+		<td><a href='https://lichess.org/tournament/1eOBjsNl'>71</a></td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/jacklondon1888'>jacklondon1888</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3913</td>
+		<td>/ 348</td>
+		<td><!--<a href='https://lichess.org/tournament/lENhnIHf'>--><span class='info' title='Jun 22, 2016 at 18:00 UTC'>Jun'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/bUMklbKl'>36</a></td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/aramik'>aramik</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3066</td>
+		<td>/ 348</td>
+		<td><!--<a href='https://lichess.org/tournament/Ao3hW6zg'>--><span class='info' title='Mar 01, 2016 at 19:00 UTC'>Mar'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/oYgtcDTW'>--><span class='info' title='Jun 03, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/CPsgtuvP'>24</a></td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rezamirshafiee'>rezamirshafiee</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3038</td>
+		<td>/ 347</td>
+		<td><!--<a href='https://lichess.org/tournament/KSQxxO71'>--><span class='info' title='Mar 22, 2016 at 19:00 UTC'>Mar'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/afxSz5g0'>--><span class='info' title='Mar 08, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/8eiPT1b9'>36</a></td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/azarok'>azarok</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3620</td>
+		<td>/ 346</td>
+		<td><!--<a href='https://lichess.org/tournament/PLIOEAYN'>--><span class='info' title='Sep 30, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/QVeTIAe1'>39</a></td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/timour'>timour</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1832</td>
+		<td>/ 344</td>
+		<td><!--<a href='https://lichess.org/tournament/oIicwPHv'>--><span class='info' title='Jan 16, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/wCmUTw9K'>21</a></td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vadik10'>vadik10</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4589</td>
+		<td>/ 339</td>
+		<td><!--<a href='https://lichess.org/tournament/ZdPZJ9po'>--><span class='info' title='Jul 15, 2018 at 16:00 UTC'>Jul'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/NzV65bIZ'>--><span class='info' title='May 30, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/IgAO66kj'>30</a></td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/adp10'>adp10</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1626</td>
+		<td>/ 339</td>
+		<td><!--<a href='https://lichess.org/tournament/s4joj6MN'>--><span class='info' title='Aug 05, 2016 at 18:00 UTC'>Aug'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/R8ijEsXF'>22</a></td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/oleg1974'>oleg1974</a></td>
+		<td></td>
+		<td>1</td>
+		<td>1</td>
+		<td>6722</td>
+		<td>/ 338</td>
+		<td><!--<a href='https://lichess.org/tournament/3Tc8ATIK'>--><span class='info' title='Nov 13, 2016 at 18:00 UTC'>Nov'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/CjHCO2CU'>--><span class='info' title='Jun 18, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>20</td>
+		<td><a href='https://lichess.org/tournament/YeMA4Egl'>42</a></td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sukkelaar'>sukkelaar</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3480</td>
+		<td>/ 338</td>
+		<td><!--<a href='https://lichess.org/tournament/PHfp4t6r'>--><span class='info' title='May 04, 2017 at 18:00 UTC'>May'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/hEzn9FVA'>34</a></td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/amazoniagaston'>amazoniagaston</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1729</td>
+		<td>/ 336</td>
+		<td><!--<a href='https://lichess.org/tournament/kwVBOQ5k'>--><span class='info' title='Apr 14, 2017 at 18:00 UTC'>Apr'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Dl0Oix3b'>--><span class='info' title='Jun 20, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/PxO3FCax'>20</a></td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sergey1971'>sergey1971</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2111</td>
+		<td>/ 335</td>
+		<td><!--<a href='https://lichess.org/tournament/rk63H4Qm'>--><span class='info' title='Nov 02, 2017 at 18:00 UTC'>Nov'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/QVeTIAe1'>--><span class='info' title='Jun 19, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/LSaCnVfV'>22</a></td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/xanonimowyx'>xanonimowyx</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3265</td>
+		<td>/ 333</td>
+		<td><!--<a href='https://lichess.org/tournament/Lf5TIJ3I'>--><span class='info' title='Jun 19, 2015 at 18:00 UTC'>Jun'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Q7HG5iT7'>--><span class='info' title='Feb 22, 2021 at 18:00 UTC'>Feb'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/x7ZK53MY'>40</a></td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/kbkloveschess'>kbkloveschess</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4018</td>
+		<td>/ 332</td>
+		<td><!--<a href='https://lichess.org/tournament/X3fTkhJi'>--><span class='info' title='Aug 17, 2018 at 16:00 UTC'>Aug'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/SC8G1Mkt'>39</a></td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/alexanderar1977'>alexanderar1977</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1758</td>
+		<td>/ 332</td>
+		<td><!--<a href='https://lichess.org/tournament/qf8ZIsvv'>--><span class='info' title='Jan 07, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RMKB1SQK'>--><span class='info' title='Jun 22, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/2cjTNIyi'>24</a></td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/hdim2016'>hdim2016</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>784</td>
+		<td>/ 332</td>
+		<td><!--<a href='https://lichess.org/tournament/XUQ3VYwl'>--><span class='info' title='Jun 08, 2018 at 18:00 UTC'>Jun'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>2</td>
+		<td><a href='https://lichess.org/tournament/bSaq3iOD'>8</a></td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/opdrgm'>opdrgm</a></td>
+		<td></td>
+		<td>1</td>
+		<td></td>
+		<td>6725</td>
+		<td>/ 329</td>
+		<td><!--<a href='https://lichess.org/tournament/IdBMgSCW'>--><span class='info' title='Aug 04, 2017 at 18:00 UTC'>Aug'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>20</td>
+		<td><a href='https://lichess.org/tournament/dhp5DJJu'>41</a></td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/anuj_98'>anuj_98</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3516</td>
+		<td>/ 329</td>
+		<td><!--<a href='https://lichess.org/tournament/rREurpo4'>--><span class='info' title='Sep 09, 2019 at 18:00 UTC'>Sep'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/2Upix8Jb'>28</a></td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mobin1388'>mobin1388</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2794</td>
+		<td>/ 329</td>
+		<td><!--<a href='https://lichess.org/tournament/Ey4vT1uC'>--><span class='info' title='Jan 14, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/afxSz5g0'>--><span class='info' title='Mar 08, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>8</td>
+		<td><a href='https://lichess.org/tournament/Eq0saqo8'>30</a></td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/rasil7'>rasil7</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3086</td>
+		<td>/ 328</td>
+		<td><!--<a href='https://lichess.org/tournament/yjx49Srh'>--><span class='info' title='Feb 02, 2017 at 18:00 UTC'>Feb'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/jKxGUWqB'>--><span class='info' title='Mar 27, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/Zg5xosCN'>26</a></td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/tonda62'>tonda62</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4183</td>
+		<td>/ 327</td>
+		<td><!--<a href='https://lichess.org/tournament/eKePWM45'>--><span class='info' title='Apr 26, 2015 at 16:00 UTC'>Apr'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/8MKJDgN5'>--><span class='info' title='Jun 01, 2020 at 18:00 UTC'>Jun'20</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/FoY6Yjxa'>32</a></td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/gerkules'>gerkules</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3540</td>
+		<td>/ 327</td>
+		<td><!--<a href='https://lichess.org/tournament/BhaxAzDq'>--><span class='info' title='Jan 03, 2019 at 18:00 UTC'>Jan'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4wFz0kne'>--><span class='info' title='Jun 14, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/9Lp3pvQe'>27</a></td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/fred2955'>fred2955</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1139</td>
+		<td>/ 325</td>
+		<td><!--<a href='https://lichess.org/tournament/Z3VuRSpf'>--><span class='info' title='Aug 23, 2018 at 16:00 UTC'>Aug'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/n1PzYLL5'>20</a></td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sergejgorod'>sergejgorod</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3188</td>
+		<td>/ 324</td>
+		<td><!--<a href='https://lichess.org/tournament/qKvbO495'>--><span class='info' title='Jan 01, 2017 at 18:00 UTC'>Jan'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/oQzroJ9g'>--><span class='info' title='Sep 21, 2019 at 18:00 UTC'>Sep'19</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/J3xcp45N'>26</a></td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/jmjml'>jmjml</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3303</td>
+		<td>/ 323</td>
+		<td><!--<a href='https://lichess.org/tournament/aJrAYrhw'>--><span class='info' title='Nov 17, 2016 at 18:00 UTC'>Nov'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/AujZOt2V'>--><span class='info' title='Aug 10, 2020 at 18:00 UTC'>Aug'20</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/nuz5vao3'>28</a></td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/svetashov'>svetashov</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3783</td>
+		<td>/ 322</td>
+		<td><!--<a href='https://lichess.org/tournament/0aJRTP0m'>--><span class='info' title='Sep 10, 2018 at 16:00 UTC'>Sep'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/emHSBmCj'>--><span class='info' title='Jun 15, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>12</td>
+		<td><a href='https://lichess.org/tournament/8pPdaNse'>34</a></td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/vladimir1951'>vladimir1951</a></td>
+		<td>1</td>
+		<td>1</td>
+		<td>2</td>
+		<td>5307</td>
+		<td>/ 319</td>
+		<td><!--<a href='https://lichess.org/tournament/k0wmR89g'>--><span class='info' title='Apr 15, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/cnqeGUSP'>--><span class='info' title='Mar 28, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>17</td>
+		<td><a href='https://lichess.org/tournament/C7lhy93P'>40</a></td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mensamind'>mensamind</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3105</td>
+		<td>/ 319</td>
+		<td><!--<a href='https://lichess.org/tournament/MRWAUXv1'>--><span class='info' title='Apr 29, 2017 at 18:00 UTC'>Apr'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Dv936USE'>--><span class='info' title='Apr 01, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/bWrafsNX'>32</a></td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/kotow'>kotow</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2162</td>
+		<td>/ 318</td>
+		<td><!--<a href='https://lichess.org/tournament/IRwLkmNZ'>--><span class='info' title='Jun 07, 2018 at 18:00 UTC'>Jun'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/9Lp3pvQe'>--><span class='info' title='May 28, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/GISZ6g2F'>22</a></td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/andtor'>andtor</a></td>
+		<td>1</td>
+		<td>3</td>
+		<td></td>
+		<td>6552</td>
+		<td>/ 317</td>
+		<td><!--<a href='https://lichess.org/tournament/1WTq6K26'>--><span class='info' title='Mar 16, 2017 at 18:00 UTC'>Mar'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/wCFWdo9d'>--><span class='info' title='Feb 28, 2021 at 18:00 UTC'>Feb'21</span><!--</a>--></td>
+		<td>21</td>
+		<td><a href='https://lichess.org/tournament/5OQi4eg3'>48</a></td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/igiul6900'>igiul6900</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4312</td>
+		<td>/ 317</td>
+		<td><!--<a href='https://lichess.org/tournament/X2YElHlX'>--><span class='info' title='Feb 12, 2018 at 18:00 UTC'>Feb'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>14</td>
+		<td><a href='https://lichess.org/tournament/0lMAcgSd'>40</a></td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mohammad-allaw'>mohammad-allaw</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3553</td>
+		<td>/ 317</td>
+		<td><!--<a href='https://lichess.org/tournament/35nuj9Af'>--><span class='info' title='Dec 16, 2017 at 18:00 UTC'>Dec'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/wCFWdo9d'>32</a></td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/coco158'>coco158</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1443</td>
+		<td>/ 317</td>
+		<td><!--<a href='https://lichess.org/tournament/Dgzu01zs'>--><span class='info' title='Oct 23, 2017 at 18:00 UTC'>Oct'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/UFfIp3IT'>32</a></td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/sempervincens85'>sempervincens85</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2893</td>
+		<td>/ 316</td>
+		<td><!--<a href='https://lichess.org/tournament/TfKQ4gc4'>--><span class='info' title='Jun 12, 2015 at 18:00 UTC'>Jun'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/ZuLjyqpe'>--><span class='info' title='Sep 03, 2020 at 18:00 UTC'>Sep'20</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/S9QIXToK'>26</a></td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/hangower'>hangower</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2729</td>
+		<td>/ 316</td>
+		<td><!--<a href='https://lichess.org/tournament/1htLlZLV'>--><span class='info' title='Jan 18, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/k5bithzR'>--><span class='info' title='Apr 10, 2020 at 16:00 UTC'>Apr'20</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/YIbzQE3b'>24</a></td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/romiche'>romiche</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2285</td>
+		<td>/ 316</td>
+		<td><!--<a href='https://lichess.org/tournament/M8THkFgL'>--><span class='info' title='Jun 15, 2016 at 18:00 UTC'>Jun'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/bu0KZmlr'>--><span class='info' title='Jan 26, 2020 at 18:00 UTC'>Jan'20</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/VfeqgvND'>32</a></td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/ssana'>ssana</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>5519</td>
+		<td>/ 313</td>
+		<td><!--<a href='https://lichess.org/tournament/IvVp805h'>--><span class='info' title='Mar 16, 2018 at 18:00 UTC'>Mar'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/9Lp3pvQe'>--><span class='info' title='May 28, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>18</td>
+		<td><a href='https://lichess.org/tournament/0wZJQyGq'>40</a></td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/cavemansmoon'>cavemansmoon</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3235</td>
+		<td>/ 313</td>
+		<td><!--<a href='https://lichess.org/tournament/zLTZjiIf'>--><span class='info' title='Jun 21, 2019 at 18:00 UTC'>Jun'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RMKB1SQK'>--><span class='info' title='Jun 22, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/8a0GY82u'>40</a></td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/algnone'>algnone</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2264</td>
+		<td>/ 311</td>
+		<td><!--<a href='https://lichess.org/tournament/uZ5B8YNu'>--><span class='info' title='Jun 30, 2015 at 18:00 UTC'>Jun'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/EBXzlAlF'>--><span class='info' title='Mar 07, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/Hb7kbpNV'>42</a></td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/tibetan'>tibetan</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2199</td>
+		<td>/ 310</td>
+		<td><!--<a href='https://lichess.org/tournament/JRgwn7ly'>--><span class='info' title='Oct 03, 2016 at 18:00 UTC'>Oct'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/qDWHlMbf'>--><span class='info' title='May 03, 2020 at 16:00 UTC'>May'20</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/rhfeJIuH'>28</a></td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/babun53'>babun53</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2142</td>
+		<td>/ 310</td>
+		<td><!--<a href='https://lichess.org/tournament/xJH8QIf9'>--><span class='info' title='Apr 20, 2016 at 18:00 UTC'>Apr'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/vKpa6AVi'>--><span class='info' title='Nov 26, 2019 at 18:00 UTC'>Nov'19</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/eGh413yG'>24</a></td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/medvedev_7'>medvedev_7</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2288</td>
+		<td>/ 309</td>
+		<td><!--<a href='https://lichess.org/tournament/uLI9waGd'>--><span class='info' title='May 28, 2015 at 18:00 UTC'>May'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/pi8Ai3Jg'>23</a></td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/aifel'>aifel</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1747</td>
+		<td>/ 309</td>
+		<td><!--<a href='https://lichess.org/tournament/u6JslBoU'>--><span class='info' title='Apr 06, 2015 at 16:00 UTC'>Apr'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/EfqjOmTe'>--><span class='info' title='Jun 13, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/mm3eJFrk'>18</a></td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/doitnow'>doitnow</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2230</td>
+		<td>/ 308</td>
+		<td><!--<a href='https://lichess.org/tournament/3seYktOq'>--><span class='info' title='Oct 07, 2014 at 16:00 UTC'>Oct'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/kUAPzj2B'>--><span class='info' title='Apr 24, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/0lMAcgSd'>26</a></td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/erikaddy'>erikaddy</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1813</td>
+		<td>/ 308</td>
+		<td><!--<a href='https://lichess.org/tournament/BVQgmNbe'>--><span class='info' title='Apr 13, 2016 at 18:00 UTC'>Apr'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/jOyBkkU6'>--><span class='info' title='Jun 12, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/XfF5sG4w'>24</a></td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/gr8k9t'>gr8k9t</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3972</td>
+		<td>/ 307</td>
+		<td><!--<a href='https://lichess.org/tournament/SZKB9Bwb'>--><span class='info' title='Jan 29, 2018 at 18:00 UTC'>Jan'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/DncKzXjj'>--><span class='info' title='May 27, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/2gmFZCSN'>37</a></td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/grejsi'>grejsi</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2676</td>
+		<td>/ 307</td>
+		<td><!--<a href='https://lichess.org/tournament/PuV5uOs5'>--><span class='info' title='Oct 03, 2017 at 18:00 UTC'>Oct'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/SEgsrE09'>--><span class='info' title='Jan 05, 2021 at 18:00 UTC'>Jan'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/h27IGYNV'>22</a></td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/nosof'>nosof</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2241</td>
+		<td>/ 307</td>
+		<td><!--<a href='https://lichess.org/tournament/cJXDWaEN'>--><span class='info' title='Dec 29, 2015 at 19:00 UTC'>Dec'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/X15ZQPCG'>--><span class='info' title='May 22, 2021 at 18:00 UTC'>May'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/DNrlKCNo'>30</a></td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/chessbi'>chessbi</a></td>
+		<td>2</td>
+		<td>6</td>
+		<td>5</td>
+		<td>5785</td>
+		<td>/ 306</td>
+		<td><!--<a href='https://lichess.org/tournament/U9ynvwkY'>--><span class='info' title='May 05, 2015 at 16:00 UTC'>May'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/bIBKrYel'>--><span class='info' title='Dec 17, 2019 at 18:00 UTC'>Dec'19</span><!--</a>--></td>
+		<td>19</td>
+		<td><a href='https://lichess.org/tournament/BkBh2xx5'>61</a></td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/lytic'>lytic</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2976</td>
+		<td>/ 305</td>
+		<td><!--<a href='https://lichess.org/tournament/5oVC4lEX'>--><span class='info' title='Sep 24, 2016 at 18:00 UTC'>Sep'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/v6ggbRAu'>--><span class='info' title='Dec 18, 2020 at 18:00 UTC'>Dec'20</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/2L0KQjtF'>30</a></td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/weduskece'>weduskece</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3165</td>
+		<td>/ 303</td>
+		<td><!--<a href='https://lichess.org/tournament/05OcG8Ic'>--><span class='info' title='Mar 02, 2015 at 17:00 UTC'>Mar'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>10</td>
+		<td><a href='https://lichess.org/tournament/1DSHT9EE'>30</a></td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/tipsntaps'>tipsntaps</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2640</td>
+		<td>/ 301</td>
+		<td><!--<a href='https://lichess.org/tournament/85c8OrTC'>--><span class='info' title='May 26, 2019 at 18:00 UTC'>May'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/EfqjOmTe'>--><span class='info' title='Jun 13, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/A5GYiQcn'>24</a></td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/xxjanixx'>xxjanixx</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1991</td>
+		<td>/ 301</td>
+		<td><!--<a href='https://lichess.org/tournament/mf1dLdK2'>--><span class='info' title='Jul 30, 2015 at 18:00 UTC'>Jul'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/jOyBkkU6'>--><span class='info' title='Jun 12, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/KwNvHOtr'>28</a></td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/aryan2'>aryan2</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2052</td>
+		<td>/ 300</td>
+		<td><!--<a href='https://lichess.org/tournament/lFKXtYVy'>--><span class='info' title='Jan 11, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/E0J9oPV5'>--><span class='info' title='Dec 28, 2020 at 18:00 UTC'>Dec'20</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/yzj4BWkc'>28</a></td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/likoer'>likoer</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1935</td>
+		<td>/ 300</td>
+		<td><!--<a href='https://lichess.org/tournament/FQnKMcHn'>--><span class='info' title='Apr 16, 2018 at 18:00 UTC'>Apr'18</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/GXK1XZXy'>--><span class='info' title='Apr 29, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/wK5S4HfV'>24</a></td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/small_fingers'>small_fingers</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1463</td>
+		<td>/ 300</td>
+		<td><!--<a href='https://lichess.org/tournament/84RcLq9K'>--><span class='info' title='Jul 13, 2017 at 18:00 UTC'>Jul'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/RrgtNiFI'>--><span class='info' title='Jun 24, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>5</td>
+		<td><a href='https://lichess.org/tournament/zSO5AkhJ'>20</a></td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/berlinar'>berlinar</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1816</td>
+		<td>/ 299</td>
+		<td><!--<a href='https://lichess.org/tournament/fLdSNKLS'>--><span class='info' title='Sep 11, 2014 at 16:00 UTC'>Sep'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/Jjw9XrMH'>--><span class='info' title='May 19, 2019 at 18:00 UTC'>May'19</span><!--</a>--></td>
+		<td>6</td>
+		<td><a href='https://lichess.org/tournament/9czd7X4N'>24</a></td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/gajzer21'>gajzer21</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3140</td>
+		<td>/ 298</td>
+		<td><!--<a href='https://lichess.org/tournament/KlrEEh46'>--><span class='info' title='Apr 18, 2017 at 18:00 UTC'>Apr'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/HUcZUDea'>--><span class='info' title='Jun 21, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>11</td>
+		<td><a href='https://lichess.org/tournament/kXILm377'>26</a></td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/cassiodorus1'>cassiodorus1</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2172</td>
+		<td>/ 298</td>
+		<td><!--<a href='https://lichess.org/tournament/u7hjS7RY'>--><span class='info' title='Jul 23, 2017 at 18:00 UTC'>Jul'17</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/HSQMUMhD'>32</a></td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/iouriev'>iouriev</a></td>
+		<td></td>
+		<td></td>
+		<td>1</td>
+		<td>3944</td>
+		<td>/ 296</td>
+		<td><!--<a href='https://lichess.org/tournament/KabJI4xQ'>--><span class='info' title='Jan 21, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/XktResKX'>--><span class='info' title='Mar 13, 2021 at 18:00 UTC'>Mar'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/wuTybPiA'>44</a></td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/pavlek47'>pavlek47</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>4737</td>
+		<td>/ 295</td>
+		<td><!--<a href='https://lichess.org/tournament/hhuhhfol'>--><span class='info' title='Aug 31, 2019 at 18:00 UTC'>Aug'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/VZ8Ts88a'>--><span class='info' title='Jun 25, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>16</td>
+		<td><a href='https://lichess.org/tournament/0Q0barEu'>36</a></td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/mahir123'>mahir123</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>3965</td>
+		<td>/ 295</td>
+		<td><!--<a href='https://lichess.org/tournament/4ArFE8TV'>--><span class='info' title='Jul 02, 2014 at 16:00 UTC'>Jul'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/4wFz0kne'>--><span class='info' title='Jun 14, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>13</td>
+		<td><a href='https://lichess.org/tournament/YcouOznu'>37</a></td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/nikolapozarevac'>nikolapozarevac</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2780</td>
+		<td>/ 295</td>
+		<td><!--<a href='https://lichess.org/tournament/Qp7yNFIN'>--><span class='info' title='May 19, 2016 at 18:00 UTC'>May'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/ckVVUADI'>26</a></td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/yura1204'>yura1204</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2752</td>
+		<td>/ 295</td>
+		<td><!--<a href='https://lichess.org/tournament/uZ0G09Bg'>--><span class='info' title='Apr 07, 2019 at 18:00 UTC'>Apr'19</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/N6kY79CV'>--><span class='info' title='Jun 26, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/g8Ow4zyi'>28</a></td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/skeith73'>skeith73</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>1308</td>
+		<td>/ 293</td>
+		<td><!--<a href='https://lichess.org/tournament/Ypi6IVOy'>--><span class='info' title='Nov 24, 2015 at 19:00 UTC'>Nov'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/v6ggbRAu'>--><span class='info' title='Dec 18, 2020 at 18:00 UTC'>Dec'20</span><!--</a>--></td>
+		<td>4</td>
+		<td><a href='https://lichess.org/tournament/OeV1QQAP'>16</a></td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/fifthcategory'>fifthcategory</a></td>
+		<td>3</td>
+		<td>7</td>
+		<td>12</td>
+		<td>4657</td>
+		<td>/ 291</td>
+		<td><!--<a href='https://lichess.org/tournament/e5MlFIcb'>--><span class='info' title='Apr 13, 2014 at 16:00 UTC'>Apr'14</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/e2XMTi3u'>--><span class='info' title='Apr 20, 2017 at 18:00 UTC'>Apr'17</span><!--</a>--></td>
+		<td>16</td>
+		<td><a href='https://lichess.org/tournament/0DWSXcHK'>44</a></td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/dmitry08_s'>dmitry08_s</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2060</td>
+		<td>/ 291</td>
+		<td><!--<a href='https://lichess.org/tournament/LIHtJinG'>--><span class='info' title='Jul 02, 2015 at 18:00 UTC'>Jul'15</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/qWRIqXnn'>--><span class='info' title='Jun 17, 2021 at 18:00 UTC'>Jun'21</span><!--</a>--></td>
+		<td>7</td>
+		<td><a href='https://lichess.org/tournament/U9ENTRAm'>24</a></td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td></td>
+		<td><a href='https://lichess.org/@/tomason'>tomason</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>2718</td>
+		<td>/ 290</td>
+		<td><!--<a href='https://lichess.org/tournament/Cc4SFfjT'>--><span class='info' title='Jan 10, 2016 at 19:00 UTC'>Jan'16</span><!--</a>--> - <!--<a href='https://lichess.org/tournament/ZCFXRezT'>--><span class='info' title='Apr 26, 2021 at 18:00 UTC'>Apr'21</span><!--</a>--></td>
+		<td>9</td>
+		<td><a href='https://lichess.org/tournament/5OQi4eg3'>32</a></td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->
+<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->
+<head>
+<title>Lichess Arena Rankings &middot; Daily Blitz Arenas</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel='icon' type='image/png' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../style-new.css'>
+<link rel='stylesheet' href='../../../style-colors.css'>
+<meta property='og:type' content='website'>
+<meta property='og:title' content='Lichess Arena Rankings &middot; Daily Blitz Arenas' />
+<meta property='og:description' content='Statistics and rankings built from official Lichess arenas, ranging from hourly bullet arenas to titled arenas to bundesliga events. See who scored the most tournament victories, who played in the most events, who holds the all-time record for the highest score in each type of arena, and more!' />
+<meta property='og:url' content='https://tmmlaarhoven.github.io/lichess/rankings/blitz/daily/list_arenas_moves.html' />
+<meta property='og:image' content='https://tmmlaarhoven.github.io/lichess/rankings/blitz/daily/figures/blitz_daily_players_points.png' />
+</head>
+
+<body>
+<div class="title">Lichess Arena Rankings &middot; Daily Blitz Arenas</div>
+<div class='menu'>
+	<span class='VariantIcon' style='font-size: 16pt; position: absolute; left: 0px;'><a href='../../index.html'>&#xe005;</a></span>
+	<span class='dropdown-el' style='left: 30px; min-width: 190px; max-width: 190px;'>
+		<input type='radio' name='Variant' value='all' id='variant-all'><label class='Vall' for='variant-all'><span class='VariantIcon'>O</span> All variants</label>
+		<input type='radio' name='Variant' value='ultrabullet' id='variant-ultrabullet'><label class='Vultrabullet' for='variant-ultrabullet'><span class='VariantIcon'>{</span> UltraBullet</label>
+		<input type='radio' name='Variant' value='hyperbullet' id='variant-hyperbullet'><label class='Vhyperbullet' for='variant-hyperbullet'><span class='VariantIcon'>T</span> HyperBullet</label>
+		<input type='radio' name='Variant' value='bullet' id='variant-bullet'><label class='Vbullet' for='variant-bullet'><span class='VariantIcon'>T</span> Bullet</label>
+		<input type='radio' name='Variant' value='superblitz' id='variant-superblitz'><label class='Vsuperblitz' for='variant-superblitz'><span class='VariantIcon'>)</span> SuperBlitz</label>
+		<input type='radio' name='Variant' value='blitz' id='variant-blitz' checked><label class='Vblitz' for='variant-blitz'><span class='VariantIcon'>)</span> Blitz</label>
+		<input type='radio' name='Variant' value='rapid' id='variant-rapid'><label class='Vrapid' for='variant-rapid'><span class='VariantIcon'>#</span> Rapid</label>
+		<input type='radio' name='Variant' value='classical' id='variant-classical'><label class='Vclassical' for='variant-classical'><span class='VariantIcon'>+</span> Classical</label>
+		<input type='radio' name='Variant' value='crazyhouse' id='variant-crazyhouse'><label class='Vcrazyhouse' for='variant-crazyhouse'><span class='VariantIcon'>&#xe00b;</span> Crazyhouse</label>
+		<input type='radio' name='Variant' value='chess960' id='variant-chess960'><label class='Vchess960' for='variant-chess960'><span class='VariantIcon'>'</span> Chess960</label>
+		<input type='radio' name='Variant' value='koth' id='variant-koth'><label class='Vkoth' for='variant-koth'><span class='VariantIcon'>(</span> King of the Hill</label>
+		<input type='radio' name='Variant' value='3check' id='variant-3check'><label class='V3check' for='variant-3check'><span class='VariantIcon'>.</span> Three-check</label>
+		<input type='radio' name='Variant' value='antichess' id='variant-antichess'><label class='Vantichess' for='variant-antichess'><span class='VariantIcon'>@</span> Antichess</label>
+		<input type='radio' name='Variant' value='atomic' id='variant-atomic'><label class='Vatomic' for='variant-atomic'><span class='VariantIcon'>></span> Atomic</label>
+		<input type='radio' name='Variant' value='horde' id='variant-horde'><label class='Vhorde' for='variant-horde'><span class='VariantIcon'>_</span> Horde</label>
+		<input type='radio' name='Variant' value='racingkings' id='variant-racingkings'><label class='Vracingkings' for='variant-racingkings'><span class='VariantIcon'>&#xe00a;</span> Racing Kings</label>
+	</span>
+	<span class='dropdown-el' style='left: 230px; min-width: 170px; max-width: 170px;'>
+		<input type='radio' name='Event' value='all' id='events-all'><label class='Eall' for='events-all'>All Arenas</label>
+		<input type='radio' name='Event' value='hourly' id='events-hourly'><label class='Ehourly' for='events-hourly'>Hourly Arenas</label>
+		<input type='radio' name='Event' value='2000' id='events-2000'><label class='E2000' for='events-2000'><2000 Arenas</label>
+		<input type='radio' name='Event' value='1700' id='events-1700'><label class='E1700' for='events-1700'><1700 Arenas</label>
+		<input type='radio' name='Event' value='1600' id='events-1600'><label class='E1600' for='events-1600'><1600 Arenas</label>
+		<input type='radio' name='Event' value='1500' id='events-1500'><label class='E1500' for='events-1500'><1500 Arenas</label>
+		<input type='radio' name='Event' value='1300' id='events-1300'><label class='E1300' for='events-1300'><1300 Arenas</label>
+		<input type='radio' name='Event' value='daily' id='events-daily' checked><label class='Edaily' for='events-daily'>Daily Arenas</label>
+		<input type='radio' name='Event' value='weekly' id='events-weekly'><label class='Eweekly' for='events-weekly'>Weekly Arenas</label>
+		<input type='radio' name='Event' value='monthly' id='events-monthly'><label class='Emonthly' for='events-monthly'>Monthly Arenas</label>
+		<input type='radio' name='Event' value='yearly' id='events-yearly'><label class='Eyearly' for='events-yearly'>Yearly Arenas</label>
+		<input type='radio' name='Event' value='eastern' id='events-eastern'><label class='Eeastern' for='events-eastern'>Eastern Arenas</label>
+		<input type='radio' name='Event' value='elite' id='events-elite'><label class='Eelite' for='events-elite'>Elite Arenas</label>
+		<input type='radio' name='Event' value='shield' id='events-shield'><label class='Eshield' for='events-shield'>Shield Arenas</label>
+		<input type='radio' name='Event' value='titled' id='events-titled'><label class='Etitled' for='events-titled'>Titled Arenas</label>
+		<input type='radio' name='Event' value='marathon' id='events-marathon'><label class='Emarathon' for='events-marathon'>Marathons</label>
+		<input type='radio' name='Event' value='liga' id='events-liga'><label class='Eliga' for='events-liga'>Bundesliga</label>
+	</span>
+	<span class='dropdown-el' style='left: 410px; min-width: 260px; max-width: 260px;'>
+		<input type='radio' name='Page' value='players_points' id='players_points'><label for='players_points'>Players by total points</label>
+		<input type='radio' name='Page' value='players_trophies' id='players_trophies'><label for='players_trophies'>Players by trophies</label>
+		<input type='radio' name='Page' value='players_events' id='players_events'><label for='players_events'>Players by events</label>
+		<input type='radio' name='Page' value='players_maximum' id='players_maximum'><label for='players_maximum'>Players by high score</label>
+		<input type='radio' name='Page' value='players_title' id='players_title'><label for='players_title'>Players by title</label>
+		<input type='radio' name='Page' value='arenas_newest' id='arenas_newest'><label for='arenas_newest'>Arenas by date</label>
+		<input type='radio' name='Page' value='arenas_players' id='arenas_players'><label for='arenas_players'>Arenas by participants</label>
+		<input type='radio' name='Page' value='arenas_points' id='arenas_points'><label for='arenas_points'>Arenas by points per player</label>
+		<input type='radio' name='Page' value='arenas_moves' id='arenas_moves' checked><label for='arenas_moves'>Arenas by moves per game</label>
+		<input type='radio' name='Page' value='arenas_rating' id='arenas_rating'><label for='arenas_rating'>Arenas by average rating</label>
+		<input type='radio' name='Page' value='arenas_maximum' id='arenas_maximum'><label for='arenas_maximum'>Arenas by high score</label>
+		<input type='radio' name='Page' value='arenas_berserk' id='arenas_berserk'><label for='arenas_berserk'>Arenas by berserk rate</label>
+	</span>
+	<span class='dropdown-el' style='left: 680px; min-width: 120px; max-width: 120px;'>
+		<input type='radio' name='Type' value='list' id='list' checked><label for='list'><span class='VariantIcon'>?</span> List</label>
+		<input type='radio' name='Type' value='graph' id='graph'><label for='graph'><span class='VariantIcon'>9</span> Graph</label>
+	</span>
+</div>
+
+<span class='maincontent'>
+<!-- START OF ACTUAL CONTENT -->
+This ranking is based on <span class='info' title='2,174 events'>2.2K</span> events held between <a title='First event' href='https://lichess.org/tournament/40zRkHoX'>Apr 11, 2014</a> and <a title='Last event' href='https://lichess.org/tournament/N6kY79CV'>Jun 26, 2021</a>.
+
+In total, these arenas featured <span class='info' title='5,463,448 games'>5.5M</span> games (with <span class='info' title='375,920,919 moves'>376M</span> moves), and the <span class='info' title='2,050,787 participants'>2.1M</span> participants (<span class='info' title='346,681 players'>347K</span> unique players) scored a total of <span class='info' title='13,939,973 points'>14M</span> arena points.
+
+In these games, white scored <span class='info' title='2681546 out of 5463448 games'>49%</span> wins, <span class='info' title='234087 out of 5463448 games'>4%</span> draws, and <span class='info' title='2547815 out of 5463448 games'>47%</span> losses.
+
+The average berserk rate is <span class='info' title='1548355 berserks in 5463448 games'>14.2%</span>, and the average rating is <span class='info' title='3448525090 over 2050787 participants'>1682</span>.
+
+<table class='ArenasList'>
+	<thead>
+	<tr height='40px'>
+		<td><span class='info' title='Ranking'><b>#</b></span></td>
+		<td>ID</td>
+		<td><b>Type</b></td>
+		<td><b>Date</b></td>
+		<td><span class='info' style='font-family: lichess;' title='Participants'>f</span></td>
+		<td><span class='info' title='Average rating over all players'><b>Rtng</b></span></td>
+		<td><span class='info' title='Average points per player'><b>Pts</b></span></td>
+		<td><span class='info' title='Average moves per player per game'><b>Mvs</b></span></td>
+		<td><span class='info' style='font-family: lichess;' title='Berserk rate'>`</span></td>
+		<td><b>Winner</b></td>
+		<td><span class='info' title='Score of winner'><b>Max</b></span></td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td><a href='https://lichess.org/tournament/yH0KbJbv'>yH0KbJbv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 26, 2017 at 18:00 UTC'>May 26, 2017</span></td>
+		<td>661</td>
+		<td>1728</td>
+		<td>7</td>
+		<td>37</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/dmitriy_duyun'>dmitriy_duyun</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td><a href='https://lichess.org/tournament/fTnUWbJ5'>fTnUWbJ5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 17, 2019 at 18:00 UTC'>May 17, 2019</span></td>
+		<td>1178</td>
+		<td>1634</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/g64squareswar'>g64squareswar</a></td>
+		<td>72</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td><a href='https://lichess.org/tournament/FFKwQ28p'>FFKwQ28p</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 19, 2018 at 16:00 UTC'>Jul 19, 2018</span></td>
+		<td>950</td>
+		<td>1671</td>
+		<td>6</td>
+		<td>36</td>
+		<td>19%</td>
+		<td><a href='https://lichess.org/@/tpan'>tpan</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td><a href='https://lichess.org/tournament/8dCeoPAA'>8dCeoPAA</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 27, 2018 at 18:00 UTC'>Jan 27, 2018</span></td>
+		<td>1023</td>
+		<td>1657</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>5.</td>
+		<td><a href='https://lichess.org/tournament/mNE1lBK1'>mNE1lBK1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 01, 2019 at 18:00 UTC'>Sep 01, 2019</span></td>
+		<td>1193</td>
+		<td>1672</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/flukton'>flukton</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>6.</td>
+		<td><a href='https://lichess.org/tournament/FO471HOp'>FO471HOp</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 16, 2017 at 18:00 UTC'>Nov 16, 2017</span></td>
+		<td>664</td>
+		<td>1705</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/berval'>berval</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>7.</td>
+		<td><a href='https://lichess.org/tournament/H6yNBcRo'>H6yNBcRo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 04, 2020 at 18:00 UTC'>Feb 04, 2020</span></td>
+		<td>1180</td>
+		<td>1722</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/jorge_15'>jorge_15</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>8.</td>
+		<td><a href='https://lichess.org/tournament/v6esYQAU'>v6esYQAU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 24, 2016 at 18:00 UTC'>Jul 24, 2016</span></td>
+		<td>455</td>
+		<td>1735</td>
+		<td>7</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/juksulov'>juksulov</a></td>
+		<td>39</td>
+	</tr>
+	<tr>
+		<td>9.</td>
+		<td><a href='https://lichess.org/tournament/cQ82VjVF'>cQ82VjVF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 01, 2018 at 18:00 UTC'>Mar 01, 2018</span></td>
+		<td>720</td>
+		<td>1687</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/foudeschess'>foudeschess</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>10.</td>
+		<td><a href='https://lichess.org/tournament/2OM1Y3Jx'>2OM1Y3Jx</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 04, 2017 at 18:00 UTC'>Jul 04, 2017</span></td>
+		<td>549</td>
+		<td>1702</td>
+		<td>7</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/omid921'>omid921</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>11.</td>
+		<td><a href='https://lichess.org/tournament/3kMmN9X2'>3kMmN9X2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 08, 2018 at 18:00 UTC'>Apr 08, 2018</span></td>
+		<td>1108</td>
+		<td>1648</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/gannikus'>gannikus</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>12.</td>
+		<td><a href='https://lichess.org/tournament/HaLLZuFM'>HaLLZuFM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 13, 2018 at 18:00 UTC'>Apr 13, 2018</span></td>
+		<td>931</td>
+		<td>1642</td>
+		<td>6</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/ardituruqi'>ardituruqi</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>13.</td>
+		<td><a href='https://lichess.org/tournament/tS22ncNQ'>tS22ncNQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 27, 2018 at 18:00 UTC'>Feb 27, 2018</span></td>
+		<td>728</td>
+		<td>1629</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/che4ako'>che4ako</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>14.</td>
+		<td><a href='https://lichess.org/tournament/Dgzu01zs'>Dgzu01zs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 23, 2017 at 18:00 UTC'>Oct 23, 2017</span></td>
+		<td>782</td>
+		<td>1696</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/iw'>iw</a></td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>15.</td>
+		<td><a href='https://lichess.org/tournament/jCaPtt4P'>jCaPtt4P</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 20, 2018 at 18:00 UTC'>Jan 20, 2018</span></td>
+		<td>1067</td>
+		<td>1675</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/moralchess'>moralchess</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>16.</td>
+		<td><a href='https://lichess.org/tournament/PH8GeOO2'>PH8GeOO2</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 28, 2019 at 18:00 UTC'>Jun 28, 2019</span></td>
+		<td>1054</td>
+		<td>1654</td>
+		<td>6</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/malabu'>malabu</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>17.</td>
+		<td><a href='https://lichess.org/tournament/oBB8qd3x'>oBB8qd3x</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 29, 2017 at 18:00 UTC'>Dec 29, 2017</span></td>
+		<td>946</td>
+		<td>1671</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/mrbadbeat'>mrbadbeat</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>18.</td>
+		<td><a href='https://lichess.org/tournament/INh9q59s'>INh9q59s</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 25, 2015 at 18:00 UTC'>Aug 25, 2015</span></td>
+		<td>203</td>
+		<td>1632</td>
+		<td>7</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/whogeeyao'>whogeeyao</a></td>
+		<td>41</td>
+	</tr>
+	<tr>
+		<td>19.</td>
+		<td><a href='https://lichess.org/tournament/lSTFi6BU'>lSTFi6BU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 23, 2017 at 18:00 UTC'>Nov 23, 2017</span></td>
+		<td>712</td>
+		<td>1703</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/chess_nomad'>chess_nomad</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>20.</td>
+		<td><a href='https://lichess.org/tournament/TeLepsfu'>TeLepsfu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 11, 2017 at 18:00 UTC'>May 11, 2017</span></td>
+		<td>577</td>
+		<td>1743</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/tournamentplayer038'>tournamentplayer038</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>21.</td>
+		<td><a href='https://lichess.org/tournament/E5I1imkb'>E5I1imkb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 31, 2018 at 18:00 UTC'>Mar 31, 2018</span></td>
+		<td>795</td>
+		<td>1673</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/vlahovhrvojecro'>vlahovhrvojecro</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>22.</td>
+		<td><a href='https://lichess.org/tournament/gSt58Ndk'>gSt58Ndk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 15, 2018 at 18:00 UTC'>Feb 15, 2018</span></td>
+		<td>832</td>
+		<td>1667</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/allisrelativity'>allisrelativity</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>23.</td>
+		<td><a href='https://lichess.org/tournament/bChhYdvl'>bChhYdvl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 17, 2019 at 18:00 UTC'>Jan 17, 2019</span></td>
+		<td>1270</td>
+		<td>1624</td>
+		<td>7</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/dmitro_smolin'>dmitro_smolin</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>24.</td>
+		<td><a href='https://lichess.org/tournament/fRsGp96g'>fRsGp96g</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 29, 2020 at 18:00 UTC'>Jun 29, 2020</span></td>
+		<td>1836</td>
+		<td>1737</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/chessmaste'>chessmaste</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>25.</td>
+		<td><a href='https://lichess.org/tournament/ffA1ckC4'>ffA1ckC4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 17, 2019 at 18:00 UTC'>Aug 17, 2019</span></td>
+		<td>1250</td>
+		<td>1651</td>
+		<td>6</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/serkai'>serkai</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>26.</td>
+		<td><a href='https://lichess.org/tournament/R1TNh36p'>R1TNh36p</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 24, 2019 at 18:00 UTC'>Aug 24, 2019</span></td>
+		<td>1174</td>
+		<td>1637</td>
+		<td>7</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/pecinho'>pecinho</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>27.</td>
+		<td><a href='https://lichess.org/tournament/bu0KZmlr'>bu0KZmlr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 26, 2020 at 18:00 UTC'>Jan 26, 2020</span></td>
+		<td>1356</td>
+		<td>1725</td>
+		<td>7</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/vlasov_alexander'>vlasov_alexander</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>28.</td>
+		<td><a href='https://lichess.org/tournament/rk63H4Qm'>rk63H4Qm</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 02, 2017 at 18:00 UTC'>Nov 02, 2017</span></td>
+		<td>654</td>
+		<td>1712</td>
+		<td>6</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/stuey'>stuey</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>29.</td>
+		<td><a href='https://lichess.org/tournament/ez66e3gd'>ez66e3gd</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 02, 2017 at 18:00 UTC'>Dec 02, 2017</span></td>
+		<td>941</td>
+		<td>1677</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/tryinghard87'>tryinghard87</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>30.</td>
+		<td><a href='https://lichess.org/tournament/NOx6XOKw'>NOx6XOKw</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 10, 2018 at 18:00 UTC'>Feb 10, 2018</span></td>
+		<td>1130</td>
+		<td>1675</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/kingstar70'>kingstar70</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>31.</td>
+		<td><a href='https://lichess.org/tournament/jfnnZ0wE'>jfnnZ0wE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 18, 2019 at 18:00 UTC'>Aug 18, 2019</span></td>
+		<td>1351</td>
+		<td>1655</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kingstar70'>kingstar70</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>32.</td>
+		<td><a href='https://lichess.org/tournament/H8OC47o0'>H8OC47o0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 07, 2017 at 18:00 UTC'>Jul 07, 2017</span></td>
+		<td>687</td>
+		<td>1736</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/hangemhigh'>hangemhigh</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>33.</td>
+		<td><a href='https://lichess.org/tournament/KE1gtoly'>KE1gtoly</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 08, 2019 at 18:00 UTC'>Oct 08, 2019</span></td>
+		<td>1071</td>
+		<td>1669</td>
+		<td>6</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/mob-saitama'>mob-saitama</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>34.</td>
+		<td><a href='https://lichess.org/tournament/w3nbH22C'>w3nbH22C</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 21, 2017 at 18:00 UTC'>Aug 21, 2017</span></td>
+		<td>753</td>
+		<td>1715</td>
+		<td>6</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/stahlex'>stahlex</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>35.</td>
+		<td><a href='https://lichess.org/tournament/RVEn8OCU'>RVEn8OCU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 25, 2017 at 18:00 UTC'>Jun 25, 2017</span></td>
+		<td>824</td>
+		<td>1722</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/rawnoeye01'>rawnoeye01</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>36.</td>
+		<td><a href='https://lichess.org/tournament/qig3Cxlh'>qig3Cxlh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 09, 2018 at 18:00 UTC'>Dec 09, 2018</span></td>
+		<td>1386</td>
+		<td>1622</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/moskvin_tolik'>moskvin_tolik</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>37.</td>
+		<td><a href='https://lichess.org/tournament/NocgxxhO'>NocgxxhO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 04, 2019 at 18:00 UTC'>May 04, 2019</span></td>
+		<td>844</td>
+		<td>1627</td>
+		<td>6</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/cazadorderatas'>cazadorderatas</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>38.</td>
+		<td><a href='https://lichess.org/tournament/fbW9AZ3Y'>fbW9AZ3Y</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 04, 2018 at 18:00 UTC'>Mar 04, 2018</span></td>
+		<td>1073</td>
+		<td>1646</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/rmnp'>rmnp</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>39.</td>
+		<td><a href='https://lichess.org/tournament/PuV5uOs5'>PuV5uOs5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 03, 2017 at 18:00 UTC'>Oct 03, 2017</span></td>
+		<td>578</td>
+		<td>1689</td>
+		<td>7</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/demsiehuldigen'>demsiehuldigen</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>40.</td>
+		<td><a href='https://lichess.org/tournament/2cTVkoeC'>2cTVkoeC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 30, 2017 at 18:00 UTC'>Jul 30, 2017</span></td>
+		<td>764</td>
+		<td>1725</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/chesshailler'>chesshailler</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>41.</td>
+		<td><a href='https://lichess.org/tournament/72kbYysG'>72kbYysG</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 10, 2018 at 18:00 UTC'>May 10, 2018</span></td>
+		<td>969</td>
+		<td>1656</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/lightlike'>lightlike</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>42.</td>
+		<td><a href='https://lichess.org/tournament/AmluEXMa'>AmluEXMa</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 30, 2018 at 18:00 UTC'>Jan 30, 2018</span></td>
+		<td>726</td>
+		<td>1644</td>
+		<td>6</td>
+		<td>36</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/berto777'>berto777</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>43.</td>
+		<td><a href='https://lichess.org/tournament/Z3VuRSpf'>Z3VuRSpf</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 23, 2018 at 16:00 UTC'>Aug 23, 2018</span></td>
+		<td>1000</td>
+		<td>1652</td>
+		<td>7</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/kosovojesrbija'>kosovojesrbija</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>44.</td>
+		<td><a href='https://lichess.org/tournament/sk33AsLk'>sk33AsLk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 29, 2016 at 18:00 UTC'>Sep 29, 2016</span></td>
+		<td>449</td>
+		<td>1749</td>
+		<td>6</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/demsiehuldigen'>demsiehuldigen</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>45.</td>
+		<td><a href='https://lichess.org/tournament/10fwOtxK'>10fwOtxK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 24, 2017 at 18:00 UTC'>Nov 24, 2017</span></td>
+		<td>831</td>
+		<td>1689</td>
+		<td>7</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/danieljaber'>danieljaber</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>46.</td>
+		<td><a href='https://lichess.org/tournament/aedD3qI7'>aedD3qI7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 01, 2018 at 18:00 UTC'>Nov 01, 2018</span></td>
+		<td>919</td>
+		<td>1649</td>
+		<td>7</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/jomo518'>jomo518</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>47.</td>
+		<td><a href='https://lichess.org/tournament/k2jP3rSj'>k2jP3rSj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 06, 2020 at 18:00 UTC'>Feb 06, 2020</span></td>
+		<td>1320</td>
+		<td>1749</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/zaffelare'>zaffelare</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>48.</td>
+		<td><a href='https://lichess.org/tournament/BhaxAzDq'>BhaxAzDq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 03, 2019 at 18:00 UTC'>Jan 03, 2019</span></td>
+		<td>1071</td>
+		<td>1632</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/tsedawa'>tsedawa</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>49.</td>
+		<td><a href='https://lichess.org/tournament/SZKB9Bwb'>SZKB9Bwb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 29, 2018 at 18:00 UTC'>Jan 29, 2018</span></td>
+		<td>958</td>
+		<td>1661</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/teodoras23'>teodoras23</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>50.</td>
+		<td><a href='https://lichess.org/tournament/tgkLiLoQ'>tgkLiLoQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 06, 2017 at 18:00 UTC'>Jul 06, 2017</span></td>
+		<td>571</td>
+		<td>1722</td>
+		<td>6</td>
+		<td>36</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/grendel_2013'>grendel_2013</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>51.</td>
+		<td><a href='https://lichess.org/tournament/kpjj6usM'>kpjj6usM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 30, 2019 at 18:00 UTC'>May 30, 2019</span></td>
+		<td>1121</td>
+		<td>1634</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/mliekokocka123'>mliekokocka123</a></td>
+		<td>77</td>
+	</tr>
+	<tr>
+		<td>52.</td>
+		<td><a href='https://lichess.org/tournament/JBxs9i1x'>JBxs9i1x</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 21, 2019 at 18:00 UTC'>Jul 21, 2019</span></td>
+		<td>1324</td>
+		<td>1636</td>
+		<td>7</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/vagaviev'>vagaviev</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>53.</td>
+		<td><a href='https://lichess.org/tournament/YNv71uKG'>YNv71uKG</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 08, 2016 at 18:00 UTC'>Dec 08, 2016</span></td>
+		<td>661</td>
+		<td>1739</td>
+		<td>7</td>
+		<td>36</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/nico2016'>nico2016</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>54.</td>
+		<td><a href='https://lichess.org/tournament/V66OKpX1'>V66OKpX1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 13, 2017 at 18:00 UTC'>Nov 13, 2017</span></td>
+		<td>846</td>
+		<td>1695</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/xequedomequinho'>xequedomequinho</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>55.</td>
+		<td><a href='https://lichess.org/tournament/j5xyPzcc'>j5xyPzcc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 15, 2019 at 18:00 UTC'>Aug 15, 2019</span></td>
+		<td>1084</td>
+		<td>1677</td>
+		<td>6</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/shafar16'>shafar16</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>56.</td>
+		<td><a href='https://lichess.org/tournament/GapzEO4D'>GapzEO4D</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 22, 2019 at 18:00 UTC'>Aug 22, 2019</span></td>
+		<td>1204</td>
+		<td>1672</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/ciro20'>ciro20</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>57.</td>
+		<td><a href='https://lichess.org/tournament/mPyAV0bu'>mPyAV0bu</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 09, 2017 at 18:00 UTC'>Jun 09, 2017</span></td>
+		<td>670</td>
+		<td>1742</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/durrbrain'>durrbrain</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>58.</td>
+		<td><a href='https://lichess.org/tournament/kXryTekx'>kXryTekx</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 26, 2019 at 18:00 UTC'>Sep 26, 2019</span></td>
+		<td>1118</td>
+		<td>1691</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/doctor_luber'>doctor_luber</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>59.</td>
+		<td><a href='https://lichess.org/tournament/8vT3CsJ1'>8vT3CsJ1</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 21, 2017 at 18:00 UTC'>Oct 21, 2017</span></td>
+		<td>798</td>
+		<td>1702</td>
+		<td>7</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/insanemaniac'>insanemaniac</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>60.</td>
+		<td><a href='https://lichess.org/tournament/M1RSC48r'>M1RSC48r</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 15, 2018 at 18:00 UTC'>Dec 15, 2018</span></td>
+		<td>954</td>
+		<td>1614</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/aequus'>aequus</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>61.</td>
+		<td><a href='https://lichess.org/tournament/s4joj6MN'>s4joj6MN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 05, 2016 at 18:00 UTC'>Aug 05, 2016</span></td>
+		<td>480</td>
+		<td>1735</td>
+		<td>7</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/vampiredi'>vampiredi</a></td>
+		<td>78</td>
+	</tr>
+	<tr>
+		<td>62.</td>
+		<td><a href='https://lichess.org/tournament/0JMzFeWJ'>0JMzFeWJ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 25, 2020 at 18:00 UTC'>Oct 25, 2020</span></td>
+		<td>2423</td>
+		<td>1710</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/razmenchic'>razmenchic</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>63.</td>
+		<td><a href='https://lichess.org/tournament/1ZTmkvDh'>1ZTmkvDh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 12, 2018 at 16:00 UTC'>Jul 12, 2018</span></td>
+		<td>975</td>
+		<td>1670</td>
+		<td>6</td>
+		<td>36</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/rl12'>rl12</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>64.</td>
+		<td><a href='https://lichess.org/tournament/tm5MNets'>tm5MNets</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 05, 2019 at 18:00 UTC'>Jan 05, 2019</span></td>
+		<td>963</td>
+		<td>1607</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bobancio'>bobancio</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>65.</td>
+		<td><a href='https://lichess.org/tournament/GqZHDbGS'>GqZHDbGS</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 08, 2019 at 18:00 UTC'>Dec 08, 2019</span></td>
+		<td>1373</td>
+		<td>1710</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/theselim'>theselim</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>66.</td>
+		<td><a href='https://lichess.org/tournament/kHpv5fQb'>kHpv5fQb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 02, 2020 at 18:00 UTC'>Jan 02, 2020</span></td>
+		<td>1385</td>
+		<td>1722</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/celvic'>celvic</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>67.</td>
+		<td><a href='https://lichess.org/tournament/o5qP1f2v'>o5qP1f2v</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 31, 2020 at 18:00 UTC'>Jan 31, 2020</span></td>
+		<td>1349</td>
+		<td>1742</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/chopinprelude'>chopinprelude</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>68.</td>
+		<td><a href='https://lichess.org/tournament/Zg5xosCN'>Zg5xosCN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 30, 2017 at 18:00 UTC'>Apr 30, 2017</span></td>
+		<td>818</td>
+		<td>1729</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/hangemhigh'>hangemhigh</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>69.</td>
+		<td><a href='https://lichess.org/tournament/LTA1pnIO'>LTA1pnIO</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 23, 2019 at 18:00 UTC'>Apr 23, 2019</span></td>
+		<td>973</td>
+		<td>1588</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/datrebil'>datrebil</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>70.</td>
+		<td><a href='https://lichess.org/tournament/D6fwyf3R'>D6fwyf3R</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 15, 2017 at 18:00 UTC'>Oct 15, 2017</span></td>
+		<td>943</td>
+		<td>1698</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bulletbullet'>bulletbullet</a></td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>71.</td>
+		<td><a href='https://lichess.org/tournament/TxCo9n4W'>TxCo9n4W</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 13, 2019 at 18:00 UTC'>Sep 13, 2019</span></td>
+		<td>1240</td>
+		<td>1668</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/homeyra'>homeyra</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>72.</td>
+		<td><a href='https://lichess.org/tournament/xWQ54MeN'>xWQ54MeN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 14, 2019 at 18:00 UTC'>Jun 14, 2019</span></td>
+		<td>923</td>
+		<td>1637</td>
+		<td>6</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/parkour1'>parkour1</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>73.</td>
+		<td><a href='https://lichess.org/tournament/ajgLjdNT'>ajgLjdNT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 25, 2019 at 18:00 UTC'>Nov 25, 2019</span></td>
+		<td>1318</td>
+		<td>1714</td>
+		<td>7</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/khochinov'>khochinov</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>74.</td>
+		<td><a href='https://lichess.org/tournament/hB7uErh3'>hB7uErh3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 19, 2018 at 18:00 UTC'>Mar 19, 2018</span></td>
+		<td>1020</td>
+		<td>1636</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/abu_lazenby'>abu_lazenby</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>75.</td>
+		<td><a href='https://lichess.org/tournament/14cfwEt0'>14cfwEt0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 19, 2018 at 18:00 UTC'>Jan 19, 2018</span></td>
+		<td>876</td>
+		<td>1669</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/warshoe'>warshoe</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>76.</td>
+		<td><a href='https://lichess.org/tournament/bbDDzJl0'>bbDDzJl0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 25, 2019 at 18:00 UTC'>Jul 25, 2019</span></td>
+		<td>1151</td>
+		<td>1644</td>
+		<td>6</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/infiniteadaption'>infiniteadaption</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>77.</td>
+		<td><a href='https://lichess.org/tournament/be8Ag2QY'>be8Ag2QY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 02, 2019 at 18:00 UTC'>May 02, 2019</span></td>
+		<td>932</td>
+		<td>1618</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/stepanosinovsky'>stepanosinovsky</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>78.</td>
+		<td><a href='https://lichess.org/tournament/2OFLzdLl'>2OFLzdLl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 24, 2019 at 18:00 UTC'>May 24, 2019</span></td>
+		<td>1256</td>
+		<td>1637</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/abcchessanalysis-yt'>abcchessanalysis-yt</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>79.</td>
+		<td><a href='https://lichess.org/tournament/nQmMxNBd'>nQmMxNBd</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 01, 2017 at 18:00 UTC'>Oct 01, 2017</span></td>
+		<td>879</td>
+		<td>1707</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/prosharen'>prosharen</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>80.</td>
+		<td><a href='https://lichess.org/tournament/rnxHyyHQ'>rnxHyyHQ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 27, 2017 at 18:00 UTC'>Apr 27, 2017</span></td>
+		<td>566</td>
+		<td>1743</td>
+		<td>7</td>
+		<td>36</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/pidargi'>pidargi</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>81.</td>
+		<td><a href='https://lichess.org/tournament/YlWpuv4M'>YlWpuv4M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 11, 2018 at 18:00 UTC'>Jun 11, 2018</span></td>
+		<td>1167</td>
+		<td>1656</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/romulek'>romulek</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>82.</td>
+		<td><a href='https://lichess.org/tournament/C7TqHuOv'>C7TqHuOv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 29, 2018 at 18:00 UTC'>Mar 29, 2018</span></td>
+		<td>937</td>
+		<td>1675</td>
+		<td>7</td>
+		<td>36</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/gannikus'>gannikus</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>83.</td>
+		<td><a href='https://lichess.org/tournament/UOdolIH6'>UOdolIH6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 16, 2020 at 18:00 UTC'>Oct 16, 2020</span></td>
+		<td>2226</td>
+		<td>1737</td>
+		<td>7</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/arnelos'>arnelos</a></td>
+		<td>83</td>
+	</tr>
+	<tr>
+		<td>84.</td>
+		<td><a href='https://lichess.org/tournament/kmaJF8o6'>kmaJF8o6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 31, 2019 at 18:00 UTC'>Oct 31, 2019</span></td>
+		<td>992</td>
+		<td>1702</td>
+		<td>6</td>
+		<td>36</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/panhair'>panhair</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>85.</td>
+		<td><a href='https://lichess.org/tournament/ALMUuj1a'>ALMUuj1a</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 17, 2018 at 18:00 UTC'>Mar 17, 2018</span></td>
+		<td>1164</td>
+		<td>1658</td>
+		<td>7</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/betta2004'>betta2004</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>86.</td>
+		<td><a href='https://lichess.org/tournament/R8ijEsXF'>R8ijEsXF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 20, 2020 at 18:00 UTC'>Feb 20, 2020</span></td>
+		<td>1114</td>
+		<td>1754</td>
+		<td>6</td>
+		<td>36</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kingscrusher-youtube'>kingscrusher-youtube</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>87.</td>
+		<td><a href='https://lichess.org/tournament/aPivrv6c'>aPivrv6c</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 07, 2019 at 18:00 UTC'>Feb 07, 2019</span></td>
+		<td>1170</td>
+		<td>1619</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/ljuks'>ljuks</a></td>
+		<td>70</td>
+	</tr>
+	<tr>
+		<td>88.</td>
+		<td><a href='https://lichess.org/tournament/X3fTkhJi'>X3fTkhJi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 17, 2018 at 16:00 UTC'>Aug 17, 2018</span></td>
+		<td>1091</td>
+		<td>1659</td>
+		<td>7</td>
+		<td>36</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/kaldas90'>kaldas90</a></td>
+		<td>85</td>
+	</tr>
+	<tr>
+		<td>89.</td>
+		<td><a href='https://lichess.org/tournament/UFTKQOBN'>UFTKQOBN</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 14, 2019 at 18:00 UTC'>Jan 14, 2019</span></td>
+		<td>1310</td>
+		<td>1601</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/indoiwong'>indoiwong</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>90.</td>
+		<td><a href='https://lichess.org/tournament/fVUpvPa5'>fVUpvPa5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 18, 2019 at 18:00 UTC'>Mar 18, 2019</span></td>
+		<td>1369</td>
+		<td>1589</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/mahanif'>mahanif</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>91.</td>
+		<td><a href='https://lichess.org/tournament/PqTa6gc3'>PqTa6gc3</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 06, 2019 at 18:00 UTC'>Dec 06, 2019</span></td>
+		<td>1266</td>
+		<td>1716</td>
+		<td>6</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/bulletexpert'>bulletexpert</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>92.</td>
+		<td><a href='https://lichess.org/tournament/9cDamQJs'>9cDamQJs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 08, 2019 at 18:00 UTC'>Feb 08, 2019</span></td>
+		<td>1307</td>
+		<td>1612</td>
+		<td>6</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/mik_o'>mik_o</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>93.</td>
+		<td><a href='https://lichess.org/tournament/t6sxGluD'>t6sxGluD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 23, 2020 at 18:00 UTC'>Jul 23, 2020</span></td>
+		<td>1609</td>
+		<td>1736</td>
+		<td>7</td>
+		<td>36</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/brittabagels'>brittabagels</a></td>
+		<td>101</td>
+	</tr>
+	<tr>
+		<td>94.</td>
+		<td><a href='https://lichess.org/tournament/IvVp805h'>IvVp805h</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 16, 2018 at 18:00 UTC'>Mar 16, 2018</span></td>
+		<td>951</td>
+		<td>1640</td>
+		<td>7</td>
+		<td>36</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/volodymyr_yaniuk'>volodymyr_yaniuk</a></td>
+		<td>47</td>
+	</tr>
+	<tr>
+		<td>95.</td>
+		<td><a href='https://lichess.org/tournament/X2YElHlX'>X2YElHlX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 12, 2018 at 18:00 UTC'>Feb 12, 2018</span></td>
+		<td>1014</td>
+		<td>1657</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/sijinihoudini'>sijinihoudini</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>96.</td>
+		<td><a href='https://lichess.org/tournament/Ta5RNa0p'>Ta5RNa0p</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 05, 2020 at 18:00 UTC'>Jan 05, 2020</span></td>
+		<td>1568</td>
+		<td>1714</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/neas78'>neas78</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>97.</td>
+		<td><a href='https://lichess.org/tournament/PaV6DPuj'>PaV6DPuj</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 06, 2018 at 18:00 UTC'>Apr 06, 2018</span></td>
+		<td>927</td>
+		<td>1646</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/history01'>history01</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>98.</td>
+		<td><a href='https://lichess.org/tournament/KMCahKp0'>KMCahKp0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 27, 2018 at 18:00 UTC'>May 27, 2018</span></td>
+		<td>1236</td>
+		<td>1654</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/cheeriomissticky'>cheeriomissticky</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>99.</td>
+		<td><a href='https://lichess.org/tournament/mREegFvV'>mREegFvV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 22, 2019 at 18:00 UTC'>Nov 22, 2019</span></td>
+		<td>961</td>
+		<td>1729</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/e16thomas'>e16thomas</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>100.</td>
+		<td><a href='https://lichess.org/tournament/sbwLZMrX'>sbwLZMrX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 22, 2018 at 16:00 UTC'>Jul 22, 2018</span></td>
+		<td>1189</td>
+		<td>1650</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/josip_buje'>josip_buje</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>101.</td>
+		<td><a href='https://lichess.org/tournament/rZ3yxgVJ'>rZ3yxgVJ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 26, 2017 at 18:00 UTC'>Jun 26, 2017</span></td>
+		<td>706</td>
+		<td>1718</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/justincase256'>justincase256</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>102.</td>
+		<td><a href='https://lichess.org/tournament/m6vfB2of'>m6vfB2of</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 22, 2017 at 18:00 UTC'>Jun 22, 2017</span></td>
+		<td>579</td>
+		<td>1735</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/patrick64'>patrick64</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>103.</td>
+		<td><a href='https://lichess.org/tournament/GTulqYq5'>GTulqYq5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 19, 2018 at 18:00 UTC'>Apr 19, 2018</span></td>
+		<td>891</td>
+		<td>1659</td>
+		<td>6</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/medojota'>medojota</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>104.</td>
+		<td><a href='https://lichess.org/tournament/zGDWzxRT'>zGDWzxRT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 30, 2018 at 18:00 UTC'>Mar 30, 2018</span></td>
+		<td>852</td>
+		<td>1659</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/v_vs'>v_vs</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>105.</td>
+		<td><a href='https://lichess.org/tournament/o9pzO9Sd'>o9pzO9Sd</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 07, 2017 at 18:00 UTC'>Nov 07, 2017</span></td>
+		<td>632</td>
+		<td>1674</td>
+		<td>7</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/irartu'>irartu</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>106.</td>
+		<td><a href='https://lichess.org/tournament/g6jcqmac'>g6jcqmac</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 14, 2019 at 18:00 UTC'>Nov 14, 2019</span></td>
+		<td>1140</td>
+		<td>1717</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/cansar'>cansar</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>107.</td>
+		<td><a href='https://lichess.org/tournament/WvQNz0nB'>WvQNz0nB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 05, 2019 at 18:00 UTC'>Mar 05, 2019</span></td>
+		<td>1078</td>
+		<td>1587</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/thailantar'>thailantar</a></td>
+		<td>65</td>
+	</tr>
+	<tr>
+		<td>108.</td>
+		<td><a href='https://lichess.org/tournament/lLafWbAi'>lLafWbAi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 02, 2018 at 16:00 UTC'>Jul 02, 2018</span></td>
+		<td>1068</td>
+		<td>1665</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/bliblabloed2'>bliblabloed2</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>109.</td>
+		<td><a href='https://lichess.org/tournament/FX7kDJ17'>FX7kDJ17</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 04, 2019 at 18:00 UTC'>Jul 04, 2019</span></td>
+		<td>1007</td>
+		<td>1654</td>
+		<td>6</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/kinzya1'>kinzya1</a></td>
+		<td>59</td>
+	</tr>
+	<tr>
+		<td>110.</td>
+		<td><a href='https://lichess.org/tournament/ljndUiwH'>ljndUiwH</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 16, 2018 at 16:00 UTC'>Jul 16, 2018</span></td>
+		<td>1070</td>
+		<td>1648</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/gnechko_ruslan'>gnechko_ruslan</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>111.</td>
+		<td><a href='https://lichess.org/tournament/pTodIlO6'>pTodIlO6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 07, 2019 at 18:00 UTC'>Jul 07, 2019</span></td>
+		<td>1421</td>
+		<td>1632</td>
+		<td>6</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/zverr1'>zverr1</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>112.</td>
+		<td><a href='https://lichess.org/tournament/rrJ0Fpro'>rrJ0Fpro</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 27, 2018 at 16:00 UTC'>Aug 27, 2018</span></td>
+		<td>1176</td>
+		<td>1650</td>
+		<td>6</td>
+		<td>35</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/ezhicius'>ezhicius</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>113.</td>
+		<td><a href='https://lichess.org/tournament/G5Scknbc'>G5Scknbc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 03, 2019 at 18:00 UTC'>May 03, 2019</span></td>
+		<td>962</td>
+		<td>1603</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/knightseesex'>knightseesex</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>114.</td>
+		<td><a href='https://lichess.org/tournament/BdBPcP5e'>BdBPcP5e</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 12, 2019 at 18:00 UTC'>Sep 12, 2019</span></td>
+		<td>1256</td>
+		<td>1687</td>
+		<td>6</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/oburg007'>oburg007</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>115.</td>
+		<td><a href='https://lichess.org/tournament/ByFn4Pr6'>ByFn4Pr6</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 21, 2017 at 18:00 UTC'>Dec 21, 2017</span></td>
+		<td>844</td>
+		<td>1675</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/stiller_zug'>stiller_zug</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>116.</td>
+		<td><a href='https://lichess.org/tournament/sMmiNPJX'>sMmiNPJX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 19, 2017 at 18:00 UTC'>Aug 19, 2017</span></td>
+		<td>740</td>
+		<td>1715</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/nikonovenik'>nikonovenik</a></td>
+		<td>45</td>
+	</tr>
+	<tr>
+		<td>117.</td>
+		<td><a href='https://lichess.org/tournament/8m4EtTu0'>8m4EtTu0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 23, 2019 at 18:00 UTC'>Jul 23, 2019</span></td>
+		<td>1097</td>
+		<td>1627</td>
+		<td>6</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/simbirsk73'>simbirsk73</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>118.</td>
+		<td><a href='https://lichess.org/tournament/POuzfQFg'>POuzfQFg</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 03, 2017 at 18:00 UTC'>Aug 03, 2017</span></td>
+		<td>521</td>
+		<td>1722</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/sinaww'>sinaww</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>119.</td>
+		<td><a href='https://lichess.org/tournament/EeKbsbGr'>EeKbsbGr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 22, 2017 at 18:00 UTC'>May 22, 2017</span></td>
+		<td>743</td>
+		<td>1718</td>
+		<td>7</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/stuey'>stuey</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>120.</td>
+		<td><a href='https://lichess.org/tournament/q2ImzHuT'>q2ImzHuT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 26, 2017 at 18:00 UTC'>Nov 26, 2017</span></td>
+		<td>1107</td>
+		<td>1688</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/smalichess'>smalichess</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>121.</td>
+		<td><a href='https://lichess.org/tournament/aOZ24PL5'>aOZ24PL5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 10, 2017 at 18:00 UTC'>Aug 10, 2017</span></td>
+		<td>573</td>
+		<td>1720</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/novocane'>novocane</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>122.</td>
+		<td><a href='https://lichess.org/tournament/NV8Zmfun'>NV8Zmfun</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 23, 2019 at 18:00 UTC'>Jun 23, 2019</span></td>
+		<td>1304</td>
+		<td>1636</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/kufte'>kufte</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>123.</td>
+		<td><a href='https://lichess.org/tournament/pO4BLQLK'>pO4BLQLK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 14, 2017 at 18:00 UTC'>Jul 14, 2017</span></td>
+		<td>695</td>
+		<td>1716</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/darkhorse_98'>darkhorse_98</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>124.</td>
+		<td><a href='https://lichess.org/tournament/KW6xpYTl'>KW6xpYTl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 28, 2018 at 18:00 UTC'>Apr 28, 2018</span></td>
+		<td>1071</td>
+		<td>1648</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/sreco'>sreco</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>125.</td>
+		<td><a href='https://lichess.org/tournament/kP34sz1W'>kP34sz1W</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 04, 2018 at 18:00 UTC'>Nov 04, 2018</span></td>
+		<td>1287</td>
+		<td>1641</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/razmenchic'>razmenchic</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>126.</td>
+		<td><a href='https://lichess.org/tournament/jqLW1kzU'>jqLW1kzU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 01, 2018 at 18:00 UTC'>Jun 01, 2018</span></td>
+		<td>940</td>
+		<td>1656</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/oleksiy_gross'>oleksiy_gross</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>127.</td>
+		<td><a href='https://lichess.org/tournament/SSCDHEhc'>SSCDHEhc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 24, 2019 at 18:00 UTC'>Oct 24, 2019</span></td>
+		<td>1229</td>
+		<td>1696</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/dgita35492'>dgita35492</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>128.</td>
+		<td><a href='https://lichess.org/tournament/5cO52iFB'>5cO52iFB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 28, 2018 at 18:00 UTC'>Jan 28, 2018</span></td>
+		<td>1099</td>
+		<td>1652</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/bigwh'>bigwh</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>129.</td>
+		<td><a href='https://lichess.org/tournament/sobNVNR4'>sobNVNR4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 06, 2020 at 18:00 UTC'>Sep 06, 2020</span></td>
+		<td>2274</td>
+		<td>1703</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/abbas2012'>abbas2012</a></td>
+		<td>89</td>
+	</tr>
+	<tr>
+		<td>130.</td>
+		<td><a href='https://lichess.org/tournament/ihX3fZAs'>ihX3fZAs</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 24, 2020 at 18:00 UTC'>Jul 24, 2020</span></td>
+		<td>1859</td>
+		<td>1716</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/excelsior13'>excelsior13</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>131.</td>
+		<td><a href='https://lichess.org/tournament/1t405oLk'>1t405oLk</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 11, 2019 at 18:00 UTC'>Nov 11, 2019</span></td>
+		<td>1406</td>
+		<td>1718</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/dgita35492'>dgita35492</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>132.</td>
+		<td><a href='https://lichess.org/tournament/QQPA1i3S'>QQPA1i3S</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 06, 2017 at 18:00 UTC'>May 06, 2017</span></td>
+		<td>733</td>
+		<td>1713</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/kavkaz2869'>kavkaz2869</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>133.</td>
+		<td><a href='https://lichess.org/tournament/Fp8AawpF'>Fp8AawpF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 26, 2019 at 18:00 UTC'>Jul 26, 2019</span></td>
+		<td>1248</td>
+		<td>1662</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/sasichumiy'>sasichumiy</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>134.</td>
+		<td><a href='https://lichess.org/tournament/QmQOuYTR'>QmQOuYTR</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 17, 2018 at 18:00 UTC'>May 17, 2018</span></td>
+		<td>995</td>
+		<td>1658</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/blindy'>blindy</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>135.</td>
+		<td><a href='https://lichess.org/tournament/qJCMgnEy'>qJCMgnEy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 16, 2019 at 18:00 UTC'>Sep 16, 2019</span></td>
+		<td>1426</td>
+		<td>1655</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/celvic'>celvic</a></td>
+		<td>69</td>
+	</tr>
+	<tr>
+		<td>136.</td>
+		<td><a href='https://lichess.org/tournament/7pRSp9Sr'>7pRSp9Sr</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 03, 2018 at 18:00 UTC'>Feb 03, 2018</span></td>
+		<td>1048</td>
+		<td>1674</td>
+		<td>7</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/furkanb'>furkanb</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>137.</td>
+		<td><a href='https://lichess.org/tournament/ZL2TC8fL'>ZL2TC8fL</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 12, 2019 at 18:00 UTC'>Dec 12, 2019</span></td>
+		<td>1159</td>
+		<td>1717</td>
+		<td>6</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/hek_mond58'>hek_mond58</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>138.</td>
+		<td><a href='https://lichess.org/tournament/majcr49Q'>majcr49Q</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 14, 2020 at 16:00 UTC'>May 14, 2020</span></td>
+		<td>2341</td>
+		<td>1738</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/purzelbaumer'>purzelbaumer</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>139.</td>
+		<td><a href='https://lichess.org/tournament/mRqwmj0M'>mRqwmj0M</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 14, 2017 at 18:00 UTC'>Nov 14, 2017</span></td>
+		<td>588</td>
+		<td>1686</td>
+		<td>7</td>
+		<td>35</td>
+		<td>10%</td>
+		<td><a href='https://lichess.org/@/khalidaasim'>khalidaasim</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>140.</td>
+		<td><a href='https://lichess.org/tournament/TX6K3o1q'>TX6K3o1q</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 11, 2018 at 18:00 UTC'>Mar 11, 2018</span></td>
+		<td>1042</td>
+		<td>1644</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/crazyman_1213'>crazyman_1213</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>141.</td>
+		<td><a href='https://lichess.org/tournament/rYL533pC'>rYL533pC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 16, 2018 at 18:00 UTC'>Dec 16, 2018</span></td>
+		<td>1307</td>
+		<td>1618</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/chaozu'>chaozu</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>142.</td>
+		<td><a href='https://lichess.org/tournament/JCQGw2KD'>JCQGw2KD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 05, 2018 at 18:00 UTC'>Mar 05, 2018</span></td>
+		<td>984</td>
+		<td>1661</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/j_coca'>j_coca</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>143.</td>
+		<td><a href='https://lichess.org/tournament/rBFFCx6P'>rBFFCx6P</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 17, 2019 at 18:00 UTC'>Nov 17, 2019</span></td>
+		<td>1383</td>
+		<td>1696</td>
+		<td>7</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/lankurtis'>lankurtis</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>144.</td>
+		<td><a href='https://lichess.org/tournament/LGY0rTjn'>LGY0rTjn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 17, 2017 at 18:00 UTC'>Jun 17, 2017</span></td>
+		<td>642</td>
+		<td>1724</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/hmod'>hmod</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>145.</td>
+		<td><a href='https://lichess.org/tournament/bqbRAqYC'>bqbRAqYC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 18, 2017 at 18:00 UTC'>Sep 18, 2017</span></td>
+		<td>793</td>
+		<td>1714</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/malabu'>malabu</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>146.</td>
+		<td><a href='https://lichess.org/tournament/NdFvLPm8'>NdFvLPm8</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 03, 2019 at 18:00 UTC'>Feb 03, 2019</span></td>
+		<td>1251</td>
+		<td>1614</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/razmenchic'>razmenchic</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>147.</td>
+		<td><a href='https://lichess.org/tournament/3lvur6yU'>3lvur6yU</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 30, 2017 at 18:00 UTC'>Nov 30, 2017</span></td>
+		<td>804</td>
+		<td>1676</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/mayjin'>mayjin</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>148.</td>
+		<td><a href='https://lichess.org/tournament/3zTTMmKv'>3zTTMmKv</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 13, 2019 at 18:00 UTC'>Dec 13, 2019</span></td>
+		<td>1246</td>
+		<td>1726</td>
+		<td>7</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/harrybowman'>harrybowman</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>149.</td>
+		<td><a href='https://lichess.org/tournament/U2jYk4Jb'>U2jYk4Jb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 29, 2019 at 18:00 UTC'>Jul 29, 2019</span></td>
+		<td>1330</td>
+		<td>1649</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/sex_and_chess'>sex_and_chess</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>150.</td>
+		<td><a href='https://lichess.org/tournament/2r2ANGA7'>2r2ANGA7</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 25, 2019 at 18:00 UTC'>Mar 25, 2019</span></td>
+		<td>1014</td>
+		<td>1604</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/tb2121'>tb2121</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>151.</td>
+		<td><a href='https://lichess.org/tournament/eXMKzUKZ'>eXMKzUKZ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 08, 2018 at 18:00 UTC'>Feb 08, 2018</span></td>
+		<td>920</td>
+		<td>1675</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/kostin_av'>kostin_av</a></td>
+		<td>75</td>
+	</tr>
+	<tr>
+		<td>152.</td>
+		<td><a href='https://lichess.org/tournament/7hTsTjWC'>7hTsTjWC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 02, 2019 at 18:00 UTC'>Sep 02, 2019</span></td>
+		<td>1322</td>
+		<td>1656</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/vagaviev'>vagaviev</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>153.</td>
+		<td><a href='https://lichess.org/tournament/tNeXLYpz'>tNeXLYpz</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 03, 2020 at 18:00 UTC'>Jan 03, 2020</span></td>
+		<td>1442</td>
+		<td>1716</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/aborigen100500'>aborigen100500</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>154.</td>
+		<td><a href='https://lichess.org/tournament/eIHy0tuM'>eIHy0tuM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 09, 2018 at 18:00 UTC'>Mar 09, 2018</span></td>
+		<td>933</td>
+		<td>1665</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/crokssfout'>crokssfout</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>155.</td>
+		<td><a href='https://lichess.org/tournament/URGFG5As'>URGFG5As</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 26, 2019 at 18:00 UTC'>Dec 26, 2019</span></td>
+		<td>1236</td>
+		<td>1738</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/kovalenko_sergey'>kovalenko_sergey</a></td>
+		<td>55</td>
+	</tr>
+	<tr>
+		<td>156.</td>
+		<td><a href='https://lichess.org/tournament/VMxhCVqm'>VMxhCVqm</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 08, 2019 at 18:00 UTC'>Apr 08, 2019</span></td>
+		<td>1272</td>
+		<td>1597</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/johanwas'>johanwas</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>157.</td>
+		<td><a href='https://lichess.org/tournament/vPdXdkUi'>vPdXdkUi</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 02, 2017 at 18:00 UTC'>Oct 02, 2017</span></td>
+		<td>811</td>
+		<td>1709</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/roetiesmate'>roetiesmate</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>158.</td>
+		<td><a href='https://lichess.org/tournament/4MXOKtOh'>4MXOKtOh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 22, 2020 at 18:00 UTC'>Mar 22, 2020</span></td>
+		<td>2438</td>
+		<td>1734</td>
+		<td>7</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/geneh59'>geneh59</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>159.</td>
+		<td><a href='https://lichess.org/tournament/iEvZeoWB'>iEvZeoWB</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 26, 2018 at 16:00 UTC'>Jul 26, 2018</span></td>
+		<td>969</td>
+		<td>1667</td>
+		<td>6</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/malkingoesmvp'>malkingoesmvp</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>160.</td>
+		<td><a href='https://lichess.org/tournament/lDNj17wX'>lDNj17wX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 05, 2018 at 18:00 UTC'>Apr 05, 2018</span></td>
+		<td>949</td>
+		<td>1665</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/qualunque'>qualunque</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>161.</td>
+		<td><a href='https://lichess.org/tournament/RuvpCsFY'>RuvpCsFY</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 16, 2019 at 18:00 UTC'>May 16, 2019</span></td>
+		<td>1124</td>
+		<td>1624</td>
+		<td>6</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/asusmed'>asusmed</a></td>
+		<td>44</td>
+	</tr>
+	<tr>
+		<td>162.</td>
+		<td><a href='https://lichess.org/tournament/ud4TgMeM'>ud4TgMeM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 18, 2020 at 18:00 UTC'>Feb 18, 2020</span></td>
+		<td>1231</td>
+		<td>1717</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/celvic'>celvic</a></td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>163.</td>
+		<td><a href='https://lichess.org/tournament/baXfLDDb'>baXfLDDb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 29, 2020 at 18:00 UTC'>Oct 29, 2020</span></td>
+		<td>1788</td>
+		<td>1737</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/dodik_kbpl'>dodik_kbpl</a></td>
+		<td>66</td>
+	</tr>
+	<tr>
+		<td>164.</td>
+		<td><a href='https://lichess.org/tournament/pD1mQFzy'>pD1mQFzy</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 08, 2017 at 18:00 UTC'>Jun 08, 2017</span></td>
+		<td>614</td>
+		<td>1719</td>
+		<td>7</td>
+		<td>35</td>
+		<td>18%</td>
+		<td><a href='https://lichess.org/@/baldfm'>baldfm</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>165.</td>
+		<td><a href='https://lichess.org/tournament/fxbyByTc'>fxbyByTc</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 19, 2020 at 18:00 UTC'>Jan 19, 2020</span></td>
+		<td>1481</td>
+		<td>1709</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/taneev'>taneev</a></td>
+		<td>90</td>
+	</tr>
+	<tr>
+		<td>166.</td>
+		<td><a href='https://lichess.org/tournament/EKVzvuRa'>EKVzvuRa</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 27, 2020 at 18:00 UTC'>Feb 27, 2020</span></td>
+		<td>1287</td>
+		<td>1723</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/isolini'>isolini</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>167.</td>
+		<td><a href='https://lichess.org/tournament/HkWEHqYC'>HkWEHqYC</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 04, 2019 at 18:00 UTC'>Jan 04, 2019</span></td>
+		<td>1108</td>
+		<td>1619</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/dimaru1985'>dimaru1985</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>168.</td>
+		<td><a href='https://lichess.org/tournament/L8siqe9g'>L8siqe9g</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 26, 2018 at 18:00 UTC'>Apr 26, 2018</span></td>
+		<td>874</td>
+		<td>1657</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ilev'>ilev</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>169.</td>
+		<td><a href='https://lichess.org/tournament/ng4pSuoD'>ng4pSuoD</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 16, 2017 at 18:00 UTC'>Jul 16, 2017</span></td>
+		<td>768</td>
+		<td>1719</td>
+		<td>7</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/mouthpocketdevourer'>mouthpocketdevourer</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>170.</td>
+		<td><a href='https://lichess.org/tournament/kkbUU3vo'>kkbUU3vo</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 10, 2020 at 18:00 UTC'>Feb 10, 2020</span></td>
+		<td>1488</td>
+		<td>1720</td>
+		<td>6</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/ketkot'>ketkot</a></td>
+		<td>51</td>
+	</tr>
+	<tr>
+		<td>171.</td>
+		<td><a href='https://lichess.org/tournament/pXA02aP4'>pXA02aP4</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 10, 2018 at 16:00 UTC'>Aug 10, 2018</span></td>
+		<td>1039</td>
+		<td>1633</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/denisbrogniart'>denisbrogniart</a></td>
+		<td>77</td>
+	</tr>
+	<tr>
+		<td>172.</td>
+		<td><a href='https://lichess.org/tournament/d7NGsraW'>d7NGsraW</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 11, 2019 at 18:00 UTC'>Jul 11, 2019</span></td>
+		<td>1188</td>
+		<td>1638</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/celvic'>celvic</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>173.</td>
+		<td><a href='https://lichess.org/tournament/DlbMJuWw'>DlbMJuWw</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 12, 2018 at 18:00 UTC'>Oct 12, 2018</span></td>
+		<td>1100</td>
+		<td>1646</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/klavdiy71'>klavdiy71</a></td>
+		<td>53</td>
+	</tr>
+	<tr>
+		<td>174.</td>
+		<td><a href='https://lichess.org/tournament/dHd8wUoJ'>dHd8wUoJ</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 11, 2017 at 18:00 UTC'>Dec 11, 2017</span></td>
+		<td>917</td>
+		<td>1677</td>
+		<td>6</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/konariq7'>konariq7</a></td>
+		<td>60</td>
+	</tr>
+	<tr>
+		<td>175.</td>
+		<td><a href='https://lichess.org/tournament/gQJx6WGE'>gQJx6WGE</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jun 12, 2017 at 18:00 UTC'>Jun 12, 2017</span></td>
+		<td>725</td>
+		<td>1720</td>
+		<td>7</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/wololol'>wololol</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>176.</td>
+		<td><a href='https://lichess.org/tournament/lmKB6wRl'>lmKB6wRl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 12, 2017 at 18:00 UTC'>Nov 12, 2017</span></td>
+		<td>958</td>
+		<td>1693</td>
+		<td>7</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/mrndjic'>mrndjic</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>177.</td>
+		<td><a href='https://lichess.org/tournament/sWBblAYV'>sWBblAYV</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 04, 2019 at 18:00 UTC'>Aug 04, 2019</span></td>
+		<td>1360</td>
+		<td>1653</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/obiosky'>obiosky</a></td>
+		<td>54</td>
+	</tr>
+	<tr>
+		<td>178.</td>
+		<td><a href='https://lichess.org/tournament/adciSr9R'>adciSr9R</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Apr 02, 2020 at 16:00 UTC'>Apr 02, 2020</span></td>
+		<td>2583</td>
+		<td>1741</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/asandresey2156'>asandresey2156</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>179.</td>
+		<td><a href='https://lichess.org/tournament/TuZGAzuq'>TuZGAzuq</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 15, 2019 at 18:00 UTC'>Oct 15, 2019</span></td>
+		<td>844</td>
+		<td>1697</td>
+		<td>6</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/mosaferegharib'>mosaferegharib</a></td>
+		<td>48</td>
+	</tr>
+	<tr>
+		<td>180.</td>
+		<td><a href='https://lichess.org/tournament/5kXvsN8B'>5kXvsN8B</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 22, 2017 at 18:00 UTC'>Oct 22, 2017</span></td>
+		<td>895</td>
+		<td>1700</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/stahlex'>stahlex</a></td>
+		<td>68</td>
+	</tr>
+	<tr>
+		<td>181.</td>
+		<td><a href='https://lichess.org/tournament/sRnUjjdn'>sRnUjjdn</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 18, 2018 at 18:00 UTC'>Nov 18, 2018</span></td>
+		<td>1237</td>
+		<td>1625</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/bornofgodandvoid'>bornofgodandvoid</a></td>
+		<td>86</td>
+	</tr>
+	<tr>
+		<td>182.</td>
+		<td><a href='https://lichess.org/tournament/WsIdvTJG'>WsIdvTJG</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 19, 2018 at 18:00 UTC'>May 19, 2018</span></td>
+		<td>1082</td>
+		<td>1642</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/bugaevsky-sergey'>bugaevsky-sergey</a></td>
+		<td>58</td>
+	</tr>
+	<tr>
+		<td>183.</td>
+		<td><a href='https://lichess.org/tournament/zVT5RrMb'>zVT5RrMb</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 05, 2019 at 18:00 UTC'>Dec 05, 2019</span></td>
+		<td>1193</td>
+		<td>1724</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/kirekachesschamp'>kirekachesschamp</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>184.</td>
+		<td><a href='https://lichess.org/tournament/80uDQFJM'>80uDQFJM</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 15, 2019 at 18:00 UTC'>Nov 15, 2019</span></td>
+		<td>1254</td>
+		<td>1709</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/chesherewego'>chesherewego</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>185.</td>
+		<td><a href='https://lichess.org/tournament/IAKDZxkF'>IAKDZxkF</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 22, 2018 at 18:00 UTC'>Mar 22, 2018</span></td>
+		<td>838</td>
+		<td>1667</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/gannikus'>gannikus</a></td>
+		<td>57</td>
+	</tr>
+	<tr>
+		<td>186.</td>
+		<td><a href='https://lichess.org/tournament/XGpxTZNT'>XGpxTZNT</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 10, 2019 at 18:00 UTC'>Aug 10, 2019</span></td>
+		<td>1157</td>
+		<td>1645</td>
+		<td>6</td>
+		<td>35</td>
+		<td>13%</td>
+		<td><a href='https://lichess.org/@/wagnerovsky'>wagnerovsky</a></td>
+		<td>50</td>
+	</tr>
+	<tr>
+		<td>187.</td>
+		<td><a href='https://lichess.org/tournament/Jjgi2EZa'>Jjgi2EZa</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Nov 21, 2019 at 18:00 UTC'>Nov 21, 2019</span></td>
+		<td>1016</td>
+		<td>1731</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/lokiy47'>lokiy47</a></td>
+		<td>64</td>
+	</tr>
+	<tr>
+		<td>188.</td>
+		<td><a href='https://lichess.org/tournament/paJYRBgh'>paJYRBgh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 13, 2020 at 18:00 UTC'>Jan 13, 2020</span></td>
+		<td>1447</td>
+		<td>1714</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/skiver1'>skiver1</a></td>
+		<td>56</td>
+	</tr>
+	<tr>
+		<td>189.</td>
+		<td><a href='https://lichess.org/tournament/FlRrVVXp'>FlRrVVXp</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 30, 2017 at 18:00 UTC'>Oct 30, 2017</span></td>
+		<td>771</td>
+		<td>1688</td>
+		<td>7</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/esla01'>esla01</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>190.</td>
+		<td><a href='https://lichess.org/tournament/dX0sKsE0'>dX0sKsE0</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Sep 24, 2018 at 16:00 UTC'>Sep 24, 2018</span></td>
+		<td>1179</td>
+		<td>1639</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/gannikus'>gannikus</a></td>
+		<td>63</td>
+	</tr>
+	<tr>
+		<td>191.</td>
+		<td><a href='https://lichess.org/tournament/KfmicK2K'>KfmicK2K</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 31, 2018 at 18:00 UTC'>May 31, 2018</span></td>
+		<td>964</td>
+		<td>1657</td>
+		<td>7</td>
+		<td>35</td>
+		<td>16%</td>
+		<td><a href='https://lichess.org/@/szachus'>szachus</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>192.</td>
+		<td><a href='https://lichess.org/tournament/BmTmQLOh'>BmTmQLOh</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Dec 14, 2019 at 18:00 UTC'>Dec 14, 2019</span></td>
+		<td>1001</td>
+		<td>1718</td>
+		<td>6</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/wl1962'>wl1962</a></td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>193.</td>
+		<td><a href='https://lichess.org/tournament/9f7Li5vX'>9f7Li5vX</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 05, 2017 at 18:00 UTC'>May 05, 2017</span></td>
+		<td>672</td>
+		<td>1717</td>
+		<td>7</td>
+		<td>35</td>
+		<td>14%</td>
+		<td><a href='https://lichess.org/@/yarysergej'>yarysergej</a></td>
+		<td>52</td>
+	</tr>
+	<tr>
+		<td>194.</td>
+		<td><a href='https://lichess.org/tournament/xI2kX3TP'>xI2kX3TP</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Aug 25, 2019 at 18:00 UTC'>Aug 25, 2019</span></td>
+		<td>1339</td>
+		<td>1650</td>
+		<td>7</td>
+		<td>35</td>
+		<td>17%</td>
+		<td><a href='https://lichess.org/@/shafar16'>shafar16</a></td>
+		<td>46</td>
+	</tr>
+	<tr>
+		<td>195.</td>
+		<td><a href='https://lichess.org/tournament/IzBvA5XK'>IzBvA5XK</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Feb 16, 2018 at 18:00 UTC'>Feb 16, 2018</span></td>
+		<td>728</td>
+		<td>1661</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/kulmanov_130684'>kulmanov_130684</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>196.</td>
+		<td><a href='https://lichess.org/tournament/91ClPAT5'>91ClPAT5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Oct 18, 2018 at 18:00 UTC'>Oct 18, 2018</span></td>
+		<td>987</td>
+		<td>1653</td>
+		<td>6</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/derem_po_kucama'>derem_po_kucama</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>197.</td>
+		<td><a href='https://lichess.org/tournament/4HbB9Ykl'>4HbB9Ykl</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jul 14, 2019 at 18:00 UTC'>Jul 14, 2019</span></td>
+		<td>1334</td>
+		<td>1655</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/celvic'>celvic</a></td>
+		<td>61</td>
+	</tr>
+	<tr>
+		<td>198.</td>
+		<td><a href='https://lichess.org/tournament/PHfp4t6r'>PHfp4t6r</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='May 04, 2017 at 18:00 UTC'>May 04, 2017</span></td>
+		<td>554</td>
+		<td>1749</td>
+		<td>7</td>
+		<td>35</td>
+		<td>15%</td>
+		<td><a href='https://lichess.org/@/elursoloco'>elursoloco</a></td>
+		<td>42</td>
+	</tr>
+	<tr>
+		<td>199.</td>
+		<td><a href='https://lichess.org/tournament/2inQOGg5'>2inQOGg5</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Jan 28, 2020 at 18:00 UTC'>Jan 28, 2020</span></td>
+		<td>1174</td>
+		<td>1686</td>
+		<td>6</td>
+		<td>35</td>
+		<td>11%</td>
+		<td><a href='https://lichess.org/@/celvic'>celvic</a></td>
+		<td>81</td>
+	</tr>
+	<tr>
+		<td>200.</td>
+		<td><a href='https://lichess.org/tournament/ZkR6llez'>ZkR6llez</a></td>
+		<td><span class='info Vblitz' title='Blitz'>bz</span>/<span class='info Edaily' title='Daily'>da</span></td>
+		<td><span class='info' title='Mar 20, 2018 at 18:00 UTC'>Mar 20, 2018</span></td>
+		<td>785</td>
+		<td>1633</td>
+		<td>6</td>
+		<td>35</td>
+		<td>12%</td>
+		<td><a href='https://lichess.org/@/berto777'>berto777</a></td>
+		<td>54</td>
+	</tr>
+	</tbody>
+</table>
+<!-- END OF ACTUAL CONTENT -->
+</span>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='../../../menu.js'></script>
+</body>
+</html>

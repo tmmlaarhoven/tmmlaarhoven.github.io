@@ -176,11 +176,11 @@ def BuildIndexPage():
 	}
 
 	# Build actual webpage
-	with open("E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\index.html", "w") as File:
+	with open("E:\\GitHub\\lichess\\rankings\\index.html", "w") as File:
 		File.write("<!DOCTYPE html>\n")
 		File.write("<html lang='en-US'>\n")
 		File.write("<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->\n")
-		File.write("<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->\n")
+		File.write("<!-- Source code available at https://github.com/tmmlaarhoven/lichess -->\n")
 		File.write("<head>\n")
 		File.write(f"<title>Lichess Arena Rankings &middot; Information</title>\n")
 		File.write("<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n")
@@ -305,7 +305,7 @@ def SomePieChart(Function, Filename, Title):
 	ax1.set(aspect="equal")
 	ax1.set_title(Title, fontdict={'fontsize': 14})
 	mpl.tight_layout()
-	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\pie_{Filename}.png")
+	mpl.savefig(f"E:\\GitHub\\lichess\\rankings\\pie_{Filename}.png")
 	print(f"Saving pie_{Filename}.png")
 	mpl.clf()	
 	
@@ -350,7 +350,7 @@ def SomeBoxPlot(Function, Filename, Title):
 	ax1.set_title(Title, fontdict={'fontsize': 14})
 	ax1.yaxis.grid(True) # Show the horizontal gridlines
 	mpl.tight_layout()
-	mpl.savefig(f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\box_{Filename}.png")
+	mpl.savefig(f"E:\\GitHub\\lichess\\rankings\\box_{Filename}.png")
 	print(f"Saving box_{Filename}.png")
 	mpl.clf()	
 
@@ -490,9 +490,9 @@ class ArenaCategory:
 		self._FilePlayerList = f"{self._PathPlayers}{self._Prefix}.txt"
 		
 		# ALl files stored locally and externally in the website directory
-		self._PathWeb = f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\{self._V}\\{self._E}\\"
-		self._PathWebRoot = f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\"
-		self._PathFigures = f"E:\\lichess\\tmmlaarhoven.github.io\\lichess\\rankings\\{self._V}\\{self._E}\\figures\\"
+		self._PathWeb = f"E:\\GitHub\\lichess\\rankings\\{self._V}\\{self._E}\\"
+		self._PathWebRoot = f"E:\\GitHub\\lichess\\"
+		self._PathFigures = f"E:\\GitHub\\lichess\\rankings\\{self._V}\\{self._E}\\figures\\"
 		self._WebListLength = 200
 		
 		# Initialize data maintenance parameters
@@ -1458,7 +1458,7 @@ class ArenaCategory:
 		File.write("<!DOCTYPE html>\n")
 		File.write("<html lang='en-US'>\n")
 		File.write("<!-- Rankings built using the Lichess API (https://lichess.org/api) and some manual (python-based) tournament scraping. -->\n")
-		File.write("<!-- Source code available at https://github.com/tmmlaarhoven/tmmlaarhoven.github.io -->\n")
+		File.write("<!-- Source code available at https://github.com/tmmlaarhoven/lichess -->\n")
 		File.write("<head>\n")
 		File.write(f"<title>Lichess Arena Rankings &middot; {self._Name}</title>\n")
 		File.write("<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n")
